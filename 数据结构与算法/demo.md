@@ -1,0 +1,1058 @@
+[toc]
+# 常用的数据结构：
+
+- 数组(Array)
+- 栈(Stack)
+- 链表(Linked List)
+- 图(Graph)
+- 散链表(Hash)
+- 队列(Queue)
+- 树(Tree)
+- 堆(Heap)
+
+## 一、数组
+
+## 二、栈
+
+### 1.特点：
+
+> 先进先出
+
+### 2.自定义栈的完整操作
+
+```js
+// 栈类
+function Stack() {
+  // 栈中的属性
+  var items = [];
+
+  // 栈相关的方法
+  // 压栈操作
+  this.push = function (element) {
+    items.push(element);
+  };
+
+  // 出栈操作
+  this.pop = function () {
+    return items.pop();
+  };
+
+  // peek操作
+  this.peek = function () {
+    return items[items.length - 1];
+  };
+
+  // 判断栈中的元素是否为空
+  this.isEmpty = function () {
+    return items.length == 0;
+  };
+
+  // 获取栈中元素的个数
+  this.size = function () {
+    return items.length;
+  };
+}
+```
+
+### 3.使用栈来实现十进制转二进制
+
+```js
+// 封装十进制转二进制的函数
+function dec2bin(decNumer) {
+  // 定义变量
+  var stack = new Stack();
+  var remainder;
+
+  // 循环除法
+  while (decNumer > 0) {
+    remainder = decNumer % 2;
+    decNumer = Math.floor(decNumer / 2);
+    stack.push(remainder);
+  }
+
+  // 将数据取出
+  var binayriStrng = "";
+  while (!stack.isEmpty()) {
+    binayriStrng += stack.pop();
+  }
+  return binayriStrng;
+}
+```
+
+## 三、队列
+
+### 1.特点：
+
+> 先进先出，只允许在表的前端（front）进行删除操作，而在表的后端（rear）进行插入操作
+
+### 2.自定义队列的完整操作
+
+```js
+// 自定义队列
+function Queue() {
+  var items = [];
+
+  // 队列操作的方法
+  // enter queue方法
+  this.enqueue = function (element) {
+    items.push(element);
+  };
+
+  // delete queue方法
+  this.dequeue = function () {
+    return items.shift();
+  };
+
+  // 查看前端的元素
+  this.front = function () {
+    return items[0];
+  };
+
+  // 查看队列是否为空
+  this.isEmpty = function () {
+    return items.length === 0;
+  };
+
+  // 查看队列中元素的个数
+  this.size = function () {
+    return items.length;
+  };
+}
+```
+
+### 3.优先级队列
+
+> 特点：
+>
+> - 优先级队列, 在插入一个元素的时候会考虑该数据的优先级。(和其他数据优先级进行比较)
+> - 比较完成后, 可以得出这个元素正确的队列中的位置。 其他处理方式, 和队列的处理方式一样。
+> - 也就是说, 如果我们要实现优先级队列, 最主要是要修改添加方法. (当然, 还需要以某种方式来保存元素的优先级)
+
+### 4.封装优先级队列
+
+```js
+// 封装优先级队列
+function PriorityQueue() {
+  var items = [];
+
+  // 封装一个新的构造函数, 用于保存元素和元素的优先级
+  function QueueElement(element, priority) {
+    this.element = element;
+    this.priority = priority;
+  }
+
+  // 添加元素的方法
+  this.enqueue = function (element, priority) {
+    // 1.根据传入的元素, 创建新的QueueElement
+    var queueElement = new QueueElement(element, priority);
+
+    // 2.获取传入元素应该在正确的位置
+    if (this.isEmpty()) {
+      items.push(queueElement);
+    } else {
+      var added = false;
+      for (var i = 0; i < items.length; i++) {
+        // 注意: 我们这里是数字越小, 优先级越高
+        if (queueElement.priority < items[i].priority) {
+          items.splice(i, 0, queueElement);
+          added = true;
+          break;
+        }
+      }
+
+      // 遍历完所有的元素, 优先级都大于新插入的元素时, 就插入到最后
+      if (!added) {
+        items.push(queueElement);
+      }
+    }
+  };
+
+  // 删除元素的方法
+  this.dequeue = function () {
+    return items.shift();
+  };
+
+  // 获取前端的元素
+  this.front = function () {
+    return items[0];
+  };
+
+  // 查看元素是否为空
+  this.isEmpty = function () {
+    return items.length == 0;
+  };
+
+  // 获取元素的个数
+  this.size = function () {
+    return items.length;
+  };
+}
+```
+
+```js
+// test
+// 创建优先级队列对象
+var pQueue = new PriorityQueue();
+
+// 添加元素
+pQueue.enqueue("abc", 10);
+pQueue.enqueue("cba", 5);
+pQueue.enqueue("nba", 12);
+pQueue.enqueue("mba", 3);
+
+// 遍历所有的元素
+var size = pQueue.size();
+for (var i = 0; i < size; i++) {
+  var item = pQueue.dequeue();
+  console.log(item.element + "----" + item.priority);
+}
+/* 
+mba----3
+cba----5
+abc----10
+nba----12 
+*/
+```
+
+### 5.使用队列来实现击鼓传花案例
+
+> 击鼓传花的规则:
+>
+> 几个朋友一起玩一个游戏, 围成一圈, 开始数数, 数到某个数字的人自动淘汰。最后剩下的这个人会获得胜利, 请问最后剩下的是原来在哪一个位置上的人?
+
+```js
+// 实现击鼓传花的函数
+function passGame(nameList, num) {
+  // 1.创建一个队列, 并且将所有的人放在队列中
+  // 1.1.创建队列
+  var queue = new Queue();
+
+  // 1.2.通过for循环, 将nameList中的人放在队列中
+  for (var i = 1; i < nameList.length; i++) {
+    queue.enqueue(nameList[i]);
+  }
+
+  // 2.寻找最后剩下的人
+  while (queue.size() > 1) {
+    // 将前num-1中的人, 都从队列的前端取出放在队列的后端
+    for (var i = 0; i < num; i++) {
+      queue.enqueue(queue.dequeue());
+    }
+
+    // 将第num个人, 从队列中移除
+    queue.dequeue();
+  }
+
+  // 3.获取剩下的一个人
+  var endName = queue.dequeue();
+
+  // 4.获取该人在队列中的位置
+  return endName;
+}
+```
+
+```js
+// test
+var names = ["John", "Jack", "Camila", "Ingrid", "Carl"];
+var endName = passGame(names, 8); // 数到 8 的人淘汰
+console.log("最终留下:" + endName); // 'john'
+```
+
+## 四、链表
+
+### 1.链表封装
+
+```js
+// 封装链表的构造函数
+function LinkedList() {
+  // 封装一个Node类, 用于保存每个节点信息
+  function Node(element) {
+    this.element = element;
+    this.next = null;
+  }
+
+  // 链表中的属性
+  this.length = 0;
+  this.head = null;
+
+  // 链表尾部追加元素方法
+  LinkedList.prototype.append = function (element) {
+    // 1.根据新元素创建节点
+    var newNode = new Node(element);
+
+    // 2.判断原来链表是否为空
+    if (this.head === null) {
+      // 链表尾空
+      this.head = newNode;
+    } else {
+      // 链表不为空
+      // 2.1.定义变量, 保存当前找到的节点
+      var current = this.head;
+      while (current.next) {
+        current = current.next;
+      }
+
+      // 2.2.找到最后一项, 将其next赋值为node
+      current.next = newNode;
+    }
+
+    // 3.链表长度增加1
+    this.length++;
+  };
+
+  // 链表的toString方法
+  LinkedList.prototype.toString = function () {
+    // 1.定义两个变量
+    var current = this.head;
+    var listString = "";
+
+    // 2.循环获取链表中所有的元素
+    while (current) {
+      listString += "," + current.element;
+      current = current.next;
+    }
+
+    // 3.返回最终结果
+    return listString.slice(1);
+  };
+
+  // 根据下标插入元素
+  LinkedList.prototype.insert = function (position, element) {
+    // 1.检测越界问题: 越界插入失败
+    if (position < 0 || position > this.length) return false;
+
+    // 2.定义变量, 保存信息
+    var newNode = new Node(element);
+    var current = this.head;
+    var previous = null;
+    index = 0;
+
+    // 3.判断是否列表是否在第一个位置插入
+    if (position == 0) {
+      newNode.next = current;
+      this.head = newNode;
+    } else {
+      while (index++ < position) {
+        previous = current;
+        current = current.next;
+      }
+
+      newNode.next = current;
+      previous.next = newNode;
+    }
+
+    // 4.length+1
+    this.length++;
+
+    return true;
+  };
+
+  // 根据位置移除节点
+  LinkedList.prototype.removeAt = function (position) {
+    // 1.检测越界问题: 越界移除失败, 返回null
+    if (position < 0 || position >= this.length) return null;
+
+    // 2.定义变量, 保存信息
+    var current = this.head;
+    var previous = null;
+    var index = 0;
+
+    // 3.判断是否是移除第一项
+    if (position === 0) {
+      this.head = current.next;
+    } else {
+      while (index++ < position) {
+        previous = current;
+        current = current.next;
+      }
+
+      previous.next = current.next;
+    }
+
+    // 4.length-1
+    this.length--;
+
+    // 5.返回移除的数据
+    return current.element;
+  };
+
+  // 根据元素获取链表中的位置
+  LinkedList.prototype.indexOf = function (element) {
+    // 1.定义变量, 保存信息
+    var current = this.head;
+    index = 0;
+
+    // 2.找到元素所在的位置
+    while (current) {
+      if (current.element === element) {
+        return index;
+      }
+      index++;
+      current = current.next;
+    }
+
+    // 3.来到这个位置, 说明没有找到, 则返回-1
+    return -1;
+  };
+
+  // 根据元素删除信息
+  LinkedList.prototype.remove = function (element) {
+    var index = this.indexOf(element);
+    return this.removeAt(index);
+  };
+
+  // 判断链表是否为空
+  LinkedList.prototype.isEmpty = function () {
+    return this.length == 0;
+  };
+
+  // 获取链表的长度
+  LinkedList.prototype.size = function () {
+    return this.length;
+  };
+
+  // 获取第一个节点
+  LinkedList.prototype.getFirst = function () {
+    return this.head.element;
+  };
+}
+```
+
+### 2.双向链表
+
+> 特点：
+>
+> 有前后指针，有头结点和尾结点
+
+```js
+// 创建双向链表的构造函数
+function DoublyLinkedList() {
+  // 创建节点构造函数
+  function Node(element) {
+    this.element = element;
+    this.next = null;
+    this.prev = null; // 新添加的
+  }
+
+  // 定义属性
+  this.length = 0;
+  this.head = null;
+  this.tail = null; // 新添加的
+
+  // 定义相关操作方法
+  // 在尾部追加数据
+  DoublyLinkedList.prototype.append = function (element) {
+    // 1.根据元素创建节点
+    var newNode = new Node(element);
+
+    // 2.判断列表是否为空列表
+    if (this.head == null) {
+      this.head = newNode;
+      this.tail = newNode;
+    } else {
+      this.tail.next = newNode;
+      newNode.prev = this.tail;
+      this.tail = newNode;
+    }
+
+    // 3.length+1
+    this.length++;
+  };
+
+  // 在任意位置插入数据
+  DoublyLinkedList.prototype.insert = function (position, element) {
+    // 1.判断越界的问题
+    if (position < 0 || position > this.length) return false;
+
+    // 2.创建新的节点
+    var newNode = new Node(element);
+
+    // 3.判断插入的位置
+    if (position === 0) {
+      // 在第一个位置插入数据
+      // 判断链表是否为空
+      if (this.head == null) {
+        this.head = newNode;
+        this.tail = newNode;
+      } else {
+        this.head.prev = newNode;
+        newNode.next = this.head;
+        this.head = newNode;
+      }
+    } else if (position === this.length) {
+      // 插入到最后的情况
+      // 思考: 这种情况是否需要判断链表为空的情况呢? 答案是不需要, 为什么?
+      this.tail.next = newNode;
+      newNode.prev = this.tail;
+      this.tail = newNode;
+    } else {
+      // 在中间位置插入数据
+      // 定义属性
+      var index = 0;
+      var current = this.head;
+      var previous = null;
+
+      // 查找正确的位置
+      while (index++ < position) {
+        previous = current;
+        current = current.next;
+      }
+
+      // 交换节点的指向顺序
+      newNode.next = current;
+      newNode.prev = previous;
+      current.prev = newNode;
+      previous.next = newNode;
+    }
+
+    // 4.length+1
+    this.length++;
+
+    return true;
+  };
+
+  // 根据位置删除对应的元素
+  DoublyLinkedList.prototype.removeAt = function (position) {
+    // 1.判断越界的问题
+    if (position < 0 || position >= this.length) return null;
+
+    // 2.判断移除的位置
+    var current = this.head;
+    if (position === 0) {
+      if (this.length == 1) {
+        this.head = null;
+        this.tail = null;
+      } else {
+        this.head = this.head.next;
+        this.head.prev = null;
+      }
+    } else if (position === this.length - 1) {
+      current = this.tail;
+      this.tail = this.tail.prev;
+      this.tail.next = null;
+    } else {
+      var index = 0;
+      var previous = null;
+
+      while (index++ < position) {
+        previous = current;
+        current = current.next;
+      }
+
+      previous.next = current.next;
+      current.next.prev = previous;
+    }
+
+    // 3.length-1
+    this.length--;
+
+    return current.element;
+  };
+
+  // 根据元素获取在链表中的位置
+  DoublyLinkedList.prototype.indexOf = function (element) {
+    // 1.定义变量保存信息
+    var current = this.head;
+    var index = 0;
+
+    // 2.查找正确的信息
+    while (current) {
+      if (current.element === element) {
+        return index;
+      }
+      index++;
+      current = current.next;
+    }
+
+    // 3.来到这个位置, 说明没有找到, 则返回-1
+    return -1;
+  };
+
+  // 根据元素删除
+  DoublyLinkedList.prototype.remove = function (element) {
+    var index = this.indexOf(element);
+    return this.removeAt(index);
+  };
+
+  // 判断是否为空
+  DoublyLinkedList.prototype.isEmpty = function () {
+    return this.length === 0;
+  };
+
+  // 获取链表长度
+  DoublyLinkedList.prototype.size = function () {
+    return this.length;
+  };
+
+  // 获取第一个元素
+  DoublyLinkedList.prototype.getHead = function () {
+    return this.head.element;
+  };
+
+  // 获取最后一个元素
+  DoublyLinkedList.prototype.getTail = function () {
+    return this.tail.element;
+  };
+
+  // 遍历方法的实现
+  // 正向遍历的方法
+  DoublyLinkedList.prototype.forwardString = function () {
+    var current = this.head;
+    var forwardStr = "";
+
+    while (current) {
+      forwardStr += "," + current.element;
+      current = current.next;
+    }
+
+    return forwardStr.slice(1);
+  };
+
+  // 反向遍历的方法
+  DoublyLinkedList.prototype.reverseString = function () {
+    var current = this.tail;
+    var reverseStr = "";
+
+    while (current) {
+      reverseStr += "," + current.element;
+      current = current.prev;
+    }
+
+    return reverseStr.slice(1);
+  };
+
+  // 实现toString方法
+  DoublyLinkedList.prototype.toString = function () {
+    return this.forwardString();
+  };
+}
+```
+
+## 五.集合
+
+```js
+// 封装集合的构造函数
+function Set() {
+  // 使用一个对象来保存集合的元素
+  this.items = {};
+
+  // 集合的操作方法
+  // 判断集合中是否有某个元素
+  Set.prototype.has = function (value) {
+    return this.items.hasOwnProperty(value);
+  };
+
+  // 向集合中添加元素
+  Set.prototype.add = function (value) {
+    // 1.判断集合中是否已经包含了该元素
+    if (this.has(value)) return false;
+
+    // 2.将元素添加到集合中
+    this.items[value] = value;
+    return true;
+  };
+
+  // 从集合中删除某个元素
+  Set.prototype.remove = function (value) {
+    // 1.判断集合中是否包含该元素
+    if (!this.has(value)) return false;
+
+    // 2.包含该元素, 那么将元素删除
+    delete this.items[value];
+    return true;
+  };
+
+  // 清空集合中所有的元素
+  Set.prototype.clear = function () {
+    this.items = {};
+  };
+
+  // 获取集合的大小
+  Set.prototype.size = function () {
+    return Object.keys(this.items).length;
+
+    /*
+        考虑兼容性问题, 使用下面的代码
+        var count = 0
+        for (var value in this.items) {
+            if (this.items.hasOwnProperty(value)) {
+                count++
+            }
+        }
+        return count
+        */
+  };
+
+  // 获取集合中所有的值
+  Set.prototype.values = function () {
+    return Object.keys(this.items);
+
+    /*
+        考虑兼容性问题, 使用下面的代码
+        var keys = []
+        for (var value in this.items) {
+            keys.push(value)
+        }
+        return keys
+        */
+  };
+}
+```
+
+# 排序算法
+
+## 1.冒泡排序
+
+思路：
+
+- 对未排序的各元素从头到尾依次比较相邻的两个元素大小关系
+- 如果左边的队员高, 则两队员交换位置
+- 向右移动一个位置, 比较下面两个队员
+- 当走到最右端时, 最高的队员一定被放在了最右边
+- 按照这个思路, 从最左端重新开始, 这次走到倒数第二个位置的队员即可.
+- 依次类推, 就可以将数据排序完成
+
+![冒泡排序](imgs/冒泡排序图解.webp)
+
+> 大 O 表示法
+>
+> - 比较次数：O(N^2)
+> - 交换次数：O(N^2)
+
+```js
+// 大的排后面
+function bubbleSort(arr) {
+  var length = arr.length;
+  for (let i = length - 1; i >= 0; i--) {
+    for (let j = 0; j < i; j++) {
+      if (arr[j] > arr[j + 1]) {
+        [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
+      }
+    }
+  }
+  return arr;
+}
+```
+
+## 2.选择排序
+
+思路：
+
+- 选定第一个索引位置，然后和后面元素依次比较
+- 如果后面的队员, 小于第一个索引位置的队员, 则交换位置
+- 经过一轮的比较后, 可以确定第一个位置是最小的
+- 然后使用同样的方法把剩下的元素逐个比较即可
+- 可以看出选择排序，第一轮会选出最小值，第二轮会选出第二小的值，直到最后
+
+![选择排序](imgs/选择排序图解.webp)
+
+> 大 O 表示法
+>
+> - 比较次数：O(N^2)
+> - 交换次数：O(N)
+
+```js
+function selectionSort(arr) {
+  var length = arr.length;
+  for (let i = 0; i < length; i++) {
+    var minIndex = i;
+    for (let j = i + 1; j < length; j++) {
+      if (arr[minIndex] > arr[j]) {
+        minIndex = j;
+      }
+    }
+    [arr[i], arr[minIndex]] = [arr[minIndex], arr[i]];
+  }
+  return arr;
+}
+```
+
+## 3.插入排序
+
+思路：
+
+- 从第一个元素开始，该元素可以认为已经被排序
+- 取出下一个元素 temp，在已经排序的元素序列中从后向前扫描
+- 如果该元素（已排序的元素）大于新元素 temp，将该元素移到下一位置
+- 重复上一个步骤，直到找到已排序的元素小于或者等于新元素 temp 的位置
+- 将新元素插入到该位置后, 重复上面的步骤
+
+![冒泡排序](imgs/插入排序图解.webp)
+
+插入排序的比较次数:
+
+- 第一趟时, 需要的最多次数是 1, 第二趟最多次数是 2, 依次类推, 最后一趟是 N-1 次.
+- 因此是 1 + 2 + 3 + ... + N - 1 = N \* (N - 1) / 2.
+- 然而每趟发现插入点之前, 平均只有全体数据项的一半需要进行比较.
+- 我们可以除以 2 得到 N \* (N - 1) / 4. 所以相对于选择排序, 插入排序的比较次数是少了一半的.
+
+> 大 O 表示法
+>
+> - 比较次数：O(N^2)
+> - 交换次数：O(N)
+
+```js
+function insertionSort(arr) {
+  var length = arr.length;
+  for (let i = 1; i < length; i++) {
+    var j = i;
+    var temp = arr[i]; //当前值
+    while (j > 0 && arr[j - 1] > temp) {
+      arr[j] = arr[j - 1];
+      j--;
+    }
+    [temp, arr[j]] = [arr[j], temp];
+  }
+  return arr;
+}
+```
+
+## 4.希尔排序
+
+思路：
+
+- 比如下面的数字, 81, 94, 11, 96, 12, 35, 17, 95, 28, 58, 41, 75, 15.
+- 我们先让间隔为 5, 进行排序. (35, 81), (94, 17), (11, 95), (96, 28), (12, 58), (35, 41), (17, 75), (95, 15)
+- 排序后的新序列, 一定可以让数字离自己的正确位置更近一步.
+- 我们再让间隔位 3, 进行排序. (35, 28, 75, 58, 95), (17, 12, 15, 81), (11, 41, 96, 94)
+- 排序后的新序列, 一定可以让数字离自己的正确位置又近了一步.
+- 最后, 我们让间隔为 1, 也就是正确的插入排序. 这个时候数字都离自己的位置更近, 那么需要复制的次数一定会减少很多.
+
+![冒泡排序](imgs/希尔排序图解.webp)
+
+选择合适的增量:
+
+- 在希尔排序的原稿中, 他建议的初始间距是 N / 2, 简单的把每趟排序分成两半.
+- 也就是说, 对于 N = 100 的数组, 增量间隔序列为: 50, 25, 12, 6, 3, 1.
+- 这个方法的好处是不需要在开始排序前为找合适的增量而进行任何的计算.
+- 我们先按照这个增量来实现我们的代码.
+
+```js
+function shellSort(arr) {
+  var length = arr.length;
+  var gap = Math.floor(length / 2); //增量
+  while (gap > 0) {
+    // 插入排序
+    for (let i = gap; i < length; i++) {
+      // 保存临时变量
+      var j = i;
+      var temp = arr[i];
+      while (j > gap - 1 && arr[j - gap] > temp) {
+        arr[j] = arr[j - gap];
+        j -= gap;
+      }
+      arr[j] = temp;
+    }
+    gap = Math.floor(gap / 2); //更新增量
+  }
+  return arr;
+}
+```
+
+## 5.快速排序
+
+> 1.取基准值为数组最左边的数
+
+```js
+function quickSort(arr, left = 0, right = arr.length - 1) {
+  if (left >= right) return;
+  var baseId = left,
+    baseVal = arr[baseId],
+    i = left,
+    j = right;
+  while (i < j) {
+    while (j > i && arr[j] >= baseVal) {
+      j--;
+    }
+    while (i < j && arr[i] <= baseVal) {
+      i++;
+    }
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  [arr[baseId], arr[i]] = [arr[i], arr[baseId]];
+  quickSort(arr, left, i - 1);
+  quickSort(arr, i + 1, right);
+  return arr;
+}
+```
+
+> 2.取基准值为数组最右边的数
+
+```js
+function quickSort(arr, left = 0, right = arr.length - 1) {
+  if (left >= right) return; // 如果左边的索引大于等于右边的索引说明整理完毕
+  var baseVal = arr[right], // 取无序数组最后一个数为基准值
+    i = left,
+    j = right;
+  while (i < j) {
+    // 把所有比基准值小的数放在左边，比基准值大的数放在右边
+    while (i < j && arr[i] < baseVal) {
+      // 找到一个比基准值大的数交换
+      i++;
+    }
+    arr[j] = arr[i]; // 将较大的值放在右边如果没有比基准值大的数就是将自己赋值给自己（i 等于 j）
+    while (j > i && arr[j] > baseVal) {
+      // 找到一个比基准值小的数交换
+      j--;
+    }
+    arr[i] = arr[j]; // 将较小的值放在左边如果没有找到比基准值小的数就是将自己赋值给自己（i 等于 j）
+  }
+  arr[i] = baseVal; // 将基准值放至中央位置完成一次循环（这时候 j 等于 i ）
+  quickSort(arr, left, i - 1); // 将左边的无序数组重复上面的操作
+  quickSort(arr, i + 1, right); // 将右边的无序数组重复上面的操作
+  return arr;
+}
+```
+
+> 3.取基准值为数组最中间的数
+
+```js
+function quickSort(arr, left, right) {
+  if (left < right) {
+    var mid = arr[parseInt((left + right) / 2)], //枢纽选择的是中间的
+      l = left,
+      r = right;
+    while (true) {
+      while (arr[l] < mid) {
+        l++;
+      }
+      while (arr[r] > mid) {
+        r--;
+      }
+      if (l >= r) {
+        break;
+      }
+      [arr[l], arr[r]] = [arr[r], arr[l]];
+    }
+    quickSort(arr, left, l - 1);
+    quickSort(arr, l + 1, right);
+  }
+  return arr;
+}
+```
+
+```js
+function quickSort(arr) {
+  if (arr.length <= 1) {
+    return arr;
+  }
+  var pivotIndex = Math.floor(arr.length / 2);
+  var pivot = arr.splice(pivotIndex, 1)[0];
+  var left = [];
+  var right = [];
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] < pivot) {
+      left.push(arr[i]);
+    } else {
+      right.push(arr[i]);
+    }
+  }
+  return quickSort(left).concat([pivot], quickSort(right));
+}
+```
+
+## 6.归并排序
+
+算法步骤：
+
+1.  申请空间，使其大小为两个已经排序序列之和，该空间用来存放合并后的序列；
+2.  设定两个指针，最初位置分别为两个已经排序序列的起始位置；
+3.  比较两个指针所指向的元素，选择相对小的元素放入到合并空间，并移动指针到下一位置；
+4.  重复步骤 3 直到某一指针达到序列尾；
+5.  将另一序列剩下的所有元素直接复制到合并序列尾。
+
+```js
+function mergeSort(arr) {
+  // 采用自上而下的递归方法
+  var len = arr.length;
+  if (len < 2) {
+    return arr;
+  }
+  var middle = Math.floor(len / 2),
+    left = arr.slice(0, middle),
+    right = arr.slice(middle);
+  return merge(mergeSort(left), mergeSort(right));
+}
+
+function merge(left, right) {
+  var result = [];
+
+  while (left.length && right.length) {
+    if (left[0] <= right[0]) {
+      result.push(left.shift());
+    } else {
+      result.push(right.shift());
+    }
+  }
+
+  while (left.length) result.push(left.shift());
+
+  while (right.length) result.push(right.shift());
+
+  return result;
+}
+```
+
+## 7.堆排序
+
+堆是具有以下性质的完全二叉树：每个结点的值都大于或等于其左右孩子结点的值，称为大顶堆；
+
+或者每个结点的值都小于或等于其左右孩子结点的值，称为小顶堆。如下图：
+总结下堆排序的基本思路：
+
+- 将无需序列构建成一个堆，根据升序降序需求选择大顶堆或小顶堆;
+- 将堆顶元素与末尾元素交换，将最大元素"沉"到数组末端;
+- 重新调整结构，使其满足堆定义，然后继续交换堆顶元素与当前末尾元素，反复执行调整+交换步骤，直到整个序列有序。
+
+堆排序的基本思想是：将待排序序列构造成一个大顶堆，此时，整个序列的最大值就是堆顶的根节点。
+
+将其与末尾元素进行交换，此时末尾就为最大值。然后将剩余 n-1 个元素重新构造成一个堆，这样会得到 n 个元素的次小值。
+
+如此反复执行，便能得到一个有序序列了
+
+堆排序是一种不稳定的排序方法
+
+```js
+let dat = [5, 8, 10, 3, 2, 18, 17, 9];
+//生成大顶堆
+function adjustHeap(arr, i, len) {
+  //将当前值保存
+  var temp = arr[i];
+  //从i结点的左子结点开始，也就是2i+1处开始
+  for (var j = 2 * i + 1; j < len; j = 2 * j + 1) {
+    //如果左子结点小于右子结点，j指向右子结点
+    if (j + 1 < len && arr[j] < arr[j + 1]) {
+      j++;
+    }
+    //如果子节点大于父节点，将子节点值赋给父节点（不用进行交换）值和索引都赋值
+    if (arr[j] > temp) {
+      arr[i] = arr[j];
+      i = j;
+    } else {
+      break;
+    }
+  }
+  arr[i] = temp; //将temp值放到最终的位置
+}
+function heapSort(data) {
+  //构造大顶堆
+  //此时我们从最后一个非叶子结点开始,叶结点自然不用调整
+  ////从第一个非叶子结点从下至上，从右至左调整结构
+  for (var i = data.length / 2 - 1; i >= 0; i--) {
+    adjustHeap(data, i, data.length);
+  }
+  // console.log(data);
+  //交换堆顶元素与末尾元素；不算最后一个元素，重新调整堆
+  for (var k = data.length - 1; k > 0; k--) {
+    //将堆顶元素与末尾元素进行交换
+    [data[0], data[k]] = [data[k], data[0]];
+    // console.log(data);
+    //不算最后一个元素，重新对堆进行调整
+    adjustHeap(data, 0, k);
+  }
+  return data;
+}
+
+var sortedData = heapSort(dat);
+console.log(sortedData);
+```
