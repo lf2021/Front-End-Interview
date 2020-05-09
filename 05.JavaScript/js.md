@@ -73,3 +73,70 @@ if (true) {
 ```
 
 上面代码中，在 let 命令声明变量 tmp 之前，都属于变量 tmp 的“死区”。
+
+## ES6 中箭头函数 VS 普通函数的 this 指向
+
+普通函数中 this
+
+1.  总是代表着它的直接调用者，如 obj.fn，fn 里的最外层 this 就是指向 obj
+2.  默认情况下，没有直接调用者，this 指向 window
+3.  严格模式下（设置了'use strict'），this 为 undefined
+4.  当使用 call，apply，bind（ES5 新增）绑定的，this 指向绑定对象
+
+ES6 箭头函数中 this
+
+1.  默认指向定义它时，所处上下文的对象的 this 指向。即 ES6 箭头函数里 this 的指向就是上下文里对象 this 指向，偶尔没有上下文对象，this 就指向 window
+2.  即使是 call，apply，bind 等方法也不能改变箭头函数 this 的指向
+
+例子加深印象：
+
+```js
+// 2
+function hello() {
+  console.log(this) // window
+}
+hello()
+
+// 2
+function hello() {
+  'use strict'
+  console.log(this) // undefined
+}
+hello()
+
+// 3
+const obj = {
+  num: 10,
+  hello: function () {
+    console.log(this) // obj
+    setTimeout(function () {
+      console.log(this) // window
+    })
+  },
+}
+obj.hello()
+
+// 4
+const obj = {
+  num: 10,
+  hello: function () {
+    console.log(this) // obj
+    setTimeout(() => {
+      console.log(this) // obj
+    })
+  },
+}
+obj.hello()
+
+// 5
+/*diameter是普通函数，里面的this指向直接调用它的对象obj。perimeter是箭头函数，this应该指向上下文函数this的指向，这里上下文没有函数对象，就默认为window，而window里面没有radius这个属性，就返回为NaN。*/
+const obj = {
+  radius: 10,
+  diameter() {
+    return this.radius * 2
+  },
+  perimeter: () => 2 * Math.PI * this.radius,
+}
+console.log(obj.diameter()) // 20
+console.log(obj.perimeter()) // NaN
+```
