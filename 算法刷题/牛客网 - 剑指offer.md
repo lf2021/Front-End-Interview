@@ -1,5 +1,6 @@
-> 本文仅记录自己刷剑指 offer 67 道算法题的心得
-> 链接：https://www.nowcoder.com/ta/coding-interviews
+> 牛客链接地址：https://www.nowcoder.com/ta/coding-interviews
+>
+> 全文 67 道算法题，涉及一些基本的数据结构与算法。
 
 - [1.二维数组中的查找](#1%e4%ba%8c%e7%bb%b4%e6%95%b0%e7%bb%84%e4%b8%ad%e7%9a%84%e6%9f%a5%e6%89%be)
 - [2.替换空格](#2%e6%9b%bf%e6%8d%a2%e7%a9%ba%e6%a0%bc)
@@ -67,7 +68,8 @@
 - [64.滑动窗口的最大值](#64%e6%bb%91%e5%8a%a8%e7%aa%97%e5%8f%a3%e7%9a%84%e6%9c%80%e5%a4%a7%e5%80%bc)
 - [65.矩阵中的路径](#65%e7%9f%a9%e9%98%b5%e4%b8%ad%e7%9a%84%e8%b7%af%e5%be%84)
 - [66.机器人的运动范围](#66%e6%9c%ba%e5%99%a8%e4%ba%ba%e7%9a%84%e8%bf%90%e5%8a%a8%e8%8c%83%e5%9b%b4)
-- [67.减绳子](#67%e5%87%8f%e7%bb%b3%e5%ad%90)
+- [67.剪绳子](#67%e5%89%aa%e7%bb%b3%e5%ad%90)
+
 ## 1.二维数组中的查找
 
 > 在一个二维数组中（每个一维数组的长度相同），每一行都按照从左到右递增的顺序排序，每一列都按照从上到下递增的顺序排序。请完成一个函数，输入这样的一个二维数组和一个整数，判断数组中是否含有该整数。
@@ -306,11 +308,11 @@ function jumpFloorII(number) {
 
 ## 10.矩形覆盖
 
-> 我们可以用 2*1 的小矩形横着或者竖着去覆盖更大的矩形。请问用 n 个 2*1 的小矩形无重叠地覆盖一个 2\*n 的大矩形，总共有多少种方法？
+> 我们可以用 2 \* 1 的小矩形横着或者竖着去覆盖更大的矩形。请问用 n 个 2 \* 1 的小矩形无重叠地覆盖一个 2 \* n 的大矩形，总共有多少种方法？
 >
 > 比如 n=3 时，2\*3 的矩形块有 3 种覆盖方法：
 >
-> ![矩阵覆盖](https://images.cnblogs.com/cnblogs_com/muzidaitou/1644305/o_200416121949%E7%9F%A9%E9%98%B5%E8%A6%86%E7%9B%96.png)
+> ![矩阵覆盖](https://raw.githubusercontent.com/Rana1257/Front-end-Collections/Lee/static/img/矩阵覆盖.png)
 
 ```js
 function rectCover(number) {
@@ -598,7 +600,7 @@ function judgeSubtree(root1, root2) {
 
 > 操作给定的二叉树，将其变换为源二叉树的镜像。
 >
-> ![二叉树的镜像](https://images.cnblogs.com/cnblogs_com/muzidaitou/1644305/o_200414152956%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20200414232924.png)
+> ![二叉树的镜像](https://raw.githubusercontent.com/Rana1257/Front-end-Collections/Lee/static/img/二叉树的镜像.png)
 
 ```js
 /* function TreeNode(x) {
@@ -628,7 +630,7 @@ function Mirror(root) {
 > 怎么找到标记点？对于每一层来说，设左上角的元素坐标为 (i, j)，那么右上角的元素坐标为 (i, n - j - 1)，右下角的元素坐标是 (m - i - 1 ,n - j - 1)，左下角的元素坐标是 (m - i - 1, j)。找到标记点后，就是对行/列进行+/-的过程。
 
 > 怎么防止重复遍历？找到四个坐标点后，每一层的遍历可以拆分成 4 个部分。
-> ![顺时针打印矩阵](https://images.cnblogs.com/cnblogs_com/muzidaitou/1644305/o_200416153106%E9%A1%BA%E6%97%B6%E9%92%88%E6%89%93%E5%8D%B0%E7%9F%A9%E9%98%B5.png)
+> ![顺时针打印矩阵](https://raw.githubusercontent.com/Rana1257/Front-end-Collections/Lee/static/img/顺时针打印矩阵.png)
 
 ```js
 function printMatrix(matrix) {
@@ -1919,7 +1921,7 @@ function EntryNodeOfLoop(pHead) {
 
 > 方法二：
 >
-> ![链表中环的入口结点](https://images.cnblogs.com/cnblogs_com/muzidaitou/1644305/o_200414102234%E9%93%BE%E8%A1%A8%E4%B8%AD%E7%8E%AF%E7%9A%84%E5%85%A5%E5%8F%A3%E7%BB%93%E7%82%B9.jpg)
+> ![链表中环的入口结点](https://raw.githubusercontent.com/Rana1257/Front-end-Collections/Lee/static/img/链表中环的入口结点.png)
 >
 > 设置快慢指针，都从链表头出发，快指针每次走两步，慢指针一次走一步，假如有环，一定相遇于环中某点(结论 1)。接着让两个指针分别从相遇点和链表头出发，两者都改为每次走一步，最终相遇于环入口(结论 2)。以下是两个结论证明：
 > 两个结论：
@@ -2410,7 +2412,7 @@ function isValid(i, j, threshold) {
 }
 ```
 
-## 67.减绳子
+## 67.剪绳子
 
 > 给你一根长度为 n 的绳子，请把绳子剪成整数长的 m 段（m、n 都是整数，n>1 并且 m>1），每段绳子的长度记为 k[0],k[1],...,k[m]。请问 k[0]xk[1]x...xk[m]可能的最大乘积是多少？例如，当绳子的长度是 8 时，我们把它剪成长度分别为 2、3、3 的三段，此时得到的最大乘积是 18。
 
