@@ -140,3 +140,4 @@ const obj = {
 console.log(obj.diameter()) // 20
 console.log(obj.perimeter()) // NaN
 ```
+##  Ajax
