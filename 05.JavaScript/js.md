@@ -1,4 +1,5 @@
 [toc]
+
 ## js 脚本 defer 和 async 的区别
 
 1. defer 属性表示延迟执行引入的 JavaScript，即这段 JavaScript 加载时 HTML 并未停止解析，这两个过程是并行的。当整个 document 解析完毕后再执行脚本文件，在 DOMContentLoaded 事件触发之前完成。多个脚本按顺序执行。
@@ -75,36 +76,38 @@ if (true) {
 上面代码中，在 let 命令声明变量 tmp 之前，都属于变量 tmp 的“死区”。
 
 ## ES6 中箭头函数 VS 普通函数的 this 指向
-
+```
 普通函数中 this
 
 1.  总是代表着它的直接调用者，如 obj.fn，fn 里的最外层 this 就是指向 obj
 2.  默认情况下，没有直接调用者，this 指向 window
 3.  严格模式下（设置了'use strict'），this 为 undefined
 4.  当使用 call，apply，bind（ES5 新增）绑定的，this 指向绑定对象
-
+```
+```
 ES6 箭头函数中 this
 
-1.  默认指向定义它时，所处上下文的对象的 this 指向。即 ES6 箭头函数里 this 的指向就是上下文里对象 this 指向，偶尔没有上下文对象，this 就指向 window
+1.  默认指向定义它时，所处上下文的对象的 this 指向；
+    即 ES6 箭头函数里 this 的指向就是上下文里对象 this 指向，偶尔没有上下文对象，this 就指向 window
 2.  即使是 call，apply，bind 等方法也不能改变箭头函数 this 的指向
-
-例子加深印象：
+```
+下面使用例子来加深一下印象：
 
 ```js
-// 2
+// 例1
 function hello() {
   console.log(this) // window
 }
 hello()
 
-// 2
+// 例2
 function hello() {
   'use strict'
   console.log(this) // undefined
 }
 hello()
 
-// 3
+// 例3
 const obj = {
   num: 10,
   hello: function () {
@@ -116,7 +119,7 @@ const obj = {
 }
 obj.hello()
 
-// 4
+// 例4
 const obj = {
   num: 10,
   hello: function () {
@@ -128,8 +131,12 @@ const obj = {
 }
 obj.hello()
 
-// 5
-/*diameter是普通函数，里面的this指向直接调用它的对象obj。perimeter是箭头函数，this应该指向上下文函数this的指向，这里上下文没有函数对象，就默认为window，而window里面没有radius这个属性，就返回为NaN。*/
+// 例5
+/*
+diameter是普通函数，里面的this指向直接调用它的对象obj。
+perimeter是箭头函数，this应该指向上下文函数this的指向，
+这里上下文没有函数对象，就默认为window，而window里面没有radius这个属性，就返回为NaN。
+*/
 const obj = {
   radius: 10,
   diameter() {
@@ -140,4 +147,39 @@ const obj = {
 console.log(obj.diameter()) // 20
 console.log(obj.perimeter()) // NaN
 ```
-##  Ajax
+
+## Ajax 基本流程
+
+> 原生js代码实现与基于promise实现请传送至专栏：[面试高频手撕代码题](./../08.面试高频手撕代码题/面试高频手撕代码题.md)
+
+我对 ajax 的理解是，它是一种异步通信的方法，通过直接由 js 脚本向服务器发起 http 通信，然后根据服务器返回的数据，更新网页的相应部分，而不用刷新整个页面的一种方法。
+
+创建一个 ajax 有这样几个步骤:
+
+- 首先是创建一个 XMLHttpRequest 对象。
+
+- 然后在这个对象上使用 open 方法创建一个 http 请求，open 方法所需要的参数是请求的方法、请求的地址、是否异步和用户的认证信息。
+
+- 在发起请求前，我们可以为这个对象添加一些信息和监听函数。比如说我们可以通过 setRequestHeader 方法来为请求添加头信息。我们还可以为这个对象添加一个状态监听函数。一个 XMLHttpRequest 对象一共有 5 个状态，当它的状态变化时会触发onreadystatechange 事件，我们可以通过设置监听函数，来处理请求成功后的结果。当对象的 readyState 变为 4 的时候，代表服务器返回的数据接收完成，这个时候我们可以通过判断请求的状态，如果状态是 2xx 或者 304 的话则代表返回正常。这个时候我们就可以通过 response 中的数据来对页面进行更新了。
+
+- 当对象的属性和监听函数设置完成后，最后我们调用 sent 方法来向服务器发起请求，可以传入参数作为发送的数据体。
+
+##  Ajax 的 readyState 的几种状态分别代表什么？
+|状态值|含义|
+|:--:|:--:|
+|0 |请求未初始化
+|1 |服务器连接已建立
+|2 |请求已接收
+|3 |请求处理中
+|4 |请求已完成，且响应已就绪
+
+## Ajax 禁用浏览器的缓存功能
+
+> 项目中，一般提交请求都会通过 ajax 来提交，我们都知道 ajax 能提高页面载入的速度主要的原因是通过 ajax 减少了重复数据的载入，也就是说在载入数据的同时将数据缓存到内存中，一旦数据被加载其中，只要我们没有刷新页面，这些数据就会一直被缓存在内存中，当我们提交 的 URL 与历史的 URL 一致时，就不需要提交给服务器，也就是不需要从服务器上面去获取数据，虽然这样降低了服务器的负载提高了用户的体验，但是我们不能获取最新的数据。为了保证我们读取的信息都是最新的，我们就需要禁止他的缓存功能。
+
+解决的方法有：
+1.  在ajax发送请求前加上 `xhr.setRequestHeader("If-Modified-Since","0")`。 
+2.  在ajax发送请求前加上 `xhr.setRequestHeader("Cache-Control","no-cache")`。 
+3.  在URL后面加上一个随机数： `"fresh=" + Math.random()`;。 
+4.  在URL后面加上时间搓：`"nowtime=" + new Date().getTime()`;。 
+5.  如果是使用jQuery，直接这样就可以了`$.ajaxSetup({cache:false})`。这样页面的所有ajax都会执行这条语句就是不需要保存缓存记录。
