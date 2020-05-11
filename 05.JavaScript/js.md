@@ -148,6 +148,12 @@ console.log(obj.diameter()) // 20
 console.log(obj.perimeter()) // NaN
 ```
 
+##  JS 实现深拷贝，一行代码
+
+```js
+let newObj = JSON.parse(JSON.stringify(oldObj))
+```
+
 ## Ajax 基本流程
 
 > 原生js代码实现与基于promise实现请传送至专栏：[面试高频手撕代码题](./../08.面试高频手撕代码题/面试高频手撕代码题.md)

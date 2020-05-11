@@ -1,4 +1,19 @@
 [toc]
+##  CSS3 新特性
+[参考链接](https://www.cnblogs.com/xkweb/p/5862612.html)
+1.  伪类和伪元素选择器：
+:first-child, :last-child, :nth-child(1), :link, :visited, :hover, :active
+::before, ::after, :first-letter, :first-line, ::selection
+1.  背景和边框：
+background-size, background-origin, border-radius
+box-shadow, border-image
+3.  文字效果：text-shadow, word-wrap 
+4.  2D转换和3D转换：
+transform, translate(), rotate(), scale(), skew(), matrix()
+rotateX(), rotateY(), perspective
+5.  动画、过渡：animation, transition
+6.  多列：column-count, column-gap, column-rule
+7.  用户界面：resize, box-sizing, outline-offset
 
 ## link 和 @import 的区别
 
