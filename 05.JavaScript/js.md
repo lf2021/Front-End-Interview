@@ -189,3 +189,7 @@ let newObj = JSON.parse(JSON.stringify(oldObj))
 3.  在URL后面加上一个随机数： `"fresh=" + Math.random()`;。 
 4.  在URL后面加上时间搓：`"nowtime=" + new Date().getTime()`;。 
 5.  如果是使用jQuery，直接这样就可以了`$.ajaxSetup({cache:false})`。这样页面的所有ajax都会执行这条语句就是不需要保存缓存记录。
+
+##  webpack 的功能
+
+
