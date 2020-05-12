@@ -123,8 +123,14 @@ rem 是（根）字体大小相对单位，也就是说跟当前元素的 font-s
 
 有三种办法来解决这个问题：
 
-1.  通过 meta 标签禁用网页的缩放。 `user-scalable=no`
-2.  通过 meta 标签将网页的 viewport 设置为 ideal viewport。
+1.  通过 meta 标签禁用网页的缩放。 
+```html
+<meta name="viewport" content="user-scalable=no">
+```
+2.  更改默认的视口宽度
+```html
+<meta name="viewport" content="width=device-width">
+```
 3.  调用一些 js 库，比如 FastClick
 
 > FastClick 是 FT Labs 专门为解决移动端浏览器 300 毫秒点击延迟问题所开发的一个轻量级的库。FastClick 的实现原理是在检测到 touchend 事件的时候，会通过 DOM 自定义事件立即出发模拟一个 click 事件，并把浏览器在 300ms 之后的 click 事件阻止掉。
