@@ -114,7 +114,17 @@ rem 布局的本质是等比缩放
 rem 是（根）字体大小相对单位，也就是说跟当前元素的 font-size 没有关系，而是跟整个 body 的 font-size 有关系。
 
 ## rem 和 em 的区别
-
+> 一句话概括：em相对于父元素，rem相对于根元素。
+- em
+```css
+子元素字体大小的em是相对于父元素字体大小
+元素的width/height/padding/margin用em的话是相对于该元素的font-size
+```
+- rem
+```html
+rem是全部的长度都相对于根元素，根元素是谁？<html>元素。
+通常做法是给html元素设置一个字体大小，然后其他元素的长度单位就为rem。
+```
 ## 移动端 300ms 延迟的原因以及解决方案
 
 [移动端 300ms 点击延迟和点击穿透](https://juejin.im/post/5b3cc9836fb9a04f9a5cb0e0)
