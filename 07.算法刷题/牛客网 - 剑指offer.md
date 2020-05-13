@@ -2129,6 +2129,11 @@ function judge(node1, node2) {
 
 > 请实现一个函数按照之字形打印二叉树，即第一行按照从左到右的顺序打印，第二层按照从右至左的顺序打印，第三行按照从左到右的顺序打印，其他行以此类推。
 
+输入：
+![之字形顺序打印二叉树](https://images.cnblogs.com/cnblogs_com/muzidaitou/1644305/t_200414152956%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20200414232924.png)
+
+输出：
+`[[8],[10,6],[5,7,9,11]]`
 ```js
 /* function TreeNode(x) {
     this.val = x;
@@ -2145,9 +2150,10 @@ function Print(pRoot) {
   nodes.push(pRoot)
   while (nodes.length) {
     var temp = []
-    var len = nodes.length //这里注意要先把nodes的长度赋值给一个变量，因为下面循环中nodes里会添加新的结点
+    // 这里注意要先把nodes的长度赋值给一个变量，因为下面循环中nodes里会添加新的结点
+    var len = nodes.length 
     for (let i = 0; i < len; i++) {
-      var node = nodes.shift() //每次弹出nodes中第一个结点
+      var node = nodes.shift() // 每次弹出nodes中第一个结点
       flag === true ? temp.push(node.val) : temp.unshift(node.val)
       if (node.left) {
         nodes.push(node.left)
@@ -2310,8 +2316,7 @@ function maxInWindows(num, size) {
   var idx = len - size
   var res = []
   for (let i = 0; i <= idx; i++) {
-    var temp = num
-    res.push(Math.max(...temp.slice(i, i + size)))
+    res.push(Math.max(...num.slice(i, i + size)))
   }
   return res
 }
