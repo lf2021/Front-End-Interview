@@ -1,16 +1,20 @@
 [toc]
-##  CSS3 新特性
+
+## CSS3 新特性
+
 [参考链接](https://www.cnblogs.com/xkweb/p/5862612.html)
+
 1.  伪类和伪元素选择器：
-:first-child, :last-child, :nth-child(1), :link, :visited, :hover, :active
-::before, ::after, :first-letter, :first-line, ::selection
-1.  背景和边框：
-background-size, background-origin, border-radius
-box-shadow, border-image
-3.  文字效果：text-shadow, word-wrap 
-4.  2D转换和3D转换：
-transform, translate(), rotate(), scale(), skew(), matrix()
-rotateX(), rotateY(), perspective
+    :first-child, :last-child, :nth-child(1), :link, :visited, :hover, :active
+    ::before, ::after, :first-letter, :first-line, ::selection
+2.  背景、边框和颜色透明度：
+    background-size, background-origin, border-radius
+    box-shadow, border-image
+    rgba
+3.  文字效果：text-shadow, word-wrap
+4.  2D 转换和 3D 转换：
+    transform, translate(), rotate(), scale(), skew(), matrix()
+    rotateX(), rotateY(), perspective
 5.  动画、过渡：animation, transition
 6.  多列：column-count, column-gap, column-rule
 7.  用户界面：resize, box-sizing, outline-offset
@@ -104,7 +108,8 @@ div {
 }
 ```
 
-##  flex 的属性有哪些
+## flex 的属性有哪些
+
 ```
 flex布局是CSS3新增的一种布局方式，我们可以通过将一个元素的display属性值设置为flex从而使它成为一个flex容器，它的所有子元素都会成为它的项目。
 
@@ -112,20 +117,48 @@ flex布局是CSS3新增的一种布局方式，我们可以通过将一个元素
 
 对于容器中的项目，我们可以使用order属性来指定项目的排列顺序，还可以使用flex-grow来指定当排列空间有剩余的时候，项目的放大比例。还可以使用flex-shrink来指定当排列空间不足时，项目的缩小比例。
 ```
-> 以下6个属性设置在容器上。
 
-- flex-direction属性决定主轴的方向（即项目的排列方向）。
-- flex-wrap属性定义，如果一条轴线排不下，如何换行。
-- flex-flow属性是flex-direction属性和flex-wrap属性的简写形式，默认值为rownowrap。
-- justify-content属性定义了项目在主轴上的对齐方式。
-- align-items属性定义项目在交叉轴上如何对齐。
-- align-content属性定义了多根轴线的对齐方式。如果项目只有一根轴线，该属性不起作用。
+> 以下 6 个属性设置在容器上。
 
-> 以下6个属性设置在项目上：
+- flex-direction 属性决定主轴的方向（即项目的排列方向）。
+- flex-wrap 属性定义，如果一条轴线排不下，如何换行。
+- flex-flow 属性是 flex-direction 属性和 flex-wrap 属性的简写形式，默认值为 rownowrap。
+- justify-content 属性定义了项目在主轴上的对齐方式。
+- align-items 属性定义项目在交叉轴上如何对齐。
+- align-content 属性定义了多根轴线的对齐方式。如果项目只有一根轴线，该属性不起作用。
 
-- order属性定义项目的排列顺序。数值越小，排列越靠前，默认为0。
-- flex-grow属性定义项目的放大比例，默认为0，即如果存在剩余空间，也不放大。
-- flex-shrink属性定义了项目的缩小比例，默认为1，即如果空间不足，该项目将缩小。
-- flex-basis属性定义了在分配多余空间之前，项目占据的主轴空间。浏览器根据这个属性，计算主轴是否有多余空间。它的默认值为auto，即项目的本来大小。
-- flex属性是flex-grow，flex-shrink和flex-basis的简写，默认值为01auto。
-- align-self属性允许单个项目有与其他项目不一样的对齐方式，可覆盖align-items属性。默认值为auto，表示继承父元素的align-items属性，如果没有父元素，则等同于stretch。
+> 以下 6 个属性设置在项目上：
+
+- order 属性定义项目的排列顺序。数值越小，排列越靠前，默认为 0。
+- flex-grow 属性定义项目的放大比例，默认为 0，即如果存在剩余空间，也不放大。
+- flex-shrink 属性定义了项目的缩小比例，默认为 1，即如果空间不足，该项目将缩小。
+- flex-basis 属性定义了在分配多余空间之前，项目占据的主轴空间。浏览器根据这个属性，计算主轴是否有多余空间。它的默认值为 auto，即项目的本来大小。
+- flex 属性是 flex-grow，flex-shrink 和 flex-basis 的简写，默认值为 01auto。
+- align-self 属性允许单个项目有与其他项目不一样的对齐方式，可覆盖 align-items 属性。默认值为 auto，表示继承父元素的 align-items 属性，如果没有父元素，则等同于 stretch。
+
+## z-index 是干什么用的？默认值是什么？与 z-index: 0 的区别？
+参考链接：[搞懂Z-index的所有细节](https://www.jianshu.com/p/cdd90d28380b)
+> z-index 属性设置元素的堆叠顺序，且只在属性position: relative/absolute/fixed 的时候才生效。
+
+> `z-index: auto` 是默认值，与`z-index: 0`是有区别的：
+> `z-index: 0` 会创建一个新的堆叠上下文，而 `z-index: auto` 不会创建新的堆叠上下文
+
+举例：考虑如下这种情况
+```html
+<div class="A">
+  <div class="a"></div>
+</div>
+<div class="B">
+  <div class="b"></div>
+</div>
+```
+![z-index1](../images/z-index1.png)
+> 上图中div的`z-index`均为整数的时候div(a)的`z-index`虽然比div(B)大，但是div(A)和div(a)是在一个堆叠上下文，而div(B)和div(b)是在一个堆叠上下文，这两个堆叠上下文是通过父级也就是div(A)和div(B)的`z-index`来决定层叠顺序的。
+
+---
+![z-index1](../images/z-index2.png)
+> 上图将div(A)的z-index设置为auto，这时候因为`z-index: auto` 不会创建新的堆叠上下文，因而div(a)的`z-index`比div(B)大，所以div(a)会在div(B)的上面
+
+总结：
+1. 当Z-index的值设置为auto时,不建立新的堆叠上下文,当前堆叠上下文中生成的div的堆叠级别与其父项的框相同。
+2. 当Z-index的值设置为一个整数时,该整数是当前堆叠上下文中生成的div的堆栈级别。该框还建立了其堆栈级别的本地堆叠上下文。这意味着后代的z-index不与此元素之外的元素的z-index进行比较。

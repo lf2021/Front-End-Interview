@@ -20,11 +20,58 @@ JavaScript 对象是通过引用来传递的，我们创建的每个新对象实
 之相关的对象也会继承这一改变。
 ```
 
+## Object.defineProperty 用法
+
+```js
+Object.defineProperty(obj, prop, descriptor)
+```
+
+- obj
+  要定义属性的对象。
+- prop
+  要定义或修改的属性的名称或 Symbol 。
+- descriptor
+  要定义或修改的属性描述符。参数有：
+  - value
+  该属性对应的值。可以是任何有效的 JavaScript 值（数值，对象，函数等）。
+  默认为 undefined。
+  - writable
+  当且仅当该属性的 writable 键值为 true 时，属性的值，也就是上面的 value，才能被赋值运算符改变。
+  默认为 false。
+  - configurable
+  当且仅当该属性的 configurable 键值为 true 时，该属性的描述符才能够被改变，同时该属性也能从对应的对象上被删除。
+  默认为 false。
+  - enumerable
+  当且仅当该属性的 enumerable 键值为 true 时，该属性才会出现在对象的枚举属性中。
+  默认为 false。
+
+## 使用 Object.defineProperty() 来进行数据劫持有什么缺点？
+
+有一些对属性的操作，使用这种方法无法拦截，比如说通过下标方式修改数组数据或者给对象新增属性，vue 内部通过重写函数解决了这个问题。
+
+在 Vue3.0 中已经不使用这种方式了，而是通过使用 Proxy 对对象进行代理，从而实现数据劫持。使用 Proxy 的好处是它可以完美的监听到任何方式的数据改变，唯一的缺点是兼容性的问题，因为这是 ES6 的语法。
+
 ## js 脚本 defer 和 async 的区别
 
 1. defer 属性表示延迟执行引入的 JavaScript，即这段 JavaScript 加载时 HTML 并未停止解析，这两个过程是并行的。当整个 document 解析完毕后再执行脚本文件，在 DOMContentLoaded 事件触发之前完成。多个脚本按顺序执行。
 2. async 属性表示异步执行引入的 JavaScript，与 defer 的区别在于，如果已经加载好，就会开始执行，也就是说它的执行仍然会阻塞文档的解析，只是它的加载过程不会阻塞。多个脚本的执行顺序无法保证。
 
+## Event Loop 事件循环
+参考链接：[详解JavaScript中的Event Loop（事件循环）机制](https://zhuanlan.zhihu.com/p/33058983?utm_source=wechat_session&utm_medium=social&utm_oi=859347813597863936)
+```js
+微任务: promise.then(不是promise，promise里是立即执行)   MutationObserver  process.nextTick(Node.js 环境)        
+宏任务: script(整体代码)  setTimeout  setInterval   I/O  setImmediate(Node.js 环境)   UI 交互事件
+同一次事件循环中:  微任务永远在宏任务之前执行
+```
+事件循环的过程：
+> 首先script脚本整体是一个大的异步任务，先执行script脚本。这个script脚本会包含同步任务和异步任务，同步任务会先在主线程上执行，异步任务（分为宏任务和微任务）会添加到任务队列中，任务队列分为宏任务队列和微任务队列，宏任务放到宏任务队列，微任务放到微任务队列。
+>
+> 当同步任务执行完毕后，此时的执行栈已经被清空，会去执行异步任务。此时会先从微任务队列中取一个微任务放到执行栈中执行，若有新的微任务或宏任务产生，添加到相应的任务队列中，循环往复，直至微任务队列清空。
+>
+> 紧接着会从宏任务队列取一个宏任务放到执行栈中执行，此时可能会产生新的微任务，将微任务放到微任务队列中，当这个宏任务执行完后会继续执行微任务队列，如果没有产生就继续执行下一个宏任务。循环往复，直至所有任务执行完毕。
+
+执行流程：
+![event loop流程](./../images/event%20loop.jpg)
 ## JS 跨域怎么做？
 
 <a href="https://segmentfault.com/a/1190000011145364">参考链接</a>
@@ -171,11 +218,143 @@ console.log(obj.diameter()) // 20
 console.log(obj.perimeter()) // NaN
 ```
 
-## JS 实现深拷贝，一行代码
+## JS 实现对象（都是简单类型的值）的深拷贝，一行代码
 
 ```js
 let newObj = JSON.parse(JSON.stringify(oldObj))
 ```
+##  JSON.parse(JSON.stringify(obj)) 实现深拷贝需要注意的问题？
+1.  如果obj里面有时间对象，则JSON.stringify后再JSON.parse的结果，时间将只是字符串的形式,而不是时间对象；
+2.  如果obj里有RegExp、Error对象，则序列化的结果将只得到空对象；
+3.  如果obj里有函数，undefined，则序列化的结果会把函数或 undefined丢失；
+4.  如果obj里有NaN、Infinity和-Infinity，则序列化的结果会变成null
+5.  JSON.stringify()只能序列化对象的可枚举的自有属性，例如 如果obj中的对象是有构造函数生成的， 则使用JSON.parse(JSON.stringify(obj))深拷贝后，会丢弃对象的constructor；
+6.  如果对象中存在循环引用的情况也无法正确实现深拷贝；
+
+## Class 如何定义私有属性和私有方法
+
+详情参考[阮一峰 ES6 入门](https://es6.ruanyifeng.com/?utm_source=wechat_session&utm_medium=social&utm_oi=859347813597863936#docs/class#%E7%A7%81%E6%9C%89%E6%96%B9%E6%B3%95%E5%92%8C%E7%A7%81%E6%9C%89%E5%B1%9E%E6%80%A7)
+
+> 私有方法和私有属性，是只能在类的内部访问的方法和属性，外部不能访问。
+
+#### 现有方案
+
+- 方法一：在命名上加以区分
+
+`_bar`方法前面的下划线，表示这是一个只限于内部使用的私有方法。但是，这种命名是不保险的，在类的外部，还是可以调用到这个方法。
+
+```js
+class Point {
+  // 公有方法
+  foo(param) {
+    this._bar(param)
+  }
+
+  // 私有方法
+  _bar(param) {
+    return (this.name = param)
+  }
+}
+```
+
+- 方法二：将私有方法移出模块，因为模块内部的所有方法都是对外可见的。
+
+`foo`是公有方法，内部调用了`bar.call(this, name)`。这使得 bar 实际上成为了当前模块的私有方法。
+
+```js
+class Point {
+  foo(param) {
+    bar.call(this, param)
+  }
+}
+
+function bar(param) {
+  return (this.name = param)
+}
+```
+
+- 方法三：利用 Symbol 值的唯一性，将私有方法的名字命名为一个 Symbol 值。
+
+`bar`和`snaf`都是`Symbol`值，一般情况下无法获取到它们，因此达到了私有方法和私有属性的效果。但是也不是绝对不行，`Reflect.ownKeys()`依然可以拿到它们。
+
+```js
+const bar = Symbol('bar')
+const name = Symbol('name')
+
+class Point {
+  // 公有方法
+  foo(param) {
+    this[bar](param)
+  }
+
+  // 私有方法
+  [bar](param) {
+    return (this[name] = param)
+  }
+}
+```
+
+```js
+const instance = new Point()
+
+Reflect.ownKeys(Point.prototype)
+// [ 'constructor', 'foo', Symbol(bar) ]
+```
+
+#### 私有属性的提案
+
+目前，有一个提案，为 class 加了私有属性。方法是在属性名之前，使用#表示。
+
+```js
+class IncreasingCounter {
+  #count = 0
+  get value() {
+    return this.#count
+  }
+  increment() {
+    this.#count++
+  }
+}
+```
+
+`#count`就是私有属性，只能在类的内部使用（`this.#count`）。如果在类的外部使用，就会报错。如下：
+
+```js
+const counter = new IncreasingCounter()
+counter.increment()
+console.log(inst.value) // 1
+
+counter.#count // 报错
+counter.#count = 42 // 报错
+```
+
+也可以用来写私有方法：
+
+```js
+class Foo {
+  // 私有属性
+  #a;
+  #b;
+  constructor(a, b) {
+    this.#a = a;
+    this.#b = b;
+  }
+
+  // 私有方法
+  #sum() {
+    return #a + #b;
+  }
+  printSum() {
+    console.log(this.#sum());
+  }
+}
+```
+
+## Promise.prototype.then()方法的返回值
+
+> Promise 实例具有 then 方法，也就是说，then 方法是定义在原型对象 Promise.prototype 上的。它的作用是为 Promise 实例添加状态改变时的回调函数。前面说过，then 方法的第一个参数是 resolved 状态的回调函数，第二个参数（可选）是 rejected 状态的回调函数。
+
+> then 方法返回的是一个新的 Promise 实例（注意，不是原来那个 Promise 实例）。因此可以采用链式写法，即 then 方法后面再调用另一个 then 方法。
 
 ## Ajax 基本流程
 
