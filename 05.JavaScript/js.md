@@ -57,7 +57,9 @@ Object.defineProperty(obj, prop, descriptor)
 2. async 属性表示异步执行引入的 JavaScript，与 defer 的区别在于，如果已经加载好，就会开始执行，也就是说它的执行仍然会阻塞文档的解析，只是它的加载过程不会阻塞。多个脚本的执行顺序无法保证。
 
 ## Event Loop 事件循环
-参考链接：[详解JavaScript中的Event Loop（事件循环）机制](https://zhuanlan.zhihu.com/p/33058983?utm_source=wechat_session&utm_medium=social&utm_oi=859347813597863936)
+
+> 参考链接：[详解JavaScript中的Event Loop（事件循环）机制](https://zhuanlan.zhihu.com/p/33058983?utm_source=wechat_session&utm_medium=social&utm_oi=859347813597863936)
+
 ```js
 微任务: promise.then(不是promise，promise里是立即执行)   MutationObserver  process.nextTick(Node.js 环境)        
 宏任务: script(整体代码)  setTimeout  setInterval   I/O  setImmediate(Node.js 环境)   UI 交互事件
@@ -72,12 +74,14 @@ Object.defineProperty(obj, prop, descriptor)
 
 执行流程：
 ![event loop流程](./../images/event%20loop.jpg)
+
 ## JS 跨域怎么做？
 
-<a href="https://segmentfault.com/a/1190000011145364">参考链接</a>
+> 参考链接:[前端常见跨域解决方案（全）](https://segmentfault.com/a/1190000011145364)
 
 1. JSONP (JSON with Padding)
    通过动态创建 script，再请求一个带参网址实现跨域通信。
+   >  参考链接：[jsonp的原理与实现](https://segmentfault.com/a/1190000007665361#articleHeader1)
 2. window.postMessage
    现代浏览器中多窗口通信使用 HTML5 规范的 targetWindow.postMessage(data, origin);其中 data 是需要发送的对象，origin 是目标窗口的 origin。window.addEventListener('message', handler, false);handler 的 event.data 是 postMessage 发送来的数据，event.origin 是发送窗口的 origin，event.source 是发送消息的窗口引用
 3. CORS (跨域资源共享)
