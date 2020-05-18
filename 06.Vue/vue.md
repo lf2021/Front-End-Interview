@@ -1,4 +1,4 @@
-[toc]
+# Vue
 
 ## vue 的优点
 
@@ -25,7 +25,7 @@
 依赖收集
 发布订阅模式
 
-## vue 双向数据绑定原理？
+## vue 双向数据绑定原理
 
 > vue 通过使用双向数据绑定，来实现了 View 和 Model 的同步更新。vue 的双向数据绑定主要是通过使用数据劫持和发布订阅者模式来实现的。
 >
@@ -37,7 +37,7 @@
 >
 > 如果遇到了绑定的文本节点，我们使用 Model 中对应的属性的值来替换这个文本。对于文本节点的更新，我们使用了发布订阅者模式，属性作为一个主题，我们为这个节点设置一个订阅者对象，将这个订阅者对象加入这个属性主题的订阅者列表中。当 Model 层数据发生改变的时候，Model 作为发布者向主题发出通知，主题收到通知再向它的所有订阅者推送，订阅者收到通知后更改自己的数据。
 
-## Object.defineProperty 介绍？
+## Object.defineProperty 介绍
 
 > Object.defineProperty 函数一共有三个参数，第一个参数是需要定义属性的对象，第二个参数是需要定义的属性，第三个是该属性描述符。
 >
@@ -51,7 +51,7 @@
 
 因而 v-if 有较高的切换性能消耗，v-show 有较高的初始渲染消耗
 
-## 为什么 vue 组件中的 data 必须是函数？
+## 为什么 vue 组件中的 data 必须是函数
 
 当一个组件被定义，data 必须声明为返回一个初始数据对象的函数，因为组件可能被用来创建多个实例。如果 data 仍然是一个纯粹的对象，则所有的实例将共享引用同一个数据对象！通过提供 data 函数，每次创建一个新实例后，我们能够调用 data 函数，从而返回初始数据的一个全新副本数据对象。
 
@@ -90,16 +90,16 @@
 
 `keep-alive`包裹动态组件时，会缓存不活动的组件实例，而不是销毁它们。
 
-当组件在 <keep-alive> 内被切换，它的 `activated` 和 `deactivated` 这两个生命周期钩子函数将会被对应执行。
+当组件在 `<keep-alive>` 内被切换，它的 `activated` 和 `deactivated` 这两个生命周期钩子函数将会被对应执行。
 
 - `activated`在`keep-alive`组件激活时调用，该钩子函数在服务器端渲染期间不被调用。
 - `deactivated`在`keep-alive`组件停用时调用，该钩子函数在服务端渲染期间不被调用。
 
 ## 移动端适配的方法
 
-1.  flex 弹性布局
-2.  rem 弹性布局
-3.  rem + viewport 缩放
+1. flex 弹性布局
+2. rem 弹性布局
+3. rem + viewport 缩放
 
 > 这也是淘宝使用的方案，根据屏幕宽度设定 rem 值，需要适配的元素都使用 rem 为单位，不需要适配的元素还是使用 px 为单位。（1em = 16px）
 
@@ -110,17 +110,23 @@ rem 布局的本质是等比缩放
 rem 是（根）字体大小相对单位，也就是说跟当前元素的 font-size 没有关系，而是跟整个 body 的 font-size 有关系。
 
 ## rem 和 em 的区别
+
 > 一句话概括：em相对于父元素，rem相对于根元素。
+
 - em
-```css
-子元素字体大小的em是相对于父元素字体大小
-元素的width/height/padding/margin用em的话是相对于该元素的font-size
-```
+
+  ```css
+  子元素字体大小的 em 是相对于父元素字体大小
+  元素的width/height/padding/margin用em的话是相对于该元素的font-size
+  ```
+
 - rem
-```html
-rem是全部的长度都相对于根元素，根元素是谁？<html>元素。
-通常做法是给html元素设置一个字体大小，然后其他元素的长度单位就为rem。
-```
+
+  ```js
+  rem 是全部的长度都相对于根元素，根元素是谁？<html>元素。
+  通常做法是给html元素设置一个字体大小，然后其他元素的长度单位就为rem。
+  ```
+
 ## 移动端 300ms 延迟的原因以及解决方案
 
 [移动端 300ms 点击延迟和点击穿透](https://juejin.im/post/5b3cc9836fb9a04f9a5cb0e0)
@@ -129,14 +135,18 @@ rem是全部的长度都相对于根元素，根元素是谁？<html>元素。
 
 有三种办法来解决这个问题：
 
-1.  通过 meta 标签禁用网页的缩放。 
-```html
-<meta name="viewport" content="user-scalable=no">
-```
-2.  更改默认的视口宽度
-```html
-<meta name="viewport" content="width=device-width">
-```
-3.  调用一些 js 库，比如 FastClick
+1. 通过 meta 标签禁用网页的缩放。
 
-> FastClick 是 FT Labs 专门为解决移动端浏览器 300 毫秒点击延迟问题所开发的一个轻量级的库。FastClick 的实现原理是在检测到 touchend 事件的时候，会通过 DOM 自定义事件立即出发模拟一个 click 事件，并把浏览器在 300ms 之后的 click 事件阻止掉。
+    ```html
+    <meta name="viewport" content="user-scalable=no">
+    ```
+
+2. 更改默认的视口宽度
+
+    ```html
+    <meta name="viewport" content="width=device-width">
+    ```
+
+3. 调用一些 js 库，比如 FastClick
+
+    > FastClick 是 FT Labs 专门为解决移动端浏览器 300 毫秒点击延迟问题所开发的一个轻量级的库。FastClick 的实现原理是在检测到 touchend 事件的时候，会通过 DOM 自定义事件立即出发模拟一个 click 事件，并把浏览器在 300ms 之后的 click 事件阻止掉。
