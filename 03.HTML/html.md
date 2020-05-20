@@ -15,5 +15,3 @@
 9. 本地存储：localStorage、sessionStorage
 10. 新事件：onresize、ondrag、onscroll、onmousewheel、onerror、onplay、onpause
 11. WebSocket
-
-## 
