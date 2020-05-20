@@ -166,146 +166,6 @@ a标签有四种状态：链接访问前、链接访问后、鼠标滑过、激�
 - 多列容器（元素的 column-count 或 column-width 不为 auto，包括 -  column-count 为 1）
 - column-span 为 all 的元素始终会创建一个新的BFC，即使该元素没有包裹在一个多列容器中（标准变更，Chrome bug）。
 
-## CSS 实现两列固定，中间自适应的布局
-
-![三栏布局效果图](../images/三栏布局效果图.png)
-
-> 左右各占200px，中间随着窗口的调整自适应
-
-HTML代码如下：
-
-```html
-<div class="div">
-  <div class="left">left</div>
-  <div class="right">right</div>
-  <div class="main">main</div>
-</div>
-```
-
-- 方法一：通过定位的方式，中间一列通过`margin: auto`实现自适应
-
-  CSS样式：
-
-  ```css
-  .left {
-    width: 200px;
-    height: 100%;
-    background-color: red;
-    position: absolute;
-    left: 0;
-  }
-  .right {
-    width: 200px;
-    height: 100%;
-    background-color: red;
-    position: absolute;
-    right: 0;
-  }
-  .main {
-    height: 100%;
-    background-color: green;
-    position: absolute;
-    left: 200px;
-    right: 200px;
-    margin: auto; /* 这个千万不能少 */
-  }
-  ```
-
-- 方法二：flex布局
-  CSS样式：
-
-  ```css
-  html, body {
-    height: 100%;
-  }
-  .div {
-    height: 100%; /* 想要实现高度百分百必须让父元素都有高度 */
-    display: flex;
-  }
-  .left  {
-    flex: 0 0 200px;
-    order: 1; /* order定义显示的顺序 */
-    background-color: red;
-  }
-  .right{
-    flex: 0 0 200px;
-    order: 3;
-    background-color: red;
-  }
-  .main{
-    flex: auto;
-    order: 2;
-    background-color: green;
-  }
-  ```
-
-- 方法三：左右浮动布局，这种布局方式，必须先写浮动部分，最后再写中间部分，否则右浮动块会掉到下一行。
-  CSS样式：
-
-  ```css
-  html, body{
-    height: 100%;
-  }
-  .div{
-    height: 100%;
-  }
-  .left {
-    float: left;
-    width: 200px;
-    height: 100%;
-    background-color: red;
-  }
-  .right {
-    float: right;
-    width: 200px;
-    height: 100%;
-    background-color: red;
-  }
-  .main{
-    height: 100%;
-    background-color: green;
-  }
-  ```
-
-## CSS 垂直居中
-
-- 定位 + 负边距
-- display: flex 弹性布局
-
-  ```css
-  .outer {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .inner {
-    width: 400px;
-    height: 400px;
-    background-color: red;
-  }
-
-  <div class="outer">
-    <div class="inner"></div>
-  </div>
-  ```
-
-- display: table
-- 绝对居中
-
-  ```css
-  div {
-    width: 300px;
-    height: 300px;
-    background-color: red;
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    margin: auto;
-  }
-  ```
-
 ## position 的值定位原点是
 
 ```css
@@ -410,30 +270,6 @@ vw（Viewport Width）、vh(Viewport Height)是基于视图窗口的单位，是
 - vmin: 选取 vw 和 vh 中最小的那个,即在手机竖屏时，1vmin=1vw
 - vmax:选取 vw 和 vh 中最大的那个 ,即在手机竖屏时，1vmax=1vh
 
-## 用纯 CSS 创建一个三角形的原理是什么
-
-```css
-采用的是相邻边框连接处的均分原理。
-将元素的宽高设为0，只设置border，把任意三条边隐藏掉（颜色设为transparent），剩下的就是一个三角形。
-
-#demo {
-  width: 0;
-  height: 0;
-  border-width: 20px;
-  border-style: solid;
-  border-color: transparent transparent red transparent;
-}
-```
-
-## 一个满屏品字布局如何设计
-
-```css
-简单的方式：
-上面的div宽100%，
-下面的两个div分别宽50%，
-然后用float或者inline使其不换行即可
-```
-
 ## 经常遇到的浏览器的兼容性有哪些？原因，解决方法是什么，常用 hack 的技巧
 
 ```css
@@ -513,3 +349,246 @@ url属性。
 ```css
 多数显示器默认频率是60Hz，即1秒刷新60次，所以理论上最小间隔为1/60*1000ms＝16.7ms
 ```
+
+## 阐述一下 CSSSprites
+
+```css
+将一个页面涉及到的所有图片都包含到一张大图中去，然后利用CSS的background-image，background-repeat，background-position的组合进行背景定位。
+利用CSSSprites能很好地减少网页的http请求，从而很好的提高页面的性能；CSSSprites能减少图片的字节。
+
+优点：
+  减少HTTP请求数，极大地提高页面加载速度
+  增加图片信息重复度，提高压缩比，减少图片大小
+  更换风格方便，只需在一张或几张图片上修改颜色或样式即可实现
+
+缺点：
+  图片合并麻烦
+  维护麻烦，修改一个图片可能需要重新布局整个图片，样式
+```
+
+## 画一条 0.5px 的线
+
+```css
+采用metaviewport的方式
+
+采用border-image的方式
+
+采用transform:scale()的方式
+```
+
+## transition 和 animation 的区别
+
+```css
+transition关注的是CSSproperty的变化，property值和时间的关系是一个三次贝塞尔曲线。
+
+animation作用于元素本身而不是样式属性，可以使用关键帧的概念，应该说可以实现更自由的动画效果。
+```
+
+## 如何实现单行／多行文本溢出的省略（...）
+
+```css
+/*单行文本溢出*/
+p {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+
+/*多行文本溢出*/
+p {
+  position: relative;
+  line-height: 1.5em;
+  /*高度为需要显示的行数*行高，比如这里我们显示两行，则为3*/
+  height: 3em;
+  overflow: hidden;
+}
+
+p:after {
+  content: "...";
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background-color: #fff;
+}
+```
+
+## 常见的元素隐藏方式
+
+1. 使用 display:none;隐藏元素，渲染树不会包含该渲染对象，因此该元素不会在页面中占据位置，也不会响应绑定的监听事件。
+
+2. 使用 visibility:hidden;隐藏元素。元素在页面中仍占据空间，但是不会响应绑定的监听事件。
+
+3. 使用 opacity:0;将元素的透明度设置为 0，以此来实现元素的隐藏。元素在页面中仍然占据空间，并且能够响应元素绑定的监听事件。
+
+4. 通过使用绝对定位将元素移除可视区域内，以此来实现元素的隐藏。
+
+5. 通过 z-index 负值，来使其他元素遮盖住该元素，以此来实现隐藏。
+
+6. 通过 clip/clip-path 元素裁剪的方法来实现元素的隐藏，这种方法下，元素仍在页面中占据位置，但是不会响应绑定的监听事件。
+
+7. 通过 transform:scale(0,0)来将元素缩放为 0，以此来实现元素的隐藏。这种方法下，元素仍在页面中占据位置，但是不会响应绑定的监听事件。
+
+## 一个满屏品字布局如何设计
+
+```css
+简单的方式：
+上面的div宽100%，
+下面的两个div分别宽50%，
+然后用float或者inline使其不换行即可
+```
+
+## 用纯 CSS 创建一个三角形的原理是什么
+
+```css
+采用的是相邻边框连接处的均分原理。
+将元素的宽高设为0，只设置border，把任意三条边隐藏掉（颜色设为transparent），剩下的就是一个三角形。
+
+#demo {
+  width: 0;
+  height: 0;
+  border-width: 20px;
+  border-style: solid;
+  border-color: transparent transparent red transparent;
+}
+```
+
+## CSS 垂直居中
+
+- 定位 + 负边距
+- display: flex 弹性布局
+
+  ```css
+  .outer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .inner {
+    width: 400px;
+    height: 400px;
+    background-color: red;
+  }
+
+  <div class="outer">
+    <div class="inner"></div>
+  </div>
+  ```
+
+- display: table
+- 绝对居中
+
+  ```css
+  div {
+    width: 300px;
+    height: 300px;
+    background-color: red;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+  }
+  ```
+
+## CSS 实现两列固定，中间自适应的布局
+
+![三栏布局效果图](../images/三栏布局效果图.png)
+
+> 左右各占200px，中间随着窗口的调整自适应
+
+HTML代码如下：
+
+```html
+<div class="div">
+  <div class="left">left</div>
+  <div class="right">right</div>
+  <div class="main">main</div>
+</div>
+```
+
+- 方法一：通过定位的方式，中间一列通过`margin: auto`实现自适应
+
+  CSS样式：
+
+  ```css
+  .left {
+    width: 200px;
+    height: 100%;
+    background-color: red;
+    position: absolute;
+    left: 0;
+  }
+  .right {
+    width: 200px;
+    height: 100%;
+    background-color: red;
+    position: absolute;
+    right: 0;
+  }
+  .main {
+    height: 100%;
+    background-color: green;
+    position: absolute;
+    left: 200px;
+    right: 200px;
+    margin: auto; /* 这个千万不能少 */
+  }
+  ```
+
+- 方法二：flex布局
+  CSS样式：
+
+  ```css
+  html, body {
+    height: 100%;
+  }
+  .div {
+    height: 100%; /* 想要实现高度百分百必须让父元素都有高度 */
+    display: flex;
+  }
+  .left  {
+    flex: 0 0 200px;
+    order: 1; /* order定义显示的顺序 */
+    background-color: red;
+  }
+  .right{
+    flex: 0 0 200px;
+    order: 3;
+    background-color: red;
+  }
+  .main{
+    flex: auto;
+    order: 2;
+    background-color: green;
+  }
+  ```
+
+- 方法三：左右浮动布局，这种布局方式，必须先写浮动部分，最后再写中间部分，否则右浮动块会掉到下一行。
+  CSS样式：
+
+  ```css
+  html, body{
+    height: 100%;
+  }
+  .div{
+    height: 100%;
+  }
+  .left {
+    float: left;
+    width: 200px;
+    height: 100%;
+    background-color: red;
+  }
+  .right {
+    float: right;
+    width: 200px;
+    height: 100%;
+    background-color: red;
+  }
+  .main{
+    height: 100%;
+    background-color: green;
+  }
+  ```
