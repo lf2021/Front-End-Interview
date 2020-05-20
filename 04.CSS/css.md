@@ -36,6 +36,24 @@
 - IE盒模型
   > IE盒模型中，通过CSS样式设置的width的大小是content + padding + border的和
 
+## 设置一个元素的背景颜色，背景颜色会填充哪些区域
+
+> border + padding + content
+
+demo 说明
+
+```css
+div {
+  width: 100px;
+  height: 100px;
+  background-color: pink;
+  border: 5px dotted green;
+}
+```
+
+效果图：
+![效果图](./../images/border.png)
+
 ## link 和 @import 的区别
 
 1. link 是 HTML 标签，不仅可以加载 CSS 文件，还可以定义 RSS、rel 连接属性等；@import 是 CSS 提供的语法，只有导入样式表的作用。
@@ -203,6 +221,45 @@ inherit
 - inherit
   规定应该从父元素继承display属性的值。
 
+## float 的元素，display 是什么
+
+```css
+display 为 block
+```
+
+## inline-block、inline 和 block 的区别；为什么 img 是 inline 还可以设置宽高
+
+```css
+Block 是块级元素，其前后都会有换行符，能设置宽度，高度，margin/padding 水平垂直方向都有效。
+
+Inline：设置 width 和 height 无效，margin 在竖直方向上无效，padding 在水平方向垂直方向都有效，前后无换行符
+
+Inline-block：能设置宽度高度，margin/padding 水平垂直方向 都有效，前后无换行符
+```
+
+```css
+img 是可替换元素。
+
+在 CSS 中，可替换元素（replaced element）的展现效果不是由 CSS 来控制的。这些元素是一种外部对象，它们外观的渲染，是独立于 CSS 的。
+简单来说，它们的内容不受当前文档的样式的影响。CSS 可以影响可替换元素的位置，但不会影响到可替换元素自身的内容。
+例如 `<iframe>` 元素，可能具有自己的样式表，但它们不会继承父文档的样式。
+
+典型的可替换元素有：
+  <iframe>
+  <video>
+  <embed>
+  <img>
+
+有些元素仅在特定情况下被作为可替换元素处理，例如：
+  <input> "image" 类型的 <input> 元素就像 <img> 一样可替换
+  <option>
+  <audio>
+  <canvas>
+  <object>
+  <applet>（已废弃）
+  CSS 的 content 属性用于在元素的 ::before 和 ::after 伪元素中插入内容。使用 content 属性插入的内容都是匿名的可替换元素。
+```
+
 ## flex 的属性有哪些
 
 ```JS
@@ -230,6 +287,31 @@ flex布局是CSS3新增的一种布局方式，我们可以通过将一个元素
 - flex-basis 属性定义了在分配多余空间之前，项目占据的主轴空间。浏览器根据这个属性，计算主轴是否有多余空间。它的默认值为 auto，即项目的本来大小。
 - flex 属性是 flex-grow，flex-shrink 和 flex-basis 的简写，默认值为 01auto。
 - align-self 属性允许单个项目有与其他项目不一样的对齐方式，可覆盖 align-items 属性。默认值为 auto，表示继承父元素的 align-items 属性，如果没有父元素，则等同于 stretch。
+
+## `visibility: hidden`, `opacity: 0`，`display: none`
+
+```css
+opacity: 0，该元素隐藏起来了，但不会改变页面布局，并且，如果该元素已经绑定一些事件，如 click 事件，那么点击该区域，也能触发点击事件的；
+
+visibility: hidden，该元素隐藏起来了，但不会改变页面布局，但是不会触发该元素已经绑定的事件；
+
+display: none，把元素隐藏起来，并且会改变页面布局，可以理解成在页面中把该元素删除掉一样。
+```
+
+## 了解重绘和重排吗，知道怎么去减少重绘和重排吗，让文档脱离文档流有哪些方法
+
+DOM 的变化影响到了预算内宿的几何属性比如宽高，浏览器重新计算元素的几何属性，其他元素的几何属性也会受到影响，浏览器需要重新构造渲染书，这个过程称之为重排，浏览器将受到影响的部分重新绘制在屏幕上 的过程称为重绘，引起重排重绘的原因有：
+
+- 添加或者删除可见的 DOM 元素，
+- 元素尺寸位置的改变
+- 浏览器页面初始化，
+- 浏览器窗口大小发生改变，重排一定导致重绘，重绘不一定导致重排，
+- 减少重绘重排的方法有：
+- 不在布局信息改变时做 DOM 查询，
+- 使用 csstext,className 一次性改变属性
+- 使用 fragment
+- 对于多次重排的元素，比如说动画。使用绝对定位脱离文档流，使其不影响其他元素
+- "editor.renderIndentGuides": true
 
 ## z-index 是干什么用的？默认值是什么？与 z-index: 0 的区别
 
@@ -438,13 +520,10 @@ p:after {
 然后用float或者inline使其不换行即可
 ```
 
-## 用纯 CSS 创建一个三角形的原理是什么
+## CSS 画三角形
 
 ```css
-采用的是相邻边框连接处的均分原理。
-将元素的宽高设为0，只设置border，把任意三条边隐藏掉（颜色设为transparent），剩下的就是一个三角形。
-
-#demo {
+div {
   width: 0;
   height: 0;
   border-width: 20px;
@@ -453,7 +532,134 @@ p:after {
 }
 ```
 
-## CSS 垂直居中
+## CSS 画扇形
+
+```css
+div {
+  height: 0;
+  width: 0;
+  border: 100px solid transparent;
+  border-radius: 50%;
+  border-left-color: red;
+}
+```
+
+效果图：
+![扇形](./../images/扇形.png)
+
+## CSS 画正方体
+
+```CSS
+.cube {
+  font-size: 4em;
+  /* 相对于父元素的大小，父元素是16px，这里是64px */
+  width: 2em;
+  /* 32px */
+  margin: 1.5em auto;
+  transform-style: preserve-3d;
+  transform: rotateX(-35deg) rotateY(30deg);
+}
+
+.side {
+  position: absolute;
+  width: 2em;
+  /* 相对于父元素的64px的大小，也就是128px */
+  height: 2em;
+  background: rgba(255, 99, 71, 0.6);
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  color: white;
+  text-align: center;
+  line-height: 2em;
+}
+
+.front {
+  transform: translateZ(1em);
+}
+
+.bottom {
+  transform: rotateX(90deg) translateZ(-1em);
+}
+
+.top {
+  transform: rotateX(90deg) translateZ(1em);
+}
+
+
+.left {
+  transform: rotateY(-90deg) translateZ(1em);
+}
+
+.right {
+  transform: rotateY(-90deg) translateZ(-1em);
+}
+
+.back {
+  transform: translateZ(-1em);
+}
+```
+
+```HTML
+<div class="cube">
+  <div class="side front">1</div>
+  <div class="side back">6</div>
+  <div class="side right">4</div>
+  <div class="side left">3</div>
+  <div class="side top">5</div>
+  <div class="side bottom">2</div>
+</div>
+```
+
+效果图：
+![正方体](./../images/正方体.png)
+
+## CSS 实现一个硬币旋转的效果
+
+> 参考网站  ：https://wow.techbrood.com/fiddle/1510
+
+```CSS
+ #euro {
+    width: 150px;
+    height: 150px;
+    margin-left: -75px;
+    margin-top: -75px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform-style: preserve-3d;
+    animation: spin 2.5s linear infinite;
+  }
+  .back {
+    background-image: url("/uploads/160101/backeuro.png");
+    width: 150px;
+    height: 150px;
+  }
+  .middle {
+    background-image: url("/uploads/160101/faceeuro.png");
+    width: 150px;
+    height: 150px;
+    transform: translateZ(1px);
+    position: absolute;
+    top: 0;
+  }
+  .front {
+    background-image: url("/uploads/160101/faceeuro.png");
+    height: 150px;
+    position: absolute;
+    top: 0;
+    transform: translateZ(10px);
+    width: 150px;
+  }
+  @keyframes spin {
+    0% {
+      transform: rotateY(0deg);
+    }
+    100% {
+      transform: rotateY(360deg);
+    }
+  }
+```
+
+## CSS 实现垂直居中
 
 - 定位 + 负边距
 - display: flex 弹性布局
@@ -508,7 +714,7 @@ HTML代码如下：
 </div>
 ```
 
-- 方法一：通过定位的方式，中间一列通过`margin: auto`实现自适应
+- 方法一：通过定位的方式，中间一列通过 `margin: auto` 实现自适应
 
   CSS样式：
 
