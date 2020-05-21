@@ -17,7 +17,7 @@
 ```js
 规范的 9.8 节中定义了抽象操作 ToString ，它负责处理非字符串到字符串的强制类型转换。
 
-（1）Null 和 Undefined 类型 ，null 转换为 "null"，undefined 转换为 "undefined"，
+（1）null 和 undefined 类型 ，null 转换为 "null"，undefined 转换为 "undefined"，
 
 （2）Boolean 类型，true 转换为 "true"，false 转换为 "false"。
 
@@ -47,8 +47,8 @@
 
 （6）对象（包括数组）会首先被转换为相应的基本类型值，如果返回的是非数字的基本类型值，则再遵循以上规则将其强制转换为数字。
 
-为了将值转换为相应的基本类型值，抽象操作 ToPrimitive 会首先（通过内部操作 DefaultValue）检查该值是否有valueOf() 方法。如果有并且返回基本类型值，就使用该值进行强制类型转换。如果没有就使用 toString() 的返回值（如果存在）来进行强制类型转换。
-
+为了将值转换为相应的基本类型值，抽象操作 ToPrimitive 会首先（通过内部操作 DefaultValue）检查该值是否有valueOf() 方法。
+如果有并且返回基本类型值，就使用该值进行强制类型转换。如果没有就使用 toString() 的返回值（如果存在）来进行强制类型转换。
 如果 valueOf() 和 toString() 均不返回基本类型值，会产生 TypeError 错误。
 ```
 
