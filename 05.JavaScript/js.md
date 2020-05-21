@@ -675,9 +675,8 @@ Plugins（插件）可以用于执行范围更广的任务，包括打包、优�
 ## webpack 常用插件
 
 - html-webpack-plugin
-
-  ```js
-  用于生成一个html文件，并将最终生成的js，css以及一些静态资源文件以script和link的形式动态插入其中
-  ```
+  > 用于生成一个html文件，并将最终生成的js，css以及一些静态资源文件以script和link的形式动态插入其中
 
 - webpack-dev-server
+- CommonsChunkPlugin
+  > 主要是用来提取第三方库（如jQuery）和公共模块(公共js，css都可以)，常用于多页面应用程序，生成公共 chunk，避免重复引用。
