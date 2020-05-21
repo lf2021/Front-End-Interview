@@ -533,7 +533,7 @@ Reflect.ownKeys(Point.prototype)
 // [ 'constructor', 'foo', Symbol(bar) ]
 ```
 
-#### 私有属性的提案
+### 私有属性的提案
 
 目前，有一个提案，为 class 加了私有属性。方法是在属性名之前，使用#表示。
 
