@@ -678,5 +678,7 @@ Plugins（插件）可以用于执行范围更广的任务，包括打包、优�
   > 用于生成一个html文件，并将最终生成的js，css以及一些静态资源文件以script和link的形式动态插入其中
 
 - webpack-dev-server
+  > 用于实时的打包编译
+  > 打包好的 main.js 是托管到了内存中，所以在项目根目录中看不到，但是我们可以认为在项目的根目录中，有一个看不见的 main.js
 - CommonsChunkPlugin
   > 主要是用来提取第三方库（如jQuery）和公共模块(公共js，css都可以)，常用于多页面应用程序，生成公共 chunk，避免重复引用。
