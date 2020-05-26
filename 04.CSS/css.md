@@ -511,6 +511,39 @@ p:after {
 
 7. 通过 transform:scale(0,0)来将元素缩放为 0，以此来实现元素的隐藏。这种方法下，元素仍在页面中占据位置，但是不会响应绑定的监听事件。
 
+## CSS3 @font-face 有用过吗
+
+@font-face 语句是 css 中的一个功能模块，用于实现网页字体多样性(设计者可随意指定字体，不需要考虑浏览者电脑上是否安装)。
+语法：
+
+- 字体的名称
+- 字体文件包含在您的服务器上的某个地方，如果字体文件是在不同的位置，请使用完整的 URL 比如：url('http://www.w3cschool.css/css3/Sansation_Light.ttf')
+
+```css
+@font-face {
+  font-family: myFirstFont;
+  src: url('Sansation_Light.ttf'),
+      url('Sansation_Light.eot'); /* IE9 */
+}
+```
+
+## CSS 实现隔行变色
+
+```css
+/* 方法一 */
+li:nth-child(odd) {background:#ff0000;}
+li:nth-child(even) {background:#0000ff;}
+
+/* 方法二 */
+li:nth-of-type(odd) { background:#00ccff;} /* 奇数行 */
+li:nth-of-type(even) { background:#ffcc00;} /* 偶数行 */
+```
+
+注意：nth-child() 和 nth-of-type() 的区别
+
+- nth-child() 就是根据元素的个数来计算的
+- nth-of-type() 是根据类型来计算的，也就是 `li:nth-of-type(2)` 表示的是第 2 个 li 标签
+
 ## 一个满屏品字布局如何设计
 
 ```css
