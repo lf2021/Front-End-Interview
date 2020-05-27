@@ -307,6 +307,31 @@ Object.defineProperty(obj, prop, descriptor)
 4. 服务器代理
    内部服务器代理请求跨域 url，然后返回数据
 
+## JSONP 怎么实现的
+
+举个例子来说明具体情况：
+
+前端代码
+
+```js
+<script>
+function test(data) {
+    console.log(data.name);
+}
+</script>
+<script src="http://127.0.0.1:8088/jsonp?callback=test"></script>
+```
+
+后端代码
+
+```js
+res.end('test({"name": "Monkey"})');
+```
+
+以上就实现了JSONP跨域，前端正常打印出了"Monkey"
+
+请求JSONP之前就定义好回调函数test，后端返回的是调用test函数的js代码，浏览器加载这段代码后立即执行
+
 ## JOSNP 有什么优缺点
 
 缺点：
