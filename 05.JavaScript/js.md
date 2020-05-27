@@ -1,5 +1,65 @@
 # JavaScript
 
+- [JavaScript](#javascript)
+  - [js 基本数据类型](#js-基本数据类型)
+  - [null 和 undefined 的区别](#null-和-undefined-的区别)
+  - [其他值到字符串的转换规则](#其他值到字符串的转换规则)
+  - [其他值到数字值的转换规则](#其他值到数字值的转换规则)
+  - [其他值到布尔类型的值的转换规则](#其他值到布尔类型的值的转换规则)
+  - [{} 和 [] 的 valueOf 和 toString 的结果是什么](#-和--的-valueof-和-tostring-的结果是什么)
+  - [什么情况下会发生布尔值的隐式强制类型转换](#什么情况下会发生布尔值的隐式强制类型转换)
+  - [|| 和 && 操作符的返回值](#-和--操作符的返回值)
+  - [== 操作符的强制类型转换规则](#-操作符的强制类型转换规则)
+  - [如何将字符串转化为数字，例如 '12.3b'](#如何将字符串转化为数字例如-123b)
+  - [JavaScript 继承的几种实现方式](#javascript-继承的几种实现方式)
+  - [eval 是做什么的](#eval-是做什么的)
+  - [三种事件模型是什么](#三种事件模型是什么)
+  - [如何阻止事件冒泡](#如何阻止事件冒泡)
+  - [如何阻止事件默认行为](#如何阻止事件默认行为)
+  - [事件代理/事件委托 以及 优缺点](#事件代理事件委托-以及-优缺点)
+  - [js 原型，原型链以及特点](#js-原型原型链以及特点)
+  - [instanceof 的作用](#instanceof-的作用)
+  - [Object.defineProperty 用法](#objectdefineproperty-用法)
+  - [使用 Object.defineProperty() 来进行数据劫持有什么缺点](#使用-objectdefineproperty-来进行数据劫持有什么缺点)
+  - [js 延迟加载的方式有哪些](#js-延迟加载的方式有哪些)
+  - [js 脚本 defer 和 async 的区别](#js-脚本-defer-和-async-的区别)
+  - [Event Loop 事件循环](#event-loop-事件循环)
+  - [JS 跨域怎么做](#js-跨域怎么做)
+  - [JSONP 怎么实现的](#jsonp-怎么实现的)
+  - [JOSNP 有什么优缺点](#josnp-有什么优缺点)
+  - [new 运算符的过程](#new-运算符的过程)
+  - [数组的 push() 和 pop() 方法的返回值是什么](#数组的-push-和-pop-方法的返回值是什么)
+  - [JS 作用域](#js-作用域)
+  - [let 和 var 的区别](#let-和-var-的区别)
+  - [闭包的特性以及优缺点](#闭包的特性以及优缺点)
+  - [箭头函数与普通函数的区别](#箭头函数与普通函数的区别)
+  - [ES6 中箭头函数 VS 普通函数的 this 指向](#es6-中箭头函数-vs-普通函数的-this-指向)
+  - [JS 实现对象（都是简单类型的值）的深拷贝，一行代码](#js-实现对象都是简单类型的值的深拷贝一行代码)
+  - [JSON.parse(JSON.stringify(obj)) 实现深拷贝需要注意的问题](#jsonparsejsonstringifyobj-实现深拷贝需要注意的问题)
+  - [Class 如何定义私有属性和私有方法](#class-如何定义私有属性和私有方法)
+    - [现有方案](#现有方案)
+    - [私有属性的提案](#私有属性的提案)
+  - [Promise 是做什么的，有哪些API](#promise-是做什么的有哪些api)
+    - [Promise用法](#promise用法)
+    - [Promise.prototype.then()](#promiseprototypethen)
+    - [Promise.prototype.catch()](#promiseprototypecatch)
+    - [Promise.all()](#promiseall)
+    - [Promise.race()](#promiserace)
+    - [Promise.resolve()](#promiseresolve)
+    - [Promise.reject()](#promisereject)
+  - [Ajax 基本流程](#ajax-基本流程)
+  - [Ajax 的 readyState 的几种状态分别代表什么](#ajax-的-readystate-的几种状态分别代表什么)
+  - [Ajax 禁用浏览器的缓存功能](#ajax-禁用浏览器的缓存功能)
+  - [谈谈对前端工程化的理解](#谈谈对前端工程化的理解)
+    - [模块化](#模块化)
+    - [组件化](#组件化)
+    - [规范化](#规范化)
+    - [自动化](#自动化)
+  - [js 的几种模块规范](#js-的几种模块规范)
+  - [ES6 模块与 CommonJS 模块、AMD、CMD 的差异](#es6-模块与-commonjs-模块amdcmd-的差异)
+  - [webpack 的功能](#webpack-的功能)
+  - [webpack 常用插件](#webpack-常用插件)
+
 ## js 基本数据类型
 
 > js 一共有六种基本数据类型，分别是 Undefined、Null、Boolean、Number、String，还有在 ES6 中新增的 Symbol 类型，代表创建后独一无二且不可变的数据类型，它的出现我认为主要是为了解决可能出现的全局变量冲突的问题。
@@ -652,11 +712,111 @@ class Foo {
 }
 ```
 
-## Promise.prototype.then()方法的返回值
+## Promise 是做什么的，有哪些API
+
+> Promise 是异步编程的一种解决方案
+
+### Promise用法
+
+> Promise构造函数接受一个函数作为参数，该函数的两个参数分别是resolve和reject。它们是两个函数，由 JavaScript 引擎提供，不用自己部署。
+>
+> resolve函数的作用是，将Promise对象的状态从“未完成”变为“成功”（即从 pending 变为 resolved），在异步操作成功时调用，并将异步操作的结果，作为参数传递出去；reject函数的作用是，将Promise对象的状态从“未完成”变为“失败”（即从 pending 变为 rejected），在异步操作失败时调用，并将异步操作报出的错误，作为参数传递出去。
+
+```js
+const promise = new Promise(function(resolve, reject) {
+  // ... some code
+
+  if (/* 异步操作成功 */){
+    resolve(value);
+  } else {
+    reject(error);
+  }
+});
+```
+
+### Promise.prototype.then()
 
 > Promise 实例具有 then 方法，也就是说，then 方法是定义在原型对象 Promise.prototype 上的。它的作用是为 Promise 实例添加状态改变时的回调函数。前面说过，then 方法的第一个参数是 resolved 状态的回调函数，第二个参数（可选）是 rejected 状态的回调函数。
 >
-> then 方法返回的是一个新的 Promise 实例（注意，不是原来那个 Promise 实例）。因此可以采用链式写法，即 then 方法后面再调用另一个 then 方法。
+> **then 方法返回的是一个新的 Promise 实例**（注意，不是原来那个 Promise 实例）。因此可以采用链式写法，即 then 方法后面再调用另一个 then 方法。
+
+```js
+getJSON("/posts.json").then(function(json) {
+  return json.post;
+}).then(function(post) {
+  // ...
+});
+```
+
+### Promise.prototype.catch()
+
+> Promise.prototype.catch()方法是.then(null, rejection)或.then(undefined, rejection)的别名，用于指定发生错误时的回调函数。
+
+```js
+getJSON('/posts.json').then(function(posts) {
+  // ...
+}).catch(function(error) {
+  // 处理 getJSON 和 前一个回调函数运行时发生的错误
+  console.log('发生错误！', error);
+});
+```
+
+> 上面代码中，getJSON()方法返回一个 Promise 对象，如果该对象状态变为resolved，则会调用then()方法指定的回调函数；如果异步操作抛出错误，状态就会变为rejected，就会调用catch()方法指定的回调函数，处理这个错误。另外，then()方法指定的回调函数，如果运行中抛出错误，也会被catch()方法捕获。
+
+### Promise.all()
+
+> Promise.all()方法用于将多个 Promise 实例，包装成一个新的 Promise 实例。
+
+```js
+const p = Promise.all([p1, p2, p3]);
+```
+
+> 上面代码中，Promise.all()方法接受一个数组作为参数，p1、p2、p3都是 Promise 实例，如果不是，就会先调用下面讲到的Promise.resolve方法，将参数转为 Promise 实例，再进一步处理。另外，Promise.all()方法的参数可以不是数组，但必须具有 Iterator 接口，且返回的每个成员都是 Promise 实例。
+>
+> p的状态由p1、p2、p3决定，分成两种情况:
+>
+>（1）只有p1、p2、p3的状态都变成fulfilled，p的状态才会变成fulfilled，此时p1、p2、p3的返回值组成一个数组，传递给p的回调函数。
+>
+>（2）只要p1、p2、p3之中有一个被rejected，p的状态就变成rejected，此时第一个被reject的实例的返回值，会传递给p的回调函数。
+
+### Promise.race()
+
+> Promise.race()方法同样是将多个 Promise 实例，包装成一个新的 Promise 实例。
+
+```js
+const p = Promise.race([p1, p2, p3]);
+```
+
+> 上面代码中，只要p1、p2、p3之中有一个实例率先改变状态，p的状态就跟着改变。那个率先改变的 Promise 实例的返回值，就传递给p的回调函数。
+
+### Promise.resolve()
+
+> 有时需要将现有对象转为 Promise 对象，Promise.resolve()方法就起到这个作用。
+>
+> Promise.resolve()等价于下面的写法。
+
+```js
+Promise.resolve('foo')
+// 等价于
+new Promise(resolve => resolve('foo'))
+```
+
+### Promise.reject()
+
+> Promise.reject(reason)方法也会返回一个新的 Promise 实例，该实例的状态为rejected。
+
+```js
+const p = Promise.reject('出错了');
+// 等同于
+const p = new Promise((resolve, reject) => reject('出错了'))
+
+p.then(null, function (s) {
+  console.log(s)
+});
+// 出错了
+```
+
+> 上面代码生成一个 Promise 对象的实例p，状态为rejected，回调函数会立即执行。
 
 ## Ajax 基本流程
 
@@ -695,6 +855,35 @@ Ajax 即“Asynchronous Javascript And XML”（异步 JavaScript 和 XML），�
 3. 在 URL 后面加上一个随机数： `"fresh=" + Math.random()`;。
 4. 在 URL 后面加上时间搓：`"nowtime=" + new Date().getTime()`;。
 5. 如果是使用 jQuery，直接这样就可以了`$.ajaxSetup({cache:false})`。这样页面的所有 ajax 都会执行这条语句就是不需要保存缓存记录。
+
+## 谈谈对前端工程化的理解
+
+> 前端工程化里的工程是一个很大的概念，甚至创建一个git仓库，也可以理解为创建了一个工程，软件工程的定义是运用计算机科学的理论和技术，以及工程管理的原则和方法，按进度和预算，实现满足用户要求的软件产品的定义，开发和维护的工程以及研究的学科。
+
+**前端工程化是为了让前端可以自成体系，具体可以从四方面去讨论，模块化，组件化，规范化和自动化。**
+
+### 模块化
+
+> 模块化：将大的文件拆分成互相依赖的小文件，再进行统一的拼装和加载。
+>
+> js的模块化：利用webpack+babel的模式将所有模块系统进行打包，同步加载，也可以搭乘多个chunk异步加载。
+>
+> css模块化：之前的sass less 等预处理器虽然实现了css的拆分，但是并没有解决模块化很重要的一个问题，即选择器的全局污染问题。有三种解决办法，第一种是利用webcomponents的技术实现，这个技术虽然解决了全局污染问题，但是由于兼容性问题，目前用的不多，第二种是css in js 将css的技术全部摒，利用js或者json格式去加载css，这种方式简单粗暴，并且不容易处理伪类选择器的问题，被大众所认可的是第三种解决方案，即 css modules ，所有的css文件由js来管理，这种技术最大程度利用了css的生态和模块化的原则，其中vue中的scoped 就是这种技术的提现。利用浏览器的script标签，type类型选modules类型即可。
+>
+> 资源的模块化：webpack的成功不仅仅是因为将js系统进行模块化处理，而是它的模块化原理，即任何资源都可以模块
+化且应该模块化处理，优点有以下三点，1：目录结构清晰化，2：资源处理集成化，3：项目依赖单一化。
+
+### 组件化
+
+> 组件化：将UI页面拆分正有模板+样式+逻辑组成的功能单元，称为组件，组件化不等于模块化，模块化是在资源和代码方面对文件的拆分，而组件化是在UI层面进行的拆分。传统前端框架的思想是以dom优先，先操作dom，再写出可复用的逻辑单元来操作dom，而组件化框架是组件优先，将dom和与之一起的逻辑组成一个组件，再进行引用。我们封装了组件后，还需要对组件间的关系进行判定，例如继承，扩展，嵌套，包含等，这些关系统称为依赖
+
+### 规范化
+
+> 规范化：规范化是前端工程化很重要的一部分，项目前期规范制定的好坏，直接决定后期的开发质量，分为项目目录规范化，编码规范化，前后端接口规范化，git分支管理，commit描述规范，组件管理等编码规范化分为htmlcss js img 命名规范这几类 接口规范，目的是规则先行，以减少联调中不必要的问题和麻烦，自责划分 前端，渲染逻辑和交互逻辑，后台，处理业务逻辑，各种格式的规定，例如 json尽量简洁轻量，日期尽量字符串，等等。
+
+### 自动化
+
+> 自动化：让简单重复的工作交给机器完成，例如自动化测试，自动化部署，自动化构建，持续继承等。
 
 ## js 的几种模块规范
 

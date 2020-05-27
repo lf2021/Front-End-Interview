@@ -189,3 +189,21 @@ rem 是（根）字体大小相对单位，也就是说跟当前元素的 font-s
 3. 调用一些 js 库，比如 FastClick
 
     > FastClick 是 FT Labs 专门为解决移动端浏览器 300 毫秒点击延迟问题所开发的一个轻量级的库。FastClick 的实现原理是在检测到 touchend 事件的时候，会通过 DOM 自定义事件立即出发模拟一个 click 事件，并把浏览器在 300ms 之后的 click 事件阻止掉。
+
+## Vue 和 React 数据驱动的区别
+
+在数据绑定上来说，vue的特色是双向数据绑定，而在react中是单向数据绑定。
+
+vue中实现数据绑定靠的是数据劫持（Object.defineProperty()）+发布-订阅模式
+
+vue中实现双向绑定
+
+```html
+<input v-model="msg" />
+```
+
+react中实现双向绑定
+
+```html
+<input value={this.state.msg} onChange={() => this.handleInputChange()} />
+```
