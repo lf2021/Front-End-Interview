@@ -47,6 +47,7 @@
     - [Promise.race()](#promiserace)
     - [Promise.resolve()](#promiseresolve)
     - [Promise.reject()](#promisereject)
+  - [Promise不兼容怎么解决](#promise不兼容怎么解决)
   - [Ajax 基本流程](#ajax-基本流程)
   - [Ajax 的 readyState 的几种状态分别代表什么](#ajax-的-readystate-的几种状态分别代表什么)
   - [Ajax 禁用浏览器的缓存功能](#ajax-禁用浏览器的缓存功能)
@@ -817,6 +818,14 @@ p.then(null, function (s) {
 ```
 
 > 上面代码生成一个 Promise 对象的实例p，状态为rejected，回调函数会立即执行。
+
+## Promise不兼容怎么解决
+
+用一些第三方的库来解决兼容性问题：
+
+1. babel-polyfill
+2. ES6-Promise
+3. bluebird
 
 ## Ajax 基本流程
 
