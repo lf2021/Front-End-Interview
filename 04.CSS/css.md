@@ -200,8 +200,11 @@ relative
 static
 默认值。没有定位，元素出现在正常的流中（忽略top,bottom,left,right,z-index声明）。
 
-inherit
-规定从父元素继承position属性的值。
+sticky
+元素根据正常文档流进行定位，然后相对它的最近滚动祖先（nearest scrolling ancestor）和 containing block (最近块级祖先 nearest block-level ancestor)，
+包括table-related元素，基于top, right, bottom, 和 left的值进行偏移。偏移值不会影响任何其他元素的位置。
+该值总是创建一个新的层叠上下文（stacking context）。注意，一个sticky元素会“固定”在离它最近的一个拥有“滚动机制”的祖先上（当该祖先的overflow 是 hidden, scroll, auto, 或 overlay时），
+即便这个祖先不是真的滚动祖先。这个阻止了所有“sticky”行为（详情见Github issue on W3C CSSWG）。
 ```
 
 ## display 有哪些值？说明他们的作用
