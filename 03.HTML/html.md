@@ -1,6 +1,9 @@
 # HTML
 
-## 5 的新特性
+- [HTML](#html)
+  - [HTML5 的新特性](#html5-的新特性)
+
+## HTML5 的新特性
 
 [参考链接](https://www.cnblogs.com/ainyi/p/9777841.html)
 

@@ -1,5 +1,21 @@
 # Vue
 
+- [Vue](#vue)
+  - [vue 的优点](#vue-的优点)
+  - [vue 的响应式原理](#vue-的响应式原理)
+  - [vue 双向数据绑定原理](#vue-双向数据绑定原理)
+  - [Object.defineProperty 介绍](#objectdefineproperty-介绍)
+  - [v-if 和 v-show 的区别](#v-if-和-v-show-的区别)
+  - [为什么 vue 组件中的 data 必须是函数](#为什么-vue-组件中的-data-必须是函数)
+  - [vue 的生命周期函数](#vue-的生命周期函数)
+  - [vue 的 activated 和 deactivated 钩子函数](#vue-的-activated-和-deactivated-钩子函数)
+  - [nextTick 用法](#nexttick-用法)
+  - [移动端适配的方法](#移动端适配的方法)
+  - [rem 原理](#rem-原理)
+  - [rem 和 em 的区别](#rem-和-em-的区别)
+  - [移动端 300ms 延迟的原因以及解决方案](#移动端-300ms-延迟的原因以及解决方案)
+  - [Vue 和 React 数据驱动的区别](#vue-和-react-数据驱动的区别)
+
 ## vue 的优点
 
 - 轻量级框架
