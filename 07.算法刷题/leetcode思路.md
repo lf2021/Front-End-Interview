@@ -25,6 +25,28 @@ arr = ['', '', '']
 answer = "lcetoeed"
 ```
 
+代码：
+
+```js
+var convert = function(s, numRows) {
+  if(numRows===1)return s;
+  const arr = [];
+  for(let i=0;i<numRows;i++){
+    arr[i]=''
+  }
+  let pos = 0;
+  let down = false;
+  for(let item of s){
+    arr[pos]+=item;
+    if(pos===0||pos===numRows-1){
+      down=!down
+    }
+    pos+=down?1:-1;
+  }
+  return arr.join('')
+};
+```
+
 ## 9. 回文数
 
 ```txt
@@ -48,6 +70,23 @@ answer = "lcetoeed"
   reverse = x （是回文数）
 ```
 
+代码：
+
+```js
+var isPalindrome = function(x) {
+    if(x<0||x!==0&&x%10==0)return false;
+    else if(x<=9)return true
+    else{
+        var reverse = 0;
+        while(x>reverse){
+            reverse=reverse*10+x%10;
+            x=parseInt(x/10)
+        }
+        return reverse===x||parseInt(reverse/10)===x
+    }  
+};
+```
+
 ## 11. 盛最多水的容器
 
 ```txt
@@ -55,4 +94,114 @@ answer = "lcetoeed"
 res = (right-left) * Math.max(height[left],height[right])
 当左右指针移动时，res变大只有一种情况，那就是left和right指针对应的数中小的那个数移动了之后变大了。
 也就时长方形的宽度在减小，要想使面积变大，必须使得高度变大。
+```
+
+代码：
+
+```js
+var maxArea = function(height) {
+  var left=0, right=height.length-1;
+  var max = 0;
+  while(left<right){
+    max = Math.max(max, [right-left]*Math.min(height[left], height[right]));
+    if(height[left]<height[right]){
+      left++
+    }else{
+      right--
+    }
+  }
+  return max
+};
+```
+
+## 121. 买卖股票的最佳时
+
+```txt
+暴力法，不断比较该值后面所有的元素，依此更新最大值，返回最大值；暴力法的优化，可以只比较现在值之前的最小值，以省去内层循环；
+
+动态规划，k=1，题意规定只能完成一笔交易，简化的(优化存储空间的)状态转移方程为 dp_i_0 = Math.max(dp_i_0, dp_i_1 + prices[i]); 和 dp_i_1 = Math.max(dp_i_1, -prices[i]);
+```
+
+## 122. 买卖股票的最佳时机 II
+
+```txt
+动态规划和上题一致，只不过k=+infinity。简化的(优化存储空间的)状态转移方程为
+int temp=dp_i_0;  dp_i_0 = Math.max(dp_i_0, dp_i_1 + prices[i]);和 dp_i_1 = Math.max(dp_i_1, temp-prices[i]);
+```
+
+## 167. 两数之和 II - 输入有序数组
+
+```txt
+两遍hashMap；
+
+双指针，lo从数组中元素最小的位置开始，hi从最大。两个指针位置上的数相加，小于目标，lo++，大于则hi--，相等时返回lo+1和hi+1
+```
+
+## 189. 旋转数组
+
+```txt
+方法一:
+使用System.arraycopy进行数组复制。分两部分，一部分是<=k的，一部分是>k。k等于0或数组长度时，直接返回和；k大于数组长度时，k=k%数组长度 
+
+方法二:
+使用环状替换。每次跳k个元素进行操作 
+
+方法三:
+使用反转。首先将所有元素反转。然后反转前 k 个元素，再反转后面 n−k个元素，就能得到想要的结果。
+反转的操作：起始位置start,终止位置end，当start < end时，交换两个位置上的元素，start++,end--,重复
+```
+
+## 217. 存在重复元素
+
+```txt
+方法一:
+使用队列。先对数组排序，然后利用队列的先进先出，不断对比当前元素和上一个元素是否相等
+
+方法二:
+用哈希表。HashSet(底层是HashMap)，可以null,不保证顺序存储，LinkedHashSet和TreeSet有序
+```
+
+## 219. 存在重复元素 II
+
+```txt
+利用散结构HashSet。
+
+注意点：
+由于两个索引之多相差k，于是当hashset.size()>k时就删除旧内容
+```
+
+## 242. 有效的字母异位词
+
+```txt
+方法一:
+先排序，再对比即可，用Arrays.equals(),或者循环逐个对比。
+
+方法二:
+哈希表，用一个长度为26的数组来作计数器，第一个字符串s生成的字符数组遍历，计数器对应加1，counter[s.charAt(i) - 'a']++;另一个字符串t生成的字符数组遍历，计数器减1，counter[t.charAt(i) - 'a']--;。当最后计数器中含有不为0的元素，说明两个字符数组不一样，即两个字符串不一样。
+```
+
+## 268. 缺失数字
+
+```txt
+方法一:
+排序后操作 O(nlog⁡n)
+
+方法二:
+哈希表，时间复杂度 O(n)
+
+方法三:
+位运算,进行两次完全相同的异或运算会得到原来的数，因此我们可以通过异或运算找到缺失的数字。时间复杂度 O(n)
+
+方法四:
+数学方法。时间复杂度同上。直接高斯求和0~n，然后将数组所有数求和，相减就得到了缺少的数字了
+```
+
+## 283. 移动零
+
+```txt
+方法一:
+双指针，定义两个指针i,j，然后遍历数组，i跟j同时往前走，当遇到0时j停下，i继续往前走。当nums[i]不为0时则将num[i]的元素赋给j的位置，j++,nums[i]被赋值为0。
+
+方法二:
+覆盖的写法，先将不为0的数往前放，next表示索引，当所有不为0的都遍历后，我们把next~len之间的数组元素全设为0。
 ```
