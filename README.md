@@ -43,7 +43,7 @@ GitHub 由于服务器原因，图片可能显示不了，如需要显示图片�
 
 ## 友情链接，欢迎交流
 
-|博客园|Gitee链接|牛客链接|个人博客|微信|QQ|
+|博客园|Gitee链接|牛客链接|个人博客|微信 |QQ|
 |---|---|---|---|---|---|
 |[博客园](https://www.cnblogs.com/muzidaitou)|[Gitee链接](https://gitee.com/lee_van)|[牛客链接](https://www.nowcoder.com/profile/549508843)|[个人博客](https://lf2021.github.io/)|[微信](./images/vx.jpg)|[QQ](./images/qq.jpg)|
 
