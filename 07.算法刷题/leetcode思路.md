@@ -157,6 +157,192 @@ map = {
 然后对给定的罗马字符进行遍历，每次需要判断一下：
 连续两个字符在对象是否存在，存在就用这连续两个字符的值；不存在就用当前遍历的字符的值
 
+## 14. 最长公共前缀
+
+```js
+/**
+ * @param {string[]} strs
+ * @return {string}
+ */
+var longestCommonPrefix = function(strs) {
+    if(!strs.length)return ''
+    var ans = strs[0];
+    for(let i=1; i<strs.length; i++){
+        let j=0;
+        for(;j<ans.length && j<strs[i].length;j++){
+            if(ans[j] !== strs[i][j]){
+                break
+            }
+        }
+        ans = ans.slice(0, j);
+    }
+    return ans
+};
+```
+
+```txt
+先拿出第一个字符串first，再遍历剩余的字符串，每一次遍历：
+对每一个字符串str判断的与first公共前缀的字符串，遍完将将first重新赋值为公共前缀，再
+再遍历下一个字符串，最后得到的first就是所有字符串的公共前缀
+
+举例： strs = ["flower","flow","flight"]
+
+first = "flower"
+遍历剩余的字符串：
+    遍历第一次：
+        str = "flow", 判断此时与first相同的前缀  first = "flow"
+    遍历第二次：
+        str = "flight"，判断此时与first相同的前缀  first = "fl"
+遍历结束，公共前缀就是first
+```
+
+## 15. 三数之和
+
+```js
+/**
+ * @param {number[]} nums
+ * @return {number[][]}
+ */
+var threeSum = function(nums) {
+    var ans = [];
+    nums.sort((a,b) => a-b);
+    for(let i=0; i<nums.length-2; i++){
+        if(nums[i]>0)break;
+        if(nums[i]===nums[i-1])continue // 去重
+        var L=i+1,R=nums.length-1;
+        while(L<R){
+            var sum=nums[i]+nums[L]+nums[R];
+            if(sum===0){
+                ans.push([nums[i],nums[L],nums[R]]);
+                while(L<R&&nums[L]===nums[L+1]){L++} // 去重
+                while(L<R&&nums[R]===nums[R-1]){R--} // 去重
+                L++;
+                R--;
+            }else if(sum>0){
+                R--;
+            }else{
+                L++;
+            }
+        }
+    }
+    return ans;
+};
+```
+
+```txt
+首先对数组进行排序，排序后固定一个数 nums[i]nums[i]，再使用左右指针指向 nums[i]nums[i]后面的两端，数字分别为 nums[L]nums[L] 和 nums[R]nums[R]，计算三个数的和 sumsum 判断是否满足为 00，满足则添加进结果集
+如果 nums[i]nums[i]大于 00，则三数之和必然无法等于 00，结束循环
+如果 nums[i]nums[i] == nums[i-1]nums[i−1]，则说明该数字重复，会导致结果重复，所以应该跳过
+当 sumsum == 00 时，nums[L]nums[L] == nums[L+1]nums[L+1] 则会导致结果重复，应该跳过，L++L++
+当 sumsum == 00 时，nums[R]nums[R] == nums[R-1]nums[R−1] 则会导致结果重复，应该跳过，R--R−−
+时间复杂度：O(n^2)
+```
+
+## 16. 最接近的三数之和
+
+```txt
+思路一：复杂度O(N^3)
+三层循环，将三个数相加，和与target求差的绝对值最小的时候，返回这三个数的和
+
+思路二：复杂度 O(N^2)
+先对nums进行排序，然后对nums做一层遍历，当前遍历元素nums[i]，用两个指针L，R分别为 i+1 和 nums.length-1，求和 sum=nums[i]+nums[L]+nums[R]，初始化ans（到target距离最小的和）为前三位加起来的和，判断：
+1. 若sum 到 target 的距离比 ans 到 target 的距离小，则更新ans为sum
+2. 若sum < target, L++
+3. 若sum > target, R--
+4. 若sum = target, 返回sum
+```
+
+```js
+// 思路一：
+var threeSumClosest = function(nums, target) {
+  var min = Infinity;
+  var ans;
+  for(let i=0;i<nums.length;i++){
+    for(let j=i+1;j<nums.length;j++){
+      for(let k=j+1;k<nums.length;k++){
+        var sum = nums[i]+nums[j]+nums[k];
+        if(min > Math.abs(sum-target)){
+          min = Math.abs(sum - target)
+          ans = sum;
+        }
+      }
+    }
+  }
+  return ans
+};
+// 思路二：
+var threeSumClosest = function(nums, target) {
+  var res=nums[0]+nums[1]+nums[2], min=Infinity;
+  nums.sort((a,b)=>a-b);
+  for(let i=0;i<nums.length-2;i++){
+    var L=i+1, R=nums.length-1;
+    while(L<R){
+      var sum = nums[i]+nums[L]+nums[R];
+      if(Math.abs(sum-target) < Math.abs(res-target)){
+        res = sum;
+      } else if(sum < target){
+        L++
+      } else if(sum > target){
+        R--
+      } else if(sum === target){
+        return sum
+      }
+    }
+  }
+  return res;
+};
+```
+
+## 17. 电话号码的字母组合
+
+```txt
+首先用一个对象保存所有可能的情况
+遍历digits，拿到对应的字母
+res为空数组的时候初始化第一个按键产生的字母
+到了第二个以后的按键只用现有res中取到所有现有字母组合并和此按键的元素拼接字符串即可
+
+举例：digits='23'
+初始化res = []
+遍历digits第一次：
+  res = ['a', 'b', 'c']
+遍历digits第二次：得到字母 'def'
+  对 'def' 从第二个（索引为1）进行遍历，tmp = ['ae', 'af', 'be', 'bf', 'ce', 'cf']
+  将res的每一项添加 'def' 的第一项，即 res = ['ad', 'bd', 'cd']
+  然后将 tmp 的每一项添加到 res 中，得到最终的结果 ["ad", "ae", "af", "bd", "be", "bf", "cd", "ce", "cf"]
+```
+
+```js
+var letterCombinations = function(digits) {
+  const map = {
+      2: "abc",
+      3: "def",
+      4: "ghi",
+      5: "jkl",
+      6: "mno",
+      7: "pqrs",
+      8: "tuv",
+      9: "wxyz"
+  };
+  const res = [];
+  for(let num of digits){
+    let w = map[num];
+    if(res.length!==0){
+      let tmp = [];
+      for(let i=0;i<res.length;i++){
+        for(let j=1;j<w.length;j++){
+          tmp.push(res[i]+w[j]);
+        }
+        res[i]+=w[0];
+      }
+      res.push(...tmp);
+    }else{
+      res.push(...w)
+    }
+  }
+  return res;
+};
+```
+
 ## 56. 合并区间
 
 ```txt
