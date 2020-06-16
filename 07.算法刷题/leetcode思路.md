@@ -343,6 +343,43 @@ var letterCombinations = function(digits) {
 };
 ```
 
+## 20. 有效的括号
+
+```txt
+字符串的长度为奇数肯定是false
+对字符串遍历，碰到左括号 '[({' 就压入栈中，碰到右括号 '])}' ，将栈顶元素弹出，与当前遍历字符判断一下是不是一对括号，不是返回false
+遍历结束后判断一下栈中是否还有元素，有则是false，没有则是true
+```
+
+```js
+/**
+ * @param {string} s
+ * @return {boolean}
+ */
+var isValid = function(s) {
+  if(s.length % 2 === 1) return false
+  var stack = [];
+  var map = {
+    ")": "(",
+    "}": "{",
+    "]": "["
+  };
+  for(let i=0; i<s.length; i++) {
+    var str = s[i];
+    if(str==='('||str==='{'||str==="["){
+      stack.push(str);
+    }else{
+      
+      if(stack.pop() !== map[str]) {
+        return false
+      }
+    }
+  }
+  if(stack.length!==0)return false
+  return true
+};
+```
+
 ## 56. 合并区间
 
 ```txt
