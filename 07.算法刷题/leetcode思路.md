@@ -368,15 +368,62 @@ var isValid = function(s) {
     var str = s[i];
     if(str==='('||str==='{'||str==="["){
       stack.push(str);
-    }else{
-      
-      if(stack.pop() !== map[str]) {
+    } else {
+      if (stack.pop() !== map[str]) {
         return false
       }
     }
   }
-  if(stack.length!==0)return false
+  if (stack.length !== 0) return false
   return true
+};
+```
+
+## 21. 合并两个有序链表
+
+```txt
+创建一个辅助头节点head，用指针p指向head，
+用两个指针p1 p2 分别指向l1 l2 ，当p1和p2都存在的时候，判断一下p1.val和p2.val的大小：
+ p1.val < p2.val. => p.next = p1
+ 否则 p.next = p2
+p1 p2只要有一个为空，就结束循环，看一下p1 p2谁还存在:
+ p1存在：p.next = p1
+ p2存在：p.next = p2
+最后返回head.next，也就是辅助头节点的下一个节点
+```
+
+```js
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} l1
+ * @param {ListNode} l2
+ * @return {ListNode}
+ */
+var mergeTwoLists = function(l1, l2) {
+    var p1 = l1, p2 = l2;
+    var head = new ListNode(-1); // 辅助头节点
+    var p = head;
+    while(p1 && p2) {
+        var n1 = p1.val;
+        var n2 = p2.val;
+        if(n1 < n2) {
+            p.next = p1;
+            p1 = p1.next;
+        }else {
+            p.next = p2;
+            p2 = p2.next;
+        }
+        p = p.next
+    }
+    if(p1) {p.next = p1}
+    if(p2) {p.next = p2}
+    return head.next
 };
 ```
 
