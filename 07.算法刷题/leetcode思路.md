@@ -343,6 +343,43 @@ var letterCombinations = function(digits) {
 };
 ```
 
+## 19. 删除链表的倒数第N个节点
+
+```txt
+首先先设置一个辅助头结点，让辅助头结点指向给定的head链表，然后用快慢指针low和fast，初始都指向辅助头结点
+先让fast指针走n步，然后fast和low指针同时走，当fast指针走到最后的时候，这个时候的low指针的下一个结点就是我们要删除的。
+```
+
+```js
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val) {
+ *     this.val = val;
+ *     this.next = null;
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @param {number} n
+ * @return {ListNode}
+ */
+var removeNthFromEnd = function(head, n) {
+  var pHead = new ListNode(-1); // 辅助头结点
+  pHead.next = head;
+  var cur = pHead;
+  var pre = pHead;
+  for(let i=0;i<n;i++){
+    cur=cur.next;
+  }
+  while(cur && cur.next){
+    pre = pre.next;
+    cur = cur.next;
+  }
+  pre.next = pre.next.next;
+  return pHead.next;
+};
+```
+
 ## 20. 有效的括号
 
 ```txt
@@ -424,6 +461,27 @@ var mergeTwoLists = function(l1, l2) {
     if(p1) {p.next = p1}
     if(p2) {p.next = p2}
     return head.next
+};
+```
+
+## 26. 删除排序数组中的重复项
+
+```txt
+倒序遍历数组，判断一下当前元素与下一个元素是否相同，如果相同就删除当前元素，遍历结束返回数组的长度
+```
+
+```js
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var removeDuplicates = function(nums) {
+  for(let i=nums.length; i>0; i--) {
+    if(nums[i] === nums[i-1]){
+      nums.splice(i, 1)
+    }
+  }
+  return nums.length;
 };
 ```
 
