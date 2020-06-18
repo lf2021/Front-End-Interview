@@ -485,6 +485,57 @@ var removeDuplicates = function(nums) {
 };
 ```
 
+## 27. 移除元素
+
+```txt
+思路1：
+倒序遍历数组，判断一下当前元素与下一个元素是否相同，如果相同就删除当前元素，遍历结束返回数组的长度
+
+思路2：
+遍历数组nums，遍历指针为i，总长度为ans
+在遍历过程中如果出现数字与需要移除的值不相同时，则i自增1，继续下一次遍历
+如果相同的时候，则将nums[i]用nums[ans-1]覆盖，即当前数字和数组最后一个数字进行交换，交换后就少了一个元素，故而ans自减1
+```
+
+```js
+// 思路1
+var removeElement = function(nums, val) {
+  for(let i=nums.length-1;i>=0;i--) {
+    if(nums[i] === val) {
+      nums.splice(i, 1);
+    }
+  }
+  return nums.length;
+};
+
+// 思路2
+var removeElement = function(nums, val) {
+  var ans = nums.length;
+  for(let i=0;i<ans;){
+    if(val === nums[i]){
+      nums[i] = nums[ans-1]
+      ans--;
+    }else{
+      i++;
+    }
+  }
+  return ans
+};
+```
+
+## 28. 实现 strStr()
+
+```txt
+直接调用indexOf()方法就好了
+```
+
+```js
+var strStr = function(haystack, needle) {
+  if(!needle) return 0;
+  return haystack.indexOf(needle)
+};
+```
+
 ## 56. 合并区间
 
 ```txt
