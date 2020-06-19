@@ -536,6 +536,48 @@ var strStr = function(haystack, needle) {
 };
 ```
 
+## 35. 搜索插入位置
+
+```txt
+思路1：
+暴力遍历
+
+思路2:
+二分法：
+用两个指针left right分别记录左右下标，每次取得左右下标的中位数的下标mid，判断一下中位数与target的大小：
+  若比target小，说明target在mid右边，让left=mid+1;
+  否则的话在mid左边（可能就是mid这个数），让right=mid;
+```
+
+```js
+// 思路1：
+var searchInsert = function(nums, target) {
+    for(let i=0; i<nums.length;i++) {
+        if(nums[i] >= target) {
+            return i;
+        }
+    }
+    return nums.length;
+};
+
+// 思路2:
+var searchInsert = function(nums, target) {
+    var left=0, right=nums.length-1;
+    if(target > nums[right]) {
+        return right+1;
+    }
+    while(left < right) {
+        var mid = (left + right) >>> 1;
+        if(target > nums[mid]) {
+            left = mid + 1;
+        }else {
+            right = mid;
+        }
+    }
+    return left;
+};
+```
+
 ## 56. 合并区间
 
 ```txt
@@ -555,13 +597,33 @@ var strStr = function(haystack, needle) {
 ## 125. 验证回文串
 
 ```txt
+思路1:
 用正则将字符串中所有的非数字字母字符替换成空字符，然后将新的字符全部变成小写，字符翻转判断是否相等。
+
+思路2:
+用正则将字符串中所有的非数字字母字符替换成空字符，然后将新的字符全部变成小写，然后用双指针法判断是否是回文字符。
 ```
 
 ```js
+// 思路1:
 var isPalindrome = function(s) {
-    s = s.replace(/\W/g, '');
-    return s.toLowerCase()===s.split('').reverse().join('').toLowerCase();
+    s = s.replace(/\W/g, '').toLowerCase();
+    return s === s.split('').reverse().join('');
+};
+
+
+// 思路2:
+var isPalindrome = function(s) {
+    let str = s.replace(/[^0-9a-zA-Z]/g, '').toLowerCase();
+    var left = 0, right = str.length-1;
+    while(left < right) {
+        if(str[left] !== str[right]) {
+            return false;
+        }
+        left++;
+        right--;
+    }
+    return true;
 };
 ```
 
