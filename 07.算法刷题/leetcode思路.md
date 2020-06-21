@@ -464,6 +464,34 @@ var mergeTwoLists = function(l1, l2) {
 };
 ```
 
+## 24. 两两交换链表中的节点
+
+```txt
+构建一个哨兵节点0，例如：1->2->3->4
+则：0->1->2->3->4
+让p指向0，pre指向1，cur指向2
+对其做指针指向操作：p指向cur，（pre.next是cur的next），cur指向pre
+对链表做一次遍历即可。
+时间复杂度O(N),空间复杂度O(1)
+```
+
+```js
+var swapPairs = function(head) {
+    let node = new ListNode(-1);
+    node.next = head;
+    let p = node;
+    while(p && p.next && p.next.next) {
+        let pre = p.next;
+        let cur = pre.next;
+        p.next = cur;
+        pre.next = cur.next;
+        cur.next = pre;
+        p = pre;
+    }
+    return node.next;
+};
+```
+
 ## 26. 删除排序数组中的重复项
 
 ```txt
