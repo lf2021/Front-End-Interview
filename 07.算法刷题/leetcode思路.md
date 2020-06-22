@@ -617,6 +617,47 @@ var nextPermutation = function(nums) {
 }
 ```
 
+## 33. 搜索旋转排序数组
+
+```txt
+二分法：
+L指向数组第一个数，R指向数组最后一个数，mid为L和R的中间数，当L<=R的时候，判断：
+  1）若中位数刚好等于target，则返回这个mid
+  2）若中位数比第一个数大，说明[L, mid]这个区间的数是有序的，继续判断：
+    若target在[L, mid]之间，则另R=mid-1
+    否则另L=mid+1
+  3）若中位数比最后一个数小，说明[mid, R]这个区间的数是有序的，继续判断：
+    若target在[mid, R]之间，则另L=mid+1
+    否则另R=mid-1
+循环结束都不满足条件就返回-1
+```
+
+```js
+var search = function(nums, target) {
+    let L = 0, R = nums.length - 1;
+    while (L <= R) {
+        let mid = (L + R) >> 1;
+        if (target === nums[mid]) {
+            return mid;
+        }
+        if (nums[mid] >= nums[L]) { // mid左边是有序的数组
+            if(target >= nums[L] && target <= nums[mid]) { // target在 [L, mid]之间，且有序
+                R = mid - 1;
+            } else { // target不在 [L, mid]之间
+                L = mid + 1;
+            }
+        }else { // mid右边是有序的数组
+            if(target >= nums[mid] && target <= nums[R]) { // target在[mid, R]之间，且有序
+                L = mid + 1;
+            } else { // target不在 (mid, R]之间
+                R = mid - 1;
+            }
+        }
+    }
+    return -1
+};
+```
+
 ## 35. 搜索插入位置
 
 ```txt
