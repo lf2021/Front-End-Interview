@@ -700,11 +700,46 @@ var searchInsert = function(nums, target) {
 };
 ```
 
+## 53. 最大子序和
+
+```txt
+遍历一次，从第一个大于0的数开始，求和并且每一步更新和的最大值，求和过程中如果小于0，则抛弃这个，从后续大于0的数继续。
+```
+
+```js
+var maxSubArray = function(nums) {
+    var maxSum = nums[0];
+    var num = nums[0];
+    for(let i=1; i<nums.length; i++) {
+        if (num < 0) {
+            num = nums[i];
+        }else {
+            num += nums[i];
+        }
+        maxSum = Math.max(maxSum, num);
+    }
+    return maxSum;
+};
+```
+
 ## 56. 合并区间
 
 ```txt
 贪心算法。
 先排序，将二维数组中的一维数组升序；结果放在List<int[]> res中。比较，当前数组cur，前一个数组pre，若cur[0]>pre[1]，则不合并，否则合并(对res中最近放进的数组进行操作：`res.get(res.size()-1)[1]=Math.max(cur[1], res.get(res.size()-1)[1]`)
+```
+
+## 58. 最后一个单词的长度
+
+```txt
+太简单了，去除一下首尾的空格，然后分割一下去最后一个的长度
+```
+
+```js
+var lengthOfLastWord = function(s) {
+    let arr = s.trim().split(" ");
+    return arr[arr.length-1].length;
+};
 ```
 
 ## 75. 颜色分类
