@@ -2,6 +2,31 @@
 
 前300道题目（不包括困难级别题目）思路，仅供参考
 
+## 面试题 02.01. 移除重复节点
+
+```txt
+双指针法，循环右指针即可
+```
+
+```js
+var removeDuplicateNodes = function(head) {
+    if(!head) return null;
+    let left = head, right = left.next;
+    let arr = [left.val];
+    while(right) {
+        if(arr.indexOf(right.val) !== -1) {
+            left.next = right.next;
+        }else {
+            arr.push(right.val);
+            left.next = right;
+            left = left.next;
+        }
+        right = right.next;
+    }
+    return head;
+};
+```
+
 ## 6. Z字形变换
 
 ```txt
@@ -902,4 +927,27 @@ int temp=dp_i_0;  dp_i_0 = Math.max(dp_i_0, dp_i_1 + prices[i]);和 dp_i_1 = Mat
 
 方法二:
 覆盖的写法，先将不为0的数往前放，next表示索引，当所有不为0的都遍历后，我们把next~len之间的数组元素全设为0。
+```
+
+## 876. 链表的中间结点
+
+```txt
+两次遍历，第一次遍历获取单链表的长度，第二次只要遍历到中间即可。
+```
+
+```js
+var middleNode = function(head) {
+    let p = head;
+    let len = 0;
+    while(p) {
+        len++;
+        p = p.next;
+    }
+    len = len % 2 === 0 ? len / 2 + 1 : Math.floor(len / 2) + 1;
+    while(len > 1) { // 这里注意是大于1，比如len=3，head只需要往后移两次，1->2,2->3
+        head = head.next;
+        len--;
+    }
+    return head;
+};
 ```
