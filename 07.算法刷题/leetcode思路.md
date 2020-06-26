@@ -809,6 +809,48 @@ var isPalindrome = function(s) {
 };
 ```
 
+## 141. 环形链表
+
+```txt
+思路1:
+用一个列表去存储每次遍历的节点，只需要在每次遍历的时候判断一下当前节点是否已经存在即可
+
+思路2:
+快慢指针，只要链表存在环，那么快慢指针总会相遇。
+```
+
+```js
+// 思路1
+var hasCycle = function(head) {
+    let p = head;
+    let nodes = [];
+    while(p) {
+        if(nodes.indexOf(p) !== -1){
+            return true;
+        }
+        nodes.push(p)
+        p = p.next;
+    }
+    return false;
+};
+
+// 思路2
+var hasCycle = function(head) {
+    if(!head || !head.next) return false
+    let slow = head;
+    let fast = head.next;
+    while(slow !== fast) {
+        slow = slow.next;
+        if(fast && fast.next) {
+            fast = fast.next.next;
+        }else{
+            return false
+        }
+    }
+    return true;
+};
+```
+
 ## 147. 对链表进行插入排序
 
 ```txt
@@ -818,6 +860,33 @@ var isPalindrome = function(s) {
 ## 148. 排序链表
 
 使用归并排序
+
+## 160. 相交链表
+
+```txt
+相交链表 headA headB，同时遍历这两个链表，当headA遍历完了遍历headB，当headB遍历完了遍历headA
+也就是遍历一次headA+headB（拼起来）和headB+headA
+
+headA: 4->1->8->4->5
+headB: 5->0->1->8->4->5
+
+headA+headB: 4->1->8->4->5->5->0->1->8->4->5
+headB+headA: 5->0->1->8->4->5->4->1->8->4->5
+
+可以看到在8的地方相遇了
+```
+
+```js
+var getIntersectionNode = function(headA, headB) {
+    let p1=headA;
+    let p2=headB;
+    while(true){
+        if(p1 === p2) return p1;
+        p1 = p1 ? p1.next : headB;
+        p2 = p2 ? p2.next : headA;
+    }
+};
+```
 
 ## 179. 最大数
 
@@ -932,10 +1001,15 @@ int temp=dp_i_0;  dp_i_0 = Math.max(dp_i_0, dp_i_1 + prices[i]);和 dp_i_1 = Mat
 ## 876. 链表的中间结点
 
 ```txt
+思路1:
 两次遍历，第一次遍历获取单链表的长度，第二次只要遍历到中间即可。
+
+思路2:
+一次遍历：快慢指针，慢指针一次走一步，快指针一次走两步。
 ```
 
 ```js
+// 两次遍历
 var middleNode = function(head) {
     let p = head;
     let len = 0;
@@ -949,5 +1023,15 @@ var middleNode = function(head) {
         len--;
     }
     return head;
+};
+
+// 快慢指针
+var middleNode = function(head) {
+    let slow = head, fast = head;
+    while(fast && fast.next) {
+        slow = slow.next;
+        fast = fast.next.next;
+    }
+    return slow;
 };
 ```
