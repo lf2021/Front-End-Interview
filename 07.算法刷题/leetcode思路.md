@@ -27,6 +27,27 @@ var removeDuplicateNodes = function(head) {
 };
 ```
 
+## 剑指 Offer 22. 链表中倒数第k个节点
+
+```txt
+双指针法：右指针先走k-1步，然后左右指针一起走。
+```
+
+```js
+var getKthFromEnd = function(head, k) {
+    let left = head;
+    let right = head;
+    for(let i=1;i<k;i++){
+        right = right.next;
+    }
+    while(right.next) {
+        right = right.next;
+        left = left.next;
+    }
+    return left;
+};
+```
+
 ## 6. Z字形变换
 
 ```txt
@@ -960,6 +981,60 @@ int temp=dp_i_0;  dp_i_0 = Math.max(dp_i_0, dp_i_1 + prices[i]);和 dp_i_1 = Mat
 
 注意点：
 由于两个索引之多相差k，于是当hashset.size()>k时就删除旧内容
+```
+
+## 234. 回文链表
+
+```txt
+思路1：
+用一个数组存储每个节点的值，时间复杂度O(N)，空间复杂度O(N)
+
+思路2:进阶：你能否用 O(n) 时间复杂度和 O(1) 空间复杂度解决此题？
+快慢指针 + 逆反链表：快指针每次两步，慢指针一步，在慢指针走的时候将每一步的指针反向，例如：1->2->4->2->1
+  慢指针：2->4->2->1 快指针：4->2->1 逆反指针：1->null
+  慢指针：4->2->1    快指针：1       逆反指针：2->1
+这里注意处理一下链表个数为奇数的情况：需要继续让慢指针向后走一步
+最后同时遍历慢指针和逆反指针，判断是否相等即可。
+```
+
+```js
+// 思路1
+var isPalindrome = function(head) {
+    let arr = [];
+    let p = head;
+    while(p) {
+        arr.push(p.val);
+        p = p.next;
+    }
+    return arr.join('') === arr.reverse().join('');
+};
+
+// 思路2
+var isPalindrome = function(head) {
+    let mid = head;
+    let reversed = null;
+    let pre = null;
+    while(head && head.next) {
+        // 先把mid节点保存一下
+        pre = mid;
+        head = head.next.next;// 走两步
+        mid = mid.next; // 走一步
+        // reversed是上一轮遍历的pre节点，将指针反向：pre->pre.next变成pre.next->pre
+        pre.next = reversed;
+        reversed = pre;
+    }
+    if(head) { // 奇数的情况，要将mid再往后移动一位
+        mid = mid.next;
+    }
+    while(mid && reversed) {
+        if(mid.val !== reversed.val) {
+            return false;
+        }
+        mid = mid.next;
+        reversed = reversed.next;
+    }
+    return true;
+};
 ```
 
 ## 242. 有效的字母异位词
