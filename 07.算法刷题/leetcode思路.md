@@ -788,6 +788,70 @@ var lengthOfLastWord = function(s) {
 };
 ```
 
+## 61. 旋转链表
+
+```txt
+思路1:
+双指针法：右指针先走k步，然后左右指针一起走，在右指针走到最后的时候左指针的位置就是要动的地方。
+
+思路2:
+求出链表的size，然后可以求出链表中要动的地方。
+```
+
+```js
+// 思路1
+var rotateRight = function(head, k) {
+    if(!head) return null;
+    let left = head;
+    let right = head;
+    for(let i = 0; i < k; i++) {
+        right = right.next;
+        if(!right){
+            right = head;
+        }
+    }
+    while(right.next) {
+        left=left.next;
+        right=right.next;
+    }
+    if(!left.next) return head;
+    let node = left.next;
+    left.next=null;
+    let p = node;
+    while(p.next) {
+        p = p.next;
+    }
+    p.next = head;
+    return node;
+};
+
+// 思路2
+var rotateRight = function(head, k) {
+    if(!head || !head.next) return head;
+    let left = head;
+    let right = head;
+    let size = 1;
+    while(right.next) {
+        size++;
+        right = right.next;
+    }
+    k = size - k % size;
+    while(k > 1) {
+        left = left.next;
+        k--;
+    }
+    if(!left.next) return head;
+    let node = left.next;
+    left.next = null;
+    let p = node;
+    while(p.next) {
+        p = p.next;
+    }
+    p.next = head;
+    return node;
+};
+```
+
 ## 75. 颜色分类
 
 ```txt
@@ -795,6 +859,26 @@ var lengthOfLastWord = function(s) {
 
 方法一:
 三指针（也有分区快排的意思），用三个指针（p0, p2 和curr）来分别追踪0的最右边界，2的最左边界和当前考虑的元素。沿着数组移动 curr 指针，若nums[curr] = 0，则将其与 nums[p0]互换；若 nums[curr] = 2 ，则与 nums[p2]互换。初始化0的最右边界：p0 = 0。在整个算法执行过程中 nums[idx < p0] = 0。初始化2的最左边界 ：p2 = n - 1。在整个算法执行过程中 nums[idx > p2] = 2。初始化当前考虑的元素序号 ：curr = 0. While curr <= p2 :若 nums[curr] = 0 ：交换第 curr个 和 第p0个 元素，并将指针都向右移；若 nums[curr] = 2 ：交换第 curr个和第 p2个元素，并将 p2指针左移；若 nums[curr] = 1 ：将指针curr右移。
+```
+
+## 83. 删除排序链表中的重复元素
+
+```txt
+直接法，简单
+```
+
+```js
+var deleteDuplicates = function(head) {
+    let p = head;
+    while(p && p.next) {
+        if(p.val === p.next.val){
+            p.next = p.next.next;
+        }else{
+            p = p.next;
+        }
+    }
+    return head;
+};
 ```
 
 ## 125. 验证回文串
