@@ -28,10 +28,12 @@
   - [53. 最大子序和](#53-最大子序和)
   - [58. 最后一个单词的长度](#58-最后一个单词的长度)
   - [61. 旋转链表](#61-旋转链表)
+  - [82. 删除排序链表中的重复元素 II](#82-删除排序链表中的重复元素-ii)
   - [83. 删除排序链表中的重复元素](#83-删除排序链表中的重复元素)
   - [125. 验证回文串](#125-验证回文串)
   - [141. 环形链表](#141-环形链表)
   - [160. 相交链表](#160-相交链表)
+  - [209. 长度最小的子数组](#209-长度最小的子数组)
   - [234. 回文链表](#234-回文链表)
   - [876. 链表的中间结点](#876-链表的中间结点)
 
@@ -878,6 +880,37 @@ var rotateRight = function(head, k) {
 };
 ```
 
+## 82. 删除排序链表中的重复元素 II
+
+```txt
+快慢指针
+  快指针：跳过重复数，记录下一个前面没有重复数的节点位置
+  慢指针：标记重复数字出现起点，根据链表特性，负责与下一个快指针相连
+```
+
+```js
+var deleteDuplicates = function(head) {
+    let node = new ListNode(-1); // 哨兵节点
+    node.next = head;
+    let fast = node.next;
+    let slow = node;
+    while(fast) {
+        if(fast.next && fast.next.val === fast.val) {
+            let sameVal = fast.val; // 先把相等的值保存下来
+            while(fast && fast.val === sameVal) {
+                fast = fast.next;
+            }
+            slow.next = fast;
+        }else{
+            slow.next = fast;
+            slow = fast;
+            fast = fast.next;
+        }
+    }
+    return node.next;
+};
+```
+
 ## 83. 删除排序链表中的重复元素
 
 ```txt
@@ -997,6 +1030,31 @@ var getIntersectionNode = function(headA, headB) {
         p1 = p1 ? p1.next : headB;
         p2 = p2 ? p2.next : headA;
     }
+};
+```
+
+## 209. 长度最小的子数组
+
+```txt
+滑动窗口法，时间复杂度O(N)，空间复杂度O(1)
+```
+
+```js
+var minSubArrayLen = function(s, nums) {
+    let minLen = Infinity;
+    let i = 0;
+    let j = 0;
+    let sum = 0;
+    while(j < nums.length) {
+        sum += nums[j];
+        while(sum >= s) {
+            minLen = Math.min(minLen, j-i+1);
+            sum -= nums[i];
+            i++;
+        }
+        j++;
+    }
+    return minLen === Infinity ? 0 : minLen;
 };
 ```
 
