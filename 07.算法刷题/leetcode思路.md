@@ -34,6 +34,7 @@
   - [141. 环形链表](#141-环形链表)
   - [160. 相交链表](#160-相交链表)
   - [209. 长度最小的子数组](#209-长度最小的子数组)
+  - [215. 数组中的第K个最大元素](#215-数组中的第k个最大元素)
   - [234. 回文链表](#234-回文链表)
   - [876. 链表的中间结点](#876-链表的中间结点)
 
@@ -1056,6 +1057,136 @@ var minSubArrayLen = function(s, nums) {
     }
     return minLen === Infinity ? 0 : minLen;
 };
+```
+
+## 215. 数组中的第K个最大元素
+
+```txt
+TopK问题：
+思路1：排序，取第k个
+思路2：构造前 k 个最大元素小顶堆，取堆顶
+思路3:快排
+```
+
+```js
+// 思路1，时间复杂度O(N^2)
+var findKthLargest = function(nums, k) {
+    nums.sort((a,b) => b-a);
+    return nums[k-1];
+};
+
+// 思路2
+var findKthLargest = function(nums, k) {
+    // 从 nums 中取出前 k 个数，构建一个小顶堆
+    let heap = [,], i = 0
+    while(i < k) {
+       heap.push(nums[i++])
+    }
+    buildHeap(heap, k)
+    // 从 k 位开始遍历数组
+    for(let i = k; i < nums.length; i++) {
+        if(heap[1] < nums[i]) {
+            // 替换并堆化
+            heap[1] = nums[i]
+            heapify(heap, k, 1)
+        }
+    }
+    // 返回堆顶元素
+    return heap[1]
+};
+
+// 原地建堆，从后往前，自上而下式建小顶堆
+let buildHeap = (arr, k) => {
+    if(k === 1) return
+    // 从最后一个非叶子节点开始，自上而下式堆化
+    for(let i = Math.floor(k/2); i>=1 ; i--) {
+        heapify(arr, k, i)
+    }
+}
+
+// 堆化
+let heapify = (arr, k, i) => {
+    // 自上而下式堆化
+    while(true) {
+        let minIndex = i
+        if(2*i <= k && arr[2*i] < arr[i]) {
+            minIndex = 2*i
+        }
+        if(2*i+1 <= k && arr[2*i+1] < arr[minIndex]) {
+            minIndex = 2*i+1
+        }
+        if(minIndex !== i) {
+            swap(arr, i, minIndex)
+            i = minIndex
+        } else {
+            break
+        }
+    }
+}
+
+// 交换
+let swap = (arr, i , j) => {
+    let temp = arr[i]
+    arr[i] = arr[j]
+    arr[j] = temp
+}
+
+// 思路3
+let findKthLargest = function(nums, k) {
+    return quickSelect(nums, nums.length - k)
+};
+
+let quickSelect = (arr, k) => {
+  return quick(arr, 0 , arr.length - 1, k)
+}
+
+let quick = (arr, left, right, k) => {
+  let index;
+  if(left < right) {
+    // 划分数组
+    index = partition(arr, left, right)
+    // Top k
+    if(k === index) {
+        return arr[index]
+    } else if(k < index) {
+        // Top k 在左边
+        return quick(arr, left, index-1, k)
+    } else {
+        // Top k 在右边
+        return quick(arr, index+1, right, k)
+    }
+  }
+  return arr[left]
+}
+
+let partition = (arr, left, right) => {
+  // 取中间项为基准
+  var datum = arr[Math.floor(Math.random() * (right - left + 1)) + left],
+      i = left,
+      j = right
+  // 开始调整
+  while(i < j) {
+    // 左指针右移
+    while(arr[i] < datum) {
+      i++
+    }
+    // 右指针左移
+    while(arr[j] > datum) {
+      j--
+    }
+    // 交换
+    if(i < j) {
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+
+    // 当数组中存在重复数据时，即都为datum，但位置不同
+    // 继续递增i，防止死循环
+    if(arr[i] === arr[j] && i !== j) {
+        i++
+    }
+  }
+  return i
+}
 ```
 
 ## 234. 回文链表
