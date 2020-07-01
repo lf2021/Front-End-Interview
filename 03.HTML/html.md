@@ -2,6 +2,9 @@
 
 - [HTML](#html)
   - [HTML5 的新特性](#html5-的新特性)
+  - [localStorage，sessionStorage，cookie 的区别](#localstoragesessionstoragecookie-的区别)
+  - [DOCTYPE的作用是什么](#doctype的作用是什么)
+  - [行内元素 块级元素](#行内元素-块级元素)
 
 ## HTML5 的新特性
 
