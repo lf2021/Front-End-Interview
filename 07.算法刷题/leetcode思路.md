@@ -33,6 +33,7 @@
   - [125. 验证回文串](#125-验证回文串)
   - [141. 环形链表](#141-环形链表)
   - [160. 相交链表](#160-相交链表)
+  - [206. 反转链表](#206-反转链表)
   - [209. 长度最小的子数组](#209-长度最小的子数组)
   - [215. 数组中的第K个最大元素](#215-数组中的第k个最大元素)
   - [234. 回文链表](#234-回文链表)
@@ -1031,6 +1032,58 @@ var getIntersectionNode = function(headA, headB) {
         p1 = p1 ? p1.next : headB;
         p2 = p2 ? p2.next : headA;
     }
+};
+```
+
+## 206. 反转链表
+
+```txt
+思路1: 用一个数组存储链表的val
+
+思路2: 迭代
+  一次遍历 时间复杂度O(N)，空间复杂度O(1)
+
+思路3: 递归
+```
+
+```js
+// 思路1:
+var reverseList = function(head) {
+    let arr = [];
+    while(head) {
+        arr.push(head.val);
+        head=head.next;
+    }
+    arr.reverse();
+    let node = new ListNode(-1);
+    let p = node;
+    arr.forEach(item => {
+        p.next = new ListNode(item);
+        p=p.next;
+    })
+    return node.next;
+};
+
+// 思路2：
+var reverseList = function(head) {
+    let [pre, cur] = [null, head];
+    while(cur) {
+        let tmp = cur.next; //临时存储下一个节点
+        cur.next = pre; // 反转链表
+        pre = cur; // 接收链表反转的结果
+        cur = tmp; // 接回临时存储的后续内容
+    }
+    return pre;
+};
+
+// 思路3:
+var reverseList = function(head) {
+    if(!head || !head.next) return head;
+    let next = head.next; // next节点，反转后是最后一个节点
+    let reverseListNode = reverseList(next);
+    head.next = null; // 裁减 head
+    next.next = head; // 尾接
+    return reverseListNode;
 };
 ```
 
