@@ -30,9 +30,11 @@
   - [61. 旋转链表](#61-旋转链表)
   - [82. 删除排序链表中的重复元素 II](#82-删除排序链表中的重复元素-ii)
   - [83. 删除排序链表中的重复元素](#83-删除排序链表中的重复元素)
+  - [112. 路径总和](#112-路径总和)
   - [125. 验证回文串](#125-验证回文串)
   - [141. 环形链表](#141-环形链表)
   - [160. 相交链表](#160-相交链表)
+  - [203. 移除链表元素](#203-移除链表元素)
   - [206. 反转链表](#206-反转链表)
   - [209. 长度最小的子数组](#209-长度最小的子数组)
   - [215. 数组中的第K个最大元素](#215-数组中的第k个最大元素)
@@ -933,6 +935,28 @@ var deleteDuplicates = function(head) {
 };
 ```
 
+## 112. 路径总和
+
+```txt
+递归
+  1. 转为判断，左、右子树能否找出满足和为 sum - 父节点值 的路径
+  2. 当遍历到叶子节点时，因为已经没有子节点了，如果 sum 等于当前节点的值，就返回 true
+```
+
+```js
+var hasPathSum = function(root, sum) {
+  // 根节点为空
+  if (root === null) return false;
+  
+  // 叶节点 同时 sum 参数等于叶节点值
+  if (root.left === null && root.right === null) return root.val === sum;
+
+  // 总和减去当前值，并递归
+  sum = sum - root.val
+  return hasPathSum(root.left, sum) || hasPathSum(root.right, sum);
+};
+```
+
 ## 125. 验证回文串
 
 ```txt
@@ -1032,6 +1056,31 @@ var getIntersectionNode = function(headA, headB) {
         p1 = p1 ? p1.next : headB;
         p2 = p2 ? p2.next : headA;
     }
+};
+```
+
+## 203. 移除链表元素
+
+```txt
+哨兵节点 + 双指针法
+```
+
+```js
+var removeElements = function(head, val) {
+    let node = new ListNode(-1);
+    node.next = head;
+    let pre = node;
+    let cur = node.next
+    while(cur) {
+        if(cur.val === val) {
+            pre.next = cur.next;
+            cur = pre.next;
+        }else{
+            pre = cur;
+            cur = cur.next;
+        }
+    }
+    return node.next;
 };
 ```
 
