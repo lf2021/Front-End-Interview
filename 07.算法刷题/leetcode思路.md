@@ -4,6 +4,7 @@
 
 - [leetcode](#leetcode)
   - [面试题 02.01. 移除重复节点](#面试题-0201-移除重复节点)
+  - [面试题 16.11. 跳水板](#面试题-1611-跳水板)
   - [剑指 Offer 22. 链表中倒数第k个节点](#剑指-offer-22-链表中倒数第k个节点)
   - [6. Z字形变换](#6-z字形变换)
   - [7. 整数反转](#7-整数反转)
@@ -63,6 +64,26 @@ var removeDuplicateNodes = function(head) {
         right = right.next;
     }
     return head;
+};
+```
+
+## 面试题 16.11. 跳水板
+
+```txt
+动态规划
+最开始全是短木板（k*shorter），然后每次都把上一次的一个短木板变为长木板。
+```
+
+```js
+var divingBoard = function(shorter, longer, k) {
+    if(k<=0)return [];
+    let ans = [k*shorter];
+    let diff = longer - shorter;
+    if(diff === 0) return ans;
+    for(let i=1;i<=k;i++){
+        ans.push(ans[ans.length - 1]+diff);
+    }
+    return ans;
 };
 ```
 
