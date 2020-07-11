@@ -6,6 +6,8 @@
   - [面试题 02.01. 移除重复节点](#面试题-0201-移除重复节点)
   - [面试题 16.11. 跳水板](#面试题-1611-跳水板)
   - [剑指 Offer 22. 链表中倒数第k个节点](#剑指-offer-22-链表中倒数第k个节点)
+  - [1. 两数之和](#1-两数之和)
+  - [3. 无重复字符的最长子串](#3-无重复字符的最长子串)
   - [6. Z字形变换](#6-z字形变换)
   - [7. 整数反转](#7-整数反转)
   - [9. 回文数](#9-回文数)
@@ -105,6 +107,67 @@ var getKthFromEnd = function(head, k) {
         left = left.next;
     }
     return left;
+};
+```
+
+## 1. 两数之和
+
+```txt
+map用来存储遍历时候的元素-索引对
+遍历一次列表，计算每个元素与target的差，判断一下map中存不存在这个键
+时间复杂度：O(N)
+
+举例：
+  nums = [2, 7, 11, 15]， target = 9
+
+  遍历第一轮：i = 0
+    num = 9 - 2 = 7,
+    7在map中不存在,将当前遍历元素添加进map，map = { 2: 0 }
+
+  遍历第二轮： i = 1
+    num = 9 - 7 = 2,
+    2在map中是键，直接返回2对应值和当前的索引组成的数组 [0, 1]
+```
+
+```js
+var twoSum = function(nums, target) {
+    let map = new Map();
+    for (let i = 0; i < nums.length; i++) {
+        let num = target - nums[i];
+        if (map.has(num)) {
+            return [map.get(num), i];
+        } else {
+            map.set(nums[i], i);
+        }
+    }
+};
+```
+
+## 3. 无重复字符的最长子串
+
+```txt
+遍历一轮，res保存遍历到的不重复的字符串，maxLen记录最大的长度
+
+此方法只能求出最大的不重复子串的长度
+时间复杂度：O(N)
+```
+
+```js
+var lengthOfLongestSubstring = function(s) {
+    let res = '';
+    let maxLen = 0;
+    let cur = 0;
+    while (cur < s.length) {
+        if (res.indexOf(s[cur]) === -1) {
+            res += s[cur];
+        } else {
+            let index = res.indexOf(s[cur]);
+            res = res.slice(index + 1) + s[cur]
+        }
+        maxLen = Math.max(maxLen, res.length);
+        cur++;
+    }
+    return maxLen;
 };
 ```
 
