@@ -180,6 +180,7 @@ function pop() {
 > 输入一个非递减排序的数组的一个旋转，输出旋转数组的最小元素。
 > 例如数组{3,4,5,1,2}为{1,2,3,4,5}的一个旋转，该数组的最小值为 1。
 > NOTE：给出的所有元素都大于 0，若数组大小为 0，请返回 0。
+
 > 方法一：二分查找法
 
 ```js
@@ -216,22 +217,22 @@ function minNumberInRotateArray(rotateArray) {
 ## 7.斐波那契数列
 
 > 大家都知道斐波那契数列，现在要求输入一个整数 n，请你输出斐波那契数列的第 n 项（从 0 开始，第 0 项为 0）。(n<=39)
-> 方法一：
+
+> 方法一：动态规划DP
 
 ```js
 function Fibonacci(n) {
-  if (n == 0 || n == 1) {
-    return n
-  }
-  var arr = [0, 1]
-  for (var i = 2; i <= n; i++) {
-    arr.push(arr[arr.length - 1] + arr[arr.length - 2])
-  }
-  return arr[n]
+    // write code here
+    if (n === 0 || n === 1) return n;
+    let dp = [0, 1];
+    for (let i = 2; i <= n; i++) {
+        dp[i] = dp[i-1] + dp[i-2];
+    }
+    return dp[n];
 }
 ```
 
-> 方法二：
+> 方法二：循环
 
 ```js
 function Fibonacci(n) {
@@ -248,6 +249,8 @@ function Fibonacci(n) {
   return triple[2]
 }
 ```
+
+> 方法三：递归，不写了，最基本的，运行时间不通过
 
 ## 8.跳台阶
 
@@ -283,6 +286,9 @@ function jumpFloor(number) {
 ## 9.变态跳台阶
 
 > 一只青蛙一次可以跳上 1 级台阶，也可以跳上 2 级……它也可以跳上 n 级。求该青蛙跳上一个 n 级的台阶总共有多少种跳法。
+
+> 方法一：数学归纳法
+
 > 解题思路：
 >
 > 假设跳 n 级台阶的跳法数量是 f(n)个。假设跳 n 级台阶的跳法数量是 f(n)个。
@@ -299,6 +305,20 @@ function jumpFloor(number) {
 function jumpFloorII(number) {
   // write code here
   return Math.pow(2, number - 1)
+}
+```
+
+> 方法二：动态归纳DP
+
+```js
+function jumpFloorII(number) {
+    // write code here
+    if (number === 1 || number === 2) return number;
+    let dp = [1, 2];
+    for (let i = 2; i < number; i++) {
+        dp[i] = dp.reduce((t, v) => t + v) + 1;
+    }
+    return dp[number -1];
 }
 ```
 
@@ -487,19 +507,19 @@ function ReverseList(pHead) {
 >
 > - 如果 pHead1 和 pHead2，均没遍历完：
 >
->     - - 如果 pHead1.val <= pHead2.val，那么当前 node 的 next 指向 pHead1。并且移动 pHead1 指针。
+>   - - 如果 pHead1.val <= pHead2.val，那么当前 node 的 next 指向 pHead1。并且移动 pHead1 指针。
 >
->     - - 否则，当前 node 的 next 指向 pHead2，移动 pHead2 指针。
+>   - - 否则，当前 node 的 next 指向 pHead2，移动 pHead2 指针。
 >
->     - - 移动 node 指针
+>   - - 移动 node 指针
 >
->     - - 继续循环
+>   - - 继续循环
 >
 > - 否则，结束循环：
 >
->     - - 如果 pHead1 未遍历完，node 的 next 指向 pHead1
+>   - - 如果 pHead1 未遍历完，node 的 next 指向 pHead1
 >
->     - - 如果 pHead2 未遍历玩，node 的 next 指向 pHead2
+>   - - 如果 pHead2 未遍历玩，node 的 next 指向 pHead2
 >
 > 时间复杂度是 O(N)，空间复杂度是 O(1)。代码如下：
 
@@ -706,8 +726,8 @@ function min() {
 >
 > - 取压入队列的首元素，将其压入辅助栈
 > - 检查辅助栈顶元素是否和弹出队列的首元素相等：
->     - - 若相等，则辅助栈弹出栈顶元素，弹出队列取出队首元素，重复检查
->     - - 若不相等，回到第一步
+>   - - 若相等，则辅助栈弹出栈顶元素，弹出队列取出队首元素，重复检查
+>   - - 若不相等，回到第一步
 > - 最后，检查辅助栈和弹出队列是否均为空。
 >
 > 时间复杂度是 O(N^2)，空间复杂度是 O(N)。
@@ -1500,8 +1520,8 @@ function FindContinuousSequence(sum) {
 >
 > - 当这两个指针对应的数相加和不为 sum 而且 low 比 high 小的时后，继续判断：
 >
->     - - 如果和大于 sum，说明 high 指针对应的数太大了，high--，往前找
->     - - 如果和小于 sum，说明 low 指针对应的数太小了，low++，往后找
+>   - 如果和大于 sum，说明 high 指针对应的数太大了，high--，往前找
+>   - 如果和小于 sum，说明 low 指针对应的数太小了，low++，往后找
 > - 当这两个指针对应的数相加和为 sum 时，直接返回这两个数
 > - 否则返回空数组，表示不存在
 
@@ -1658,9 +1678,13 @@ function Sum_Solution(n) {
 >
 > 1. 一位加法
 >    举例： 1 + 1 = 2
+>
 >    ① res1 = 1 ^ 1 = 0
+>
 >    ② res2 (1 & 1) << 1 = 10
+>
 >    ③ res1 = res1 ^ res2 = 10
+>
 >    ④ res2 = (res1 & res2) << 1 = 0
 >
 > > 两个基本表达式：
@@ -1670,25 +1694,32 @@ function Sum_Solution(n) {
 >    >
 > 2. 二位加法
 >    正确的加法计算：11+01 = 100 (3 + 1 = 4)
+>
 >    ① 按位加法： res1 = 11 ^ 01 = 10
+>
 >    ② 与运算进位： res2 = (11 & 01) << 1 = ( 01 ) << 1 = 010
+>
 >    ③ res1 = res1 ^ res2 = 10 ^ 010 = 00
+>
 >    ④ res2 = (10 & 10) << 1 = 100
+>
 >    ⑤ res1 = res1 ^ res2 = 00 ^ 100 = 100
+>
 >    ⑥ res2 = (00 & 100) << 1 = 000
+>
 >    输出 res1
 > 3. 更高位的加法
 >    继续推理可以得出三位数的加法只需重复的计算三次得到第一个表达式的值就是计算出来的结果
 
 ```js
 function Add(num1, num2) {
-  // write code here
-  var res1 = num1 ^ num2 //异或 不带进位的加法
-  var res2 = (num1 & num2) << 1 //按位与 进位
-  while (res2 !== 0) {
-    ;[res1, res2] = [res1 ^ res2, (res1 & res2) << 1]
-  }
-  return res1
+    // write code here
+    var res1 = num1 ^ num2 //异或 不带进位的加法
+    var res2 = (num1 & num2) << 1 //按位与 进位
+    while (res2 !== 0) {
+        [res1, res2] = [res1 ^ res2, (res1 & res2) << 1]
+    }
+    return res1
 }
 ```
 
