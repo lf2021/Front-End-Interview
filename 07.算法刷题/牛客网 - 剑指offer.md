@@ -507,19 +507,19 @@ function ReverseList(pHead) {
 >
 > - 如果 pHead1 和 pHead2，均没遍历完：
 >
->   - - 如果 pHead1.val <= pHead2.val，那么当前 node 的 next 指向 pHead1。并且移动 pHead1 指针。
+>   - 如果 pHead1.val <= pHead2.val，那么当前 node 的 next 指向 pHead1。并且移动 pHead1 指针。
 >
->   - - 否则，当前 node 的 next 指向 pHead2，移动 pHead2 指针。
+>   - 否则，当前 node 的 next 指向 pHead2，移动 pHead2 指针。
 >
->   - - 移动 node 指针
+>   - 移动 node 指针
 >
->   - - 继续循环
+>   - 继续循环
 >
 > - 否则，结束循环：
 >
->   - - 如果 pHead1 未遍历完，node 的 next 指向 pHead1
+>   - 如果 pHead1 未遍历完，node 的 next 指向 pHead1
 >
->   - - 如果 pHead2 未遍历玩，node 的 next 指向 pHead2
+>   - 如果 pHead2 未遍历玩，node 的 next 指向 pHead2
 >
 > 时间复杂度是 O(N)，空间复杂度是 O(1)。代码如下：
 
@@ -726,8 +726,8 @@ function min() {
 >
 > - 取压入队列的首元素，将其压入辅助栈
 > - 检查辅助栈顶元素是否和弹出队列的首元素相等：
->   - - 若相等，则辅助栈弹出栈顶元素，弹出队列取出队首元素，重复检查
->   - - 若不相等，回到第一步
+>     - - 若相等，则辅助栈弹出栈顶元素，弹出队列取出队首元素，重复检查
+>     - - 若不相等，回到第一步
 > - 最后，检查辅助栈和弹出队列是否均为空。
 >
 > 时间复杂度是 O(N^2)，空间复杂度是 O(N)。
