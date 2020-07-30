@@ -390,18 +390,33 @@ function Power(base, exponent) {
 > 输入一个整数数组，实现一个函数来调整该数组中数字的顺序，使得所有的奇数位于数组的前半部分，所有的偶数位于数组的后半部分，并保证奇数和奇数，偶数和偶数之间的相对位置不变。
 
 ```js
+// 额外空间 时间复杂度：O(n) 空间复杂度：O(n)
 function reOrderArray(array) {
-  // write code here
-  let arr1 = [] //奇数
-  let arr2 = [] //偶数
-  array.forEach((ele) => {
-    if (ele % 2 == 1) {
-      arr1.push(ele)
-    } else {
-      arr2.push(ele)
+    // write code here
+    let a1 = [];
+    let a2 = [];
+    array.forEach(item => {
+        item % 2 ? a1.push(item) : a2.push(item);
+    })
+    return [...a1, ...a2];
+}
+
+// in-place算法
+// 用 i 记录奇数的位置，遍历数组 j = 0，碰到奇数将其放到 i 的位置，将 [i, j-1] 的元素往后移，并让 i+1
+// 时间复杂度：O(n^2),假设数组中一般偶数在前，一半奇数在后，每次都要移动n/2个元素,是n^2/4  空间复杂度：O(1)
+function reOrderArray(array) {
+    // write code here
+    let i = 0;
+    for (let j = 0; j < array.length; j++) {
+        let tmp = array[j];
+        if (tmp & 1) { //奇数
+            for (let k = j - 1; k >= i; k--) {
+                array[k + 1] = array[k]
+            }
+            array[i++] = tmp;
+        }
     }
-  })
-  return arr1.concat(arr2)
+    return array;
 }
 ```
 
@@ -460,11 +475,8 @@ function FindKthToTail(head, k) {
 
 function FindKthToTail(head, k) {
   let right = head
-  for (let i = 0; i < k; ++i) {
-    if (right === null) {
-      // 链表长度小于k
-      return null
-    }
+  for (let i = 0; i < k; i++) {
+    if (!right) return null // 链表长度小于k
     right = right.next
   }
 
@@ -727,8 +739,8 @@ function min() {
 >
 > - 取压入队列的首元素，将其压入辅助栈
 > - 检查辅助栈顶元素是否和弹出队列的首元素相等：
->     - - 若相等，则辅助栈弹出栈顶元素，弹出队列取出队首元素，重复检查
->     - - 若不相等，回到第一步
+>   - 若相等，则辅助栈弹出栈顶元素，弹出队列取出队首元素，重复检查
+>   - 若不相等，回到第一步
 > - 最后，检查辅助栈和弹出队列是否均为空。
 >
 > 时间复杂度是 O(N^2)，空间复杂度是 O(N)。
