@@ -4,7 +4,11 @@
 
 - [leetcode](#leetcode)
   - [面试题 02.01. 移除重复节点](#面试题-0201-移除重复节点)
+  - [面试题 16.11. 跳水板](#面试题-1611-跳水板)
   - [剑指 Offer 22. 链表中倒数第k个节点](#剑指-offer-22-链表中倒数第k个节点)
+  - [1. 两数之和](#1-两数之和)
+  - [3. 无重复字符的最长子串](#3-无重复字符的最长子串)
+  - [5. 最长回文子串](#5-最长回文子串)
   - [6. Z字形变换](#6-z字形变换)
   - [7. 整数反转](#7-整数反转)
   - [9. 回文数](#9-回文数)
@@ -30,9 +34,12 @@
   - [61. 旋转链表](#61-旋转链表)
   - [82. 删除排序链表中的重复元素 II](#82-删除排序链表中的重复元素-ii)
   - [83. 删除排序链表中的重复元素](#83-删除排序链表中的重复元素)
+  - [112. 路径总和](#112-路径总和)
   - [125. 验证回文串](#125-验证回文串)
   - [141. 环形链表](#141-环形链表)
   - [160. 相交链表](#160-相交链表)
+  - [203. 移除链表元素](#203-移除链表元素)
+  - [206. 反转链表](#206-反转链表)
   - [209. 长度最小的子数组](#209-长度最小的子数组)
   - [215. 数组中的第K个最大元素](#215-数组中的第k个最大元素)
   - [234. 回文链表](#234-回文链表)
@@ -63,6 +70,26 @@ var removeDuplicateNodes = function(head) {
 };
 ```
 
+## 面试题 16.11. 跳水板
+
+```txt
+动态规划
+最开始全是短木板（k*shorter），然后每次都把上一次的一个短木板变为长木板。
+```
+
+```js
+var divingBoard = function(shorter, longer, k) {
+    if(k<=0)return [];
+    let ans = [k*shorter];
+    let diff = longer - shorter;
+    if(diff === 0) return ans;
+    for(let i=1;i<=k;i++){
+        ans.push(ans[ans.length - 1]+diff);
+    }
+    return ans;
+};
+```
+
 ## 剑指 Offer 22. 链表中倒数第k个节点
 
 ```txt
@@ -81,6 +108,103 @@ var getKthFromEnd = function(head, k) {
         left = left.next;
     }
     return left;
+};
+```
+
+## 1. 两数之和
+
+```txt
+map用来存储遍历时候的元素-索引对
+遍历一次列表，计算每个元素与target的差，判断一下map中存不存在这个键
+时间复杂度：O(N)
+
+举例：
+  nums = [2, 7, 11, 15]， target = 9
+
+  遍历第一轮：i = 0
+    num = 9 - 2 = 7,
+    7在map中不存在,将当前遍历元素添加进map，map = { 2: 0 }
+
+  遍历第二轮： i = 1
+    num = 9 - 7 = 2,
+    2在map中是键，直接返回2对应值和当前的索引组成的数组 [0, 1]
+```
+
+```js
+var twoSum = function(nums, target) {
+    let map = new Map();
+    for (let i = 0; i < nums.length; i++) {
+        let num = target - nums[i];
+        if (map.has(num)) {
+            return [map.get(num), i];
+        } else {
+            map.set(nums[i], i);
+        }
+    }
+};
+```
+
+## 3. 无重复字符的最长子串
+
+```txt
+遍历一轮，res保存遍历到的不重复的字符串，maxLen记录最大的长度
+
+此方法只能求出最大的不重复子串的长度
+时间复杂度：O(N)
+```
+
+```js
+var lengthOfLongestSubstring = function(s) {
+    let res = '';
+    let maxLen = 0;
+    let cur = 0;
+    while (cur < s.length) {
+        if (res.indexOf(s[cur]) === -1) {
+            res += s[cur];
+        } else {
+            let index = res.indexOf(s[cur]);
+            res = res.slice(index + 1) + s[cur]
+        }
+        maxLen = Math.max(maxLen, res.length);
+        cur++;
+    }
+    return maxLen;
+};
+```
+
+## 5. 最长回文子串
+
+```txt
+1、如果字符串长度小于2，直接返回原字符串
+2、定义两个变量，一个start存储当前找到的最大回文字符串的起始位置，另一个manLength记录字符串的长度（终止位置就是start+maxLength）
+3、创建一个expandAroundCenter函数，判断左边和右边是否越界，同时左边的字符是否等于右边的字符，
+如果以上3个条件都满足，则判断是否需要更新回文字符串最长的长度及最大字符串的起始位置，然后将left--， right++，
+继续判断，直到不满足三个条件之一
+4、遍历字符串，每个位置调用expandAroundCenter两遍，第一遍检查i-1,i+1，第二遍检查i,i+1
+```
+
+```js
+var longestPalindrome = function(s) {
+    if (s.length < 2) {
+        return s
+    }
+    let start = 0;
+    let maxLength = 1;
+    let expandAroundCenter = (left, right) => {
+        while (left >= 0 && right < s.length && s[left] === s[right]) {
+            if (right - left + 1 > maxLength) {
+                start = left;
+                maxLength = right - left + 1;
+            }
+            left--;
+            right++;
+        }
+    }
+    for (let i = 0; i <= s.length; i++) {
+        expandAroundCenter(i - 1, i + 1);
+        expandAroundCenter(i, i + 1);
+    }
+    return s.substring(start, start + maxLength);
 };
 ```
 
@@ -932,6 +1056,28 @@ var deleteDuplicates = function(head) {
 };
 ```
 
+## 112. 路径总和
+
+```txt
+递归
+  1. 转为判断，左、右子树能否找出满足和为 sum - 父节点值 的路径
+  2. 当遍历到叶子节点时，因为已经没有子节点了，如果 sum 等于当前节点的值，就返回 true
+```
+
+```js
+var hasPathSum = function(root, sum) {
+  // 根节点为空
+  if (root === null) return false;
+  
+  // 叶节点 同时 sum 参数等于叶节点值
+  if (root.left === null && root.right === null) return root.val === sum;
+
+  // 总和减去当前值，并递归
+  sum = sum - root.val
+  return hasPathSum(root.left, sum) || hasPathSum(root.right, sum);
+};
+```
+
 ## 125. 验证回文串
 
 ```txt
@@ -1031,6 +1177,83 @@ var getIntersectionNode = function(headA, headB) {
         p1 = p1 ? p1.next : headB;
         p2 = p2 ? p2.next : headA;
     }
+};
+```
+
+## 203. 移除链表元素
+
+```txt
+哨兵节点 + 双指针法
+```
+
+```js
+var removeElements = function(head, val) {
+    let node = new ListNode(-1);
+    node.next = head;
+    let pre = node;
+    let cur = node.next
+    while(cur) {
+        if(cur.val === val) {
+            pre.next = cur.next;
+            cur = pre.next;
+        }else{
+            pre = cur;
+            cur = cur.next;
+        }
+    }
+    return node.next;
+};
+```
+
+## 206. 反转链表
+
+```txt
+思路1: 用一个数组存储链表的val
+
+思路2: 迭代
+  一次遍历 时间复杂度O(N)，空间复杂度O(1)
+
+思路3: 递归
+```
+
+```js
+// 思路1:
+var reverseList = function(head) {
+    let arr = [];
+    while(head) {
+        arr.push(head.val);
+        head=head.next;
+    }
+    arr.reverse();
+    let node = new ListNode(-1);
+    let p = node;
+    arr.forEach(item => {
+        p.next = new ListNode(item);
+        p=p.next;
+    })
+    return node.next;
+};
+
+// 思路2：
+var reverseList = function(head) {
+    let [pre, cur] = [null, head];
+    while(cur) {
+        let tmp = cur.next; //临时存储下一个节点
+        cur.next = pre; // 反转链表
+        pre = cur; // 接收链表反转的结果
+        cur = tmp; // 接回临时存储的后续内容
+    }
+    return pre;
+};
+
+// 思路3:
+var reverseList = function(head) {
+    if(!head || !head.next) return head;
+    let next = head.next; // next节点，反转后是最后一个节点
+    let reverseListNode = reverseList(next);
+    head.next = null; // 裁减 head
+    next.next = head; // 尾接
+    return reverseListNode;
 };
 ```
 

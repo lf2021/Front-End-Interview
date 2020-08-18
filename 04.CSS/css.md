@@ -72,9 +72,9 @@
 
 两种盒模型的区别：
 
-- W3C盒模型
+- W3C盒模型 `box-sizing: content-box`
   > W3C盒模型中，通过CSS样式设置的width的大小只是content的大小
-- IE盒模型
+- IE盒模型 `box-sizing: border-box`
   > IE盒模型中，通过CSS样式设置的width的大小是content + padding + border的和
 
 ## 设置一个元素的背景颜色，背景颜色会填充哪些区域
