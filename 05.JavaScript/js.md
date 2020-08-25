@@ -13,6 +13,7 @@
   - [如何将字符串转化为数字，例如 '12.3b'](#如何将字符串转化为数字例如-123b)
   - [JavaScript 继承的几种实现方式](#javascript-继承的几种实现方式)
   - [eval 是做什么的](#eval-是做什么的)
+  - [事件对象中的clientX offsetX screenX pageX的区别](#事件对象中的clientx-offsetx-screenx-pagex的区别)
   - [三种事件模型是什么](#三种事件模型是什么)
   - [如何阻止事件冒泡](#如何阻止事件冒泡)
   - [如何阻止事件默认行为](#如何阻止事件默认行为)
@@ -204,6 +205,50 @@ ES5 规范 9.2 节中定义了抽象操作 ToBoolean，列举了布尔强制类�
 它的功能是把对应的字符串解析成 JS 代码并运行。
 
 应该避免使用 eval，不安全，非常耗性能（2次，一次解析成 js 语句，一次执行）。
+```
+
+## 事件对象中的clientX offsetX screenX pageX的区别
+
+- [clientX, clientY]
+
+```txt
+client直译就是客户端，客户端的窗口就是指游览器的显示页面内容的窗口大小（不包含工具栏、导航栏等等）
+[clientX, clientY]就是鼠标距游览器显示窗口的长度
+
+兼容性：IE和主流游览器都支持。
+```
+
+- [offsetX, offsetY]
+
+```txt
+offset意为偏移量
+[offsetX, offsetY]是被点击的元素距左上角为参考原点的长度，而IE、FF和Chrome的参考点有所差异。
+
+Chrome下，offsetX offsetY是包含边框的
+IE、FF是不包含边框的，如果鼠标进入到border区域，为返回负值
+
+兼容性：IE9+,chrome,FF都支持此属性。
+```
+
+- [screenX, screenY]
+
+```txt
+screen顾名思义是屏幕
+[screenX, screenY]是用来获取鼠标点击位置到屏幕显示器的距离，距离的最大值需根据屏幕分辨率的尺寸来计算。
+
+兼容性：所有游览器都支持此属性。
+```
+
+- [pageX, pageY]
+
+```txt
+page为页面的意思，页面的高度一般情况client浏览器显示区域装不下，所以会出现垂直滚动条。
+
+[pageX, pageY]是鼠标距离页面初始page原点的长度。
+
+在IE中没有pageX、pageY取而代之的是event.x、evnet.y。x和y在webkit内核下也实现了，所以火狐不支持x，y。
+
+兼容性：IE不支持，其他高级游览器支持。
 ```
 
 ## 三种事件模型是什么
