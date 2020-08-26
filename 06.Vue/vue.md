@@ -1,6 +1,7 @@
 # Vue
 
 - [Vue](#vue)
+  - [MVVM 和 MVC的区别](#mvvm-和-mvc的区别)
   - [vue 的优点](#vue-的优点)
   - [vue 的响应式原理](#vue-的响应式原理)
   - [vue 双向数据绑定原理](#vue-双向数据绑定原理)
@@ -10,11 +11,36 @@
   - [vue 的生命周期函数](#vue-的生命周期函数)
   - [vue 的 activated 和 deactivated 钩子函数](#vue-的-activated-和-deactivated-钩子函数)
   - [nextTick 用法](#nexttick-用法)
+  - [vue中key属性的作用](#vue中key属性的作用)
+  - [Vue的路由模式](#vue的路由模式)
+  - [vue中\$router和\$route的区别](#vue中router和route的区别)
   - [移动端适配的方法](#移动端适配的方法)
   - [rem 原理](#rem-原理)
   - [rem 和 em 的区别](#rem-和-em-的区别)
   - [移动端 300ms 延迟的原因以及解决方案](#移动端-300ms-延迟的原因以及解决方案)
   - [Vue 和 React 数据驱动的区别](#vue-和-react-数据驱动的区别)
+
+## MVVM 和 MVC的区别
+
+- MVC: MVC是应用最广泛的软件架构之一,一般MVC分为:Model(模型),View(视图),Controller(控制器)。 这主要是基于分层的目的,让彼此的职责分开.View一般用过Controller来和Model进行联系。Controller是Model和View的协调者,View和Model不直接联系。基本都是单向联系。
+
+![MVC](./../images/MVC.png)
+
+1. View传送指令到Controller。
+2. Controller完成业务逻辑后改变Model状态。
+3. Model将新的数据发送至View,用户得到反馈。
+
+- MVVM: MVVM是把MVC中的Controller改变成了ViewModel。
+
+View的变化会自动更新到ViewModel,ViewModel的变化也会自动同步到View上显示,通过数据来显示视图层。
+
+![MVVM](./../images/MVVM.png)
+
+MVVM和MVC的区别:
+
+- MVC中Controller演变成MVVM中的ViewModel
+- MVVM通过数据来显示视图层而不是节点操作
+- MVVM主要解决了MVC中大量的dom操作使页面渲染性能降低,加载速度变慢,影响用户体验
 
 ## vue 的优点
 
@@ -29,11 +55,12 @@
 ## vue 的响应式原理
 
 数据发生变化后，会重新对页面渲染，这就是 Vue 响应式
+
 想完成这个过程，我们需要：
 
-侦测数据的变化
-收集视图依赖了哪些数据
-数据变化时，自动“通知”需要更新的视图部分，并进行更新
+- 侦测数据的变化
+- 收集视图依赖了哪些数据
+- 数据变化时，自动“通知”需要更新的视图部分，并进行更新
 
 对应专业俗语分别是：
 
@@ -57,7 +84,13 @@
 
 > Object.defineProperty 函数一共有三个参数，第一个参数是需要定义属性的对象，第二个参数是需要定义的属性，第三个是该属性描述符。
 >
-> 一个属性的描述符有四个属性，分别是 value 属性的值，writable 属性是否可写，enumerable 属性是否可枚举，configurable 属性是否可配置修改。
+> 一个属性的描述符有一下属性，分别是
+> value 属性的值，
+> writable 属性是否可写，
+> enumerable 属性是否可枚举，
+> configurable 属性是否可配置修改。
+> get属性 当访问该属性时，会调用此函数
+> set属性 当属性值被修改时，会调用此函数。
 
 ## v-if 和 v-show 的区别
 
@@ -69,6 +102,8 @@
 
 ## 为什么 vue 组件中的 data 必须是函数
 
+<!-- 一个组件被复用多次的话，也就会创建多个实例。本质上，这些实例用的都是同一个构造函数，如果data是对象的话，对象属性引用类型，会影响到所有的实例，为了保证组件不同的实例之间的data互不冲突，data必须是一个函数。 -->
+
 当一个组件被定义，data 必须声明为返回一个初始数据对象的函数，因为组件可能被用来创建多个实例。如果 data 仍然是一个纯粹的对象，则所有的实例将共享引用同一个数据对象！通过提供 data 函数，每次创建一个新实例后，我们能够调用 data 函数，从而返回初始数据的一个全新副本数据对象。
 
 简而言之，就是 data 中数据可能会被复用，要保证不同组件调用的时候数据是相同的。
@@ -77,20 +112,28 @@
 
 - beforeCreate:
   > 在实例初始化之后，数据观测 (data observer) 和 event/watcher 事件配置之前被调用。
+  >
+  > 在new一个vue实例后，只有一些默认的生命周期钩子和默认事件，其他的东西都还没创建。在beforeCreate生命周期执行的时候，data和methods中的数据都还没有初始化。不能在这个阶段使用data中的数据和methods中的方法
 - created:
   > 在实例创建完成后被立即调用。在这一步，实例已完成以下的配置：数据观测 (data observer)，property 和方法的运算，watch/event 事件回调。然而，挂载阶段还没开始，\$el property 目前尚不可用。
+  >
+  > data 和 methods都已经被初始化好了，如果要调用 methods 中的方法，或者操作 data 中的数据，最早可以在这个阶段中操作
 - beforeMount:
   > 在挂载开始之前被调用：相关的 render 函数首次被调用。
+  >
+  > 执行到这个钩子的时候，在内存中已经编译好了模板了，但是还没有挂载到页面中，此时，页面还是旧的
 - mounted:
   > 实例被挂载后调用，这时 el 被新创建的 vm.\$el 替换了。如果根实例挂载到了一个文档内的元素上，当 mounted 被调用时 vm.\$el 也在文档内。
+  >
+  > 执行到这个钩子的时候，就表示Vue实例已经初始化完成了。此时组件脱离了创建阶段，进入到了运行阶段。如果我们想要通过插件操作页面上的DOM节点，最早可以在这个阶段中进行
 - beforeUpdate:
-  > 组件更新之前
+  > 当执行这个钩子时，页面中的显示的数据还是旧的，data中的数据是更新后的， 页面还没有和最新的数据保持同步
 - updated:
-  > 组件更新之后
+  > 页面显示的数据和data中的数据已经保持同步了，都是最新的
 - beforeDestroy:
-  > 组件销毁前调用
+  > Vue实例从运行阶段进入到了销毁阶段，这个时候上所有的 data 和 methods，指令，过滤器……都是处于可用状态，还没有真正被销毁
 - destroyed:
-  > 组件销毁后调用
+  > 这个时候上所有的 data 和 methods，指令，过滤器……都是处于不可用状态，组件已经被销毁了。
 - activated:
   > 被 `keep-alive` 缓存的组件激活时调用。
 - deactivated:
@@ -150,11 +193,63 @@ new Vue({
 })
 ```
 
+## vue中key属性的作用
+
+key 的特殊 attribute 主要用在 Vue 的虚拟 DOM 算法，在新旧 nodes 对比时辨识 VNodes。如果不使用 key，Vue 会使用一种最大限度减少动态元素并且尽可能的尝试就地修改/复用相同类型元素的算法。而使用 key 时，它会基于 key 的变化重新排列元素顺序，并且会移除 key 不存在的元素。
+
+有相同父元素的子元素必须有独特的 key。重复的 key 会造成渲染错误。
+
+## Vue的路由模式
+
+> hash模式 与 history模式
+
+- hash（即地址栏 URL 中的 # 符号)。
+
+```txt
+比如这个 URL：www.123.com/#/test，hash 的值为 #/test。
+
+特点： hash 虽然出现在 URL 中，但不会被包括在 HTTP，因为我们hash每次页面切换其实切换的是#之后的内容，而#后内容的改变并不会触发地址的改变，
+所以不存在向后台发出请求，对后端完全没有影响，因此改变 hash 不会重新加载页面。
+
+每次hash发生变化时都会调用 onhashchange事件
+
+优点：可以随意刷新
+```
+
+- history（利用了浏览器的历史记录栈）
+
+```txt
+特点：利用了 HTML5 History Interface 中新增的 pushState() 和 replaceState() 方法。（需要特定浏览器支持）
+
+在当前已有的 back、forward、go的基础之上，它们提供了对历史记录进行修改的功能。只是当它们执行修改时，虽然改变了当前的URL，但浏览器不会立即向后端发送请求。
+
+history：可以通过前进 后退控制页面的跳转，刷新是真是的改变url。
+
+缺点：不能刷新，需要后端进行配置。由于history模式下是可以自由修改请求url，当刷新时如果不对对应地址进行匹配就会返回404。
+但是在hash模式下是可以刷新的，前端路由修改的是#中的信息，请求时地址是不会变的
+```
+
+## vue中\$router和\$route的区别
+
+- this.\$route：当前激活的路由的信息对象。每个对象都是局部的，可以获取当前路由的 path, name, params, query 等属性。
+
+- this.\$router：全局的 router 实例。通过 vue 根实例中注入 router 实例，然后再注入到每个子组件，从而让整个应用都有路由功能。其中包含了很多属性和对象（比如 history 对象），任何页面也都可以调用其 push(), replace(), go() 等方法。
+
 ## 移动端适配的方法
 
+> 起因:手机设备屏幕尺寸不一，做移动端的Web页面，需要考虑安卓/IOS的各种尺寸设备上的兼容，针对移动端设备的页面，设计与前端实现怎样做能更好地适配不同屏幕宽度的移动设备；
+
 1. flex 弹性布局
-2. rem 弹性布局
-3. rem + viewport 缩放
+2. viewport 适配
+
+    ```html
+    <meta name="viewport" content="width=750,initial-scale=0.5">
+    ```
+
+    initial-scale = 屏幕的宽度 / 设计稿的宽度
+
+3. rem 弹性布局
+4. rem + viewport 缩放
 
 > 这也是淘宝使用的方案，根据屏幕宽度设定 rem 值，需要适配的元素都使用 rem 为单位，不需要适配的元素还是使用 px 为单位。（1em = 16px）
 

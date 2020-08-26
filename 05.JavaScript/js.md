@@ -24,6 +24,7 @@
   - [使用 Object.defineProperty() 来进行数据劫持有什么缺点](#使用-objectdefineproperty-来进行数据劫持有什么缺点)
   - [js 延迟加载的方式有哪些](#js-延迟加载的方式有哪些)
   - [js 脚本 defer 和 async 的区别](#js-脚本-defer-和-async-的区别)
+  - [async await](#async-await)
   - [Event Loop 事件循环](#event-loop-事件循环)
   - [JS 跨域怎么做](#js-跨域怎么做)
   - [JSONP 怎么实现的](#jsonp-怎么实现的)
@@ -31,6 +32,7 @@
   - [new 运算符的过程](#new-运算符的过程)
   - [数组的 push() 和 pop() 方法的返回值是什么](#数组的-push-和-pop-方法的返回值是什么)
   - [JS 作用域](#js-作用域)
+  - [ES6 新特性](#es6-新特性)
   - [let 和 var 的区别](#let-和-var-的区别)
   - [闭包的特性以及优缺点](#闭包的特性以及优缺点)
   - [箭头函数与普通函数的区别](#箭头函数与普通函数的区别)
@@ -379,6 +381,65 @@ Object.defineProperty(obj, prop, descriptor)
 
 - async 属性表示异步执行引入的 JavaScript，与 defer 的区别在于，如果已经加载好，就会开始执行，也就是说它的执行仍然会阻塞文档的解析，只是它的加载过程不会阻塞。多个脚本的执行顺序无法保证。
 
+## async await
+
+> 官网：async函数返回一个 Promise 对象，可以使用then方法添加回调函数。当函数执行的时候，一旦遇到await就会先返回，等到异步操作完成，再接着执行函数体内后面的语句。
+
+- async单独使用的时候，放在函数前面表示这个函数是一个异步函数，如果async函数有返回结果，必须要用.then()方法来承接（也就是返回的值会被自动处理成promise对象）
+
+```js
+async function bar() {
+  return 'lee'
+}
+
+console.log(bar()); // Promise {<resolved>: "lee"}
+```
+
+- async await搭配使用的时候，await是等待此函数执行后，再执行下一个，可以把异步函数变成同步来执行，控制函数的执行顺序。await一定要搭配async使用。
+
+> 当await后的函数是返回的promise。
+
+```js
+let foo = () => {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      console.log('lee');
+      resolve();
+    }, 1000);
+  })
+}
+
+async function bar() {
+  await foo();
+  console.log('van');
+}
+console.log(bar()); // 隔1秒同时输出 lee van
+```
+
+> 当await 后跟的是普通函数（非promise()）
+
+```js
+let f1 = () => {
+  setTimeout(() => {
+    console.log('lee');
+  }, 1000)
+}
+
+let f2 = () => {
+  setTimeout(() => {
+    console.log('van');
+  }, 1000)
+}
+
+async function bar() {
+  await f1();
+  await f2();
+  console.log('yeah');
+}
+
+console.log(bar()); // yeah 隔1秒同时输出 lee fan
+```
+
 ## Event Loop 事件循环
 
 > 参考链接：[详解JavaScript中的Event Loop（事件循环）机制](https://zhuanlan.zhihu.com/p/33058983?utm_source=wechat_session&utm_medium=social&utm_oi=859347813597863936)
@@ -401,6 +462,8 @@ Object.defineProperty(obj, prop, descriptor)
 
 ## JS 跨域怎么做
 
+> 什么是跨域？当一个请求url的 协议、域名、端口三者之间任意一个与当前页面url不同即为跨域。
+>
 > 参考链接:[前端常见跨域解决方案（全）](https://segmentfault.com/a/1190000011145364)
 
 1. JSONP (JSON with Padding)
@@ -479,6 +542,21 @@ ES5 只有全局作用域和函数作用域
 - 函数作用域：在固定的代码片段才能被访问
 
 ES6 有块级作用域
+
+## ES6 新特性
+
+- let const 块级作用域
+- 模板字符串
+- 解构赋值
+- 箭头函数，函数参数默认值
+- 扩展运算符（...）
+- forEach for...of for...in
+- 数组方法map reduce includes
+- map和set
+- 模块化
+- promise proxy
+- async
+- class
 
 ## let 和 var 的区别
 
