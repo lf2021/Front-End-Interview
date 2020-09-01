@@ -21,7 +21,6 @@
   - [js 原型，原型链以及特点](#js-原型原型链以及特点)
   - [instanceof 的作用](#instanceof-的作用)
   - [Object.defineProperty 用法](#objectdefineproperty-用法)
-  - [使用 Object.defineProperty() 来进行数据劫持有什么缺点](#使用-objectdefineproperty-来进行数据劫持有什么缺点)
   - [js 延迟加载的方式有哪些](#js-延迟加载的方式有哪些)
   - [js 脚本 defer 和 async 的区别](#js-脚本-defer-和-async-的区别)
   - [async await](#async-await)
@@ -267,7 +266,7 @@ page为页面的意思，页面的高度一般情况client浏览器显示区域�
 
 第三种是 DOM2 级事件模型，在该事件模型中，一次事件共有三个过程，第一个过程是事件捕获阶段。捕获指的是事件从 document 一直向下
 传播到目标元素，依次检查经过的节点是否绑定了事件监听函数，如果有则执行。后面两个阶段和 IE 事件模型的两个阶段相同。这种事件模型，
-事件绑定的函数是 addEventListener，其中第三个参数可以指定事件是否在捕获阶段执行。
+事件绑定的函数是 addEventListener，其中第三个参数可以指定事件是否在捕获阶段执行。默认是false，在冒泡阶段执行。
 ```
 
 ## 如何阻止事件冒泡
@@ -356,12 +355,6 @@ Object.defineProperty(obj, prop, descriptor)
   - enumerable
   当且仅当该属性的 enumerable 键值为 true 时，该属性才会出现在对象的枚举属性中。
   默认为 false。
-
-## 使用 Object.defineProperty() 来进行数据劫持有什么缺点
-
-有一些对属性的操作，使用这种方法无法拦截，比如说通过下标方式修改数组数据或者给对象新增属性，vue 内部通过重写函数解决了这个问题。
-
-在 Vue3.0 中已经不使用这种方式了，而是通过使用 Proxy 对对象进行代理，从而实现数据劫持。使用 Proxy 的好处是它可以完美的监听到任何方式的数据改变，唯一的缺点是兼容性的问题，因为这是 ES6 的语法。
 
 ## js 延迟加载的方式有哪些
 
