@@ -13,7 +13,7 @@
   - [vue 的 activated 和 deactivated 钩子函数](#vue-的-activated-和-deactivated-钩子函数)
   - [nextTick 用法](#nexttick-用法)
   - [vue中key属性的作用](#vue中key属性的作用)
-  - [vue中key属性用index为什么不行](#vue中key属性用index为什么不行)
+  - [Vue中key属性用index为什么不行](#vue中key属性用index为什么不行)
   - [Vue的路由模式](#vue的路由模式)
   - [vue中\$router和\$route的区别](#vue中router和route的区别)
   - [移动端适配的方法](#移动端适配的方法)
@@ -209,7 +209,7 @@ key 的特殊 attribute 主要用在 Vue 的虚拟 DOM 算法，在新旧 nodes 
 
 有相同父元素的子元素必须有独特的 key。重复的 key 会造成渲染错误。
 
-## vue中key属性用index为什么不行
+## Vue中key属性用index为什么不行
 
 看看这两个数组：[1，2，3] 和 [1，3]。计算机会怎么对比数组？遍历！首先对比 1 和 1，发现 [ 1 没变 ]；然后对比 2 和 3，发现 [ 2 变成了 3 ]；最后对比 undefined 和 3，发现 [ 3 被删除了」。所以计算机的结论是：[ 2 变成了 3 ] 以及 [ 3 被删除了 ]。如果你用 index 作为 key，那么在删除第二项的时候，index 就会从 1 2 3 变成 1 2（而不是 1 3），那么 Vue 依然会认为你删除的是第三项。
 
