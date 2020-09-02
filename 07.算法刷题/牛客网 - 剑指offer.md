@@ -865,7 +865,7 @@ function dfsFind(root, expectNumber, path, sum, result) {
   sum += root.val
   path.push(root.val)
   if (sum === expectNumber && root.left === null && root.right === null) {
-    result.push(path.slice(0)) //不知道为什么不能直接push(path),想不通
+    result.push(path.slice(0)) // 为什么不能直接push(path),因为在深度优先搜索的时候path都是指向的同一个
   }
   if (root.left !== null) {
     dfsFind(root.left, expectNumber, path, sum, result)
