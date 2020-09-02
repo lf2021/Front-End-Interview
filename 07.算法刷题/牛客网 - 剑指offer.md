@@ -748,25 +748,19 @@ function min() {
 ```js
 function IsPopOrder(pushV, popV) {
   // write code here
-  const stack = [] //辅助栈
-  pushV.forEach((v) => {
-    if (v === popV[0]) {
-      popV.shift() //  弹出首部元素
-      let i = 0
-      const len = popV.length
-      for (; i < len; i++) {
-        if (stack[stack.length - 1] === popV[i]) {
-          stack.pop()
-        } else {
-          break
-        }
+  const stack = [];
+  pushV.forEach(item => {
+    if (item === popV[0]) {
+      popV.shift();
+      while(stack.length && stack[stack.length - 1] === popV[0]) {
+        stack.pop();
+        popV.shift();
       }
-      popV.splice(0, i)
     } else {
-      stack.push(v)
+      stack.push(item);
     }
   })
-  return !stack.length && !popV.length
+  return !stack.length && !popV.length;
 }
 ```
 
