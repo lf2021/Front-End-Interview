@@ -38,6 +38,7 @@
   - [125. 验证回文串](#125-验证回文串)
   - [141. 环形链表](#141-环形链表)
   - [160. 相交链表](#160-相交链表)
+  - [200. 岛屿数量](#200-岛屿数量)
   - [203. 移除链表元素](#203-移除链表元素)
   - [206. 反转链表](#206-反转链表)
   - [209. 长度最小的子数组](#209-长度最小的子数组)
@@ -1178,6 +1179,39 @@ var getIntersectionNode = function(headA, headB) {
         p2 = p2 ? p2.next : headA;
     }
 };
+```
+
+## 200. 岛屿数量
+
+```txt
+深度优先遍历，找到一个为1（陆地）的，count++，同时将其上下左右的陆地都变成0（湖泊）
+```
+
+```js
+var numIslands = function(grid) {
+    let rows = grid.length;
+    if (rows === 0) return 0;
+    let cols = grid[0].length;
+    let count = 0;
+    for(let i=0;i<rows;i++) {
+        for(let j=0; j<cols; j++) {
+            if (grid[i][j] === '1') {
+                count++;
+                dfs(grid, i, j, rows, cols);
+            }
+        }
+    }
+    return count;
+};
+
+function dfs(grid, i, j, rows, cols) {
+    if (i<0 || j<0 || i>rows-1 || j>cols-1 || grid[i][j] === '0') return;
+    grid[i][j] = '0';
+    dfs(grid, i-1, j, rows, cols);
+    dfs(grid, i+1, j, rows, cols);
+    dfs(grid, i, j-1, rows, cols);
+    dfs(grid, i, j+1, rows, cols);
+}
 ```
 
 ## 203. 移除链表元素
