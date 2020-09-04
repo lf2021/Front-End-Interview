@@ -14,6 +14,7 @@
   - [CSS 清除浮动的方式](#css-清除浮动的方式)
   - [清除浮动的原理](#清除浮动的原理)
   - [BFC的概念, 哪些元素可以触发BFC](#bfc的概念-哪些元素可以触发bfc)
+  - [脱离文档流的方式](#脱离文档流的方式)
   - [position 的值定位原点是](#position-的值定位原点是)
   - [display 有哪些值？说明他们的作用](#display-有哪些值说明他们的作用)
   - [float 的元素，display 是什么](#float-的元素display-是什么)
@@ -224,6 +225,12 @@ a标签有四种状态：链接访问前、链接访问后、鼠标滑过、激�
 - 网格元素（display为 grid 或 inline-grid 元素的直接子元素）
 - 多列容器（元素的 column-count 或 column-width 不为 auto，包括 -  column-count 为 1）
 - column-span 为 all 的元素始终会创建一个新的BFC，即使该元素没有包裹在一个多列容器中（标准变更，Chrome bug）。
+
+## 脱离文档流的方式
+
+- float
+- position: absolute
+- position: fixed
 
 ## position 的值定位原点是
 

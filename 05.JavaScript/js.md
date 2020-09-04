@@ -18,6 +18,7 @@
   - [如何阻止事件冒泡](#如何阻止事件冒泡)
   - [如何阻止事件默认行为](#如何阻止事件默认行为)
   - [事件代理/事件委托 以及 优缺点](#事件代理事件委托-以及-优缺点)
+  - [load 和 DOMContentLoaded 事件的区别](#load-和-domcontentloaded-事件的区别)
   - [js 原型，原型链以及特点](#js-原型原型链以及特点)
   - [instanceof 的作用](#instanceof-的作用)
   - [Object.defineProperty 用法](#objectdefineproperty-用法)
@@ -38,9 +39,6 @@
   - [ES6 中箭头函数 VS 普通函数的 this 指向](#es6-中箭头函数-vs-普通函数的-this-指向)
   - [JS 实现对象（都是简单类型的值）的深拷贝，一行代码](#js-实现对象都是简单类型的值的深拷贝一行代码)
   - [JSON.parse(JSON.stringify(obj)) 实现深拷贝需要注意的问题](#jsonparsejsonstringifyobj-实现深拷贝需要注意的问题)
-  - [Class 如何定义私有属性和私有方法](#class-如何定义私有属性和私有方法)
-    - [现有方案](#现有方案)
-    - [私有属性的提案](#私有属性的提案)
   - [Promise 是做什么的，有哪些API](#promise-是做什么的有哪些api)
     - [Promise用法](#promise用法)
     - [Promise.prototype.then()](#promiseprototypethen)
@@ -309,6 +307,11 @@ return false;
 1. 部分事件如 focus、blur 等无冒泡机制，所以无法委托。
 2. 事件委托有对子元素的查找过程，委托层级过深，可能会有性能问题
 3. 频繁触发的事件如 mousemove、mouseout、mouseover等，不适合事件委托
+
+## load 和 DOMContentLoaded 事件的区别
+
+- 当整个页面及所有依赖资源如样式表和图片都已完成加载时，将触发load事件。它与DOMContentLoaded不同，后者只要页面DOM加载完成就触发，无需等待依赖资源的加载。
+- 当纯HTML被完全加载以及解析时，DOMContentLoaded 事件会被触发，而不必等待样式表，图片或者子框架完成加载。
 
 ## js 原型，原型链以及特点
 
@@ -715,125 +718,6 @@ let newObj = JSON.parse(JSON.stringify(oldObj))
 4. 如果obj里有NaN、Infinity和-Infinity，则序列化的结果会变成null
 5. JSON.stringify()只能序列化对象的可枚举的自有属性，例如 如果obj中的对象是有构造函数生成的， 则使用JSON.parse(JSON.stringify(obj))深拷贝后，会丢弃对象的constructor；
 6. 如果对象中存在循环引用的情况也无法正确实现深拷贝；
-
-## Class 如何定义私有属性和私有方法
-
-详情参考[阮一峰 ES6 入门](https://es6.ruanyifeng.com/?utm_source=wechat_session&utm_medium=social&utm_oi=859347813597863936#docs/class#%E7%A7%81%E6%9C%89%E6%96%B9%E6%B3%95%E5%92%8C%E7%A7%81%E6%9C%89%E5%B1%9E%E6%80%A7)
-
-> 私有方法和私有属性，是只能在类的内部访问的方法和属性，外部不能访问。
-
-### 现有方案
-
-- 方法一：在命名上加以区分
-
-`_bar`方法前面的下划线，表示这是一个只限于内部使用的私有方法。但是，这种命名是不保险的，在类的外部，还是可以调用到这个方法。
-
-```js
-class Point {
-  // 公有方法
-  foo(param) {
-    this._bar(param)
-  }
-
-  // 私有方法
-  _bar(param) {
-    return (this.name = param)
-  }
-}
-```
-
-- 方法二：将私有方法移出模块，因为模块内部的所有方法都是对外可见的。
-
-`foo`是公有方法，内部调用了`bar.call(this, name)`。这使得 bar 实际上成为了当前模块的私有方法。
-
-```js
-class Point {
-  foo(param) {
-    bar.call(this, param)
-  }
-}
-
-function bar(param) {
-  return (this.name = param)
-}
-```
-
-- 方法三：利用 Symbol 值的唯一性，将私有方法的名字命名为一个 Symbol 值。
-
-`bar`和`snaf`都是`Symbol`值，一般情况下无法获取到它们，因此达到了私有方法和私有属性的效果。但是也不是绝对不行，`Reflect.ownKeys()`依然可以拿到它们。
-
-```js
-const bar = Symbol('bar')
-const name = Symbol('name')
-
-class Point {
-  // 公有方法
-  foo(param) {
-    this[bar](param)
-  }
-
-  // 私有方法
-  [bar](param) {
-    return (this[name] = param)
-  }
-}
-```
-
-```js
-const instance = new Point()
-
-Reflect.ownKeys(Point.prototype)
-// [ 'constructor', 'foo', Symbol(bar) ]
-```
-
-### 私有属性的提案
-
-目前，有一个提案，为 class 加了私有属性。方法是在属性名之前，使用#表示。
-
-```js
-class IncreasingCounter {
-  #count = 0
-  get value() {
-    return this.#count
-  }
-  increment() {
-    this.#count++
-  }
-}
-```
-
-`#count`就是私有属性，只能在类的内部使用（`this.#count`）。如果在类的外部使用，就会报错。如下：
-
-```js
-const counter = new IncreasingCounter()
-counter.increment()
-console.log(inst.value) // 1
-
-counter.#count // 报错
-counter.#count = 42 // 报错
-```
-
-也可以用来写私有方法：
-
-```js
-class Foo {
-  // 私有属性
-  #a;
-  #b;
-  constructor(a, b) {
-    this.#a = a;
-    this.#b = b;
-  }
-
-  // 私有方法
-  #sum() {
-    return #a + #b;
-  }
-  printSum() {
-    console.log(this.#sum());
-  }
-}
-```
 
 ## Promise 是做什么的，有哪些API
 
