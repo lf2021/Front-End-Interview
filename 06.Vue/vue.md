@@ -211,7 +211,61 @@ key 的特殊 attribute 主要用在 Vue 的虚拟 DOM 算法，在新旧 nodes 
 
 ## Vue中key属性用index为什么不行
 
-看看这两个数组：[1，2，3] 和 [1，3]。计算机会怎么对比数组？遍历！首先对比 1 和 1，发现 [ 1 没变 ]；然后对比 2 和 3，发现 [ 2 变成了 3 ]；最后对比 undefined 和 3，发现 [ 3 被删除了」。所以计算机的结论是：[ 2 变成了 3 ] 以及 [ 3 被删除了 ]。如果你用 index 作为 key，那么在删除第二项的时候，index 就会从 1 2 3 变成 1 2（而不是 1 3），那么 Vue 依然会认为你删除的是第三项。
+这是由于diff算法的机制所决定的，话不多说，直接上反例：
+
+当我们选中某一个（比如第3个），再添加或删除内容的时候就能发现bug了
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+</head>
+<body>
+    <div id="app">
+        <span>ID:</span><input type="text" v-model="id">
+        <span>Name:</span><input type="text" v-model="name">
+        <button @click="handleClick">添加</button>
+
+        <div v-for="(item, index) in list" :key="index">
+            <input type="checkbox" />
+            <span @click="handleDelete(index)">{{item.id}} --- {{item.name}}</span>
+        </div>
+    </div>
+    <script>
+        let vm = new Vue({
+            el: '#app',
+            data: {
+                id: '',
+                name: '',
+                list: [
+                    {id: 1, name: '张三'},
+                    {id: 2, name: '李四'},
+                    {id: 3, name: '王五'},
+                    {id: 4, name: '赵六'},
+                ]
+            },
+            methods: {
+                handleClick() {
+                    this.list.unshift({
+                        id: this.id,
+                        name: this.name
+                    })
+                },
+                handleDelete(index) {
+                    this.list.splice(index, 1)
+                }
+            },
+        })
+    </script>
+</body>
+</html>
+
+```
 
 ## Vue的路由模式
 
