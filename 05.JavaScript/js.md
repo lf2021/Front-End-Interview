@@ -2,6 +2,9 @@
 
 - [JavaScript](#javascript)
   - [js 基本数据类型](#js-基本数据类型)
+  - [js 遍历对象和遍历数组的方式](#js-遍历对象和遍历数组的方式)
+    - [遍历对象](#遍历对象)
+    - [遍历数组](#遍历数组)
   - [null 和 undefined 的区别](#null-和-undefined-的区别)
   - [其他值到字符串的转换规则](#其他值到字符串的转换规则)
   - [其他值到数字值的转换规则](#其他值到数字值的转换规则)
@@ -68,6 +71,129 @@
 ## js 基本数据类型
 
 > js 一共有六种基本数据类型，分别是 Undefined、Null、Boolean、Number、String，还有在 ES6 中新增的 Symbol 类型，代表创建后独一无二且不可变的数据类型，它的出现我认为主要是为了解决可能出现的全局变量冲突的问题。
+
+## js 遍历对象和遍历数组的方式
+
+### 遍历对象
+
+- Object.keys()
+
+> 返回一个数组,包括对象自身的(不含继承的)所有可枚举属性(不含Symbol属性).
+
+```js
+let obj = {
+    name: 'lee',
+    sex: 'male',
+    age: 18
+}
+Object.keys(obj).forEach(key => {
+    console.log(key, obj[key]);
+})
+
+// name lee
+// sex male
+// age 18
+```
+
+- for...in
+
+> 循环遍历对象自身的和继承的可枚举属性(不含Symbol属性).
+
+```js
+let obj = {
+    name: 'lee',
+    sex: 'male',
+    age: 18
+}
+for(let key in obj) {
+    console.log(key, obj[key]);
+}
+
+// name lee
+// sex male
+// age 18
+```
+
+- Object.getOwnPropertyNames()
+
+> 返回一个数组,包含对象自身的所有属性(不含Symbol属性,但是包括不可枚举属性).
+
+```js
+let obj = {
+    name: 'lee',
+    sex: 'male',
+    age: 18
+}
+Object.getOwnPropertyNames(obj).forEach(key => {
+    console.log(key, obj[key]);
+})
+
+// name lee
+// 17 sex male
+// 17 age 18
+```
+
+- Reflect.ownKeys()
+
+> 返回一个数组,包含对象自身的所有属性(包括Symbol属性和不可枚举属性).
+
+```js
+let obj = {
+    name: 'lee',
+    sex: 'male',
+    age: 18
+}
+Reflect.ownKeys(obj).forEach(key => {
+    console.log(key, obj[key]);
+})
+
+// name lee
+// 17 sex male
+// 17 age 18
+```
+
+### 遍历数组
+
+- forEach()
+
+```js
+let arr = [1,2,3];
+arr.forEach(e => {
+    console.log(e);
+})
+
+// 1
+// 2
+// 3
+```
+
+- for...in
+
+> 注意for...in遍历的是索引
+
+```js
+let arr = [1,2,3];
+for(let index in arr) {
+    console.log(arr[index]);
+}
+
+// 1
+// 2
+// 3
+```
+
+- for...of
+
+```js
+let arr = [1,2,3];
+for(let ele of arr) {
+    console.log(ele);
+}
+
+// 1
+// 2
+// 3
+```
 
 ## null 和 undefined 的区别
 
