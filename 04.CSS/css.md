@@ -4,6 +4,7 @@
   - [CSS3 新特性](#css3-新特性)
   - [CSS 盒模型](#css-盒模型)
   - [设置一个元素的背景颜色，背景颜色会填充哪些区域](#设置一个元素的背景颜色背景颜色会填充哪些区域)
+  - [margin/padding 设置百分比是相对谁的](#marginpadding-设置百分比是相对谁的)
   - [link 和 @import 的区别](#link-和-import-的区别)
   - [CSS 选择器的解析规则](#css-选择器的解析规则)
   - [CSS 选择器优先级](#css-选择器优先级)
@@ -95,6 +96,36 @@ div {
 
 效果图：
 ![效果图](./../images/border.png)
+
+## margin/padding 设置百分比是相对谁的
+
+先来看一个案例：
+
+> 假设一个div，宽400px，高200px，他有个子div的margin:10%，你来算下他的margin 的 top, right, bottom, left 是多少？
+
+```css
+.outer {
+    width: 400px;
+    height: 200px;
+    background-color: red;
+    position: relative;
+}
+.inner {
+    width: 100px;
+    height: 100px;
+    background-color: green;
+    position: absolute;
+    margin: 10%;
+}
+
+<div class="outer">
+    <div class="inner"></div>
+</div>
+```
+
+效果是子盒子的margin为40px 40px 40px 40px
+
+总结：margin/padding设置百分比都是相对于父盒子的宽度(width属性)
 
 ## link 和 @import 的区别
 
