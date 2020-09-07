@@ -34,6 +34,7 @@
   - [61. 旋转链表](#61-旋转链表)
   - [82. 删除排序链表中的重复元素 II](#82-删除排序链表中的重复元素-ii)
   - [83. 删除排序链表中的重复元素](#83-删除排序链表中的重复元素)
+  - [107. 二叉树的层次遍历 II](#107-二叉树的层次遍历-ii)
   - [112. 路径总和](#112-路径总和)
   - [125. 验证回文串](#125-验证回文串)
   - [141. 环形链表](#141-环形链表)
@@ -44,6 +45,9 @@
   - [209. 长度最小的子数组](#209-长度最小的子数组)
   - [215. 数组中的第K个最大元素](#215-数组中的第k个最大元素)
   - [234. 回文链表](#234-回文链表)
+  - [300. 最长上升子序列](#300-最长上升子序列)
+  - [347. 前 K 个高频元素](#347-前-k-个高频元素)
+  - [494. 目标和](#494-目标和)
   - [876. 链表的中间结点](#876-链表的中间结点)
 
 ## 面试题 02.01. 移除重复节点
@@ -1057,6 +1061,31 @@ var deleteDuplicates = function(head) {
 };
 ```
 
+## 107. 二叉树的层次遍历 II
+
+> 借助栈的结构，依次把每层的结点放入栈中，再弹出
+
+```js
+var levelOrderBottom = function(root) {
+  if (!root) return []; // 注意加上root不存在的情况
+  let res = [];
+  let nodes = [];
+  nodes.push(root);
+  while(nodes.length) {
+    const len = nodes.length;
+    let tmp = [];
+    for(let i =0 ;i<len;i++) {
+      let node = nodes.shift();
+      tmp.push(node.val);
+      node.left && nodes.push(node.left);
+      node.right && nodes.push(node.right);
+    }
+    res.unshift(tmp);
+  }
+  return res;
+};
+```
+
 ## 112. 路径总和
 
 ```txt
@@ -1497,6 +1526,109 @@ var isPalindrome = function(head) {
         reversed = reversed.next;
     }
     return true;
+};
+```
+
+## 300. 最长上升子序列
+
+- 动态规划
+
+```txt
+dp[i]表示的是前i个字符中最长上升子序列的个数
+```
+
+```js
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var lengthOfLIS = function (nums) {
+    let len = nums.length;
+    if (len < 1) return 0;
+    let dp = Array(len).fill(1);
+    for (let i = 0; i < len; i++) {
+        for (let j = 0; j < i; j++) {
+            if (nums[j] < nums[i]) {
+                dp[i] = Math.max(dp[i], dp[j] + 1);
+            }
+        }
+    }
+    return Math.max(...dp);
+};
+```
+
+## 347. 前 K 个高频元素
+
+```js
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {number[]}
+ */
+var topKFrequent = function (nums, k) {
+    let map = new Map();
+    nums.forEach((item, index) => {
+        if (map.has(item)) {
+            map.set(item, map.get(item) + 1);
+        } else {
+            map.set(item , 1);
+        }
+    })
+    let arr = [...map.keys()]; // 不重复的数字
+    if (arr.length < k) return arr;
+
+    function adjustHeap(nums, i, len) { // 小顶堆
+        for (let j = 2 * i + 1; j < len; j = 2 * j + 1) {
+            if (j + 1 < len && map.get(nums[j]) > map.get(nums[j + 1])) {
+                j++;
+            }
+            if (map.get(nums[i]) > map.get(nums[j])) {
+                [nums[i], nums[j]] = [nums[j], nums[i]];
+                i = j;
+            } else {
+                break;
+            }
+        }
+    }
+    let a = arr.splice(0, k);
+    for (let i = (k-1) >> 1 ; i >= 0; i--) {
+        adjustHeap(a, i, a.length);
+    }
+    for (let i = 0; i < arr.length; i++) {
+        if (map.get(arr[i]) > map.get(a[0])) {
+            a[0] = arr[i];
+            adjustHeap(a, 0, k);
+        }
+    }
+    return a
+};
+```
+
+## 494. 目标和
+
+- 回溯法
+
+```js
+/**
+ * @param {number[]} nums
+ * @param {number} S
+ * @return {number}
+ */
+var findTargetSumWays = function(nums, S) {
+    if (nums.length === 0) return 0;
+    let result = 0;
+    let helper = (nums, i, sum, S) => {
+        if (i === nums.length) {
+            if (sum === S) {
+                result++;
+            }
+            return;
+        }
+        helper(nums, i+1, sum+nums[i], S);
+        helper(nums, i+1, sum-nums[i], S);
+    }
+    helper(nums, 0, 0, S);
+    return result;
 };
 ```
 
