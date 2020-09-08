@@ -42,6 +42,7 @@
   - [CSS 实现一个硬币旋转的效果](#css-实现一个硬币旋转的效果)
   - [CSS 实现垂直居中](#css-实现垂直居中)
   - [CSS 实现两列固定，中间自适应的布局](#css-实现两列固定中间自适应的布局)
+  - [实现自适应九宫格](#实现自适应九宫格)
 
 ## CSS3 新特性
 
@@ -915,3 +916,52 @@ HTML代码如下：
     background-color: green;
   }
   ```
+
+## 实现自适应九宫格
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        html, body {
+            width: 100%;
+            height: 100%;
+        }
+        .box {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .item {
+            width: 30%;
+            height: 30%;
+            margin: 1%;
+            background-color: #cccccc;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+    </div>
+</body>
+
+</html>
+```
