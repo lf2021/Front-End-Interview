@@ -29,6 +29,8 @@
   - [31. 下一个排列](#31-下一个排列)
   - [33. 搜索旋转排序数组](#33-搜索旋转排序数组)
   - [35. 搜索插入位置](#35-搜索插入位置)
+  - [39. 组合](#39-组合)
+  - [40. 组合Ⅱ](#40-组合ⅱ)
   - [53. 最大子序和](#53-最大子序和)
   - [58. 最后一个单词的长度](#58-最后一个单词的长度)
   - [61. 旋转链表](#61-旋转链表)
@@ -951,6 +953,55 @@ var searchInsert = function(nums, target) {
         }
     }
     return left;
+};
+```
+
+## 39. 组合
+
+- 回溯
+
+```js
+var combinationSum = function(candidates, target) {
+    let ans = [];
+    let dfs = (target, combine, id) => {
+        if (id === candidates.length) return;
+        if (target === 0) {
+            ans.push(combine.slice());
+            return;
+        }
+        if (target - candidates[id] >= 0) {
+            dfs(target - candidates[id], [...combine, candidates[id]], id);
+        }
+        dfs(target, combine, id+1);
+    }
+    dfs(target, [], 0)
+    return ans
+};
+```
+
+## 40. 组合Ⅱ
+
+- 回溯+减枝
+
+```js
+var combinationSum2 = function (candidates, target) {
+    let ans = [];
+    candidates.sort((a, b) => a - b);
+    let backtrack = (combine, target, id) => {
+        if (target === 0) {
+            ans.push(combine.slice())
+            return
+        }
+        for (let i = id; i < candidates.length; i++) {
+            if (target < candidates[i]) return;
+            if (i > id && candidates[i - 1] === candidates[i]) continue;
+            combine.push(candidates[i]);
+            backtrack(combine.slice(), target - candidates[i], i + 1);
+            combine.pop();
+        }
+    }
+    backtrack([], target, 0);
+    return ans
 };
 ```
 
