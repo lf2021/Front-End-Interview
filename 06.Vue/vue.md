@@ -11,6 +11,7 @@
   - [为什么 vue 组件中的 data 必须是函数](#为什么-vue-组件中的-data-必须是函数)
   - [vue 的生命周期函数](#vue-的生命周期函数)
   - [vue 的 activated 和 deactivated 钩子函数](#vue-的-activated-和-deactivated-钩子函数)
+  - [Vue中父子组件生命周期执行顺序](#vue中父子组件生命周期执行顺序)
   - [nextTick 用法](#nexttick-用法)
   - [vue中key属性的作用](#vue中key属性的作用)
   - [Vue中key属性用index为什么不行](#vue中key属性用index为什么不行)
@@ -163,9 +164,40 @@ MVVM和MVC的区别:
 - `activated`在`keep-alive`组件激活时调用，该钩子函数在服务器端渲染期间不被调用。
 - `deactivated`在`keep-alive`组件停用时调用，该钩子函数在服务端渲染期间不被调用。
 
+## Vue中父子组件生命周期执行顺序
+
+在单一组件中，钩子的执行顺序是beforeCreate-> created -> mounted->... ->destroyed
+
+父子组件生命周期执行顺序：
+
+- 加载渲染过程
+
+  ```txt
+  父beforeCreate->父created->父beforeMount->子beforeCreate->子created->子beforeMount->子mounted->父mounted
+  ```
+
+- 更新过程
+
+  ```txt
+  父beforeUpdate->子beforeUpdate->子updated->父updated
+  ```
+
+- 销毁过程
+
+  ```txt
+  父beforeDestroy->子beforeDestroy->子destroyed->父destroyed
+  ```
+
+- 常用钩子简易版
+
+  ```txt
+  父create->子created->子mounted->父mounted
+  ```
+
 ## nextTick 用法
 
 官网解释：
+
 > 将回调延迟到下次 DOM 更新循环之后执行。在修改数据之后立即使用它，然后等待 DOM 更新。
 
 ```html
