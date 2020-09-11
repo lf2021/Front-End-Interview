@@ -43,6 +43,7 @@
   - [CSS 实现垂直居中](#css-实现垂直居中)
   - [CSS 实现两列固定，中间自适应的布局](#css-实现两列固定中间自适应的布局)
   - [实现自适应九宫格](#实现自适应九宫格)
+  - [屏幕里面内容未占满的时候footer固定在屏幕可视区域的底部。占满的时候显示在网页的最底端](#屏幕里面内容未占满的时候footer固定在屏幕可视区域的底部占满的时候显示在网页的最底端)
 
 ## CSS3 新特性
 
@@ -964,4 +965,75 @@ HTML代码如下：
 </body>
 
 </html>
+```
+
+## 屏幕里面内容未占满的时候footer固定在屏幕可视区域的底部。占满的时候显示在网页的最底端
+
+- 方式一
+
+```html
+<style>
+    html,
+    body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    .page {
+        box-sizing: border-box;
+        min-height: 100%;
+        padding-bottom: 300px;
+        background-color: gray;
+        /* height: 2000px; */
+    }
+
+    footer {
+        height: 300px;
+        margin-top: -300px;
+        background-color: #ccc;
+</style>
+
+<div class="page">
+    主要页面
+</div>
+<footer>底部</footer>
+```
+
+- 方式二
+
+```html
+<style>
+    html,
+    body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    .container {
+        position: relative;
+        min-height: 100%;
+    }
+
+    .page {
+        background-color: gray;
+        /* height: 2000px; */
+    }
+
+    footer {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        height: 300px;
+        width: 100%;
+        background-color: #ccc;
+</style>
+
+<div class="container">
+    <div class="page">
+        主要页面
+    </div>
+    <footer>底部</footer>
+</div>
 ```

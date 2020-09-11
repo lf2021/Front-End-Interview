@@ -22,6 +22,7 @@
   - [如何阻止事件默认行为](#如何阻止事件默认行为)
   - [事件代理/事件委托 以及 优缺点](#事件代理事件委托-以及-优缺点)
   - [load 和 DOMContentLoaded 事件的区别](#load-和-domcontentloaded-事件的区别)
+  - [js判断图片是否加载完毕的方式](#js判断图片是否加载完毕的方式)
   - [js 原型，原型链以及特点](#js-原型原型链以及特点)
   - [instanceof 的作用](#instanceof-的作用)
   - [Object.defineProperty 用法](#objectdefineproperty-用法)
@@ -442,6 +443,62 @@ return false;
 
 - 当整个页面及所有依赖资源如样式表和图片都已完成加载时，将触发load事件。它与DOMContentLoaded不同，后者只要页面DOM加载完成就触发，无需等待依赖资源的加载。
 - 当纯HTML被完全加载以及解析时，DOMContentLoaded 事件会被触发，而不必等待样式表，图片或者子框架完成加载。
+
+## js判断图片是否加载完毕的方式
+
+- load事件
+
+> 测试，所有浏览器都显示出了“loaded”，说明所有浏览器都支持img的load事件。
+
+```html
+<img id="img" src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=151472226,3497652000&fm=26&gp=0.jpg">
+<p id="p">loading...</p>
+<script>
+    document.getElementById('img').onload = function() {
+        document.getElementById('p').innerHTML = 'loaded';
+    }
+</script>
+```
+
+- readystatechange事件
+
+> readyState为complete和loaded则表明图片已经加载完毕。测试IE6-IE10支持该事件，其它浏览器不支持。
+
+```html
+<img id="img" src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=151472226,3497652000&fm=26&gp=0.jpg">
+<p id="p">loading...</p>
+<script>
+    var img = document.getElementById('img');
+    img.onreadystatechange = function () {
+        if (img.readyState == 'complete' || img.readyState == 'loaded') {
+            document.getElementById('p').innerHTML = 'readystatechange:loaded';
+        }
+    }
+</script>
+```
+
+- img 的 complete属性
+
+> 轮询不断监测img的complete属性，如果为true则表明图片已经加载完毕，停止轮询。该属性所有浏览器都支持。
+
+```html
+<img id="img" src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=151472226,3497652000&fm=26&gp=0.jpg">
+<p id="p">loading...</p>
+<script>
+
+    function imgLoad(img, callback) {
+        var timer = setInterval(function() {
+            if (img.complete) {
+                callback(img);
+                clearInterval(timer);
+            }
+        }, 50)
+    }
+    imgLoad(img, function() {
+        document.getElementById('p').innerHTML = '加载完毕';
+    })
+</script>
+```
 
 ## js 原型，原型链以及特点
 
