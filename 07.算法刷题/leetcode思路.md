@@ -36,8 +36,11 @@
   - [61. 旋转链表](#61-旋转链表)
   - [82. 删除排序链表中的重复元素 II](#82-删除排序链表中的重复元素-ii)
   - [83. 删除排序链表中的重复元素](#83-删除排序链表中的重复元素)
+  - [94. 二叉树的中序遍历](#94-二叉树的中序遍历)
   - [107. 二叉树的层次遍历 II](#107-二叉树的层次遍历-ii)
   - [112. 路径总和](#112-路径总和)
+  - [121. 买卖股票的最佳时机](#121-买卖股票的最佳时机)
+  - [122. 买卖股票的最佳时机 II](#122-买卖股票的最佳时机-ii)
   - [125. 验证回文串](#125-验证回文串)
   - [141. 环形链表](#141-环形链表)
   - [160. 相交链表](#160-相交链表)
@@ -1155,6 +1158,44 @@ var deleteDuplicates = function(head) {
 };
 ```
 
+## 94. 二叉树的中序遍历
+
+- 递归
+
+```js
+var inorderTraversal = function(root) {
+    let res = [];
+    let mid = root => {
+        if (!root) return null;
+        mid(root.left);
+        res.push(root.val);
+        mid(root.right);
+    }
+    mid(root)
+    return res;
+};
+```
+
+- 迭代算法（借助栈）
+
+```js
+var inorderTraversal = function (root) {
+    let nodes = [];
+    let res = [];
+    while (root || nodes.length) {
+        if (root) {
+            nodes.push(root);
+            root = root.left;
+        } else {
+            let node = nodes.pop();
+            res.push(node.val);
+            root = node.right;
+        }
+    }
+    return res
+};
+```
+
 ## 107. 二叉树的层次遍历 II
 
 > 借助栈的结构，依次把每层的结点放入栈中，再弹出
@@ -1199,6 +1240,89 @@ var hasPathSum = function(root, sum) {
   // 总和减去当前值，并递归
   sum = sum - root.val
   return hasPathSum(root.left, sum) || hasPathSum(root.right, sum);
+};
+```
+
+## 121. 买卖股票的最佳时机
+
+- 动态规划
+
+```txt
+dp[i]表示前i个中股票利润最大值
+转移方程：
+dp[i] = max{ dp[i-1], prices[i] - minprice }
+```
+
+```js
+var maxProfit = function (prices) {
+    let len = prices.length;
+    if (len < 1) return 0;
+    let dp = Array(len).fill(0);
+    let minprice = prices[0];
+    for (let i = 1; i < len; i++) {
+        minprice = Math.min(minprice, prices[i]);
+        dp[i] = Math.max(dp[i - 1], prices[i] - minprice);
+    }
+    return dp[len - 1]
+};
+
+// 改进 直接用一个max来保存这个最大利润
+var maxProfit = function (prices) {
+    let len = prices.length;
+    let max = 0;
+    let minprice = prices[0];
+    for (let i = 1; i < len; i++) {
+        minprice = Math.min(minprice, prices[i]);
+        max = Math.max(max, prices[i] - minprice);
+    }
+    return max
+};
+```
+
+- 暴力循环
+
+```txt
+两层循环没啥好讲
+```
+
+```js
+var maxProfit = function(prices) {
+    let max = 0;
+    for(let i=0;i<prices.length;i++) {
+        for(let j=i+1;j<prices.length;j++) {
+            if (prices[j] - prices[i] > max) {
+                max = prices[j] - prices[i];
+            }
+        }
+    }
+    return max
+};
+```
+
+## 122. 买卖股票的最佳时机 II
+
+```txt
+用一个二维数组的动态方程
+dp[i][0] 表示第i天 卖出 的最大利润
+dp[i][1] 表示第i天 买入 的最大利润
+
+状态转移方程：
+dp[i][0] = max{ dp[i-1][0], dp[i-1][1]+prices[i] } 第i天卖出的最大利润等于第i-1天卖出的最大利润 或者 第i-1天买入的最大利润加上第i天的股价 两者的最大值
+dp[i][1] = max{ dp[i-1][1], dp[i-1][0]-prices[i] } 第i天买入的最大利润等于第i-1天买入的最大利润 或者 第i-1天卖出的最大利润减去第i天的股价 两者的最大值
+
+```
+
+```js
+var maxProfit = function(prices) {
+    let len = prices.length;
+    let dp = Array(len).fill(0).map(e => Array(2).fill(0));
+    dp[0][0] = 0;
+    dp[0][1] = -prices[0];
+    for(let i=1; i<len; i++) {
+        dp[i][0] = Math.max(dp[i-1][0], dp[i-1][1]+prices[i]);
+        dp[i][1] = Math.max(dp[i-1][1], dp[i-1][0]-prices[i]);
+    }
+    return Math.max(dp[len-1][0], dp[len-1][1])
 };
 ```
 
