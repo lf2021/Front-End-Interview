@@ -36,6 +36,7 @@
   - [61. 旋转链表](#61-旋转链表)
   - [82. 删除排序链表中的重复元素 II](#82-删除排序链表中的重复元素-ii)
   - [83. 删除排序链表中的重复元素](#83-删除排序链表中的重复元素)
+  - [94. 二叉树的中序遍历](#94-二叉树的中序遍历)
   - [107. 二叉树的层次遍历 II](#107-二叉树的层次遍历-ii)
   - [112. 路径总和](#112-路径总和)
   - [121. 买卖股票的最佳时机](#121-买卖股票的最佳时机)
@@ -1154,6 +1155,44 @@ var deleteDuplicates = function(head) {
         }
     }
     return head;
+};
+```
+
+## 94. 二叉树的中序遍历
+
+- 递归
+
+```js
+var inorderTraversal = function(root) {
+    let res = [];
+    let mid = root => {
+        if (!root) return null;
+        mid(root.left);
+        res.push(root.val);
+        mid(root.right);
+    }
+    mid(root)
+    return res;
+};
+```
+
+- 迭代算法（借助栈）
+
+```js
+var inorderTraversal = function (root) {
+    let nodes = [];
+    let res = [];
+    while (root || nodes.length) {
+        if (root) {
+            nodes.push(root);
+            root = root.left;
+        } else {
+            let node = nodes.pop();
+            res.push(node.val);
+            root = node.right;
+        }
+    }
+    return res
 };
 ```
 
