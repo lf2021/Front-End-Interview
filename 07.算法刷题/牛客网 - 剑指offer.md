@@ -2461,21 +2461,26 @@ function cutRope(number) {
 
 > 方法二：动态规划 DP
 
+```txt
+dp[i]表示长度为i的绳子切成m段之后各段长度的乘积
+
+状态转移方程 dp[i] = max{ dp[i], max{ (i-j)\*j, dp[i-j]\*j } }
+要么不减 dp[i]
+要么从j开始减，剩余的（i-j）要么不减，要么继续减
+
+时间复杂度: O(N^2)
+空间复杂度: O(N)
+```
+
 ```js
-function cutRope(number) {
-  // write code here
-  if (number <= 1) return 0
-  if (number === 2) return 1
-  if (number === 3) return 2
-  var arr = [0, 1, 2, 3]
-  for (let i = 4; i <= number; i++) {
-    var max = 0
-    for (let j = 1; j <= parseInt(number / 2); j++) {
-      var max = 0
-      max = Math.max(arr[j] * arr[i - j], max)
-      arr.push(max)
+var cuttingRope = function (n) {
+  let dp = Array(n + 1).fill(0);
+  dp[2] = 1;
+  for (let i = 3; i <= n; i++) {
+    for (let j = 1; j <= i; j++) {
+      dp[i] = Math.max(dp[i], Math.max((i - j) * j, dp[i - j] * j));
     }
   }
-  return arr[arr.length - 1]
-}
+  return dp[n];
+};
 ```
