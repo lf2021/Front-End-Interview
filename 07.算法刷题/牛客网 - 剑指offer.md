@@ -1,4 +1,4 @@
-# 剑指offer
+# 剑指 offer
 
 ```js
 牛客链接地址：https://www.nowcoder.com/ta/coding-interviews
@@ -84,11 +84,11 @@ function Find(target, array) {
   for (let i = array.length - 1; i >= 0; i--) {
     if (array[i][0] <= target) {
       if (array[i].includes(target)) {
-        return true
+        return true;
       }
     }
   }
-  return false
+  return false;
 }
 ```
 
@@ -99,7 +99,7 @@ function Find(target, array) {
 ```js
 function replaceSpace(str) {
   // write code here
-  return str.replace(/\s/g, '%20')
+  return str.replace(/\s/g, "%20");
 }
 ```
 
@@ -113,13 +113,13 @@ function replaceSpace(str) {
     this.next = null;
 }*/
 function printListFromTailToHead(head) {
-    // write code here
-    let res = [];
-    while (head) {
-        res.unshift(head.val);
-        head = head.next;
-    }
-    return res;
+  // write code here
+  let res = [];
+  while (head) {
+    res.unshift(head.val);
+    head = head.next;
+  }
+  return res;
 }
 ```
 
@@ -137,14 +137,14 @@ function printListFromTailToHead(head) {
 function reConstructBinaryTree(pre, vin) {
   // write code here
   if (!pre.length || !vin.length) return null; // 递归基 写递归一定得先写
-  var root = pre[0] //根节点
-  var index = vin.indexOf(root) // 在vin中找到根节点的索引
-  var left = vin.slice(0, index) // 左子树的中序
-  var right = vin.slice(index + 1) // 右子树的中序
-  var node = new TreeNode(root) // 新建一个二叉树
-  node.left = reConstructBinaryTree(pre.slice(1, index + 1), left) //左子树的前序和中序
-  node.right = reConstructBinaryTree(pre.slice(index + 1), right) //右子树的前序和中序
-  return node
+  var root = pre[0]; //根节点
+  var index = vin.indexOf(root); // 在vin中找到根节点的索引
+  var left = vin.slice(0, index); // 左子树的中序
+  var right = vin.slice(index + 1); // 右子树的中序
+  var node = new TreeNode(root); // 新建一个二叉树
+  node.left = reConstructBinaryTree(pre.slice(1, index + 1), left); //左子树的前序和中序
+  node.right = reConstructBinaryTree(pre.slice(index + 1), right); //右子树的前序和中序
+  return node;
 }
 ```
 
@@ -153,23 +153,23 @@ function reConstructBinaryTree(pre, vin) {
 > 用两个栈来实现一个队列，完成队列的 Push 和 Pop 操作。 队列中的元素为 int 类型。
 
 ```js
-const inStack = []
-const outStack = []
+const inStack = [];
+const outStack = [];
 
 function push(node) {
   // write code here
-  inStack.push(node)
+  inStack.push(node);
 }
 
 function pop() {
   // write code here
   if (outStack.length) {
-    return outStack.pop()
+    return outStack.pop();
   } else {
     while (inStack.length) {
-      outStack.push(inStack.pop())
+      outStack.push(inStack.pop());
     }
-    return outStack.pop()
+    return outStack.pop();
   }
 }
 ```
@@ -186,18 +186,18 @@ function pop() {
 ```js
 function minNumberInRotateArray(rotateArray) {
   // write code here
-  if (!rotateArray.length) return 0
-  var left = 0
-  var right = rotateArray.length - 1
+  if (!rotateArray.length) return 0;
+  var left = 0;
+  var right = rotateArray.length - 1;
   while (left + 1 < right) {
-    var mid = Math.floor((left + right) / 2)
+    var mid = Math.floor((left + right) / 2);
     if (rotateArray[mid] >= rotateArray[left]) {
-      left = mid
+      left = mid;
     } else {
-      right = mid
+      right = mid;
     }
   }
-  return rotateArray[right]
+  return rotateArray[right];
 }
 ```
 
@@ -207,9 +207,9 @@ function minNumberInRotateArray(rotateArray) {
 function minNumberInRotateArray(rotateArray) {
   // write code here
   if (!rotateArray.length) {
-    return 0
+    return 0;
   } else {
-    return Math.min(...rotateArray)
+    return Math.min(...rotateArray);
   }
 }
 ```
@@ -218,17 +218,17 @@ function minNumberInRotateArray(rotateArray) {
 
 > 大家都知道斐波那契数列，现在要求输入一个整数 n，请你输出斐波那契数列的第 n 项（从 0 开始，第 0 项为 0）。(n<=39)
 
-> 方法一：动态规划DP
+> 方法一：动态规划 DP
 
 ```js
 function Fibonacci(n) {
-    // write code here
-    if (n === 0 || n === 1) return n;
-    let dp = [0, 1];
-    for (let i = 2; i <= n; i++) {
-        dp[i] = dp[i-1] + dp[i-2];
-    }
-    return dp[n];
+  // write code here
+  if (n === 0 || n === 1) return n;
+  let dp = [0, 1];
+  for (let i = 2; i <= n; i++) {
+    dp[i] = dp[i - 1] + dp[i - 2];
+  }
+  return dp[n];
 }
 ```
 
@@ -238,15 +238,15 @@ function Fibonacci(n) {
 function Fibonacci(n) {
   // write code here
   if (n == 0 || n == 1) {
-    return n
+    return n;
   }
-  let triple = [0, 0, 1]
+  let triple = [0, 0, 1];
   for (let i = 2; i <= n; i++) {
-    triple[0] = triple[1]
-    triple[1] = triple[2]
-    triple[2] = triple[0] + triple[1]
+    triple[0] = triple[1];
+    triple[1] = triple[2];
+    triple[2] = triple[0] + triple[1];
   }
-  return triple[2]
+  return triple[2];
 }
 ```
 
@@ -268,18 +268,18 @@ function Fibonacci(n) {
 function jumpFloor(number) {
   // write code here
   if (number == 1) {
-    return 1
+    return 1;
   }
   if (number == 2) {
-    return 2
+    return 2;
   }
-  let arr = [0, 1, 2]
+  let arr = [0, 1, 2];
   for (let i = 3; i <= number; i++) {
-    arr[0] = arr[1]
-    arr[1] = arr[2]
-    arr[2] = arr[0] + arr[1]
+    arr[0] = arr[1];
+    arr[1] = arr[2];
+    arr[2] = arr[0] + arr[1];
   }
-  return arr[2]
+  return arr[2];
 }
 ```
 
@@ -304,21 +304,21 @@ function jumpFloor(number) {
 ```js
 function jumpFloorII(number) {
   // write code here
-  return Math.pow(2, number - 1)
+  return Math.pow(2, number - 1);
 }
 ```
 
-> 方法二：动态归纳DP
+> 方法二：动态归纳 DP
 
 ```js
 function jumpFloorII(number) {
-    // write code here
-    if (number === 1 || number === 2) return number;
-    let dp = [1, 2];
-    for (let i = 2; i < number; i++) {
-        dp[i] = dp.reduce((t, v) => t + v) + 1;
-    }
-    return dp[number -1];
+  // write code here
+  if (number === 1 || number === 2) return number;
+  let dp = [1, 2];
+  for (let i = 2; i < number; i++) {
+    dp[i] = dp.reduce((t, v) => t + v) + 1;
+  }
+  return dp[number - 1];
 }
 ```
 
@@ -334,21 +334,21 @@ function jumpFloorII(number) {
 function rectCover(number) {
   // write code here
   if (number <= 0) {
-    return 0
+    return 0;
   }
   if (number == 1) {
-    return 1
+    return 1;
   }
   if (number == 2) {
-    return 2
+    return 2;
   }
-  let arr = [0, 1, 2]
+  let arr = [0, 1, 2];
   for (let i = 3; i <= number; i++) {
-    arr[0] = arr[1]
-    arr[1] = arr[2]
-    arr[2] = arr[0] + arr[1]
+    arr[0] = arr[1];
+    arr[1] = arr[2];
+    arr[2] = arr[0] + arr[1];
   }
-  return arr[2]
+  return arr[2];
 }
 ```
 
@@ -365,12 +365,12 @@ function rectCover(number) {
 ```js
 function NumberOf1(n) {
   // write code here
-  let count = 0
+  let count = 0;
   while (n != 0) {
-    count++
-    n = n & (n - 1) // 与操作自动将数转换成二进制
+    count++;
+    n = n & (n - 1); // 与操作自动将数转换成二进制
   }
-  return count
+  return count;
 }
 ```
 
@@ -381,7 +381,7 @@ function NumberOf1(n) {
 ```js
 function Power(base, exponent) {
   // write code here
-  return base ** exponent
+  return base ** exponent;
 }
 ```
 
@@ -392,31 +392,32 @@ function Power(base, exponent) {
 ```js
 // 额外空间 时间复杂度：O(n) 空间复杂度：O(n)
 function reOrderArray(array) {
-    // write code here
-    let a1 = [];
-    let a2 = [];
-    array.forEach(item => {
-        item % 2 ? a1.push(item) : a2.push(item);
-    })
-    return [...a1, ...a2];
+  // write code here
+  let a1 = [];
+  let a2 = [];
+  array.forEach((item) => {
+    item % 2 ? a1.push(item) : a2.push(item);
+  });
+  return [...a1, ...a2];
 }
 
 // in-place算法
 // 用 i 记录奇数的位置，遍历数组 j = 0，碰到奇数将其放到 i 的位置，将 [i, j-1] 的元素往后移，并让 i+1
 // 时间复杂度：O(n^2),假设数组中一般偶数在前，一半奇数在后，每次都要移动n/2个元素,是n^2/4  空间复杂度：O(1)
 function reOrderArray(array) {
-    // write code here
-    let i = 0;
-    for (let j = 0; j < array.length; j++) {
-        let tmp = array[j];
-        if (tmp & 1) { //奇数
-            for (let k = j - 1; k >= i; k--) {
-                array[k + 1] = array[k]
-            }
-            array[i++] = tmp;
-        }
+  // write code here
+  let i = 0;
+  for (let j = 0; j < array.length; j++) {
+    let tmp = array[j];
+    if (tmp & 1) {
+      //奇数
+      for (let k = j - 1; k >= i; k--) {
+        array[k + 1] = array[k];
+      }
+      array[i++] = tmp;
     }
-    return array;
+  }
+  return array;
 }
 ```
 
@@ -440,21 +441,21 @@ function reOrderArray(array) {
 
 function FindKthToTail(head, k) {
   // write code here
-  let length = 0
-  let node = head
+  let length = 0;
+  let node = head;
   while (node) {
-    length++
-    node = node.next
+    length++;
+    node = node.next;
   }
   if (k > length) {
-    return null
+    return null;
   }
-  let offset = length - k
-  node = head
+  let offset = length - k;
+  node = head;
   for (let i = 0; i < offset; i++) {
-    node = node.next
+    node = node.next;
   }
-  return node
+  return node;
 }
 ```
 
@@ -474,19 +475,19 @@ function FindKthToTail(head, k) {
 }*/
 
 function FindKthToTail(head, k) {
-  let right = head
+  let right = head;
   for (let i = 0; i < k; i++) {
-    if (!right) return null // 链表长度小于k
-    right = right.next
+    if (!right) return null; // 链表长度小于k
+    right = right.next;
   }
 
-  let left = head
+  let left = head;
   while (right) {
-    left = left.next
-    right = right.next
+    left = left.next;
+    right = right.next;
   }
 
-  return left
+  return left;
 }
 ```
 
@@ -501,14 +502,14 @@ function FindKthToTail(head, k) {
 }*/
 function ReverseList(pHead) {
   // write code here
-  let prev = null // 上一个节点
+  let prev = null; // 上一个节点
   while (pHead) {
-    curr = pHead // 当前节点
-    pHead = pHead.next
-    curr.next = prev
-    prev = curr
+    curr = pHead; // 当前节点
+    pHead = pHead.next;
+    curr.next = prev;
+    prev = curr;
   }
-  return prev
+  return prev;
 }
 ```
 
@@ -545,37 +546,37 @@ function Merge(pHead1, pHead2) {
   // write code here
   if (!pHead1) {
     // 如果pHead1链表不存在，就返回pHead2
-    return pHead2
+    return pHead2;
   }
   if (!pHead2) {
     // 如果pHead2链表不存在，就返回pHead1
-    return pHead1
+    return pHead1;
   }
 
-  let pHead = new ListNode(-1) // 新建一个‘哨兵节点’
-  let node = pHead // 头节点的指针
+  let pHead = new ListNode(-1); // 新建一个‘哨兵节点’
+  let node = pHead; // 头节点的指针
 
   while (pHead1 && pHead2) {
     // pHead1 和 pHead2 都存在时
     if (pHead1.val <= pHead2.val) {
-      node.next = pHead1
-      pHead1 = pHead1.next
+      node.next = pHead1;
+      pHead1 = pHead1.next;
     } else {
-      node.next = pHead2
-      pHead2 = pHead2.next
+      node.next = pHead2;
+      pHead2 = pHead2.next;
     }
-    node = node.next
+    node = node.next;
   }
 
   if (pHead1) {
     // pHead1 链表长度大于 pHead2
-    node.next = pHead1
+    node.next = pHead1;
   }
   if (pHead2) {
     // pHead2 链表长度大于 pHead1
-    node.next = pHead2
+    node.next = pHead2;
   }
-  return pHead.next // pHead是-1，所以是pHead.next
+  return pHead.next; // pHead是-1，所以是pHead.next
 }
 ```
 
@@ -595,29 +596,26 @@ function HasSubtree(pRoot1, pRoot2) {
   // write code here
   if (pRoot1 == null || pRoot2 == null) {
     // pRoot1 pRoot2 有一个为null，结构就为false
-    return false
+    return false;
   }
   return (
     judgeSubtree(pRoot1, pRoot2) || // pRoot2是不是pRoot1的子结构
     HasSubtree(pRoot1.left, pRoot2) || // pRoot1的左子树中有没有pRoot2
     HasSubtree(pRoot1.right, pRoot2) // pRoot1的右子树中有没有pRoot2
-  )
+  );
 }
 function judgeSubtree(root1, root2) {
   // 对root2进行遍历判断root2 是不是root1 的子结构
   if (!root2) {
-    return true
+    return true;
   }
   if (!root1) {
-    return false
+    return false;
   }
   if (root1.val !== root2.val) {
-    return judgeSubtree(root1.left, root2) || judgeSubtree(root1.right, root2)
+    return judgeSubtree(root1.left, root2) || judgeSubtree(root1.right, root2);
   }
-  return (
-    judgeSubtree(root1.left, root2.left) &&
-    judgeSubtree(root1.right, root2.right)
-  )
+  return judgeSubtree(root1.left, root2.left) && judgeSubtree(root1.right, root2.right);
 }
 ```
 
@@ -637,12 +635,12 @@ function judgeSubtree(root1, root2) {
 function Mirror(root) {
   // write code here
   if (!root) {
-    return
+    return;
   }
-  ;[root.left, root.right] = [root.right, root.left]
-  Mirror(root.left)
-  Mirror(root.right)
-  return root
+  [root.left, root.right] = [root.right, root.left];
+  Mirror(root.left);
+  Mirror(root.right);
+  return root;
 }
 ```
 
@@ -659,35 +657,35 @@ function Mirror(root) {
 ```js
 function printMatrix(matrix) {
   // write code here
-  let m = matrix.length
-  let n = matrix[0].length //m和n代表矩阵的行数和列数
+  let m = matrix.length;
+  let n = matrix[0].length; //m和n代表矩阵的行数和列数
   if (!m || !n) {
-    return []
+    return [];
   }
-  let res = []
-  let i = 0
-  let j = 0 //(i,j)表示左上角的那个坐标
+  let res = [];
+  let i = 0;
+  let j = 0; //(i,j)表示左上角的那个坐标
   while (i <= m - 1 - i && j <= n - 1 - j) {
     for (let col = j; col <= n - 1 - j; col++) {
-      res.push(matrix[i][col]) //第一行
+      res.push(matrix[i][col]); //第一行
     }
 
     for (let row = i + 1; row <= m - 1 - i; row++) {
-      res.push(matrix[row][n - 1 - j]) //最后一列
+      res.push(matrix[row][n - 1 - j]); //最后一列
     }
     if (i < m - i - 1 && j < n - j - 1) {
       for (let col = n - j - 2; col >= j + 1; col--) {
-        res.push(matrix[m - i - 1][col])
+        res.push(matrix[m - i - 1][col]);
       }
 
       for (let row = m - i - 1; row >= i + 1; row--) {
-        res.push(matrix[row][j])
+        res.push(matrix[row][j]);
       }
     }
-    i++
-    j++
+    i++;
+    j++;
   }
-  return res
+  return res;
 }
 ```
 
@@ -698,35 +696,35 @@ function printMatrix(matrix) {
 > 注意：保证测试中不会当栈为空的时候，对栈调用 pop()或者 min()或者 top()方法。
 
 ```js
-const dataStack = [] // 栈
-const minStack = [] // 存储栈中最小的元素
+const dataStack = []; // 栈
+const minStack = []; // 存储栈中最小的元素
 
 function push(node) {
   // write code here
-  dataStack.push(node)
-  const length = minStack.length
+  dataStack.push(node);
+  const length = minStack.length;
   if (!length) {
-    minStack.push(node)
+    minStack.push(node);
   } else if (node <= minStack[length - 1]) {
     //每当push一个node，判断这个node：如果不大于minStack中最后一个值，
     //就存入minStack，等号是为了防止push栈中相同的值
-    minStack.push(node)
+    minStack.push(node);
   }
 }
 function pop() {
   // write code here
   if (dataStack[dataStack.length - 1] === minStack[minStack.length - 1]) {
-    minStack.pop()
+    minStack.pop();
   }
-  return dataStack.pop()
+  return dataStack.pop();
 }
 function top() {
   // write code here
-  return dataStack[dataStack.length - 1]
+  return dataStack[dataStack.length - 1];
 }
 function min() {
   // write code here
-  return minStack[minStack.length - 1]
+  return minStack[minStack.length - 1];
 }
 ```
 
@@ -749,17 +747,17 @@ function min() {
 function IsPopOrder(pushV, popV) {
   // write code here
   const stack = [];
-  pushV.forEach(item => {
+  pushV.forEach((item) => {
     if (item === popV[0]) {
       popV.shift();
-      while(stack.length && stack[stack.length - 1] === popV[0]) {
+      while (stack.length && stack[stack.length - 1] === popV[0]) {
         stack.pop();
         popV.shift();
       }
     } else {
       stack.push(item);
     }
-  })
+  });
   return !stack.length && !popV.length;
 }
 ```
@@ -777,23 +775,23 @@ function IsPopOrder(pushV, popV) {
 
 function PrintFromTopToBottom(root) {
   // write code here
-  const nodes = [] //存放节点
-  const values = [] //存放节点的val
+  const nodes = []; //存放节点
+  const values = []; //存放节点的val
   if (root === null) {
-    return false
+    return false;
   }
-  nodes.push(root)
+  nodes.push(root);
   while (nodes && nodes.length > 0) {
-    var node = nodes.shift()
-    values.push(node.val)
+    var node = nodes.shift();
+    values.push(node.val);
     if (node.left) {
-      nodes.push(node.left)
+      nodes.push(node.left);
     }
     if (node.right) {
-      nodes.push(node.right)
+      nodes.push(node.right);
     }
   }
-  return values
+  return values;
 }
 ```
 
@@ -811,26 +809,23 @@ function PrintFromTopToBottom(root) {
 function VerifySquenceOfBST(sequence) {
   // write code here
   if (!sequence || !sequence.length) {
-    return false
+    return false;
   }
-  return __VerifySquenceOfBST(sequence)
+  return __VerifySquenceOfBST(sequence);
 }
 
 function __VerifySquenceOfBST(sequence) {
-  const len = sequence.length
-  if (len < 2) return true
-  const root = sequence[len - 1]
-  let i = 0
+  const len = sequence.length;
+  if (len < 2) return true;
+  const root = sequence[len - 1];
+  let i = 0;
   for (; i < len - 1 && sequence[i] < root; i++) {} //left的数量是i，0 -> i-1
   for (let j = i; j < len - 1; j++) {
     if (sequence[j] < root) {
-      return false
+      return false;
     }
   }
-  return (
-    __VerifySquenceOfBST(sequence.slice(0, i)) &&
-    __VerifySquenceOfBST(sequence.slice(i, len - 1))
-  )
+  return __VerifySquenceOfBST(sequence.slice(0, i)) && __VerifySquenceOfBST(sequence.slice(i, len - 1));
 }
 ```
 
@@ -847,27 +842,27 @@ function __VerifySquenceOfBST(sequence) {
 
 function FindPath(root, expectNumber) {
   // write code here
-  var result = []
+  var result = [];
   if (root === null) {
-    return result
+    return result;
   }
-  dfsFind(root, expectNumber, [], 0, result)
-  return result
+  dfsFind(root, expectNumber, [], 0, result);
+  return result;
 }
 
 function dfsFind(root, expectNumber, path, sum, result) {
-  sum += root.val
-  path.push(root.val)
+  sum += root.val;
+  path.push(root.val);
   if (sum === expectNumber && root.left === null && root.right === null) {
-    result.push(path.slice(0)) // 为什么不能直接push(path),因为在深度优先搜索的时候path都是指向的同一个
+    result.push(path.slice(0)); // 为什么不能直接push(path),因为在深度优先搜索的时候path都是指向的同一个
   }
   if (root.left !== null) {
-    dfsFind(root.left, expectNumber, path, sum, result)
+    dfsFind(root.left, expectNumber, path, sum, result);
   }
   if (root.right !== null) {
-    dfsFind(root.right, expectNumber, path, sum, result)
+    dfsFind(root.right, expectNumber, path, sum, result);
   }
-  path.pop()
+  path.pop();
 }
 ```
 
@@ -892,28 +887,28 @@ function dfsFind(root, expectNumber, path, sum, result) {
 function Clone(pHead) {
   // write code here
   if (!pHead || !pHead.next) {
-    return pHead
+    return pHead;
   }
-  const map = new Map()
-  let node = pHead
-  const newHead = new RandomListNode(node.label)
-  let newNode = newHead
-  map.set(node, newNode)
+  const map = new Map();
+  let node = pHead;
+  const newHead = new RandomListNode(node.label);
+  let newNode = newHead;
+  map.set(node, newNode);
 
   while (node.next) {
-    newNode.next = new RandomListNode(node.next.label)
-    node = node.next
-    newNode = newNode.next
-    map.set(node, newNode)
+    newNode.next = new RandomListNode(node.next.label);
+    node = node.next;
+    newNode = newNode.next;
+    map.set(node, newNode);
   }
-  newNode = newHead
-  node = pHead
+  newNode = newHead;
+  node = pHead;
   while (newNode) {
-    newNode.random = map.get(node.random)
-    newNode = newNode.next
-    node = node.next
+    newNode.random = map.get(node.random);
+    newNode = newNode.next;
+    node = node.next;
   }
-  return newHead
+  return newHead;
 }
 ```
 
@@ -927,7 +922,7 @@ function Clone(pHead) {
 > - 中序遍历一遍二叉搜索树，将节点保存在一个数组中。
 > - 遍历数组，更改每个节点的 left 和 right
 > - 返回数组第一个元素
-> 时间复杂度是 O(N)，空间复杂度是 O(N)。相较于方法二，多开辟了 O(N)的数组空间。
+>   时间复杂度是 O(N)，空间复杂度是 O(N)。相较于方法二，多开辟了 O(N)的数组空间。
 
 ```js
 /* function TreeNode(x) {
@@ -938,26 +933,26 @@ function Clone(pHead) {
 function Convert(pRootOfTree) {
   // write code here
   if (!pRootOfTree) {
-    return null
+    return null;
   }
-  const nodes = []
-  midTravel(pRootOfTree, nodes)
-  const len = nodes.length
+  const nodes = [];
+  midTravel(pRootOfTree, nodes);
+  const len = nodes.length;
   for (let i = 0; i < len; i++) {
-    nodes[i].right = nodes[i + 1] || null
-    nodes[i].left = nodes[i - 1] || null
+    nodes[i].right = nodes[i + 1] || null;
+    nodes[i].left = nodes[i - 1] || null;
   }
-  return nodes[0]
+  return nodes[0];
 }
 
 //中序遍历,将所有节点存在nodes中
 function midTravel(node, nodes) {
   if (node.left) {
-    midTravel(node.left, nodes)
+    midTravel(node.left, nodes);
   }
-  nodes.push(node)
+  nodes.push(node);
   if (node.right) {
-    midTravel(node.right, nodes)
+    midTravel(node.right, nodes);
   }
 }
 ```
@@ -971,7 +966,7 @@ function midTravel(node, nodes) {
 > - 将 left 指针指向已转换好的双向链表的尾结点，并将尾节点的 right 指向当前节点
 > - 更新双向链表尾节点（变为当前节点），检查 right 是否为空，不为空，递归调用传入右子树）
 > - 返回转换后的双向链表尾节点
-> 整个过程的要递归遍历一遍二叉树，时间复杂度是 O(N)，空间复杂度是 O(N)。
+>   整个过程的要递归遍历一遍二叉树，时间复杂度是 O(N)，空间复杂度是 O(N)。
 
 ```js
 /* function TreeNode(x) {
@@ -982,36 +977,36 @@ function midTravel(node, nodes) {
 
 function Convert(pRootOfTree) {
   if (!pRootOfTree) {
-    return null
+    return null;
   }
-  __Convert(pRootOfTree, null)
-  let node = pRootOfTree
+  __Convert(pRootOfTree, null);
+  let node = pRootOfTree;
   while (node.left) {
-    node = node.left
+    node = node.left;
   }
-  return node
+  return node;
 }
 
 function __Convert(pRootOfTree, lastNodeInList = null) {
   if (!pRootOfTree) {
-    return null
+    return null;
   }
   // step1:左子树
   if (pRootOfTree.left) {
-    lastNodeInList = __Convert(pRootOfTree.left, lastNodeInList)
+    lastNodeInList = __Convert(pRootOfTree.left, lastNodeInList);
   }
   // step2:当前节点
-  pRootOfTree.left = lastNodeInList
+  pRootOfTree.left = lastNodeInList;
   if (lastNodeInList) {
-    lastNodeInList.right = pRootOfTree
+    lastNodeInList.right = pRootOfTree;
   }
   // step3:右子树
-  lastNodeInList = pRootOfTree
+  lastNodeInList = pRootOfTree;
   if (pRootOfTree.right) {
-    lastNodeInList = __Convert(pRootOfTree.right, lastNodeInList)
+    lastNodeInList = __Convert(pRootOfTree.right, lastNodeInList);
   }
 
-  return lastNodeInList
+  return lastNodeInList;
 }
 ```
 
@@ -1035,23 +1030,23 @@ function __Convert(pRootOfTree, lastNodeInList = null) {
 ```js
 function Permutation(str) {
   // write code here
-  var arr = []
-  if (str.length === 0) return []
+  var arr = [];
+  if (str.length === 0) return [];
   if (str.length === 1) {
-    arr.push(str)
+    arr.push(str);
   } else {
-    var map = [] //用来判断是不是每次取出来的字符与前面取出来的是否有重复
+    var map = []; //用来判断是不是每次取出来的字符与前面取出来的是否有重复
     for (let i = 0; i < str.length; i++) {
-      var s = str[i] // 索引为i的字符
+      var s = str[i]; // 索引为i的字符
       if (!map.includes(s)) {
-        var st = str.slice(0, i) + str.slice(i + 1) // 剩下的字符拼接成一个新字符
-        var a = Permutation(st) // 递归，找出新字符的排列组合
-        a.forEach((ele) => arr.push(s + ele))
+        var st = str.slice(0, i) + str.slice(i + 1); // 剩下的字符拼接成一个新字符
+        var a = Permutation(st); // 递归，找出新字符的排列组合
+        a.forEach((ele) => arr.push(s + ele));
       }
-      map.push(s) //把s加入到map中
+      map.push(s); //把s加入到map中
     }
   }
-  return arr
+  return arr;
 }
 ```
 
@@ -1062,21 +1057,21 @@ function Permutation(str) {
 ```js
 function MoreThanHalfNum_Solution(numbers) {
   // write code here
-  var len = numbers.length
-  var obj = {}
+  var len = numbers.length;
+  var obj = {};
   numbers.forEach((item) => {
     if (!obj[item]) {
-      obj[item] = 1
+      obj[item] = 1;
     } else {
-      obj[item]++
+      obj[item]++;
     }
-  })
+  });
   for (let key in obj) {
     if (obj[key] > len / 2) {
-      return key
+      return key;
     }
   }
-  return 0
+  return 0;
 }
 ```
 
@@ -1088,30 +1083,30 @@ function MoreThanHalfNum_Solution(numbers) {
 ```js
 function GetLeastNumbers_Solution(input, k) {
   // write code here
-  if (k > input.length) return []
-  quickSort(input)
-  return input.slice(0, k)
+  if (k > input.length) return [];
+  quickSort(input);
+  return input.slice(0, k);
 }
 
 function quickSort(input, left = 0, right = input.length - 1) {
-  if (left >= right) return
-  var baseId = left
-  var baseVal = input[baseId]
-  var i = left
-  var j = right
+  if (left >= right) return;
+  var baseId = left;
+  var baseVal = input[baseId];
+  var i = left;
+  var j = right;
   while (i < j) {
     while (j > i && input[j] >= baseVal) {
-      j--
+      j--;
     }
     while (i < j && input[i] <= baseVal) {
-      i++
+      i++;
     }
-    ;[input[i], input[j]] = [input[j], input[i]]
+    [input[i], input[j]] = [input[j], input[i]];
   }
-  ;[input[baseId], input[j]] = [input[j], input[baseId]]
-  quickSort(input, left, j - 1)
-  quickSort(input, j + 1, right)
-  return input
+  [input[baseId], input[j]] = [input[j], input[baseId]];
+  quickSort(input, left, j - 1);
+  quickSort(input, j + 1, right);
+  return input;
 }
 ```
 
@@ -1120,20 +1115,20 @@ function quickSort(input, left = 0, right = input.length - 1) {
 ```js
 function GetLeastNumbers_Solution(input, k) {
   // write code here
-  if (k > input.length) return []
+  if (k > input.length) return [];
   for (let j = input.length - 1; j >= input.length - k; j--) {
     for (let i = 0; i < j; i++) {
       if (input[i] < input[i + 1]) {
-        ;[input[i], input[i + 1]] = [input[i + 1], input[i]]
+        [input[i], input[i + 1]] = [input[i + 1], input[i]];
       }
     }
   }
-  var res = []
+  var res = [];
   while (k > 0) {
-    res.push(input.pop())
-    k--
+    res.push(input.pop());
+    k--;
   }
-  return res
+  return res;
 }
 ```
 
@@ -1143,10 +1138,10 @@ function GetLeastNumbers_Solution(input, k) {
 function GetLeastNumbers_Solution(input, k) {
   // write code here
   if (input.length < k) {
-    return []
+    return [];
   }
-  input.sort((a, b) => a - b)
-  return input.slice(0, k)
+  input.sort((a, b) => a - b);
+  return input.slice(0, k);
 }
 ```
 
@@ -1170,18 +1165,18 @@ i = 7时， temp = 13, max = 18;
 function FindGreatestSumOfSubArray(array) {
   // write code here
   var max = array[0],
-    temp = array[0]
+    temp = array[0];
   for (let i = 1; i < array.length; i++) {
     if (temp <= 0) {
-      temp = array[i]
+      temp = array[i];
     } else {
-      temp += array[i]
+      temp += array[i];
     }
     if (temp > max) {
-      max = temp
+      max = temp;
     }
   }
-  return max
+  return max;
 }
 ```
 
@@ -1193,16 +1188,16 @@ function FindGreatestSumOfSubArray(array) {
 ```js
 function NumberOf1Between1AndN_Solution(n) {
   // write code here
-  var count = 0
+  var count = 0;
   for (let i = n; i > 0; i--) {
     for (let j = i; j > 0; j = parseInt(j / 10)) {
       //对j/10取整
       if (j % 10 === 1) {
-        count++
+        count++;
       }
     }
   }
-  return count
+  return count;
 }
 ```
 
@@ -1211,12 +1206,12 @@ function NumberOf1Between1AndN_Solution(n) {
 ```js
 function NumberOf1Between1AndN_Solution(n) {
   // write code here
-  var str = ''
+  var str = "";
   for (let i = 0; i <= n; i++) {
-    str += i
+    str += i;
   }
-  var res = str.split('').filter((ele) => ele === '1')
-  return res.length
+  var res = str.split("").filter((ele) => ele === "1");
+  return res.length;
 }
 ```
 
@@ -1233,10 +1228,10 @@ function NumberOf1Between1AndN_Solution(n) {
 function PrintMinNumber(numbers) {
   // write code here
   numbers.sort((a, b) => {
-    return '' + a + b > '' + b + a ? 1 : -1 // ab 和 ba ASCII码值大的排在后面
+    return "" + a + b > "" + b + a ? 1 : -1; // ab 和 ba ASCII码值大的排在后面
     // return [a,b].join("")-[b,a].join("");
-  })
-  return numbers.join('')
+  });
+  return numbers.join("");
 }
 ```
 
@@ -1273,15 +1268,15 @@ function PrintMinNumber(numbers) {
 ```js
 function GetUglyNumber_Solution(index) {
   // write code here
-  if (index === 0) return 0
-  var res = [1]
+  if (index === 0) return 0;
+  var res = [1];
   while (res.length < index) {
-    var n1 = res.map((x) => x * 2).find((x) => x > res[res.length - 1])
-    var n2 = res.map((x) => x * 3).find((x) => x > res[res.length - 1])
-    var n3 = res.map((x) => x * 5).find((x) => x > res[res.length - 1])
-    res.push(Math.min(n1, n2, n3))
+    var n1 = res.map((x) => x * 2).find((x) => x > res[res.length - 1]);
+    var n2 = res.map((x) => x * 3).find((x) => x > res[res.length - 1]);
+    var n3 = res.map((x) => x * 5).find((x) => x > res[res.length - 1]);
+    res.push(Math.min(n1, n2, n3));
   }
-  return res[index - 1]
+  return res[index - 1];
 }
 ```
 
@@ -1298,10 +1293,10 @@ function FirstNotRepeatingChar(str) {
   // write code here
   for (let i = 0; i < str.length; i++) {
     if (str.indexOf(str[i]) === str.lastIndexOf(str[i])) {
-      return i
+      return i;
     }
   }
-  return -1
+  return -1;
 }
 ```
 
@@ -1319,44 +1314,44 @@ function FirstNotRepeatingChar(str) {
 > - 对于%75 的数据,size<=10^5
 >
 > - 对于%100 的数据,size<=2\*10^5
-> 输入：1,2,3,4,5,6,7,0
+>   输入：1,2,3,4,5,6,7,0
 >
 > 输出：7
 > 归并排序
 
 ```js
 function InversePairs(data) {
-  if (!data || data.length < 2) return 0
+  if (!data || data.length < 2) return 0;
   let copy = data.slice(),
-    count = 0
-  count = mergeSort(data, copy, 0, data.length - 1)
-  return count % 1000000007
+    count = 0;
+  count = mergeSort(data, copy, 0, data.length - 1);
+  return count % 1000000007;
 }
 
 function mergeSort(data, copy, start, end) {
-  if (end === start) return 0
+  if (end === start) return 0;
   let mid = (end - start) >> 1, //这就是除以2的意思
     left = mergeSort(copy, data, start, start + mid),
     right = mergeSort(copy, data, start + mid + 1, end),
     count = 0,
     p = start + mid, //前一个数组的最后一个下标
     q = end, //后一个数组的下标
-    copyIndex = end //辅助数组下标，从最后一个算起
+    copyIndex = end; //辅助数组下标，从最后一个算起
   while (p >= start && q >= start + mid + 1) {
     if (data[p] > data[q]) {
-      count += q - start - mid //索引start+mid+1到q的值都是小于data[p]的，总共是q-(start+mid+1)+1
-      copy[copyIndex--] = data[p--]
+      count += q - start - mid; //索引start+mid+1到q的值都是小于data[p]的，总共是q-(start+mid+1)+1
+      copy[copyIndex--] = data[p--];
     } else {
-      copy[copyIndex--] = data[q--]
+      copy[copyIndex--] = data[q--];
     }
   }
   while (p >= start) {
-    copy[copyIndex--] = data[p--]
+    copy[copyIndex--] = data[p--];
   }
   while (q >= start + mid + 1) {
-    copy[copyIndex--] = data[q--]
+    copy[copyIndex--] = data[q--];
   }
-  return left + right + count
+  return left + right + count;
 }
 ```
 
@@ -1376,13 +1371,13 @@ function mergeSort(data, copy, start, end) {
 
 function FindFirstCommonNode(pHead1, pHead2) {
   // write code here
-  var p1 = pHead1
-  var p2 = pHead2
+  var p1 = pHead1;
+  var p2 = pHead2;
   while (p1 !== p2) {
-    p1 = p1 == null ? pHead2 : p1.next
-    p2 = p2 == null ? pHead1 : p2.next
+    p1 = p1 == null ? pHead2 : p1.next;
+    p2 = p2 == null ? pHead1 : p2.next;
   }
-  return p1
+  return p1;
 }
 ```
 
@@ -1393,13 +1388,13 @@ function FindFirstCommonNode(pHead1, pHead2) {
 ```js
 function GetNumberOfK(data, k) {
   // write code here
-  var count = 0
+  var count = 0;
   data.forEach((ele) => {
     if (ele == k) {
-      count++
+      count++;
     }
-  })
-  return count
+  });
+  return count;
 }
 ```
 
@@ -1417,11 +1412,11 @@ function GetNumberOfK(data, k) {
 function TreeDepth(pRoot) {
   // write code here
   if (pRoot === null) {
-    return 0
+    return 0;
   }
-  var left = TreeDepth(pRoot.left)
-  var right = TreeDepth(pRoot.right)
-  return Math.max(left, right) + 1
+  var left = TreeDepth(pRoot.left);
+  var right = TreeDepth(pRoot.right);
+  return Math.max(left, right) + 1;
 }
 ```
 
@@ -1432,20 +1427,20 @@ function TreeDepth(pRoot) {
 
 ```js
 function IsBalanced_Solution(pRoot) {
-  return depth(pRoot) !== -1
+  return depth(pRoot) !== -1;
 }
 
 // 用递归来判断root是不是平衡二叉树，如果不是则返回最大的深度，如果不是则返回-1
 function depth(root) {
-  if (root === null) return 0
-  var left = depth(root.left)
-  if (left === -1) return -1
-  var right = depth(root.right)
-  if (right === -1) return -1
+  if (root === null) return 0;
+  var left = depth(root.left);
+  if (left === -1) return -1;
+  var right = depth(root.right);
+  if (right === -1) return -1;
   if (Math.abs(left - right) > 1) {
-    return -1
+    return -1;
   } else {
-    return 1 + Math.max(left, right)
+    return 1 + Math.max(left, right);
   }
 }
 ```
@@ -1458,13 +1453,13 @@ function depth(root) {
 function FindNumsAppearOnce(array) {
   // write code here
   // return list, 比如[a,b]，其中ab是出现一次的两个数字
-  var list = []
+  var list = [];
   array.forEach((item) => {
     if (array.indexOf(item) === array.lastIndexOf(item)) {
-      list.push(item)
+      list.push(item);
     }
-  })
-  return list
+  });
+  return list;
 }
 ```
 
@@ -1493,25 +1488,25 @@ function FindNumsAppearOnce(array) {
 ```js
 function FindContinuousSequence(sum) {
   // write code here
-  var res = []
-  var slow = 1
-  var fast = 2 //快慢指针
+  var res = [];
+  var slow = 1;
+  var fast = 2; //快慢指针
   while (slow < fast) {
-    var current = ((fast - slow + 1) * (fast + slow)) / 2
+    var current = ((fast - slow + 1) * (fast + slow)) / 2;
     if (current === sum) {
-      var temp = []
+      var temp = [];
       for (let i = slow; i <= fast; i++) {
-        temp.push(i)
+        temp.push(i);
       }
-      res.push(temp)
-      slow++
+      res.push(temp);
+      slow++;
     } else if (current < sum) {
-      fast++
+      fast++;
     } else {
-      slow++
+      slow++;
     }
   }
-  return res
+  return res;
 }
 ```
 
@@ -1529,25 +1524,26 @@ function FindContinuousSequence(sum) {
 >
 >   - 如果和大于 sum，说明 high 指针对应的数太大了，high--，往前找
 >   - 如果和小于 sum，说明 low 指针对应的数太小了，low++，往后找
+>
 > - 当这两个指针对应的数相加和为 sum 时，直接返回这两个数
 > - 否则返回空数组，表示不存在
 
 ```js
 function FindNumbersWithSum(array, sum) {
   // write code here
-  var low = 0 //此指针指向第一个数
-  var high = array.length - 1 //此指针指向第二个数
+  var low = 0; //此指针指向第一个数
+  var high = array.length - 1; //此指针指向第二个数
   while (array[low] + array[high] !== sum && low < high) {
     if (array[low] + array[high] > sum) {
-      high--
+      high--;
     } else {
-      low++
+      low++;
     }
   }
   if (array[low] + array[high] === sum) {
-    return [array[low], array[high]]
+    return [array[low], array[high]];
   }
-  return []
+  return [];
 }
 ```
 
@@ -1561,9 +1557,9 @@ function FindNumbersWithSum(array, sum) {
 ```js
 function LeftRotateString(str, n) {
   // write code here
-  if (!str || n > str.length) return ''
-  var n = n % str.length
-  return str.slice(n) + str.slice(0, n)
+  if (!str || n > str.length) return "";
+  var n = n % str.length;
+  return str.slice(n) + str.slice(0, n);
 }
 ```
 
@@ -1574,9 +1570,9 @@ function LeftRotateString(str, n) {
 ```js
 function ReverseSentence(str) {
   // write code here
-  var arr = str.split(' ')
-  arr.reverse()
-  return arr.join(' ')
+  var arr = str.split(" ");
+  arr.reverse();
+  return arr.join(" ");
 }
 ```
 
@@ -1595,25 +1591,25 @@ function ReverseSentence(str) {
 function IsContinuous(numbers) {
   // write code here
   if (numbers.length != 5) {
-    return false
+    return false;
   }
-  var num = 0 //记录0的个数
-  var set = new Set()
+  var num = 0; //记录0的个数
+  var set = new Set();
   for (let i = 0; i < numbers.length; i++) {
     if (numbers[i] === 0) {
-      num++
+      num++;
     } else {
-      set.add(numbers[i])
+      set.add(numbers[i]);
     }
   }
   if (num + set.size != 5) {
     //有除0外的重复元素
-    return false
+    return false;
   }
   if (Math.max(...set) - Math.min(...set) < 5) {
-    return true
+    return true;
   }
-  return false
+  return false;
 }
 ```
 
@@ -1631,24 +1627,24 @@ function IsContinuous(numbers) {
 ```js
 function LastRemaining_Solution(n, m) {
   // write code here
-  if (n == 0 || m == 0) return -1
-  var i = 0
-  var arr = []
+  if (n == 0 || m == 0) return -1;
+  var i = 0;
+  var arr = [];
   while (i < n) {
-    arr.push(i++)
+    arr.push(i++);
   }
-  var count = -1
+  var count = -1;
   while (arr.length > 1) {
     for (let i = 0; i < m; i++) {
-      count++
+      count++;
       if (count == arr.length) {
-        count = 0
+        count = 0;
       }
     }
-    arr = arr.slice(count + 1).concat(arr.slice(0, count))
-    count = -1
+    arr = arr.slice(count + 1).concat(arr.slice(0, count));
+    count = -1;
   }
-  return arr[0]
+  return arr[0];
 }
 ```
 
@@ -1660,8 +1656,8 @@ function LastRemaining_Solution(n, m) {
 ```js
 function Sum_Solution(n) {
   // write code here
-  var sum = Math.pow(n, 2) + n
-  return sum >> 1 //右移一位相当于除以二，相当于parseInt(sum/2)
+  var sum = Math.pow(n, 2) + n;
+  return sum >> 1; //右移一位相当于除以二，相当于parseInt(sum/2)
 }
 ```
 
@@ -1670,9 +1666,9 @@ function Sum_Solution(n) {
 ```js
 function Sum_Solution(n) {
   // write code here
-  var sum = n
-  sum += sum && Sum_Solution(n - 1) //短路原理
-  return sum
+  var sum = n;
+  sum += sum && Sum_Solution(n - 1); //短路原理
+  return sum;
 }
 ```
 
@@ -1695,38 +1691,37 @@ function Sum_Solution(n) {
 >    ④ res2 = (res1 & res2) << 1 = 0
 >
 > > 两个基本表达式：
->    >
+> >
 > > - 执行加法 x ^ y
 > > - 进位操作 ( x & y ) << 1
->    >
-> 2. 二位加法
->    正确的加法计算：11+01 = 100 (3 + 1 = 4)
+> >
+> > 2. 二位加法
+> >    正确的加法计算：11+01 = 100 (3 + 1 = 4)
 >
->    ① 按位加法： res1 = 11 ^ 01 = 10
+> ① 按位加法： res1 = 11 ^ 01 = 10
 >
->    ② 与运算进位： res2 = (11 & 01) << 1 = ( 01 ) << 1 = 010
+> ② 与运算进位： res2 = (11 & 01) << 1 = ( 01 ) << 1 = 010
 >
->    ③ res1 = res1 ^ res2 = 10 ^ 010 = 00
+> ③ res1 = res1 ^ res2 = 10 ^ 010 = 00
 >
->    ④ res2 = (10 & 10) << 1 = 100
+> ④ res2 = (10 & 10) << 1 = 100
 >
->    ⑤ res1 = res1 ^ res2 = 00 ^ 100 = 100
+> ⑤ res1 = res1 ^ res2 = 00 ^ 100 = 100
 >
->    ⑥ res2 = (00 & 100) << 1 = 000
+> ⑥ res2 = (00 & 100) << 1 = 000
 >
->    输出 res1
-> 3. 更高位的加法
->    继续推理可以得出三位数的加法只需重复的计算三次得到第一个表达式的值就是计算出来的结果
+> 输出 res1 3. 更高位的加法
+> 继续推理可以得出三位数的加法只需重复的计算三次得到第一个表达式的值就是计算出来的结果
 
 ```js
 function Add(num1, num2) {
-    // write code here
-    var res1 = num1 ^ num2 //异或 不带进位的加法
-    var res2 = (num1 & num2) << 1 //按位与 进位
-    while (res2 !== 0) {
-        [res1, res2] = [res1 ^ res2, (res1 & res2) << 1]
-    }
-    return res1
+  // write code here
+  var res1 = num1 ^ num2; //异或 不带进位的加法
+  var res2 = (num1 & num2) << 1; //按位与 进位
+  while (res2 !== 0) {
+    [res1, res2] = [res1 ^ res2, (res1 & res2) << 1];
+  }
+  return res1;
 }
 ```
 
@@ -1750,30 +1745,30 @@ function Add(num1, num2) {
 function StrToInt(str) {
   // write code here
   var obj = {
-    '1': 1,
-    '2': 2,
-    '3': 3,
-    '4': 4,
-    '5': 5,
-    '6': 6,
-    '7': 7,
-    '8': 8,
-    '9': 9,
-    '0': 0,
-    '-': -1,
-    '+': 1,
-  }
+    1: 1,
+    2: 2,
+    3: 3,
+    4: 4,
+    5: 5,
+    6: 6,
+    7: 7,
+    8: 8,
+    9: 9,
+    0: 0,
+    "-": -1,
+    "+": 1,
+  };
   for (let i = 0; i < str.length; i++) {
     if (!obj[str[i]]) {
-      return 0
+      return 0;
     }
   }
-  if (str === '+' || str === '-') return 0
-  var num = str / 1
+  if (str === "+" || str === "-") return 0;
+  var num = str / 1;
   if (num === -2147483649 || num === 2147483648) {
-    return 0
+    return 0;
   }
-  return num
+  return num;
 }
 ```
 
@@ -1787,16 +1782,16 @@ function duplicate(numbers, duplication) {
   //这里要特别注意~找到任意重复的一个值并赋值到duplication[0]
   //函数返回True/False
   if (!numbers || numbers.length == 0) {
-    return false
+    return false;
   }
   for (let i = 0; i < numbers.length; i++) {
-    var num = numbers[i]
+    var num = numbers[i];
     if (numbers.indexOf(num) !== numbers.lastIndexOf(num)) {
-      duplication[0] = num
-      return true
+      duplication[0] = num;
+      return true;
     }
   }
-  return false
+  return false;
 }
 ```
 
@@ -1807,25 +1802,25 @@ function duplicate(numbers, duplication) {
 ```js
 function multiply(array) {
   // write code here
-  var b = []
+  var b = [];
   array.forEach((ele, index) => {
-    var arr = Array.from(array)
-    b[index] = arrMul(arr, index)
-  })
-  return b
+    var arr = Array.from(array);
+    b[index] = arrMul(arr, index);
+  });
+  return b;
 }
 
 //数组除了索引为idx的其余数的乘积和
 function arrMul(array, idx) {
-  var sum = 1
+  var sum = 1;
   for (let i = 0; i < array.length; i++) {
     if (i == idx) {
-      continue
+      continue;
     } else {
-      sum *= array[i]
+      sum *= array[i];
     }
   }
-  return sum
+  return sum;
 }
 ```
 
@@ -1837,8 +1832,8 @@ function arrMul(array, idx) {
 //s, pattern都是字符串
 function match(s, pattern) {
   // write code here
-  var reg = new RegExp('^' + pattern + '$', 'g')
-  return reg.test(s)
+  var reg = new RegExp("^" + pattern + "$", "g");
+  return reg.test(s);
 }
 ```
 
@@ -1856,8 +1851,8 @@ function match(s, pattern) {
 //s字符串
 function isNumeric(s) {
   // write code here
-  var reg = /^[+\-]?\d*(?:\.\d*)?(?:[eE][+\-]?\d+)?$/g
-  return reg.test(s)
+  var reg = /^[+\-]?\d*(?:\.\d*)?(?:[eE][+\-]?\d+)?$/g;
+  return reg.test(s);
 }
 ```
 
@@ -1868,26 +1863,26 @@ function isNumeric(s) {
 > 如果当前字符流没有存在出现一次的字符，返回#字符。
 
 ```js
-var map = {}
+var map = {};
 //Init module if you need
 function Init() {
   // write code here
-  map = {}
+  map = {};
 }
 //Insert one char from stringstream
 function Insert(ch) {
   // write code here
-  map[ch] = map[ch] ? map[ch] + 1 : 1
+  map[ch] = map[ch] ? map[ch] + 1 : 1;
 }
 //return the first appearence once char in current stringstream
 function FirstAppearingOnce() {
   // write code here
   for (let i in map) {
     if (map[i] === 1) {
-      return i
+      return i;
     }
   }
-  return '#'
+  return "#";
 }
 ```
 
@@ -1906,17 +1901,17 @@ function FirstAppearingOnce() {
 
 function EntryNodeOfLoop(pHead) {
   // write code here
-  if (!pHead) return null
-  var arr = []
-  var node = pHead
+  if (!pHead) return null;
+  var arr = [];
+  var node = pHead;
   while (node) {
     if (arr.includes(node)) {
-      return node
+      return node;
     }
-    arr.push(node)
-    node = node.next
+    arr.push(node);
+    node = node.next;
   }
-  return null
+  return null;
 }
 ```
 
@@ -1965,26 +1960,26 @@ function EntryNodeOfLoop(pHead) {
 function EntryNodeOfLoop(pHead) {
   // write code here
   if (pHead == null) {
-    return null
+    return null;
   }
   if (pHead.next == null) {
-    return null
+    return null;
   }
-  var fast = pHead
-  var slow = pHead
+  var fast = pHead;
+  var slow = pHead;
   while (slow != null && fast.next != null) {
-    slow = slow.next
-    fast = fast.next.next
-    if (fast == slow) break
+    slow = slow.next;
+    fast = fast.next.next;
+    if (fast == slow) break;
   }
 
-  var p1 = slow
-  var p2 = pHead
+  var p1 = slow;
+  var p2 = pHead;
   while (p1 != p2) {
-    p1 = p1.next
-    p2 = p2.next
+    p1 = p1.next;
+    p2 = p2.next;
   }
-  return p1
+  return p1;
 }
 ```
 
@@ -2015,24 +2010,24 @@ function EntryNodeOfLoop(pHead) {
 
 function deleteDuplication(pHead) {
   // write code here
-  if (!pHead) return null
-  var head = new ListNode(-1) //辅助头节点
-  head.next = pHead
-  var pre = head
-  var cur = head.next
+  if (!pHead) return null;
+  var head = new ListNode(-1); //辅助头节点
+  head.next = pHead;
+  var pre = head;
+  var cur = head.next;
   while (cur !== null) {
     if (cur.next !== null && cur.next.val === cur.val) {
       while (cur.next !== null && cur.next.val === cur.val) {
-        cur = cur.next
+        cur = cur.next;
       }
-      cur = cur.next
-      pre.next = cur
+      cur = cur.next;
+      pre.next = cur;
     } else {
-      pre = cur
-      cur = cur.next
+      pre = cur;
+      cur = cur.next;
     }
   }
-  return head.next
+  return head.next;
 }
 ```
 
@@ -2062,27 +2057,27 @@ function deleteDuplication(pHead) {
 
 function GetNext(pNode) {
   // write code here
-  if (pNode === null) return null //空结点
-  var p = null
+  if (pNode === null) return null; //空结点
+  var p = null;
   if (pNode.right) {
     //有右子树，则下一个结点在右子树最左边的结点
-    p = pNode.right
+    p = pNode.right;
     while (p.left !== null) {
-      p = p.left
+      p = p.left;
     }
-    return p
+    return p;
   } else {
     //没有右子树
-    p = pNode.next
+    p = pNode.next;
     if (p && p.right === pNode) {
       while (p.next && p.next.right === p) {
-        p = p.next
+        p = p.next;
       }
-      p = p.next
+      p = p.next;
     }
-    return p
+    return p;
   }
-  return null
+  return null;
 }
 ```
 
@@ -2104,21 +2099,21 @@ function GetNext(pNode) {
 
 function isSymmetrical(pRoot) {
   // write code here
-  if (!pRoot) return true // 注意是true
-  return judge(pRoot.left, pRoot.right)
+  if (!pRoot) return true; // 注意是true
+  return judge(pRoot.left, pRoot.right);
 }
 
 function judge(node1, node2) {
   //判断这两个结点以及子节点是否对称
   if (node1 === null && node2 === null) {
-    return true
+    return true;
   } else if (node1 === null || node2 === null) {
-    return false
+    return false;
   }
   if (node1.val !== node2.val) {
-    return false
+    return false;
   } else {
-    return judge(node1.left, node2.right) && judge(node1.right, node2.left)
+    return judge(node1.left, node2.right) && judge(node1.right, node2.left);
   }
 }
 ```
@@ -2142,29 +2137,29 @@ function judge(node1, node2) {
 
 function Print(pRoot) {
   // write code here
-  if (!pRoot) return []
-  const nodes = [] //结点
-  const vals = [] //val
-  var flag = true //true代表顺序打印
-  nodes.push(pRoot)
+  if (!pRoot) return [];
+  const nodes = []; //结点
+  const vals = []; //val
+  var flag = true; //true代表顺序打印
+  nodes.push(pRoot);
   while (nodes.length) {
-    var temp = []
+    var temp = [];
     // 这里注意要先把nodes的长度赋值给一个变量，因为下面循环中nodes里会添加新的结点
-    var len = nodes.length
+    var len = nodes.length;
     for (let i = 0; i < len; i++) {
-      var node = nodes.shift() // 每次弹出nodes中第一个结点
-      flag === true ? temp.push(node.val) : temp.unshift(node.val)
+      var node = nodes.shift(); // 每次弹出nodes中第一个结点
+      flag === true ? temp.push(node.val) : temp.unshift(node.val);
       if (node.left) {
-        nodes.push(node.left)
+        nodes.push(node.left);
       }
       if (node.right) {
-        nodes.push(node.right)
+        nodes.push(node.right);
       }
     }
-    flag = !flag
-    vals.push(temp)
+    flag = !flag;
+    vals.push(temp);
   }
-  return vals
+  return vals;
 }
 ```
 
@@ -2181,26 +2176,26 @@ function Print(pRoot) {
 
 function Print(pRoot) {
   // write code here'
-  if (!pRoot) return []
-  const nodes = []
-  const vals = []
-  nodes.push(pRoot)
+  if (!pRoot) return [];
+  const nodes = [];
+  const vals = [];
+  nodes.push(pRoot);
   while (nodes.length) {
-    var len = nodes.length
-    var temp = []
+    var len = nodes.length;
+    var temp = [];
     for (let i = 0; i < len; i++) {
-      var node = nodes.shift()
-      temp.push(node.val)
+      var node = nodes.shift();
+      temp.push(node.val);
       if (node.left) {
-        nodes.push(node.left)
+        nodes.push(node.left);
       }
       if (node.right) {
-        nodes.push(node.right)
+        nodes.push(node.right);
       }
     }
-    vals.push(temp)
+    vals.push(temp);
   }
-  return vals
+  return vals;
 }
 ```
 
@@ -2219,29 +2214,29 @@ function Print(pRoot) {
     this.right = null;
 } */
 
-var arr = []
+var arr = [];
 function Serialize(pRoot) {
   // write code here
   if (!pRoot) {
-    arr.push('#')
+    arr.push("#");
   } else {
-    arr.push(pRoot.val)
-    Serialize(pRoot.left)
-    Serialize(pRoot.right)
+    arr.push(pRoot.val);
+    Serialize(pRoot.left);
+    Serialize(pRoot.right);
   }
 }
 function Deserialize(s) {
   // write code here
-  if (arr === null) return null
-  if (arr.length < 1) return null
-  var root = null
-  var temp = arr.shift()
-  if (typeof temp === 'number') {
-    root = new TreeNode(temp)
-    root.left = Deserialize(arr)
-    root.right = Deserialize(arr)
+  if (arr === null) return null;
+  if (arr.length < 1) return null;
+  var root = null;
+  var temp = arr.shift();
+  if (typeof temp === "number") {
+    root = new TreeNode(temp);
+    root.left = Deserialize(arr);
+    root.right = Deserialize(arr);
   }
-  return root
+  return root;
 }
 ```
 
@@ -2263,17 +2258,17 @@ function Deserialize(s) {
 function KthNode(pRoot, k) {
   // write code here
   if (!pRoot || k < 1) {
-    return null
+    return null;
   }
-  var res = []
+  var res = [];
   function mid(root) {
-    if (!root) return null
-    mid(root.left)
-    res.push(root)
-    mid(root.right)
+    if (!root) return null;
+    mid(root.left);
+    res.push(root);
+    mid(root.right);
   }
-  mid(pRoot)
-  return res[k - 1]
+  mid(pRoot);
+  return res[k - 1];
 }
 ```
 
@@ -2282,22 +2277,22 @@ function KthNode(pRoot, k) {
 > 如何得到一个数据流中的中位数？如果从数据流中读出奇数个数值，那么中位数就是所有数值排序之后位于中间的数值。如果从数据流中读出偶数个数值，那么中位数就是所有数值排序之后中间两个数的平均值。我们使用 Insert()方法读取数据流，使用 GetMedian()方法获取当前读取数据的中位数。
 
 ```js
-var arr = []
+var arr = [];
 function Insert(num) {
   // write code here
-  arr.push(num)
-  let i = arr.length - 1
-  arr.sort((a, b) => a - b)
+  arr.push(num);
+  let i = arr.length - 1;
+  arr.sort((a, b) => a - b);
 }
 function GetMedian() {
   // write code here
-  if (!arr.length) return null
-  var len = arr.length
-  var idx = Math.floor(len / 2)
+  if (!arr.length) return null;
+  var len = arr.length;
+  var idx = Math.floor(len / 2);
   if (len % 2 === 1) {
-    return arr[idx]
+    return arr[idx];
   } else {
-    return (arr[idx] + arr[idx - 1]) / 2
+    return (arr[idx] + arr[idx - 1]) / 2;
   }
 }
 ```
@@ -2309,14 +2304,14 @@ function GetMedian() {
 ```js
 function maxInWindows(num, size) {
   // write code here
-  if (size == 0) return []
-  var len = num.length
-  var idx = len - size
-  var res = []
+  if (size == 0) return [];
+  var len = num.length;
+  var idx = len - size;
+  var res = [];
   for (let i = 0; i <= idx; i++) {
-    res.push(Math.max(...num.slice(i, i + size)))
+    res.push(Math.max(...num.slice(i, i + size)));
   }
-  return res
+  return res;
 }
 ```
 
@@ -2337,36 +2332,36 @@ function maxInWindows(num, size) {
 ```js
 function hasPath(matrix, rows, cols, path) {
   // matrix是一个一位数组
-  if (!rows || !cols || path.length > rows * cols) return false
-  var k = 0
-  var flag = []
+  if (!rows || !cols || path.length > rows * cols) return false;
+  var k = 0;
+  var flag = [];
   for (let i = 0; i < rows; i++) {
     for (let j = 0; j < cols; j++) {
-      if (move(matrix, i, j, rows, cols, k, path, flag)) return true
+      if (move(matrix, i, j, rows, cols, k, path, flag)) return true;
     }
   }
-  return false
+  return false;
 }
 
 function move(matrix, i, j, rows, cols, k, path, flag) {
   //(i,j)代表在矩阵中的位置，k是path字符串的索引，flag是用来标记(i,j)是否已经走过
-  var index = i * cols + j //index表示(i,j)在matrix数组中的索引
-  if (i < 0 || i >= rows || j < 0 || j >= cols) return false //超出边界
-  if (path[k] !== matrix[index]) return false //跟path字符串不相符合
-  if (flag[index] === 1) return false //已经走过
-  if (k === path.length - 1) return true
-  走完最后一步
-  flag[index] = 1 //标记已经走过
+  var index = i * cols + j; //index表示(i,j)在matrix数组中的索引
+  if (i < 0 || i >= rows || j < 0 || j >= cols) return false; //超出边界
+  if (path[k] !== matrix[index]) return false; //跟path字符串不相符合
+  if (flag[index] === 1) return false; //已经走过
+  if (k === path.length - 1) return true;
+  走完最后一步;
+  flag[index] = 1; //标记已经走过
   if (
     move(matrix, i - 1, j, rows, cols, k + 1, path, flag) ||
     move(matrix, i + 1, j, rows, cols, k + 1, path, flag) ||
     move(matrix, i, j - 1, rows, cols, k + 1, path, flag) ||
     move(matrix, i, j + 1, rows, cols, k + 1, path, flag)
   ) {
-    return true
+    return true;
   }
-  flag[index] = 0 //说明此步走的不正确，不标记此步走过
-  return false
+  flag[index] = 0; //说明此步走的不正确，不标记此步走过
+  return false;
 }
 ```
 
@@ -2378,39 +2373,39 @@ function move(matrix, i, j, rows, cols, k, path, flag) {
 function movingCount(threshold, rows, cols) {
   // write code here
   function move(i, j, threshold, rows, cols, flag) {
-    var index = i * cols + j
+    var index = i * cols + j;
     //无论是广度优先遍历还是深度优先遍历，我们一定要知道的时候遍历一定会有终止条件也就是要能够停止，
     //不然程序就会陷入死循环，这个一定是我们做此类题目必须要注意的地方
-    if (i < 0 || i >= rows || j < 0 || j >= cols) return 0 //超出边界
-    if (flag[index] === 1) return 0 //已走过
-    if (isValid(i, j, threshold) === false) return 0 //不满足行坐标和列坐标的数位之和大于threshold
-    flag[index] = 1 //(i, j)满足要求，标记已走过，走过次数+1
+    if (i < 0 || i >= rows || j < 0 || j >= cols) return 0; //超出边界
+    if (flag[index] === 1) return 0; //已走过
+    if (isValid(i, j, threshold) === false) return 0; //不满足行坐标和列坐标的数位之和大于threshold
+    flag[index] = 1; //(i, j)满足要求，标记已走过，走过次数+1
     return (
       1 +
       move(i - 1, j, threshold, rows, cols, flag) +
       move(i + 1, j, threshold, rows, cols, flag) +
       move(i, j - 1, threshold, rows, cols, flag) +
       move(i, j + 1, threshold, rows, cols, flag)
-    )
+    );
   }
-  var flag = []
-  return move(0, 0, threshold, rows, cols, flag)
+  var flag = [];
+  return move(0, 0, threshold, rows, cols, flag);
 }
 
 function isValid(i, j, threshold) {
-  var sum = 0
+  var sum = 0;
   while (i > 0) {
-    sum += i % 10
-    i = parseInt(i / 10)
+    sum += i % 10;
+    i = parseInt(i / 10);
   }
   while (j > 0) {
-    sum += j % 10
-    j = parseInt(j / 10)
+    sum += j % 10;
+    j = parseInt(j / 10);
   }
   if (sum > threshold) {
-    return false
+    return false;
   } else {
-    return true
+    return true;
   }
 }
 ```
@@ -2444,17 +2439,17 @@ function isValid(i, j, threshold) {
 ```js
 function cutRope(number) {
   // write code here
-  if (number <= 1) return 0
-  if (number === 2) return 1
-  if (number === 3) return 2
-  var m = number % 3
+  if (number <= 1) return 0;
+  if (number === 2) return 1;
+  if (number === 3) return 2;
+  var m = number % 3;
   switch (m) {
     case 0:
-      return Math.pow(3, number / 3)
+      return Math.pow(3, number / 3);
     case 1:
-      return Math.pow(3, parseInt(number / 3) - 1) * 4
+      return Math.pow(3, parseInt(number / 3) - 1) * 4;
     case 2:
-      return Math.pow(3, parseInt(number / 3)) * 2
+      return Math.pow(3, parseInt(number / 3)) * 2;
   }
 }
 ```
