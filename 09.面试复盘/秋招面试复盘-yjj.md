@@ -118,3 +118,44 @@
 8. 看一个异步输出和this指向的题，写出输出顺序
 9. 反问：部门业务：浏览器，小米视频
 10. 反问：技术栈：vue
+
+## 华为（通用软件开发工程师）一面 视频面试 2020/09/16
+
+1. 自我介绍
+2. 做个题目(20分钟)：编写一种方法，对字符串数组进行排序，将所有的变化词组合在一起，变位词是指字母相同，但是排序不同的字符串，实例：
+   输入：['eat','tea',tan','ate','nat','bat']
+   输出：[
+     ['ate','eat','tea'],
+     ['nat','tan'],
+     ['bat']
+   ]
+   说明：所有的输入均为小写字母，不考虑答案的输出顺序
+
+   ```js
+   function sortArr(arr){
+      let tem = arr.slice().map(e => e.split('').sort().join(''));
+      let map = {};
+      tem.forEach((item,index) => {
+        if(!map[item]){
+          map[item] = []
+        }
+        map[item].push(item);
+      })
+      let res = [];
+      for(let key in map){
+        let a = [];
+        map[key].forEach(index =>{
+          a.push(tem[index])
+        })
+        res.push(a.slice())
+      }
+      return res;
+    }
+    console.log(sortArr(['eat','tea','tan','ate','nat','bat']))
+   ```  
+
+3. js中的this指向问题
+4. 继承的方式有哪些
+5. 变量提升
+6. css三列布局有哪些
+7. 数据结构：给定树的前序：abcdefg;中序：bcdaefg;说一下后序是什么：dcbgfea
