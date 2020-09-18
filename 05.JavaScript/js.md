@@ -41,6 +41,7 @@
   - [闭包的特性以及优缺点](#闭包的特性以及优缺点)
   - [箭头函数与普通函数的区别](#箭头函数与普通函数的区别)
   - [ES6 中箭头函数 VS 普通函数的 this 指向](#es6-中箭头函数-vs-普通函数的-this-指向)
+  - [ES6 class 和 ES5 函数的区别](#es6-class-和-es5-函数的区别)
   - [JS 实现对象（都是简单类型的值）的深拷贝，一行代码](#js-实现对象都是简单类型的值的深拷贝一行代码)
   - [JSON.parse(JSON.stringify(obj)) 实现深拷贝需要注意的问题](#jsonparsejsonstringifyobj-实现深拷贝需要注意的问题)
   - [Promise 是做什么的，有哪些API](#promise-是做什么的有哪些api)
@@ -890,6 +891,17 @@ const obj = {
 console.log(obj.diameter()) // 20
 console.log(obj.perimeter()) // NaN
 ```
+
+## ES6 class 和 ES5 函数的区别
+
+> 本质上，ES6 的类只是 ES5 的构造函数的一层包装
+
+1. 与ES5不同，ES6 类和模块的内部默认就是严格模式，不存在遍历提升
+
+  ```js
+  new Foo(); // Reference Error
+  class Foo {}
+  ```
 
 ## JS 实现对象（都是简单类型的值）的深拷贝，一行代码
 
