@@ -34,6 +34,7 @@
   - [53. 最大子序和](#53-最大子序和)
   - [58. 最后一个单词的长度](#58-最后一个单词的长度)
   - [61. 旋转链表](#61-旋转链表)
+  - [78. 子集](#78-子集)
   - [82. 删除排序链表中的重复元素 II](#82-删除排序链表中的重复元素-ii)
   - [83. 删除排序链表中的重复元素](#83-删除排序链表中的重复元素)
   - [94. 二叉树的中序遍历](#94-二叉树的中序遍历)
@@ -1104,6 +1105,65 @@ var rotateRight = function(head, k) {
     }
     p.next = head;
     return node;
+};
+```
+
+## 78. 子集
+
+- 方法一：迭代法实现子集枚举
+
+```txt
+[1,3,5]的子集，每个数字有两种可能，选或不选，我们可以用二进制数 1 和 0 来表示选或不选
+所以[1,3,5]的子集就可以表示成 000 - 111 之间所有的可能，000表示都不选，即空集[]，111表示都选，即[1,3,5]
+三位数字每一位表示数组里对应位的元素选还是不选
+
+时间复杂度：O(N*2^N)
+空间复杂夫：O(N)
+```
+
+```js
+var subsets = function (nums) {
+    let res = [];
+    const n = nums.length;
+    for (let i = 0; i < (1 << n); i++) { // 1 << n 表示的意思就是 2 ^ n
+        let tmp = [];
+        for (let j = 0; j < n; j++) { // 遍历n个二进制数字，找到为1的对应的数组中的元素，将其添加到临时数组中
+            if (i & (1 << j)) {
+                tmp.push(nums[j]);
+            }
+        }
+        res.push(tmp)
+    }
+    return res
+};
+```
+
+- 方法二：递归法实现子集枚举
+
+```txt
+dfs深度优先遍历
+
+时间复杂度：O(N*2^N)
+空间复杂夫：O(N)
+```
+
+```js
+var subsets = function (nums) {
+    const res = [];
+    const tmp = [];
+    const n = nums.length;
+    let dfs = cur => {
+        if (cur === n) {
+            res.push(tmp.slice());
+            return;
+        }
+        tmp.push(nums[cur]);
+        dfs(cur + 1);
+        tmp.pop(nums[cur]);
+        dfs(cur + 1);
+    }
+    dfs(0);
+    return res;
 };
 ```
 
