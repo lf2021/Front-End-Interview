@@ -1118,7 +1118,7 @@ var rotateRight = function(head, k) {
 三位数字每一位表示数组里对应位的元素选还是不选
 
 时间复杂度：O(N*2^N)
-空间复杂夫：O(N)
+空间复杂度：O(N)
 ```
 
 ```js
@@ -1144,7 +1144,7 @@ var subsets = function (nums) {
 dfs深度优先遍历
 
 时间复杂度：O(N*2^N)
-空间复杂夫：O(N)
+空间复杂度：O(N)
 ```
 
 ```js
