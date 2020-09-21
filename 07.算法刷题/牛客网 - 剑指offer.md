@@ -774,24 +774,18 @@ function IsPopOrder(pushV, popV) {
 } */
 
 function PrintFromTopToBottom(root) {
-  // write code here
-  const nodes = []; //存放节点
-  const values = []; //存放节点的val
-  if (root === null) {
-    return false;
-  }
-  nodes.push(root);
-  while (nodes && nodes.length > 0) {
-    var node = nodes.shift();
-    values.push(node.val);
-    if (node.left) {
-      nodes.push(node.left);
+    // write code here
+    if (!root) return false;
+    let nodes = [];
+    let res = [];
+    nodes.push(root)
+    while(nodes.length > 0) {
+        let node = nodes.shift();
+        res.push(node.val);
+        node.left && nodes.push(node.left);
+        node.right && nodes.push(node.right);
     }
-    if (node.right) {
-      nodes.push(node.right);
-    }
-  }
-  return values;
+    return res
 }
 ```
 
