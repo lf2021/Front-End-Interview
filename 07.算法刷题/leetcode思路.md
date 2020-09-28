@@ -40,6 +40,7 @@
   - [94. 二叉树的中序遍历](#94-二叉树的中序遍历)
   - [107. 二叉树的层次遍历 II](#107-二叉树的层次遍历-ii)
   - [112. 路径总和](#112-路径总和)
+  - [117. 填充每个节点的下一个右侧节点指针 II](#117-填充每个节点的下一个右侧节点指针-ii)
   - [121. 买卖股票的最佳时机](#121-买卖股票的最佳时机)
   - [122. 买卖股票的最佳时机 II](#122-买卖股票的最佳时机-ii)
   - [125. 验证回文串](#125-验证回文串)
@@ -1300,6 +1301,33 @@ var hasPathSum = function(root, sum) {
   // 总和减去当前值，并递归
   sum = sum - root.val
   return hasPathSum(root.left, sum) || hasPathSum(root.right, sum);
+};
+```
+
+## 117. 填充每个节点的下一个右侧节点指针 II
+
+```txt
+层序遍历，然后每一层遍历的时候，让前一个指向后一个
+```
+
+```js
+var connect = function (root) {
+    if (!root) return null
+    let queue = [root]
+    while (queue.length) {
+        const len = queue.length
+        let last = null
+        for (let i = 0; i < len; i++) {
+            let node = queue.shift()
+            node.left && queue.push(node.left)
+            node.right && queue.push(node.right)
+            if (i !== 0) {
+                last.next = node;
+            }
+            last = node;
+        }
+    }
+    return root
 };
 ```
 
