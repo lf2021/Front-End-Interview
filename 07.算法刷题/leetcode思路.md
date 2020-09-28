@@ -1013,8 +1013,14 @@ var combinationSum2 = function (candidates, target) {
 ## 53. 最大子序和
 
 ```txt
-遍历一次，从第一个大于0的数开始，求和并且每一步更新和的最大值，求和过程中如果小于0，则抛弃这个，从后续大于0的数继续。
+方法1：遍历一次，从第一个大于0的数开始，求和并且每一步更新和的最大值，求和过程中如果小于0，则抛弃这个，从后续大于0的数继续。
+
+方法2：动态规划，dp[i] 定义为以 nums[i] 结尾的最大子数组的和，状态转移方程：
+        dp[i] = max{ dp[i-1] + nums[i], nums[i] }     表示要么自成一派，要么和前面的子数组合并
+连续子数组的最大和一定是 dp 数组的最大值
 ```
+
+- 方法1
 
 ```js
 var maxSubArray = function(nums) {
@@ -1029,6 +1035,20 @@ var maxSubArray = function(nums) {
         maxSum = Math.max(maxSum, num);
     }
     return maxSum;
+};
+```
+
+- 方法2
+
+```js
+var maxSubArray = function (nums) {
+    let len = nums.length;
+    let dp = [];
+    dp[0] = nums[0];
+    for (let i = 1; i < len; i++) {
+        dp[i] = Math.max(dp[i - 1] + nums[i], nums[i]);
+    }
+    return Math.max(...dp);
 };
 ```
 
