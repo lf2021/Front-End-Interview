@@ -45,6 +45,7 @@
   - [122. 买卖股票的最佳时机 II](#122-买卖股票的最佳时机-ii)
   - [125. 验证回文串](#125-验证回文串)
   - [141. 环形链表](#141-环形链表)
+  - [145. 二叉树的后序遍历](#145-二叉树的后序遍历)
   - [160. 相交链表](#160-相交链表)
   - [200. 岛屿数量](#200-岛屿数量)
   - [203. 移除链表元素](#203-移除链表元素)
@@ -1506,6 +1507,43 @@ var hasCycle = function(head) {
         }
     }
     return true;
+};
+```
+
+## 145. 二叉树的后序遍历
+
+- 递归
+
+```js
+var postorderTraversal = function(root) {
+    let res = [];
+    let postMid = root => {
+        if (!root) return null;
+        postMid(root.left)
+        postMid(root.right)
+        res.push(root.val)
+    }
+    postMid(root)
+    return res
+};
+```
+
+- 迭代算法
+
+> 借助栈
+
+```js
+var postorderTraversal = function(root) {
+    if (!root) return []
+    let res = [];
+    let stack = [root];
+    while(stack.length) {
+        let node = stack.pop();
+        res.unshift(node.val);
+        node.left && stack.push(node.left)
+        node.right && stack.push(node.right)
+    }
+    return res
 };
 ```
 
