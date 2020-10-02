@@ -56,6 +56,7 @@
   - [300. 最长上升子序列](#300-最长上升子序列)
   - [347. 前 K 个高频元素](#347-前-k-个高频元素)
   - [494. 目标和](#494-目标和)
+  - [771. 宝石与石头](#771-宝石与石头)
   - [876. 链表的中间结点](#876-链表的中间结点)
 
 ## 面试题 02.01. 移除重复节点
@@ -1993,6 +1994,42 @@ var findTargetSumWays = function(nums, S) {
     }
     helper(nums, 0, 0, S);
     return result;
+};
+```
+
+## 771. 宝石与石头
+
+- 暴力循环
+  
+```txt
+时间复杂度：O(mn)，其中 m 是字符串 J 的长度，n 是字符串 S 的长度。遍历字符串 S 的时间复杂度是 O(n)，对于 S 中的每个字符，需要遍历字符串 J 判断是否是宝石，时间复杂度是 O(m)，因此总时间复杂度是 O(mn)。
+空间复杂度：O(1)，只需要维护常量的额外空间。
+```
+
+```js
+var numJewelsInStones = function(J, S) {
+    let res = 0;
+    for(let i=0; i<S.length; i++) {
+        let tmp = S[i];
+        if (J.indexOf(tmp) !== -1) res++;
+    }
+    return res;
+};
+```
+
+- 哈希集合
+
+```txt
+时间复杂度：O(m+n)，其中 m 是字符串 J 的长度，n 是字符串 S 的长度。遍历字符串 J 将其中的字符存储到哈希集合中，时间复杂度是 O(m)，然后遍历字符串 S，对于 S 中的每个字符在 O(1) 的时间内判断当前字符是否是宝石，时间复杂度是 O(n)，因此总时间复杂度是 O(m+n)。
+空间复杂度：O(m)，其中 m 是字符串 J 的长度。使用哈希集合存储字符串 J 中的字符。
+```
+
+```js
+var numJewelsInStones = function(J, S) {
+    let set = new Set(J.split(''));
+    return S.split('').reduce((pre, cur) => {
+        return pre + set.has(cur);
+    }, 0)
 };
 ```
 
