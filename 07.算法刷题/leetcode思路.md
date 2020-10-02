@@ -1,7 +1,5 @@
 # leetcode
 
-前300道题目（不包括困难级别题目）思路，仅供参考
-
 - [leetcode](#leetcode)
   - [面试题 02.01. 移除重复节点](#面试题-0201-移除重复节点)
   - [面试题 16.11. 跳水板](#面试题-1611-跳水板)
@@ -55,6 +53,7 @@
   - [234. 回文链表](#234-回文链表)
   - [300. 最长上升子序列](#300-最长上升子序列)
   - [347. 前 K 个高频元素](#347-前-k-个高频元素)
+  - [416. 分割等和子集](#416-分割等和子集)
   - [494. 目标和](#494-目标和)
   - [771. 宝石与石头](#771-宝石与石头)
   - [876. 链表的中间结点](#876-链表的中间结点)
@@ -1966,6 +1965,50 @@ var topKFrequent = function (nums, k) {
         }
     }
     return a
+};
+```
+
+## 416. 分割等和子集
+
+```txt
+换句话描述就是能否找到一个组合的和等于 nums 的和的一半，也就转换成了 0-1 背包问题
+套用动态规划模板来求解
+
+因为有两个状态，【背包的容量】和【可选择的物品】，所以 dp 是一个二维数组
+
+dp定义为：
+dp[n][sum] 表示前 n 个数中能否找到一个和为 sum 的组合
+
+状态转移方程：
+dp[i][j] = dp[i - 1][j] || dp[i - 1][j - nums[i - 1]]
+意思是第i个数有两种选择：选或不选，不选就是继承之前的结果，选了就是判断在装第 i 个数之前是否有一种组合的和为 j - num[i - 1]，很好理解
+
+再处理一下边界问题，
+
+时间复杂度：O(n * sum)，其中 n 为 nums 的长度，sum 为 nums 数组和的一半。
+空间复杂度：O(n * sum)
+```
+
+```js
+var canPartition = function (nums) {
+    let sum = nums.reduce((t, v) => t + v);
+    if (sum % 2 !== 0) return false;
+    sum = sum / 2;
+    let len = nums.length;
+    let dp = Array(len + 1).fill('').map(e => Array(sum + 1).fill(false))
+    for (let i = 0; i <= len; i++) {
+        dp[i][0] = true
+    }
+    for (let i = 1; i <= len; i++) {
+        for (let j = 1; j <= sum; j++) {
+            if (j - nums[i - 1] < 0) {
+                dp[i][j] = dp[i - 1][j]
+            } else {
+                dp[i][j] = dp[i - 1][j] || dp[i - 1][j - nums[i - 1]]
+            }
+        }
+    }
+    return dp[len][sum]
 };
 ```
 
