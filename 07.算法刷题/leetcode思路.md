@@ -126,10 +126,33 @@ var getKthFromEnd = function(head, k) {
 
 ## 1. 两数之和
 
+- 两层循环
+
+```txt
+时间复杂度：O(N^2)
+空间复杂度：O(1)
+```
+
+```js
+var twoSum = function(nums, target) {
+    for(let i=0; i<nums.length; i++) {
+        let n1 = nums[i];
+        let n2 = target - n1;
+        let index = nums.indexOf(n2);
+        if (index !== i && index !== -1) {
+            return [i, index]
+        }
+    }
+};
+```
+
+- 哈希map
+
 ```txt
 map用来存储遍历时候的元素-索引对
 遍历一次列表，计算每个元素与target的差，判断一下map中存不存在这个键
 时间复杂度：O(N)
+空间复杂度：O(N)
 
 举例：
   nums = [2, 7, 11, 15]， target = 9
