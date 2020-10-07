@@ -32,6 +32,7 @@
   - [53. 最大子序和](#53-最大子序和)
   - [58. 最后一个单词的长度](#58-最后一个单词的长度)
   - [61. 旋转链表](#61-旋转链表)
+  - [75. 颜色分类](#75-颜色分类)
   - [78. 子集](#78-子集)
   - [82. 删除排序链表中的重复元素 II](#82-删除排序链表中的重复元素-ii)
   - [83. 删除排序链表中的重复元素](#83-删除排序链表中的重复元素)
@@ -1150,6 +1151,69 @@ var rotateRight = function(head, k) {
     }
     p.next = head;
     return node;
+};
+```
+
+## 75. 颜色分类
+
+- 单指针
+
+```txt
+遍历两次，一次将所有的 0 换到最前面，一次将所有的 1 换到中间
+
+时间复杂度：O(N)
+空间复杂度：O(1)
+```
+
+```js
+var sortColors = function (nums) {
+    let ptr = 0;
+    for (let i = 0; i < nums.length; i++) {
+        if (nums[i] === 0) {
+            [nums[i], nums[ptr]] = [nums[ptr], nums[i]]
+            ptr++;
+        }
+    }
+    for (let i = ptr; i < nums.length; i++) {
+        if (nums[i] === 1) {
+            [nums[i], nums[ptr]] = [nums[ptr], nums[i]]
+            ptr++;
+        }
+    }
+    return nums;
+};
+```
+
+- 双指针
+
+```txt
+这里用两个指针 p 和 q ，遍历数组：
+当为 1 的时候就与 q 指针对应的数交换并把 q 指针后移一位，
+当为 0 的时候就与 p 指针对应的数交换，这里首先要判断一下 p 指针是不是在 q 指针的前面，如果是，需要把当前的数再与 q 指针交换一下，然后再把两个都后移一位
+因为当遍历到 0 的时候，可能这个时候p 指针对应的数可能是 1，然后与 p 指针交换之后当前遍历的位置就变成了 1，如果这个时候循环结束的话是有问题的，因为 1 是要放在中间的
+
+时间复杂度：O(N)
+空间复杂度：O(1)
+```
+
+```js
+var sortColors = function (nums) {
+    let n = nums.length;
+    let [p, q] = [0, 0];
+    for(let i=0; i<n; i++) {
+        if (nums[i] === 0) {
+            [nums[i], nums[p]] = [nums[p], nums[i]];
+            if (p < q) {
+                [nums[i], nums[q]] = [nums[q], nums[i]];
+            }
+            p++;
+            q++;
+        } else if (nums[i] === 1) {
+            [nums[i], nums[q]] = [nums[q], nums[i]];
+            q++;
+        }
+    }
+    return nums;
 };
 ```
 
