@@ -58,6 +58,7 @@
   - [416. 分割等和子集](#416-分割等和子集)
   - [494. 目标和](#494-目标和)
   - [771. 宝石与石头](#771-宝石与石头)
+  - [518. 零钱兑换Ⅱ](#518-零钱兑换ⅱ)
   - [876. 链表的中间结点](#876-链表的中间结点)
 
 ## 面试题 02.01. 移除重复节点
@@ -2186,6 +2187,35 @@ var numJewelsInStones = function(J, S) {
     return S.split('').reduce((pre, cur) => {
         return pre + set.has(cur);
     }, 0)
+};
+```
+
+## 518. 零钱兑换Ⅱ
+
+[参考一个比较清晰的解读](https://labuladong.gitbook.io/algo/dong-tai-gui-hua-xi-lie/bei-bao-ling-qian)
+
+```txt
+时间复杂度：O(n * amount)，其中 n 是 coins 的长度，amount 表示面额
+空间复杂度：O(n * amount)
+```
+
+```js
+var change = function(amount, coins) {
+    let n = coins.length;
+    let dp = Array(n + 1).fill(0).map(e => Array(amount + 1).fill(0));
+    for(let i=0; i<=n; i++) {
+        dp[i][0] = 1;
+    }
+    for(let i=1; i<=n; i++) {
+        for(let j=1; j<=amount; j++) {
+            if (j - coins[i-1] >= 0) {
+                dp[i][j] = dp[i-1][j] + dp[i][j-coins[i-1]];
+            } else {
+                dp[i][j] = dp[i-1][j];
+            }
+        }
+    }
+    return dp[n][amount]
 };
 ```
 
