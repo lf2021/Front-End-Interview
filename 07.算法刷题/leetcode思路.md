@@ -32,6 +32,7 @@
   - [53. 最大子序和](#53-最大子序和)
   - [58. 最后一个单词的长度](#58-最后一个单词的长度)
   - [61. 旋转链表](#61-旋转链表)
+  - [70. 爬楼梯](#70-爬楼梯)
   - [75. 颜色分类](#75-颜色分类)
   - [78. 子集](#78-子集)
   - [82. 删除排序链表中的重复元素 II](#82-删除排序链表中的重复元素-ii)
@@ -44,6 +45,7 @@
   - [122. 买卖股票的最佳时机 II](#122-买卖股票的最佳时机-ii)
   - [125. 验证回文串](#125-验证回文串)
   - [141. 环形链表](#141-环形链表)
+  - [142. 环形链表Ⅱ](#142-环形链表ⅱ)
   - [145. 二叉树的后序遍历](#145-二叉树的后序遍历)
   - [160. 相交链表](#160-相交链表)
   - [200. 岛屿数量](#200-岛屿数量)
@@ -1155,6 +1157,28 @@ var rotateRight = function(head, k) {
 };
 ```
 
+## 70. 爬楼梯
+
+```txt
+典型动态规划
+dp[i] = dp[i-1] + dp[i-2]
+
+时间复杂度：O(N)
+空间复杂度：O(1)
+```
+
+```js
+var climbStairs = function (n) {
+    let a = 0, b = 0, res = 1;
+    for (let i = 1; i <= n; i++) {
+        a = b;
+        b = res;
+        res = a + b;
+    }
+    return res;
+};
+```
+
 ## 75. 颜色分类
 
 - 单指针
@@ -1599,6 +1623,30 @@ var hasCycle = function(head) {
         }
     }
     return true;
+};
+```
+
+## 142. 环形链表Ⅱ
+
+```txt
+快慢指针先找到两个指针相遇的地方，然后在让一个指针ptr指向head，ptr和slow（相遇的点）同时出发，会在环的入口处相遇。
+```
+
+```js
+var detectCycle = function(head) {
+    let slow = head, fast = head;
+    if (!head || !head.next) return null;
+    while(fast && fast.next) {
+        fast = fast.next.next;
+        slow = slow.next;
+        if (slow === fast) break;
+    }
+    if(slow !== fast) return null;
+    while(head !== slow) {
+        head = head.next;
+        slow = slow.next;
+    }
+    return head;
 };
 ```
 
