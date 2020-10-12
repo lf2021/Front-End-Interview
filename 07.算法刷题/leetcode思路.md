@@ -27,8 +27,8 @@
   - [31. 下一个排列](#31-下一个排列)
   - [33. 搜索旋转排序数组](#33-搜索旋转排序数组)
   - [35. 搜索插入位置](#35-搜索插入位置)
-  - [39. 组合](#39-组合)
-  - [40. 组合Ⅱ](#40-组合ⅱ)
+  - [39. 组合总和](#39-组合总和)
+  - [40. 组合总和Ⅱ](#40-组合总和ⅱ)
   - [53. 最大子序和](#53-最大子序和)
   - [58. 最后一个单词的长度](#58-最后一个单词的长度)
   - [61. 旋转链表](#61-旋转链表)
@@ -59,11 +59,12 @@
   - [347. 前 K 个高频元素](#347-前-k-个高频元素)
   - [416. 分割等和子集](#416-分割等和子集)
   - [494. 目标和](#494-目标和)
-  - [771. 宝石与石头](#771-宝石与石头)
   - [518. 零钱兑换Ⅱ](#518-零钱兑换ⅱ)
+  - [530. 二叉搜索树的最小绝对差](#530-二叉搜索树的最小绝对差)
+  - [771. 宝石与石头](#771-宝石与石头)
   - [876. 链表的中间结点](#876-链表的中间结点)
 
-## 面试题 02.01. 移除重复节点
+## 面试题 02.01. [移除重复节点](https://leetcode-cn.com/problems/remove-duplicate-node-lcci/)
 
 ```txt
 双指针法，循环右指针即可
@@ -88,7 +89,7 @@ var removeDuplicateNodes = function(head) {
 };
 ```
 
-## 面试题 16.11. 跳水板
+## 面试题 16.11. [跳水板](https://leetcode-cn.com/problems/diving-board-lcci/)
 
 ```txt
 动态规划
@@ -108,7 +109,7 @@ var divingBoard = function(shorter, longer, k) {
 };
 ```
 
-## 剑指 Offer 22. 链表中倒数第k个节点
+## 剑指 Offer 22. [链表中倒数第k个节点](https://leetcode-cn.com/problems/lian-biao-zhong-dao-shu-di-kge-jie-dian-lcof/)
 
 ```txt
 双指针法：右指针先走k-1步，然后左右指针一起走。
@@ -129,7 +130,7 @@ var getKthFromEnd = function(head, k) {
 };
 ```
 
-## 1. 两数之和
+## 1. [两数之和](https://leetcode-cn.com/problems/two-sum)
 
 - 两层循环
 
@@ -185,7 +186,7 @@ var twoSum = function(nums, target) {
 };
 ```
 
-## 3. 无重复字符的最长子串
+## 3. [无重复字符的最长子串](https://leetcode-cn.com/problems/longest-substring-without-repeating-characters)
 
 ```txt
 遍历一轮，res保存遍历到的不重复的字符串，maxLen记录最大的长度
@@ -213,7 +214,7 @@ var lengthOfLongestSubstring = function(s) {
 };
 ```
 
-## 5. 最长回文子串
+## 5. [最长回文子串](https://leetcode-cn.com/problems/longest-palindromic-substring)
 
 - 动态规划
 
@@ -292,7 +293,7 @@ var longestPalindrome = function(s) {
 };
 ```
 
-## 6. Z字形变换
+## 6. [Z字形变换](https://leetcode-cn.com/problems/zigzag-conversion)
 
 ```txt
 这个Z字形变换的话相当于是有numRows行数据，要将字符串s中的每个字母依次从上往下再从下往上添加到这个numRows行中，
@@ -337,13 +338,13 @@ var convert = function(s, numRows) {
 };
 ```
 
-## 7. 整数反转
+## 7. [整数反转](https://leetcode-cn.com/problems/reverse-integer)
 
 ```txt
 原数x, 新数res。利用`int tmp = x % 10;` 。取个位，然后将其作为新数的最高位`res = res*10 + tmp;`，更新x：` x /= 10;`。重复上述操作，直到x = 0。此间不断判断是否溢出
 ```
 
-## 9. 回文数
+## 9. [回文数](https://leetcode-cn.com/problems/palindrome-number)
 
 ```txt
 进阶不将整数转换为字符串，思路：
@@ -383,7 +384,7 @@ var isPalindrome = function(x) {
 };
 ```
 
-## 11. 盛最多水的容器
+## 11. [盛最多水的容器](https://leetcode-cn.com/problems/container-with-most-water)
 
 ```txt
 用双指针法，left和right指针分别指向数组的头和尾，这个时候可以计算一下left和right对应区间可容纳的水:
@@ -410,7 +411,7 @@ var maxArea = function(height) {
 };
 ```
 
-## 12. 整数转罗马数字
+## 12. [整数转罗马数字](https://leetcode-cn.com/problems/integer-to-roman)
 
 ```txt
 简单粗暴，罗列出个十百千位的所有可能性：
@@ -422,11 +423,24 @@ var maxArea = function(height) {
 然后根据给的num，拿到个十百千位的罗马数字拼接起来
 ```
 
-## 13. 罗马数字转整数
+```js
+var intToRoman = function(num) {
+  const qian = ['', 'M', 'MM', 'MMM'];
+  const bai = ['','C','CC','CCC','CD','D','DC','DCC','DCCC','CM'];
+  const shi = ['','X','XX','XXX','XL','L','LX','LXX','LXXX','XC'];
+  const ge = ['','I','II','III','IV','V','VI','VII','VIII','IX']
+  return (qian[parseInt(num/1000)]
+    +bai[parseInt(num/100)%10]
+    +shi[parseInt(num/10)%10]
+    +ge[num%10])
+};
+```
+
+## 13. [罗马数字转整数](https://leetcode-cn.com/problems/roman-to-integer)
 
 将所有可能的情况保存在一个对象中：
 
-```js
+```txt
 map = {
   'I' : 1,
   'IV': 4,
@@ -442,12 +456,45 @@ map = {
   'CM': 900,
   'M' : 1000,
 };
-```
 
 然后对给定的罗马字符进行遍历，每次需要判断一下：
 连续两个字符在对象是否存在，存在就用这连续两个字符的值；不存在就用当前遍历的字符的值
+```
 
-## 14. 最长公共前缀
+```js
+var romanToInt = function(s) {
+    var map = {
+        'I': 1,
+        'IV': 4,
+        'V': 5,
+        'IX': 9,
+        'X': 10,
+        'XL': 40,
+        'L': 50,
+        'XC': 90,
+        'C': 100,
+        'CD': 400,
+        'D': 500,
+        'CM': 900,
+        'M': 1000
+        };
+    var i = 0;
+    var ans = 0;
+    while(i < s.length){
+        let str = s.slice(i, i+2);
+        if(map[str]){
+           ans += map[str];
+           i += 2;
+        }else{
+            ans += map[s[i]];
+            i += 1;
+        }
+    }
+    return ans;
+};
+```
+
+## 14. [最长公共前缀](https://leetcode-cn.com/problems/longest-common-prefix)
 
 ```js
 /**
@@ -486,7 +533,7 @@ first = "flower"
 遍历结束，公共前缀就是first
 ```
 
-## 15. 三数之和
+## 15. [三数之和](https://leetcode-cn.com/problems/3sum)
 
 ```js
 /**
@@ -528,7 +575,7 @@ var threeSum = function(nums) {
 时间复杂度：O(n^2)
 ```
 
-## 16. 最接近的三数之和
+## 16. [最接近的三数之和](https://leetcode-cn.com/problems/3sum-closest)
 
 ```txt
 思路一：复杂度O(N^3)
@@ -583,7 +630,7 @@ var threeSumClosest = function(nums, target) {
 };
 ```
 
-## 17. 电话号码的字母组合
+## 17. [电话号码的字母组合](https://leetcode-cn.com/problems/letter-combinations-of-a-phone-number)
 
 ```txt
 首先用一个对象保存所有可能的情况
@@ -633,7 +680,7 @@ var letterCombinations = function(digits) {
 };
 ```
 
-## 19. 删除链表的倒数第N个节点
+## 19. [删除链表的倒数第N个节点](https://leetcode-cn.com/problems/remove-nth-node-from-end-of-list)
 
 ```txt
 首先先设置一个辅助头结点，让辅助头结点指向给定的head链表，然后用快慢指针low和fast，初始都指向辅助头结点
@@ -670,7 +717,7 @@ var removeNthFromEnd = function(head, n) {
 };
 ```
 
-## 20. 有效的括号
+## 20. [有效的括号](https://leetcode-cn.com/problems/valid-parentheses)
 
 ```txt
 字符串的长度为奇数肯定是false
@@ -706,7 +753,7 @@ var isValid = function(s) {
 };
 ```
 
-## 21. 合并两个有序链表
+## 21. [合并两个有序链表](https://leetcode-cn.com/problems/merge-two-sorted-lists)
 
 ```txt
 创建一个辅助头节点head，用指针p指向head，
@@ -754,7 +801,7 @@ var mergeTwoLists = function(l1, l2) {
 };
 ```
 
-## 24. 两两交换链表中的节点
+## 24. [两两交换链表中的节点](https://leetcode-cn.com/problems/swap-nodes-in-pairs)
 
 ```txt
 构建一个哨兵节点0，例如：1->2->3->4
@@ -782,7 +829,7 @@ var swapPairs = function(head) {
 };
 ```
 
-## 26. 删除排序数组中的重复项
+## 26. [删除排序数组中的重复项](https://leetcode-cn.com/problems/remove-duplicates-from-sorted-array)
 
 ```txt
 倒序遍历数组，判断一下当前元素与下一个元素是否相同，如果相同就删除当前元素，遍历结束返回数组的长度
@@ -803,7 +850,7 @@ var removeDuplicates = function(nums) {
 };
 ```
 
-## 27. 移除元素
+## 27. [移除元素](https://leetcode-cn.com/problems/remove-element)
 
 ```txt
 思路1：
@@ -841,7 +888,7 @@ var removeElement = function(nums, val) {
 };
 ```
 
-## 28. 实现 strStr()
+## 28. [实现 strStr()](https://leetcode-cn.com/problems/implement-strstr)
 
 ```txt
 直接调用indexOf()方法就好了
@@ -854,7 +901,7 @@ var strStr = function(haystack, needle) {
 };
 ```
 
-## 31. 下一个排列
+## 31. [下一个排列](https://leetcode-cn.com/problems/next-permutation)
 
 ```txt
 1.从数组的末尾寻找第一对升序排列的值i,j
@@ -907,7 +954,7 @@ var nextPermutation = function(nums) {
 }
 ```
 
-## 33. 搜索旋转排序数组
+## 33. [搜索旋转排序数组](https://leetcode-cn.com/problems/search-in-rotated-sorted-array)
 
 ```txt
 二分法：
@@ -948,7 +995,7 @@ var search = function(nums, target) {
 };
 ```
 
-## 35. 搜索插入位置
+## 35. [搜索插入位置](https://leetcode-cn.com/problems/search-insert-position)
 
 ```txt
 思路1：
@@ -990,7 +1037,7 @@ var searchInsert = function(nums, target) {
 };
 ```
 
-## 39. 组合
+## 39. [组合总和](https://leetcode-cn.com/problems/combination-sum)
 
 - 回溯
 
@@ -1013,7 +1060,7 @@ var combinationSum = function(candidates, target) {
 };
 ```
 
-## 40. 组合Ⅱ
+## 40. [组合总和Ⅱ](https://leetcode-cn.com/problems/combination-sum-ii)
 
 - 回溯+减枝
 
@@ -1039,7 +1086,7 @@ var combinationSum2 = function (candidates, target) {
 };
 ```
 
-## 53. 最大子序和
+## 53. [最大子序和](https://leetcode-cn.com/problems/maximum-subarray)
 
 ```txt
 方法1：遍历一次，从第一个大于0的数开始，求和并且每一步更新和的最大值，求和过程中如果小于0，则抛弃这个，从后续大于0的数继续。
@@ -1081,7 +1128,7 @@ var maxSubArray = function (nums) {
 };
 ```
 
-## 58. 最后一个单词的长度
+## 58. [最后一个单词的长度](https://leetcode-cn.com/problems/length-of-last-word)
 
 ```txt
 太简单了，去除一下首尾的空格，然后分割一下去最后一个的长度
@@ -1094,7 +1141,7 @@ var lengthOfLastWord = function(s) {
 };
 ```
 
-## 61. 旋转链表
+## 61. [旋转链表](https://leetcode-cn.com/problems/rotate-list)
 
 ```txt
 思路1:
@@ -1158,7 +1205,7 @@ var rotateRight = function(head, k) {
 };
 ```
 
-## 70. 爬楼梯
+## 70. [爬楼梯](https://leetcode-cn.com/problems/climbing-stairs)
 
 ```txt
 典型动态规划
@@ -1180,7 +1227,7 @@ var climbStairs = function (n) {
 };
 ```
 
-## 75. 颜色分类
+## 75. [颜色分类](https://leetcode-cn.com/problems/sort-colors)
 
 - 单指针
 
@@ -1243,7 +1290,7 @@ var sortColors = function (nums) {
 };
 ```
 
-## 78. 子集
+## 78. [子集](https://leetcode-cn.com/problems/subsets)
 
 - 方法一：迭代法实现子集枚举
 
@@ -1333,7 +1380,7 @@ var deleteDuplicates = function(head) {
 };
 ```
 
-## 83. 删除排序链表中的重复元素
+## 83. [删除排序链表中的重复元素](https://leetcode-cn.com/problems/remove-duplicates-from-sorted-list)
 
 ```txt
 直接法，简单
@@ -1353,7 +1400,7 @@ var deleteDuplicates = function(head) {
 };
 ```
 
-## 94. 二叉树的中序遍历
+## 94. [二叉树的中序遍历](https://leetcode-cn.com/problems/binary-tree-inorder-traversal)
 
 - 递归
 
@@ -1391,7 +1438,7 @@ var inorderTraversal = function (root) {
 };
 ```
 
-## 107. 二叉树的层次遍历 II
+## 107. [二叉树的层次遍历 II](https://leetcode-cn.com/problems/binary-tree-level-order-traversal-ii)
 
 > 借助栈的结构，依次把每层的结点放入栈中，再弹出
 
@@ -1416,7 +1463,7 @@ var levelOrderBottom = function(root) {
 };
 ```
 
-## 112. 路径总和
+## 112. [路径总和](https://leetcode-cn.com/problems/path-sum)
 
 ```txt
 递归
@@ -1438,7 +1485,7 @@ var hasPathSum = function(root, sum) {
 };
 ```
 
-## 117. 填充每个节点的下一个右侧节点指针 II
+## 117. [填充每个节点的下一个右侧节点指针 II](https://leetcode-cn.com/problems/populating-next-right-pointers-in-each-node-ii)
 
 ```txt
 层序遍历，然后每一层遍历的时候，让前一个指向后一个
@@ -1465,7 +1512,7 @@ var connect = function (root) {
 };
 ```
 
-## 121. 买卖股票的最佳时机
+## 121. [买卖股票的最佳时机](https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock)
 
 - 动态规划
 
@@ -1521,7 +1568,7 @@ var maxProfit = function(prices) {
 };
 ```
 
-## 122. 买卖股票的最佳时机 II
+## 122. [买卖股票的最佳时机 II](https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock-ii)
 
 ```txt
 用一个二维数组的动态方程
@@ -1548,7 +1595,7 @@ var maxProfit = function(prices) {
 };
 ```
 
-## 125. 验证回文串
+## 125. [验证回文串](https://leetcode-cn.com/problems/valid-palindrome)
 
 ```txt
 思路1:
@@ -1581,7 +1628,7 @@ var isPalindrome = function(s) {
 };
 ```
 
-## 141. 环形链表
+## 141. [环形链表](https://leetcode-cn.com/problems/linked-list-cycle)
 
 ```txt
 思路1:
@@ -1627,7 +1674,7 @@ var hasCycle = function(head) {
 };
 ```
 
-## 142. 环形链表Ⅱ
+## 142. [环形链表Ⅱ](https://leetcode-cn.com/problems/linked-list-cycle-ii)
 
 ```txt
 快慢指针先找到两个指针相遇的地方，然后在让一个指针ptr指向head，ptr和slow（相遇的点）同时出发，会在环的入口处相遇。
@@ -1651,7 +1698,7 @@ var detectCycle = function(head) {
 };
 ```
 
-## 145. 二叉树的后序遍历
+## 145. [二叉树的后序遍历](https://leetcode-cn.com/problems/binary-tree-postorder-traversal)
 
 - 递归
 
@@ -1688,7 +1735,7 @@ var postorderTraversal = function(root) {
 };
 ```
 
-## 160. 相交链表
+## 160. [相交链表](https://leetcode-cn.com/problems/intersection-of-two-linked-lists)
 
 ```txt
 相交链表 headA headB，同时遍历这两个链表，当headA遍历完了遍历headB，当headB遍历完了遍历headA
@@ -1715,7 +1762,7 @@ var getIntersectionNode = function(headA, headB) {
 };
 ```
 
-## 200. 岛屿数量
+## 200. [岛屿数量](https://leetcode-cn.com/problems/number-of-islands)
 
 ```txt
 深度优先遍历，找到一个为1（陆地）的，count++，同时将其上下左右的陆地都变成0（湖泊）
@@ -1748,7 +1795,7 @@ function dfs(grid, i, j, rows, cols) {
 }
 ```
 
-## 203. 移除链表元素
+## 203. [移除链表元素](https://leetcode-cn.com/problems/remove-linked-list-elements)
 
 ```txt
 哨兵节点 + 双指针法
@@ -1773,7 +1820,7 @@ var removeElements = function(head, val) {
 };
 ```
 
-## 206. 反转链表
+## 206. [反转链表](https://leetcode-cn.com/problems/reverse-linked-list)
 
 ```txt
 思路1: 用一个数组存储链表的val
@@ -1825,7 +1872,7 @@ var reverseList = function(head) {
 };
 ```
 
-## 209. 长度最小的子数组
+## 209. [长度最小的子数组](https://leetcode-cn.com/problems/minimum-size-subarray-sum)
 
 ```txt
 滑动窗口法，时间复杂度O(N)，空间复杂度O(1)
@@ -1850,7 +1897,7 @@ var minSubArrayLen = function(s, nums) {
 };
 ```
 
-## 215. 数组中的第K个最大元素
+## 215. [数组中的第K个最大元素](https://leetcode-cn.com/problems/kth-largest-element-in-an-array)
 
 ```txt
 TopK问题：
@@ -1980,7 +2027,7 @@ let partition = (arr, left, right) => {
 }
 ```
 
-## 234. 回文链表
+## 234. [回文链表](https://leetcode-cn.com/problems/palindrome-linked-list)
 
 ```txt
 思路1：
@@ -2034,7 +2081,7 @@ var isPalindrome = function(head) {
 };
 ```
 
-## 300. 最长上升子序列
+## 300. [最长上升子序列](https://leetcode-cn.com/problems/longest-increasing-subsequence)
 
 - 动态规划
 
@@ -2062,7 +2109,7 @@ var lengthOfLIS = function (nums) {
 };
 ```
 
-## 344. 反转数组
+## 344. [反转数组](https://leetcode-cn.com/problems/reverse-string)
 
 > 要求不要给另外的数组分配额外的空间，你必须原地修改输入数组、使用 O(1) 的额外空间解决这一问题。
 
@@ -2083,7 +2130,7 @@ var reverseString = function (s) {
 };
 ```
 
-## 347. 前 K 个高频元素
+## 347. [前 K 个高频元素](https://leetcode-cn.com/problems/top-k-frequent-elements)
 
 ```js
 /**
@@ -2130,7 +2177,9 @@ var topKFrequent = function (nums, k) {
 };
 ```
 
-## 416. 分割等和子集
+## 416. [分割等和子集](https://leetcode-cn.com/problems/partition-equal-subset-sum)
+
+[一个比较好的解释](https://labuladong.gitbook.io/algo/dong-tai-gui-hua-xi-lie/bei-bao-zi-ji)
 
 ```txt
 换句话描述就是能否找到一个组合的和等于 nums 的和的一半，也就转换成了 0-1 背包问题
@@ -2142,7 +2191,7 @@ dp定义为：
 dp[n][sum] 表示前 n 个数中能否找到一个和为 sum 的组合
 
 状态转移方程：
-dp[i][j] = dp[i - 1][j] || dp[i - 1][j - nums[i - 1]]
+dp[i][j] = dp[i - 1][j - nums[i - 1]] || dp[i - 1][j]
 意思是第i个数有两种选择：选或不选，不选就是继承之前的结果，选了就是判断在装第 i 个数之前是否有一种组合的和为 j - num[i - 1]，很好理解
 
 再处理一下边界问题，
@@ -2174,7 +2223,7 @@ var canPartition = function (nums) {
 };
 ```
 
-## 494. 目标和
+## 494. [目标和](https://leetcode-cn.com/problems/target-sum)
 
 - 回溯法
 
@@ -2202,7 +2251,64 @@ var findTargetSumWays = function(nums, S) {
 };
 ```
 
-## 771. 宝石与石头
+## 518. [零钱兑换Ⅱ](https://leetcode-cn.com/problems/coin-change-2)
+
+[参考一个比较清晰的解读](https://labuladong.gitbook.io/algo/dong-tai-gui-hua-xi-lie/bei-bao-ling-qian)
+
+```txt
+时间复杂度：O(n * amount)，其中 n 是 coins 的长度，amount 表示面额
+空间复杂度：O(n * amount)
+```
+
+```js
+var change = function(amount, coins) {
+    let n = coins.length;
+    let dp = Array(n + 1).fill(0).map(e => Array(amount + 1).fill(0));
+    for(let i=0; i<=n; i++) {
+        dp[i][0] = 1;
+    }
+    for(let i=1; i<=n; i++) {
+        for(let j=1; j<=amount; j++) {
+            if (j - coins[i-1] >= 0) {
+                dp[i][j] = dp[i-1][j] + dp[i][j-coins[i-1]];
+            } else {
+                dp[i][j] = dp[i-1][j];
+            }
+        }
+    }
+    return dp[n][amount]
+};
+```
+
+## 530. [二叉搜索树的最小绝对差](https://leetcode-cn.com/problems/minimum-absolute-difference-in-bst/)
+
+与[leetcode783](https://leetcode-cn.com/problems/minimum-distance-between-bst-nodes/)相似
+
+```txt
+中序遍历 再取中序遍历的结果相邻的数之差的最小值
+
+时间复杂度：O(N)
+空间复杂度：O(N)，递归函数的空间复杂度取决于递归的栈深度，而栈深度在二叉搜索树为一条链的情况下会达到 O(N) 级别。
+```
+
+```js
+var getMinimumDifference = function(root) {
+    let min = Infinity, pre = -1;
+    let mid = root => {
+        if (!root) return;
+        mid(root.left);
+        if (pre !== -1) {
+            min = Math.min(min, root.val - pre);
+        }
+        pre = root.val;
+        mid(root.right);
+    }
+    mid(root);
+    return min
+};
+```
+
+## 771. [宝石与石头](https://leetcode-cn.com/problems/jewels-and-stones)
 
 - 暴力循环
   
@@ -2238,36 +2344,7 @@ var numJewelsInStones = function(J, S) {
 };
 ```
 
-## 518. 零钱兑换Ⅱ
-
-[参考一个比较清晰的解读](https://labuladong.gitbook.io/algo/dong-tai-gui-hua-xi-lie/bei-bao-ling-qian)
-
-```txt
-时间复杂度：O(n * amount)，其中 n 是 coins 的长度，amount 表示面额
-空间复杂度：O(n * amount)
-```
-
-```js
-var change = function(amount, coins) {
-    let n = coins.length;
-    let dp = Array(n + 1).fill(0).map(e => Array(amount + 1).fill(0));
-    for(let i=0; i<=n; i++) {
-        dp[i][0] = 1;
-    }
-    for(let i=1; i<=n; i++) {
-        for(let j=1; j<=amount; j++) {
-            if (j - coins[i-1] >= 0) {
-                dp[i][j] = dp[i-1][j] + dp[i][j-coins[i-1]];
-            } else {
-                dp[i][j] = dp[i-1][j];
-            }
-        }
-    }
-    return dp[n][amount]
-};
-```
-
-## 876. 链表的中间结点
+## 876. [链表的中间结点](https://leetcode-cn.com/problems/middle-of-the-linked-list)
 
 ```txt
 思路1:
