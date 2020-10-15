@@ -1527,13 +1527,16 @@ var connect = function(root) {
 完美二叉树只有两种情况：
 （1）某节点的左子节点 -> 某节点的右子节点
 （2）某节点的右子节点 -> 某节点 next 指针对应节点的左子节点
+
+时间复杂度：O(N)
+空间复杂度：O(1)
 ```
 
 ```js
 var connect = function(root) {
     if (!root) return null;
     let head = root;
-    while(head) {
+    while(head.left) {
         let node = head;
         while(node) {
             // node的左子节点 -> node的右子节点
