@@ -40,6 +40,7 @@
   - [94. 二叉树的中序遍历](#94-二叉树的中序遍历)
   - [107. 二叉树的层次遍历 II](#107-二叉树的层次遍历-ii)
   - [112. 路径总和](#112-路径总和)
+  - [116. 填充每个节点的下一个右侧节点指针](#116-填充每个节点的下一个右侧节点指针)
   - [117. 填充每个节点的下一个右侧节点指针 II](#117-填充每个节点的下一个右侧节点指针-ii)
   - [121. 买卖股票的最佳时机](#121-买卖股票的最佳时机)
   - [122. 买卖股票的最佳时机 II](#122-买卖股票的最佳时机-ii)
@@ -63,6 +64,7 @@
   - [530. 二叉搜索树的最小绝对差](#530-二叉搜索树的最小绝对差)
   - [771. 宝石与石头](#771-宝石与石头)
   - [876. 链表的中间结点](#876-链表的中间结点)
+  - [1002. 查找常用字符](#1002-查找常用字符)
 
 ## 面试题 02.01. [移除重复节点](https://leetcode-cn.com/problems/remove-duplicate-node-lcci/)
 
@@ -1485,6 +1487,71 @@ var hasPathSum = function(root, sum) {
 };
 ```
 
+## 116. [填充每个节点的下一个右侧节点指针](https://leetcode-cn.com/problems/populating-next-right-pointers-in-each-node/)
+
+- 层序遍历
+
+```txt
+层序遍历，然后每一层遍历的时候，让前一个指向后一个
+
+时间复杂度：O(N)
+空间复杂度：O(N)
+```
+
+```js
+var connect = function(root) {
+    if (!root) return null;
+    let stack = [root];
+    while(stack.length) {
+        let len = stack.length;
+        let pre = -1;
+        for(let i=0; i<len; i++) {
+            let node = stack.shift();
+            node.left && stack.push(node.left)
+            node.right && stack.push(node.right)
+            if (pre !== -1) {
+                pre.next = node;
+                pre = node;
+            } else {
+                pre = node;
+            }
+        }
+    }
+    return root
+};
+```
+
+- 使用已建立的 next 指针
+
+```txt
+完美二叉树只有两种情况：
+（1）某节点的左子节点 -> 某节点的右子节点
+（2）某节点的右子节点 -> 某节点 next 指针对应节点的左子节点
+```
+
+```js
+var connect = function(root) {
+    if (!root) return null;
+    let head = root;
+    while(head) {
+        let node = head;
+        while(node) {
+            // node的左子节点 -> node的右子节点
+            node.left.next = node.right;
+
+            // node的右子节点 -> node.next的左子节点
+            if (node.next) {
+                node.right.next = node.next.left;
+            }
+
+            node = node.next;
+        }
+        head = head.left
+    }
+    return root
+}
+```
+
 ## 117. [填充每个节点的下一个右侧节点指针 II](https://leetcode-cn.com/problems/populating-next-right-pointers-in-each-node-ii)
 
 ```txt
@@ -2379,5 +2446,32 @@ var middleNode = function(head) {
         fast = fast.next.next;
     }
     return slow;
+};
+```
+
+## 1002. [查找常用字符](https://leetcode-cn.com/problems/find-common-characters/)
+
+```txt
+我的思路就是其实就是把 A 中的字符求交集
+```
+
+```js
+var commonChars = function(A) {
+    let cross = (a, b) => {
+        let res = [];
+        for(let s of a) {
+            if (b.indexOf(s) !== -1) {
+                res.push(s);
+                b.splice(b.indexOf(s), 1);
+            }
+        }
+        return res;
+    }
+    let res = A.pop().split('');
+    while(A.length) {
+        let a = A.pop().split('');
+        res = cross(res, a);
+    }
+    return res;
 };
 ```
