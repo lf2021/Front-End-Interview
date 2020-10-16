@@ -64,6 +64,7 @@
   - [530. 二叉搜索树的最小绝对差](#530-二叉搜索树的最小绝对差)
   - [771. 宝石与石头](#771-宝石与石头)
   - [876. 链表的中间结点](#876-链表的中间结点)
+  - [977. 有序数组的平方](#977-有序数组的平方)
   - [1002. 查找常用字符](#1002-查找常用字符)
 
 ## 面试题 02.01. [移除重复节点](https://leetcode-cn.com/problems/remove-duplicate-node-lcci/)
@@ -2449,6 +2450,32 @@ var middleNode = function(head) {
         fast = fast.next.next;
     }
     return slow;
+};
+```
+
+## 977. [有序数组的平方](https://leetcode-cn.com/problems/squares-of-a-sorted-array/)
+
+```txt
+两种思路：
+    1. 平方后再对数组排序，时间复杂度：O(NlogN)，空间复杂度：O(logN)
+    2. 双指针，start 和 end 头尾指针，向中间缩进，时间复杂度：O(N)，空间复杂度：O(N)
+```
+
+```js
+var sortedSquares = function(A) {
+    // return A.map(e => e * e).sort((a,b) => a-b); // 思路1
+    let start = 0, end = A.length - 1;
+    let res = [];
+    while(start <= end) {
+        if (Math.abs(A[start]) >= Math.max(A[end])) {
+            res.unshift(A[start] * A[start]);
+            start++;
+        } else {
+            res.unshift(A[end] * A[end]);
+            end--;
+        }
+    }
+    return res;
 };
 ```
 
