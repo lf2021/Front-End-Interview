@@ -5,6 +5,7 @@
   - [面试题 16.11. 跳水板](#面试题-1611-跳水板)
   - [剑指 Offer 22. 链表中倒数第k个节点](#剑指-offer-22-链表中倒数第k个节点)
   - [1. 两数之和](#1-两数之和)
+  - [2. 两数相加](#2-两数相加)
   - [3. 无重复字符的最长子串](#3-无重复字符的最长子串)
   - [5. 最长回文子串](#5-最长回文子串)
   - [6. Z字形变换](#6-z字形变换)
@@ -186,6 +187,37 @@ var twoSum = function(nums, target) {
             map.set(nums[i], i);
         }
     }
+};
+```
+
+## 2. [两数相加](https://leetcode-cn.com/problems/add-two-numbers/)
+
+```txt
+同时循环两个链表，并用一个标志位来控制进位，模拟计算过程即可。
+
+时间复杂度：O(max{m, n})，m 和 n 分别表示两个链表的长度
+空间复杂度：O(max{m, n})
+```
+
+```js
+var addTwoNumbers = function(l1, l2) {
+    let p1 = l1, p2 = l2;
+    let pHead = new ListNode(-1);
+    let head = pHead;
+    let isAdd = 0;
+    while(p1 || p2) {
+        let n1 = p1 ? p1.val : 0;
+        let n2 = p2 ? p2.val : 0;
+        head.next = new ListNode((n1 + n2 + isAdd) % 10);
+        n1 + n2 + isAdd > 9 ? (isAdd = 1) : (isAdd = 0);
+        head = head.next;
+        if (p1) p1 = p1.next;
+        if (p2) p2 = p2.next;
+    }
+    if (isAdd === 1) {
+        head.next = new ListNode(1);
+    }
+    return pHead.next;
 };
 ```
 
