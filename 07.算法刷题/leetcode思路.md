@@ -718,37 +718,27 @@ var letterCombinations = function(digits) {
 ## 19. [删除链表的倒数第N个节点](https://leetcode-cn.com/problems/remove-nth-node-from-end-of-list)
 
 ```txt
-首先先设置一个辅助头结点，让辅助头结点指向给定的head链表，然后用快慢指针low和fast，初始都指向辅助头结点
-先让fast指针走n步，然后fast和low指针同时走，当fast指针走到最后的时候，这个时候的low指针的下一个结点就是我们要删除的。
+首先先设置一个辅助头结点 post，让辅助头结点指向给定的 head 链表，然后用双指针 left 和 right ，初始都指向辅助头结点
+先让 right 指针走n步，然后 right 和 left 指针同时走，当 right 指针走到最后的时候，这个时候的 left 指针的下一个结点就是我们要删除的。
+
+时间复杂度：O(N)，N是链表的长度
+空间复杂度：O(1)
 ```
 
 ```js
-/**
- * Definition for singly-linked list.
- * function ListNode(val) {
- *     this.val = val;
- *     this.next = null;
- * }
- */
-/**
- * @param {ListNode} head
- * @param {number} n
- * @return {ListNode}
- */
 var removeNthFromEnd = function(head, n) {
-  var pHead = new ListNode(-1); // 辅助头结点
-  pHead.next = head;
-  var cur = pHead;
-  var pre = pHead;
-  for(let i=0;i<n;i++){
-    cur=cur.next;
-  }
-  while(cur && cur.next){
-    pre = pre.next;
-    cur = cur.next;
-  }
-  pre.next = pre.next.next;
-  return pHead.next;
+    let post = new ListNode(-1);
+    post.next = head;
+    let left = post, right=post;
+    for(let i=0; i<n; i++) {
+        right = right.next
+    }
+    while(right && right.next) {
+        left = left.next;
+        right = right.next;
+    }
+    left.next = left.next.next;
+    return post.next;
 };
 ```
 
