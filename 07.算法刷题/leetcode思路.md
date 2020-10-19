@@ -64,6 +64,7 @@
   - [518. 零钱兑换Ⅱ](#518-零钱兑换ⅱ)
   - [530. 二叉搜索树的最小绝对差](#530-二叉搜索树的最小绝对差)
   - [771. 宝石与石头](#771-宝石与石头)
+  - [844. 比较含退格的字符串](#844-比较含退格的字符串)
   - [876. 链表的中间结点](#876-链表的中间结点)
   - [977. 有序数组的平方](#977-有序数组的平方)
   - [1002. 查找常用字符](#1002-查找常用字符)
@@ -2434,6 +2435,29 @@ var numJewelsInStones = function(J, S) {
     return S.split('').reduce((pre, cur) => {
         return pre + set.has(cur);
     }, 0)
+};
+```
+
+## 844. [比较含退格的字符串](https://leetcode-cn.com/problems/backspace-string-compare/)
+
+```txt
+借助正则，将字母（单个）和 '#' 相连的直接截去，最后再判断一下有没有多余的 '#' ，截去即可。
+
+时间复杂度：O(m + n)， m, n 分别是两个字符串的长度
+空间复杂度：O(1)
+```
+
+```js
+var backspaceCompare = function (S, T) {
+    while(S.length !== S.replace(/[a-z][#]/g, "").length) {
+        S = S.replace(/[a-z][#]/g, "");
+    }
+    S = S.replace(/[#]*/g, '');
+    while(T.length !== T.replace(/[a-z][#]/g, "").length) {
+        T = T.replace(/[a-z][#]/g, "");
+    }
+    T = T.replace(/[#]*/g, '');
+    return S === T
 };
 ```
 
