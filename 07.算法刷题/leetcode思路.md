@@ -48,6 +48,7 @@
   - [125. 验证回文串](#125-验证回文串)
   - [141. 环形链表](#141-环形链表)
   - [142. 环形链表Ⅱ](#142-环形链表ⅱ)
+  - [143. 重排链表](#143-重排链表)
   - [145. 二叉树的后序遍历](#145-二叉树的后序遍历)
   - [160. 相交链表](#160-相交链表)
   - [200. 岛屿数量](#200-岛屿数量)
@@ -1792,6 +1793,42 @@ var detectCycle = function(head) {
 };
 ```
 
+## 143. [重排链表](https://leetcode-cn.com/problems/reorder-list/)
+
+```txt
+将链表每个节点存放数组中，再双指针遍历数组
+
+时间复杂度：O(N)，N为链表的长度
+空间复杂度：O(N)
+```
+
+```js
+var reorderList = function(head) {
+    let nodes = [];
+    while (head) {
+        nodes.push(head);
+        head = head.next;
+    }
+    let phead = new ListNode(-1);
+    let res = phead;
+    let [l, r] = [0, nodes.length - 1];
+    while(l < r) {
+        phead.next = nodes[l];
+        phead.next.next = nodes[r];
+        l++;
+        r--;
+        phead = phead.next.next;
+    }
+    if (l===r) {
+        phead.next = nodes[l];
+        phead.next.next = null;
+    } else {
+        phead.next = null;
+    }
+    return res.next;
+};
+```
+
 ## 145. [二叉树的后序遍历](https://leetcode-cn.com/problems/binary-tree-postorder-traversal)
 
 - 递归
@@ -2467,8 +2504,14 @@ var backspaceCompare = function (S, T) {
 思路1:
 两次遍历，第一次遍历获取单链表的长度，第二次只要遍历到中间即可。
 
+时间复杂度：O(N)，N 是链表的长度
+空间复杂度：O(1)
+
 思路2:
 一次遍历：快慢指针，慢指针一次走一步，快指针一次走两步。
+
+时间复杂度：O(N)，N 是链表的长度
+空间复杂度：O(1)
 ```
 
 ```js
