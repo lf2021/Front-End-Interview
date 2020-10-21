@@ -67,6 +67,7 @@
   - [771. 宝石与石头](#771-宝石与石头)
   - [844. 比较含退格的字符串](#844-比较含退格的字符串)
   - [876. 链表的中间结点](#876-链表的中间结点)
+  - [925. 长按键入](#925-长按键入)
   - [977. 有序数组的平方](#977-有序数组的平方)
   - [1002. 查找常用字符](#1002-查找常用字符)
 
@@ -2539,6 +2540,34 @@ var middleNode = function(head) {
         fast = fast.next.next;
     }
     return slow;
+};
+```
+
+## 925. [长按键入](https://leetcode-cn.com/problems/long-pressed-name/)
+
+```txt
+用两个指针，一个指向 name 的头部，另一个指向 typed 的头部，遍历无非就两种情况：
+（1）name[i] = typed[j] ， 这个时候只要让两个指针同时后移一位，i++; j++;
+（2）typed[j] = typed[j-1] ， 这个时候说明是键盘长按，只要让 j 指针后移一位，j++;
+
+不满这两种情况说明都不符合要求
+
+时间复杂度：O(M + N)，
+空间复杂度：O(1)
+```
+
+```js
+var isLongPressedName = function (name, typed) {
+    let i = 0, j = 0;
+    while(i < name.length || j < typed.length) {
+        if (name[i] === typed[j]) {
+            i++;
+            j++;
+        } else if (typed[j] === typed[j-1]) {
+            j++;
+        } else return false;
+    }
+    return true;
 };
 ```
 
