@@ -64,6 +64,7 @@
   - [494. 目标和](#494-目标和)
   - [518. 零钱兑换Ⅱ](#518-零钱兑换ⅱ)
   - [530. 二叉搜索树的最小绝对差](#530-二叉搜索树的最小绝对差)
+  - [763. 划分字母区间](#763-划分字母区间)
   - [771. 宝石与石头](#771-宝石与石头)
   - [844. 比较含退格的字符串](#844-比较含退格的字符串)
   - [876. 链表的中间结点](#876-链表的中间结点)
@@ -2437,6 +2438,40 @@ var getMinimumDifference = function(root) {
     }
     mid(root);
     return min
+};
+```
+
+## 763. [划分字母区间](https://leetcode-cn.com/problems/partition-labels/)
+
+```txt
+一次遍历：map存储给定的字符串中每个字母的最后出现的索引
+二次遍历：用双指针 start 和 end：
+    (1) 从左到右遍历字符串，遍历的同时维护当前片段的开始下标 start 和结束下标 end，初始时 start = end = 0。
+
+    (2) 对于每个访问到的字母 c，得到当前字母的最后一次出现的下标位置 endc ，则当前片段的结束下标一定不会小于 end ，因此令 end = max{end, endc}
+
+    (3) 当访问到下标 end 时，当前片段访问结束，当前片段的下标范围是 [start, end]，长度为 end − start + 1，将当前片段的长度添加到返回值，然后令 start = end + 1，继续寻找下一个片段。
+
+时间复杂度：O(N)，N 为字符串的长度
+空间复杂度：O(Σ)，Σ 为 map 的长度， Σ < N
+```
+
+```js
+var partitionLabels = function(S) {
+    let map = {};
+    for (let i=0; i<S.length; i++) {
+        map[S[i]] = i
+    }
+    let res = [];
+    let start = 0, end = 0;
+    for(let i=0; i<S.length; i++) {
+        end = Math.max(end, map[S[i]]);
+        if (i === end) {
+            res.push(end - start + 1);
+            start = end + 1;
+        }
+    }
+    return res;
 };
 ```
 
