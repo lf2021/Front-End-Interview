@@ -71,6 +71,7 @@
   - [925. 长按键入](#925-长按键入)
   - [977. 有序数组的平方](#977-有序数组的平方)
   - [1002. 查找常用字符](#1002-查找常用字符)
+  - [1024. 视频拼接](#1024-视频拼接)
 
 ## 面试题 02.01. [移除重复节点](https://leetcode-cn.com/problems/remove-duplicate-node-lcci/)
 
@@ -2656,5 +2657,34 @@ var commonChars = function(A) {
         res = cross(res, a);
     }
     return res;
+};
+```
+
+## 1024. [视频拼接](https://leetcode-cn.com/problems/video-stitching/)
+
+```txt
+动态规划
+dp[i] 定义为 [0, i) 区间内最小的区间数
+
+状态转移方程
+对于任意一个符合条件 i ∈ (a, b] 的区间有：
+    dp[i] = min{dp[a]} + 1
+
+时间复杂度：O(T * N)，T是区间的长度，N是子区间的数量
+空间复杂度：O(T)
+```
+
+```js
+var videoStitching = function (clips, T) {
+    let dp = Array(T + 1).fill(Infinity);
+    dp[0] = 0;
+    for (let i = 1; i <= T; i++) {
+        for (let clip of clips) {
+            if (i > clip[0] && i <= clip[1]) {
+                dp[i] = Math.min(dp[i], dp[clip[0]] + 1)
+            }
+        }
+    }
+    return dp[T] === Infinity ? -1 : dp[T]
 };
 ```
