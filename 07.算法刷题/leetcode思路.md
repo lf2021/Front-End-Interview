@@ -67,6 +67,7 @@
   - [763. 划分字母区间](#763-划分字母区间)
   - [771. 宝石与石头](#771-宝石与石头)
   - [844. 比较含退格的字符串](#844-比较含退格的字符串)
+  - [845. 数组中的最长山脉](#845-数组中的最长山脉)
   - [876. 链表的中间结点](#876-链表的中间结点)
   - [925. 长按键入](#925-长按键入)
   - [977. 有序数组的平方](#977-有序数组的平方)
@@ -2532,6 +2533,64 @@ var backspaceCompare = function (S, T) {
     }
     T = T.replace(/[#]*/g, '');
     return S === T
+};
+```
+
+## 845. [数组中的最长山脉](https://leetcode-cn.com/problems/longest-mountain-in-array/)
+
+```txt
+方法1：暴力循环
+    遍历循环[1, A.length-1]，一次找出已A[i]为山顶的山脉大小，取最大的那一个
+    时间复杂度：O(N*N)
+    空间复杂度：O(1)
+
+方法2：动态规划
+    我们用 left[i] 表示 A[i] 向左侧最多可以扩展的元素数目。如果 A[i−1]<A[i]，那么 A[i] 可以向左扩展到 A[i−1]，再扩展 left[i] 个元素，
+    因此有 left[i] = left[i-1] + 1
+    如果 A[i−1] ≥ A[i]，那么 A[i]A[i] 无法向左扩展，因此有 left[i] = 0
+    特别地，当 i = 0 时，A[i] 为首元素，无法向左扩展，因此同样有 left[0] = 0
+    同理用 right[i] 表示 A[i] 向右侧最多可以扩展的元素数目。
+    在计算出所有的 left[] 以及 right[] 之后，我们就可以枚举山顶。
+    需要注意的是，只有当 left[i] 和 right[i] 均大于 0 时，A[i] 才能作为山顶，并且山脉的长度为 left[i] + right[i] + 1。
+    时间复杂度：O(N)
+    空间复杂度：O(N)
+```
+
+```js
+// 方法1
+var longestMountain = function(A) {
+    let max = 0, len = A.length;
+    for(let i=1; i<len-1; i++) {
+        let top = A[i];
+        let count = 0;
+        if (A[i] > A[i-1] && A[i] > A[i+1]) {
+            for(let j=i-1; j>=0 && A[j] < A[j+1]; j--){count++}
+            for(let j=i+1; j<len && A[j] < A[j-1]; j++){count++}
+            count++;
+        }
+        max = count > max ? count : max;
+    }
+    return max
+};
+
+// 方法2
+var longestMountain = function(A) {
+    let n = A.length;
+    let left = Array(n), right = Array(n);
+    left[0] = 0, right[n-1] = 0;
+    for(let i=1; i<n; i++) {
+        left[i] = A[i] > A[i-1] ? left[i-1] + 1 : 0;
+    }
+    for(let i=n-2; i>=0; i--) {
+        right[i] = A[i] > A[i+1] ? right[i+1] + 1: 0;
+    }
+    let res = 0;
+    for(let i=0; i<n; i++) {
+        if (left[i] > 0 && right[i] > 0) {
+            res = Math.max(res, left[i] + right[i] + 1)
+        }
+    }
+    return res;
 };
 ```
 
