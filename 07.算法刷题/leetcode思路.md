@@ -73,6 +73,7 @@
   - [977. 有序数组的平方](#977-有序数组的平方)
   - [1002. 查找常用字符](#1002-查找常用字符)
   - [1024. 视频拼接](#1024-视频拼接)
+  - [1365. 有多少小于当前数字的数字](#1365-有多少小于当前数字的数字)
 
 ## 面试题 02.01. [移除重复节点](https://leetcode-cn.com/problems/remove-duplicate-node-lcci/)
 
@@ -2745,5 +2746,49 @@ var videoStitching = function (clips, T) {
         }
     }
     return dp[T] === Infinity ? -1 : dp[T]
+};
+```
+
+## 1365. [有多少小于当前数字的数字](https://leetcode-cn.com/problems/how-many-numbers-are-smaller-than-the-current-number/)
+
+```txt
+方法1：
+    暴力循环，时间复杂度:O(N*N)，空间复杂度:O(N)
+
+方法2：
+    计数排序，注意到数组元素的值域为 [0,100]，所以可以考虑建立一个频次数组 cnt ，cnt[i] 表示数字 i 出现的次数。那么对于数字 i 而言，小于它的数目就为 cnt[0...i−1] 的总和。
+    时间复杂度：O(N + K)，其中 K 为值域大小。需要遍历两次原数组，同时遍历一次频次数组 cnt 找出前缀和。
+    空间复杂度：O(K)。因为要额外开辟一个值域大小的数组。。
+```
+
+```js
+// 方法1
+var smallerNumbersThanCurrent = function(nums) {
+    let res = Array(nums.length).fill(0);
+    for(let i = 0; i < nums.length; i++) {
+        for(let j=0; j < nums.length; j++) {
+            if (nums[j] < nums[i]  && j !== i) {
+                res[i] += 1;
+            }
+        }
+    }
+    return res;
+};
+
+// 方法2
+var smallerNumbersThanCurrent = function (nums) {
+    const n = nums.length;
+    let cnt = Array(101).fill(0);
+    for (i = 0; i < n; i++) {
+        cnt[nums[i]]++;
+    }
+    for (let i = 1; i < 101; i++) {
+        cnt[i] += cnt[i - 1]
+    }
+    let ans = [];
+    for (let i = 0; i < n; i++) {
+        ans[i] = nums[i] === 0 ? 0 : cnt[nums[i] - 1]
+    }
+    return ans
 };
 ```
