@@ -49,6 +49,7 @@
   - [141. 环形链表](#141-环形链表)
   - [142. 环形链表Ⅱ](#142-环形链表ⅱ)
   - [143. 重排链表](#143-重排链表)
+  - [144. 二叉树的前序遍历](#144-二叉树的前序遍历)
   - [145. 二叉树的后序遍历](#145-二叉树的后序遍历)
   - [160. 相交链表](#160-相交链表)
   - [200. 岛屿数量](#200-岛屿数量)
@@ -1831,6 +1832,29 @@ var reorderList = function(head) {
         phead.next = null;
     }
     return res.next;
+};
+```
+
+## 144. [二叉树的前序遍历](https://leetcode-cn.com/problems/binary-tree-preorder-traversal/)
+
+```txt
+递归的简单，非递归的方法借助栈
+时间复杂度：O(n)，其中 n 是二叉树的节点数。每一个节点恰好被遍历一次。
+空间复杂度：O(n)，为迭代过程中显式栈的开销，平均情况下为 O(logn)，最坏情况下树呈现链状，为 O(n)
+```
+
+```js
+var preorderTraversal = function(root) {
+    if (!root) return [];
+    let stack = [root];
+    let vals = [];
+    while(stack.length) {
+        let node = stack.pop();
+        vals.push(node.val);
+        node.right && stack.push(node.right)
+        node.left && stack.push(node.left)
+    }
+    return vals;
 };
 ```
 
