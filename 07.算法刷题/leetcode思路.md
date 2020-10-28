@@ -74,6 +74,7 @@
   - [977. 有序数组的平方](#977-有序数组的平方)
   - [1002. 查找常用字符](#1002-查找常用字符)
   - [1024. 视频拼接](#1024-视频拼接)
+  - [1207. 独一无二的出现次数](#1207-独一无二的出现次数)
   - [1365. 有多少小于当前数字的数字](#1365-有多少小于当前数字的数字)
 
 ## 面试题 02.01. [移除重复节点](https://leetcode-cn.com/problems/remove-duplicate-node-lcci/)
@@ -2770,6 +2771,30 @@ var videoStitching = function (clips, T) {
         }
     }
     return dp[T] === Infinity ? -1 : dp[T]
+};
+```
+
+## 1207. [独一无二的出现次数](https://leetcode-cn.com/problems/unique-number-of-occurrences/)
+
+```txt
+map 记录每个数出现的次数，然后用集合判断有没有重复数字即可
+
+时间复杂度：O(N)
+空间复杂度：O(N)
+```
+
+```js
+var uniqueOccurrences = function(arr) {
+    let map = {};
+    arr.forEach((item) => {
+        if (map[item] === undefined) {
+            map[item] = 1
+        } else {
+            map[item]++
+        }
+    });
+    let a = Object.values(map)
+    return [...new Set(a)].length === a.length
 };
 ```
 
