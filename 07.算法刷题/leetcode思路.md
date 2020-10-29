@@ -46,6 +46,7 @@
   - [121. 买卖股票的最佳时机](#121-买卖股票的最佳时机)
   - [122. 买卖股票的最佳时机 II](#122-买卖股票的最佳时机-ii)
   - [125. 验证回文串](#125-验证回文串)
+  - [129. 求根到叶子节点数字之和](#129-求根到叶子节点数字之和)
   - [141. 环形链表](#141-环形链表)
   - [142. 环形链表Ⅱ](#142-环形链表ⅱ)
   - [143. 重排链表](#143-重排链表)
@@ -1727,6 +1728,36 @@ var isPalindrome = function(s) {
         right--;
     }
     return true;
+};
+```
+
+## 129. [求根到叶子节点数字之和](https://leetcode-cn.com/problems/sum-root-to-leaf-numbers/)
+
+```txt
+深度优先遍历
+如图 分成子问题
+           4                            dfs(4, 0)=1026
+         /   \                        /             \
+        9     0             dfs(9, 4)=986          dfs(0, 4)=40
+       / \                   /      \
+      5   1        dfs(5, 49)=495   dfs(1, 49)=491
+
+时间复杂度：O(N)
+空间复杂度：O(N)
+```
+
+```js
+var sumNumbers = function(root) {
+    let dfs = (root, preSum) => {
+        if (!root) return 0;
+        const sum = preSum * 10 + root.val;
+        if (!root.left && !root.right) {
+            return sum
+        } else {
+            return dfs(root.left, sum) + dfs(root.right, sum)
+        }
+    }
+    return dfs(root, 0)
 };
 ```
 
