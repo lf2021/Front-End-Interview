@@ -63,6 +63,7 @@
   - [344. 反转数组](#344-反转数组)
   - [347. 前 K 个高频元素](#347-前-k-个高频元素)
   - [416. 分割等和子集](#416-分割等和子集)
+  - [463. 岛屿的周长](#463-岛屿的周长)
   - [494. 目标和](#494-目标和)
   - [518. 零钱兑换Ⅱ](#518-零钱兑换ⅱ)
   - [530. 二叉搜索树的最小绝对差](#530-二叉搜索树的最小绝对差)
@@ -2412,6 +2413,41 @@ var canPartition = function (nums) {
         }
     }
     return dp[len][sum]
+};
+```
+
+## 463. [岛屿的周长](https://leetcode-cn.com/problems/island-perimeter/)
+
+```txt
+换种理解：
+对于一个陆地格子的每条边，它被算作岛屿的周长当且仅当这条边为网格的边界或者相邻的另一个格子为水域。
+因此，我们可以遍历每个陆地格子，看其四个方向是否为边界或者水域，如果是，将这条边的贡献（即 1）加入答案 ans 中即可。
+
+时间复杂度：O(m*n)，m 和 n 分别是网格的高和宽
+空间复杂度：O(1)
+```
+
+```js
+var islandPerimeter = function (grid) {
+    let ans = 0;
+    const m = grid.length;
+    const n = grid[0].length;
+    const dx = [0, 1, 0, -1];
+    const dy = [1, 0, -1, 0];
+    for (let i = 0; i < m; i++) {
+        for (let j = 0; j < n; j++) {
+            if (grid[i][j]) {
+                for (let k = 0; k < 4; k++) {
+                    let tx = i + dx[k];
+                    let ty = j + dy[k];
+                    if (tx < 0 || tx >= m || ty < 0 || ty >= n || !grid[tx][ty]) {
+                        ans++;
+                    }
+                }
+            }
+        }
+    }
+    return ans
 };
 ```
 
