@@ -74,6 +74,7 @@
   - [845. 数组中的最长山脉](#845-数组中的最长山脉)
   - [876. 链表的中间结点](#876-链表的中间结点)
   - [925. 长按键入](#925-长按键入)
+  - [941. 有效的山脉数组](#941-有效的山脉数组)
   - [977. 有序数组的平方](#977-有序数组的平方)
   - [1002. 查找常用字符](#1002-查找常用字符)
   - [1024. 视频拼接](#1024-视频拼接)
@@ -2371,7 +2372,7 @@ var topKFrequent = function (nums, k) {
 };
 ```
 
-## 349. 两个数组的交集
+## 349. [两个数组的交集](https://leetcode-cn.com/problems/intersection-of-two-arrays/)
 
 ```txt
 时间复杂度：O(m + n)，m, n 分别是两个数组的长度。使用两个集合分别存储两个数组中的元素需要 O(m+n) 的时间，遍历较小的集合并判断元素是否在另一个集合中需要 O(min(m,n)) 的时间，因此总时间复杂度是 O(m+n)。
@@ -2779,6 +2780,31 @@ var isLongPressedName = function (name, typed) {
         } else return false;
     }
     return true;
+};
+```
+
+## 941. [有效的山脉数组](https://leetcode-cn.com/problems/valid-mountain-array/)
+
+```txt
+找到最大的数所在的位置，剔除边界的情况，然后分别判断左边是不是严格递增，右边是不是严格递减
+
+时间复杂度：O(N)
+空间复杂度：O(1)
+```
+
+```js
+var validMountainArray = function(A) {
+    if (A.length < 3) return false;
+    const index = A.indexOf(Math.max(...A));
+    const n = A.length;
+    if (index === 0 || index === n - 1) return false;
+    for(let i=0; i<index; i++) {
+        if (A[i] >= A[i+1]) return false
+    }
+    for(let j=n-1; j>index; j--) {
+        if (A[j] >= A[j-1]) return false;
+    }
+    return true
 };
 ```
 
