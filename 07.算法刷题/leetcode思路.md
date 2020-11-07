@@ -79,6 +79,7 @@
   - [1002. 查找常用字符](#1002-查找常用字符)
   - [1024. 视频拼接](#1024-视频拼接)
   - [1207. 独一无二的出现次数](#1207-独一无二的出现次数)
+  - [1356. 根据数字二进制下 1 的数目排序](#1356-根据数字二进制下-1-的数目排序)
   - [1365. 有多少小于当前数字的数字](#1365-有多少小于当前数字的数字)
 
 ## 面试题 02.01. [移除重复节点](https://leetcode-cn.com/problems/remove-duplicate-node-lcci/)
@@ -2911,6 +2912,29 @@ var uniqueOccurrences = function(arr) {
     });
     let a = Object.values(map)
     return [...new Set(a)].length === a.length
+};
+```
+
+## 1356. [根据数字二进制下 1 的数目排序](https://leetcode-cn.com/problems/sort-integers-by-the-number-of-1-bits/)
+
+```txt
+就是一个特定要求的排序
+
+时间复杂度：O(NlogN)
+空间复杂度：O(N)
+```
+
+```js
+var sortByBits = function(arr) {
+    return arr.sort((a, b) => {
+        let n1 = a.toString(2).split('').filter(e => e === '1').length;
+        let n2 = b.toString(2).split('').filter(e => e === '1').length;
+        if (n1 === n2) {
+            return a - b;
+        } else {
+            return n1 - n2;
+        }
+    })
 };
 ```
 
