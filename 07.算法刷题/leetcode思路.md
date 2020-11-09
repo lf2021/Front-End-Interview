@@ -75,6 +75,7 @@
   - [876. 链表的中间结点](#876-链表的中间结点)
   - [925. 长按键入](#925-长按键入)
   - [941. 有效的山脉数组](#941-有效的山脉数组)
+  - [973. 最接近原点的 K 个点](#973-最接近原点的-k-个点)
   - [977. 有序数组的平方](#977-有序数组的平方)
   - [1002. 查找常用字符](#1002-查找常用字符)
   - [1024. 视频拼接](#1024-视频拼接)
@@ -2806,6 +2807,22 @@ var validMountainArray = function(A) {
         if (A[j] >= A[j-1]) return false;
     }
     return true
+};
+```
+
+## 973. [最接近原点的 K 个点](https://leetcode-cn.com/problems/k-closest-points-to-origin/)
+
+```txt
+简单排序题
+
+时间复杂度：O(NlogN)，排序算法的时间复杂度。
+空间复杂度：O(logN)，排序所需额外的空间复杂度为 O(\log n)O(logn)。
+```
+
+```js
+var kClosest = function(points, K) {
+    points.sort((a,b) => Math.pow(a[0], 2) + Math.pow(a[1], 2) - Math.pow(b[0], 2) - Math.pow(b[1], 2));
+    return points.slice(0, K)
 };
 ```
 
