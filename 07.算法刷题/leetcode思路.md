@@ -953,6 +953,9 @@ var strStr = function(haystack, needle) {
   所以此时需要将此区间内的数组改成降序排列才能得到更小的值
 6.因为[j, nums.length]区间内的数组是降序，所以
   收尾交换数据即可完成升序排列
+
+时间复杂度：O(N)
+空间复杂度：O(1)
 ```
 
 ```js
@@ -975,21 +978,14 @@ var nextPermutation = function(nums) {
     k--;
   }
   // 交换i，k处的值
-  swap(nums, i, k);
+  [nums[i], nums[k]] = [nums[k], nums[i]]
   // j后的数据现在肯定是降序排列,转化为升序排列
   // 收尾依次交换位置即可
   while (len > j) {
-    swap(nums, j, len - 1);
+    [nums[j], nums[len - 1]] = [nums[len - 1], nums[j]]
     len--;
     j++;
   }
-
-  function swap (nums, i, k) {
-    let temp = nums[i];
-    nums[i] = nums[k];
-    nums[k] = temp;
-  }
-
   return nums;
 }
 ```
