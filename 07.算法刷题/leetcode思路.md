@@ -60,6 +60,7 @@
   - [215. 数组中的第K个最大元素](#215-数组中的第k个最大元素)
   - [234. 回文链表](#234-回文链表)
   - [300. 最长上升子序列](#300-最长上升子序列)
+  - [328. 奇偶链表](#328-奇偶链表)
   - [344. 反转数组](#344-反转数组)
   - [347. 前 K 个高频元素](#347-前-k-个高频元素)
   - [349. 两个数组的交集](#349-两个数组的交集)
@@ -2300,6 +2301,31 @@ var lengthOfLIS = function (nums) {
         }
     }
     return Math.max(...dp);
+};
+```
+
+## 328. [奇偶链表](https://leetcode-cn.com/problems/odd-even-linked-list/)
+
+```txt
+维护两个指针，一个奇数指针，一个偶数指针，一次遍历就可以将奇数节点连在一起，偶数节点连在一起，最后再把奇数节点的最后一个连接到偶数节点的第一个。
+
+时间复杂度：O(N)，N 为链表的长度
+空间复杂度：O(1)
+```
+
+```js
+var oddEvenList = function(head) {
+    if (!head) return null;
+    let evenHead = head.next;
+    let odd = head, even = evenHead;
+    while(even && even.next) {
+        odd.next = even.next;
+        odd = odd.next;
+        even.next = odd.next;
+        even = even.next;
+    }
+    odd.next = evenHead;
+    return head;
 };
 ```
 
