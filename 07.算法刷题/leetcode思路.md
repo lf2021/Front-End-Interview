@@ -81,6 +81,7 @@
   - [977. 有序数组的平方](#977-有序数组的平方)
   - [1002. 查找常用字符](#1002-查找常用字符)
   - [1024. 视频拼接](#1024-视频拼接)
+  - [1122. 数组的相对排序](#1122-数组的相对排序)
   - [1207. 独一无二的出现次数](#1207-独一无二的出现次数)
   - [1356. 根据数字二进制下 1 的数目排序](#1356-根据数字二进制下-1-的数目排序)
   - [1365. 有多少小于当前数字的数字](#1365-有多少小于当前数字的数字)
@@ -2955,6 +2956,40 @@ var videoStitching = function (clips, T) {
         }
     }
     return dp[T] === Infinity ? -1 : dp[T]
+};
+```
+
+## 1122. [数组的相对排序](https://leetcode-cn.com/problems/relative-sort-array/)
+
+```txt
+由于数组 arr2 规定了比较顺序，因此我们可以使用哈希表对该顺序进行映射map。
+使用自定义的比较函数：
+    - 如果 a 和 b 都出现在哈希表中，那么比较它们对应的值 map.get(a) - map.get(b)；
+    - 如果 a 和 b 都没有出现在哈希表中，那么比较它们本身 a - b；
+    - 对于剩余的情况，出现在哈希表中的那个元素较小。
+
+时间复杂度：O(mlogm+n)，其中 m 和 n 分别是数组 arr1 和 arr2 的长度。构造哈希表 map 的时间复杂度为 O(n)，排序的时间复杂度为 O(mlogm)
+
+空间复杂度：O(logm+n)，哈希表 map 需要的空间为 O(n)，排序需要的栈空间为 O(logm)。
+```
+
+```js
+var relativeSortArray = function (arr1, arr2) {
+    const map = new Map();
+    arr2.forEach((item, index) => {
+        map.set(item, index)
+    })
+    return arr1.sort((a, b) => {
+        if (map.has(a) && map.has(b)) {
+            return map.get(a) - map.get(b)
+        } else if (!map.has(a) && !map.has(b)) {
+            return a - b;
+        } else if (map.has(a)) {
+            return a
+        } else {
+            return b
+        }
+    })
 };
 ```
 
