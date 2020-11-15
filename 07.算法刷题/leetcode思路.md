@@ -64,6 +64,7 @@
   - [344. 反转数组](#344-反转数组)
   - [347. 前 K 个高频元素](#347-前-k-个高频元素)
   - [349. 两个数组的交集](#349-两个数组的交集)
+  - [402. 移掉K位数字](#402-移掉k位数字)
   - [416. 分割等和子集](#416-分割等和子集)
   - [463. 岛屿的周长](#463-岛屿的周长)
   - [494. 目标和](#494-目标和)
@@ -2417,6 +2418,37 @@ var intersection = function(nums1, nums2) {
         }
     })
     return res;
+};
+```
+
+## 402. [移掉K位数字](https://leetcode-cn.com/problems/remove-k-digits/)
+
+[官网解析](https://leetcode-cn.com/problems/remove-k-digits/solution/yi-diao-kwei-shu-zi-by-leetcode-solution/)
+
+```js
+var removeKdigits = function(num, k) {
+    const stk = [];
+    for (let n of num) {
+        while (stk.length && stk[stk.length - 1] > n && k > 0) {
+            stk.pop();
+            k--;
+        }
+        stk.push(n);
+    }
+    while(k > 0) {
+        stk.pop();
+        k--;
+    }
+    let ans = '';
+    let isLeadingZero = true;
+    for(let number of stk) {
+        if (isLeadingZero && number === '0') {
+            continue
+        }
+        isLeadingZero = false;
+        ans += number
+    }
+    return ans === '' ? '0' : ans;
 };
 ```
 
