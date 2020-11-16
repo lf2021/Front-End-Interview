@@ -65,6 +65,7 @@
   - [347. 前 K 个高频元素](#347-前-k-个高频元素)
   - [349. 两个数组的交集](#349-两个数组的交集)
   - [402. 移掉K位数字](#402-移掉k位数字)
+  - [406. 根据身高重建队列](#406-根据身高重建队列)
   - [416. 分割等和子集](#416-分割等和子集)
   - [463. 岛屿的周长](#463-岛屿的周长)
   - [494. 目标和](#494-目标和)
@@ -2449,6 +2450,42 @@ var removeKdigits = function(num, k) {
         ans += number
     }
     return ans === '' ? '0' : ans;
+};
+```
+
+## 406. [根据身高重建队列](https://leetcode-cn.com/problems/queue-reconstruction-by-height/)
+
+[官网解析](https://leetcode-cn.com/problems/queue-reconstruction-by-height/solution/gen-ju-shen-gao-zhong-jian-dui-lie-by-leetcode-sol/)
+
+```txt
+时间复杂度：O(N^2)
+空间复杂度：O(logN)
+```
+
+```js
+var reconstructQueue = function(people) {
+    people.sort((a, b) => { // （h, k） 按照身高排序，身高相同的 k 大的排前面
+        if (a[0] === b[0]) {
+            return b[1] - a[1]
+        } else {
+            return a[0] - b[0]
+        }
+    });
+    const res = Array(people.length);
+    // 初始化一个长度为n的一个队列，排序后的每个元素（h, k）就站在第k + 1 个空位（即前面有k个人身高大于等于h）
+    people.forEach(item => {
+        let index = item[1] + 1;
+        for(let i=0; i<res.length; i++) {
+            if (res[i] === undefined) {
+                index--;
+                if (index === 0) {
+                    res[i] = item;
+                    break;
+                }
+            }
+        }
+    })
+    return res;
 };
 ```
 
