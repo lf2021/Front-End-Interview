@@ -83,6 +83,7 @@
   - [977. 有序数组的平方](#977-有序数组的平方)
   - [1002. 查找常用字符](#1002-查找常用字符)
   - [1024. 视频拼接](#1024-视频拼接)
+  - [1030. 距离顺序排列矩阵单元格](#1030-距离顺序排列矩阵单元格)
   - [1122. 数组的相对排序](#1122-数组的相对排序)
   - [1207. 独一无二的出现次数](#1207-独一无二的出现次数)
   - [1356. 根据数字二进制下 1 的数目排序](#1356-根据数字二进制下-1-的数目排序)
@@ -3025,6 +3026,27 @@ var videoStitching = function (clips, T) {
         }
     }
     return dp[T] === Infinity ? -1 : dp[T]
+};
+```
+
+## 1030. [距离顺序排列矩阵单元格](https://leetcode-cn.com/problems/matrix-cells-in-distance-order/)
+
+```txt
+直接排序
+
+时间复杂度：O(RClog(RC))，存储所有点时间复杂度 O(RC)，排序时间复杂度 O(RClog(RC))
+空间复杂度：O(log(RC))，即为排序需要使用的栈空间，不考虑返回值的空间占用。
+```
+
+```js
+var allCellsDistOrder = function(R, C, r0, c0) {
+    let matrix = [];
+    for(let r = 0; r < R; r++) {
+        for(let c = 0; c < C; c++) {
+            matrix.push([r, c])
+        }
+    }
+    return matrix.sort((a, b) => Math.abs(a[0] - r0) + Math.abs(a[1] - c0) - Math.abs(b[0] - r0) - Math.abs(b[1] - c0))
 };
 ```
 
