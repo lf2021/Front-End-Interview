@@ -47,6 +47,7 @@
   - [122. 买卖股票的最佳时机 II](#122-买卖股票的最佳时机-ii)
   - [125. 验证回文串](#125-验证回文串)
   - [129. 求根到叶子节点数字之和](#129-求根到叶子节点数字之和)
+  - [134. 加油站](#134-加油站)
   - [141. 环形链表](#141-环形链表)
   - [142. 环形链表Ⅱ](#142-环形链表ⅱ)
   - [143. 重排链表](#143-重排链表)
@@ -1765,6 +1766,41 @@ var sumNumbers = function(root) {
         }
     }
     return dfs(root, 0)
+};
+```
+
+## 134. [加油站](https://leetcode-cn.com/problems/gas-station/)
+
+```txt
+理解意思 一次遍历即可
+
+时间复杂度：O(N)
+空间复杂度：O(1)
+
+可以继续降低时间复杂度，我们首先检查第 0 个加油站，并试图找到第一个无法到达的加油站 x；如果能找到，下一次就从加油站 x+1 开始检查。最终，我们只遍历了原数组一次。
+```
+
+```js
+var canCompleteCircuit = function (gas, cost) {
+    const len = gas.length;
+    // helper 函数用来判断从第 i 个加油站出发能否绕环路一周
+    let helper = (i) => {
+        let index = i;
+        let count = gas[i] - cost[i];
+        for (let k = 0; k < len; k++) {
+            if (count < 0) return false
+            index++
+            if (index === len) {
+                index = 0;
+            }
+            count = count + gas[index] - cost[index];
+        }
+        return true;
+    }
+    for (let i = 0; i < len; i++) {
+        if (helper(i) === true) return i;
+    }
+    return -1
 };
 ```
 
