@@ -60,6 +60,7 @@
   - [209. 长度最小的子数组](#209-长度最小的子数组)
   - [215. 数组中的第K个最大元素](#215-数组中的第k个最大元素)
   - [234. 回文链表](#234-回文链表)
+  - [283. 移动零](#283-移动零)
   - [300. 最长上升子序列](#300-最长上升子序列)
   - [328. 奇偶链表](#328-奇偶链表)
   - [344. 反转数组](#344-反转数组)
@@ -2313,6 +2314,32 @@ var isPalindrome = function(head) {
         reversed = reversed.next;
     }
     return true;
+};
+```
+
+## 283. [移动零](https://leetcode-cn.com/problems/move-zeroes/)
+
+```txt
+双指针法：
+    左指针指向当前已经处理好的序列的尾部，右指针指向待处理序列的头部。
+    右指针不断向右移动，每次右指针指向非零数，则将左右指针对应的数交换，同时左指针右移。
+
+时间复杂度：O(N)
+空间复杂度：O(1)
+```
+
+```js
+var moveZeroes = function (nums) {
+    const n = nums.length;
+    let [i, j] = [0, 0];
+    while (j < n) {
+        if (nums[j] !== 0) {
+            [nums[i], nums[j]] = [nums[j], nums[i]];
+            i++;
+        }
+        j++;
+    }
+    return nums
 };
 ```
 
