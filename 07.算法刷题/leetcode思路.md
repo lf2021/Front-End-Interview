@@ -53,6 +53,7 @@
   - [143. 重排链表](#143-重排链表)
   - [144. 二叉树的前序遍历](#144-二叉树的前序遍历)
   - [145. 二叉树的后序遍历](#145-二叉树的后序遍历)
+  - [147. 对链表进行插入排序](#147-对链表进行插入排序)
   - [160. 相交链表](#160-相交链表)
   - [200. 岛屿数量](#200-岛屿数量)
   - [203. 移除链表元素](#203-移除链表元素)
@@ -1968,6 +1969,39 @@ var postorderTraversal = function(root) {
         node.right && stack.push(node.right)
     }
     return res
+};
+```
+
+## 147. [对链表进行插入排序](https://leetcode-cn.com/problems/insertion-sort-list/)
+
+[详细解答](https://leetcode-cn.com/problems/insertion-sort-list/solution/dui-lian-biao-jin-xing-cha-ru-pai-xu-by-leetcode-s/)
+
+```txt
+时间复杂度：O(N^2)
+空间复杂度：O(1)
+```
+
+```js
+var insertionSortList = function(head) {
+    if (!head) return null;
+    let pHead = new ListNode(-Infinity);
+    pHead.next = head;
+    let curr = head.next, lastSorted = head;
+    while (curr) {
+        if (curr.val >= lastSorted.val) {
+            lastSorted = curr;
+        } else {
+            let pre = pHead;
+            while (pre.next.val <= curr.val) {
+                pre = pre.next;
+            }
+            lastSorted.next = curr.next;
+            curr.next = pre.next;
+            pre.next = curr;
+        }
+        curr = lastSorted.next;
+    }
+    return pHead.next;
 };
 ```
 
