@@ -54,6 +54,7 @@
   - [144. 二叉树的前序遍历](#144-二叉树的前序遍历)
   - [145. 二叉树的后序遍历](#145-二叉树的后序遍历)
   - [147. 对链表进行插入排序](#147-对链表进行插入排序)
+  - [148. 排序链表](#148-排序链表)
   - [160. 相交链表](#160-相交链表)
   - [200. 岛屿数量](#200-岛屿数量)
   - [203. 移除链表元素](#203-移除链表元素)
@@ -1977,6 +1978,41 @@ var postorderTraversal = function(root) {
 [详细解答](https://leetcode-cn.com/problems/insertion-sort-list/solution/dui-lian-biao-jin-xing-cha-ru-pai-xu-by-leetcode-s/)
 
 ```txt
+时间复杂度：O(N^2)
+空间复杂度：O(1)
+```
+
+```js
+var insertionSortList = function(head) {
+    if (!head) return null;
+    let pHead = new ListNode(-Infinity);
+    pHead.next = head;
+    let curr = head.next, lastSorted = head;
+    while (curr) {
+        if (curr.val >= lastSorted.val) {
+            lastSorted = curr;
+        } else {
+            let pre = pHead;
+            while (pre.next.val <= curr.val) {
+                pre = pre.next;
+            }
+            lastSorted.next = curr.next;
+            curr.next = pre.next;
+            pre.next = curr;
+        }
+        curr = lastSorted.next;
+    }
+    return pHead.next;
+};
+```
+
+## 148. [排序链表](https://leetcode-cn.com/problems/sort-list/)
+
+[进阶详细解答](https://leetcode-cn.com/problems/sort-list/solution/pai-xu-lian-biao-by-leetcode-solution/)
+
+```txt
+此方法与 147 题一样
+
 时间复杂度：O(N^2)
 空间复杂度：O(1)
 ```
