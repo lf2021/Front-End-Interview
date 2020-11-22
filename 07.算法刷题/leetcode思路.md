@@ -62,6 +62,7 @@
   - [209. 长度最小的子数组](#209-长度最小的子数组)
   - [215. 数组中的第K个最大元素](#215-数组中的第k个最大元素)
   - [234. 回文链表](#234-回文链表)
+  - [242. 有效的字母异位词](#242-有效的字母异位词)
   - [283. 移动零](#283-移动零)
   - [300. 最长上升子序列](#300-最长上升子序列)
   - [328. 奇偶链表](#328-奇偶链表)
@@ -2384,6 +2385,42 @@ var isPalindrome = function(head) {
         reversed = reversed.next;
     }
     return true;
+};
+```
+
+## 242. [有效的字母异位词](https://leetcode-cn.com/problems/valid-anagram/)
+
+```txt
+方法1：排序
+    时间复杂度：O(nlogn)
+    空间复杂度：O(logn)
+
+方法2：哈希表
+    时间复杂度：O(n)
+    空间复杂度：O(S)，S 是 table 的大小 （S = 26）
+```
+
+```js
+// 方法1
+var isAnagram = function(s, t) {
+    s = s.split('').sort().join('');
+    t = t.split('').sort().join('');
+    return s === t
+};
+
+// 方法2
+var isAnagram = function (s, t) {
+    const table = Array(26).fill(0);
+    for (let str of s) {
+        let index = str.charCodeAt() - 'a'.charCodeAt()
+        table[index]++;
+    }
+    for (let str of t) {
+        let index = str.charCodeAt() - 'a'.charCodeAt()
+        table[index]--;
+        if (table[index] < 0) return false
+    }
+    return table.every(e => e === 0)
 };
 ```
 
