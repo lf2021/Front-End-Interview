@@ -72,6 +72,7 @@
   - [402. 移掉K位数字](#402-移掉k位数字)
   - [406. 根据身高重建队列](#406-根据身高重建队列)
   - [416. 分割等和子集](#416-分割等和子集)
+  - [452. 用最少数量的箭引爆气球](#452-用最少数量的箭引爆气球)
   - [463. 岛屿的周长](#463-岛屿的周长)
   - [494. 目标和](#494-目标和)
   - [518. 零钱兑换Ⅱ](#518-零钱兑换ⅱ)
@@ -2703,6 +2704,42 @@ var canPartition = function (nums) {
         }
     }
     return dp[len][sum]
+};
+```
+
+## 452. [用最少数量的箭引爆气球](https://leetcode-cn.com/problems/minimum-number-of-arrows-to-burst-balloons/)
+
+```txt
+先对 points 排个序，然后两两找交集，找到就把交集继续与下一个比较，没有交集就更新count
+
+时间复杂度：O(nlogn)，排序时间复杂度
+空间复杂度：O(logn)，排序的空间复杂度
+```
+
+```js
+var findMinArrowShots = function (points) {
+    if (points.length === 0) return 0;
+    // 这个函数是用来求 s1 和 s2 的交集，如果不存在交集返回 false
+    let crossSet = (s1, s2) => {
+        let [a, b] = s1;
+        let [c, d] = s2;
+        if (c <= b) {
+            return [Math.max(a, c), Math.min(b, d)];
+        } else return false;
+    }
+
+    points.sort((a, b) => a[0] - b[0])
+    let res = points[0];
+    let count = 1;
+    for (let i = 1; i < points.length; i++) {
+        debugger
+        res = crossSet(res, points[i]);
+        if (!res) {
+            count++;
+            res = points[i];
+        }
+    }
+    return count;
 };
 ```
 
