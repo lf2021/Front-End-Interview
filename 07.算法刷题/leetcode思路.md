@@ -61,6 +61,7 @@
   - [206. 反转链表](#206-反转链表)
   - [209. 长度最小的子数组](#209-长度最小的子数组)
   - [215. 数组中的第K个最大元素](#215-数组中的第k个最大元素)
+  - [222. 完全二叉树的节点个数](#222-完全二叉树的节点个数)
   - [234. 回文链表](#234-回文链表)
   - [242. 有效的字母异位词](#242-有效的字母异位词)
   - [283. 移动零](#283-移动零)
@@ -2333,6 +2334,20 @@ let partition = (arr, left, right) => {
   }
   return i
 }
+```
+
+## 222. [完全二叉树的节点个数](https://leetcode-cn.com/problems/count-complete-tree-nodes/)
+
+```txt
+时间复杂度：O(N^2)
+空间复杂度：O(1)
+```
+
+```js
+var countNodes = function(root) {
+    if (!root) return 0;
+    return 1 + countNodes(root.left) + countNodes(root.right)
+};
 ```
 
 ## 234. [回文链表](https://leetcode-cn.com/problems/palindrome-linked-list)
