@@ -95,6 +95,7 @@
   - [1207. 独一无二的出现次数](#1207-独一无二的出现次数)
   - [1356. 根据数字二进制下 1 的数目排序](#1356-根据数字二进制下-1-的数目排序)
   - [1365. 有多少小于当前数字的数字](#1365-有多少小于当前数字的数字)
+  - [1370. 上升下降字符串](#1370-上升下降字符串)
 
 ## 面试题 02.01. [移除重复节点](https://leetcode-cn.com/problems/remove-duplicate-node-lcci/)
 
@@ -3392,6 +3393,41 @@ var smallerNumbersThanCurrent = function (nums) {
     let ans = [];
     for (let i = 0; i < n; i++) {
         ans[i] = nums[i] === 0 ? 0 : cnt[nums[i] - 1]
+    }
+    return ans
+};
+```
+
+## 1370. [上升下降字符串](https://leetcode-cn.com/problems/increasing-decreasing-string/)
+
+```txt
+桶排序，arr 是一个长度为 26 大小的数组，里面保存着 s 中 a-z 的次数
+题目的要求其实就是先找从小到大的再找从大到小的，也就是将arr数组先正序找到存在的，再逆序找到存在的
+
+时间复杂度：O(26 * N)，N 为字符串 s 的长度
+空间复杂度：O(26)
+```
+
+```js
+var sortString = function (s) {
+    let arr = Array(26).fill(0);
+    for (let ch of s) {
+        arr[ch.charCodeAt() - 'a'.charCodeAt()]++;
+    }
+    let ans = '';
+    while (ans.length < s.length) {
+        for (let i = 0; i < 26; i++) {
+            if (arr[i]) {
+                ans += String.fromCharCode(i + 'a'.charCodeAt())
+                arr[i]--;
+            }
+        }
+        for (let i = 25; i >= 0; i--) {
+            if (arr[i]) {
+                ans += String.fromCharCode(i + 'a'.charCodeAt())
+                arr[i]--;
+            }
+        }
     }
     return ans
 };
