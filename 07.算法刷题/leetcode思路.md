@@ -56,6 +56,7 @@
   - [147. 对链表进行插入排序](#147-对链表进行插入排序)
   - [148. 排序链表](#148-排序链表)
   - [160. 相交链表](#160-相交链表)
+  - [164. 最大间距](#164-最大间距)
   - [200. 岛屿数量](#200-岛屿数量)
   - [203. 移除链表元素](#203-移除链表元素)
   - [206. 反转链表](#206-反转链表)
@@ -2069,6 +2070,25 @@ var getIntersectionNode = function(headA, headB) {
         p1 = p1 ? p1.next : headB;
         p2 = p2 ? p2.next : headA;
     }
+};
+```
+
+## 164. [最大间距](https://leetcode-cn.com/problems/maximum-gap/)
+
+```txt
+时间复杂度：O(NlogN)， sort 排序的时间复杂度
+空间复杂度：O(logN)， sort 排序的空间复杂度
+```
+
+```js
+var maximumGap = function (nums) {
+    if (nums.length < 2) return 0;
+    nums.sort((a, b) => a - b);
+    let minDiff = 0;
+    for (let i = 1; i < nums.length; i++) {
+        minDiff = Math.max(minDiff, nums[i] - nums[i-1])
+    }
+    return minDiff
 };
 ```
 
