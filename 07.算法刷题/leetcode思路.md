@@ -75,6 +75,7 @@
   - [406. 根据身高重建队列](#406-根据身高重建队列)
   - [416. 分割等和子集](#416-分割等和子集)
   - [452. 用最少数量的箭引爆气球](#452-用最少数量的箭引爆气球)
+  - [454. 四数相加 II](#454-四数相加-ii)
   - [463. 岛屿的周长](#463-岛屿的周长)
   - [494. 目标和](#494-目标和)
   - [518. 零钱兑换Ⅱ](#518-零钱兑换ⅱ)
@@ -2776,6 +2777,41 @@ var findMinArrowShots = function (points) {
         }
     }
     return count;
+};
+```
+
+## 454. [四数相加 II](https://leetcode-cn.com/problems/4sum-ii/)
+
+```txt
+A + B + C + D = 0
+可以转换成 -(A + B) = C + D
+那么可以用哈希表 map 保存一下-(A + B) 出现的次数，然后遍历 C + D 即可
+
+时间复杂度：O(N^2)
+空间复杂度：O(N^2)
+```
+
+```js
+var fourSumCount = function (A, B, C, D) {
+    let map = new Map();
+    A.forEach(u => {
+        B.forEach(v => {
+            if (map.has(-u-v)) {
+                map.set(-u - v, map.get(-u - v) + 1);
+            } else {
+                map.set(-u - v, 1);
+            }
+        })
+    })
+    let count = 0;
+    for (let i of C) {
+        for (let j of D) {
+            if (map.has(i + j)) {
+                count += map.get(i + j);
+            }
+        }
+    }
+    return count
 };
 ```
 
