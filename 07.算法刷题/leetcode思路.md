@@ -89,6 +89,7 @@
   - [925. 长按键入](#925-长按键入)
   - [941. 有效的山脉数组](#941-有效的山脉数组)
   - [973. 最接近原点的 K 个点](#973-最接近原点的-k-个点)
+  - [976. 三角形的最大周长](#976-三角形的最大周长)
   - [977. 有序数组的平方](#977-有序数组的平方)
   - [1002. 查找常用字符](#1002-查找常用字符)
   - [1024. 视频拼接](#1024-视频拼接)
@@ -3223,6 +3224,25 @@ var validMountainArray = function(A) {
 var kClosest = function(points, K) {
     points.sort((a,b) => Math.pow(a[0], 2) + Math.pow(a[1], 2) - Math.pow(b[0], 2) - Math.pow(b[1], 2));
     return points.slice(0, K)
+};
+```
+
+## 976. [三角形的最大周长](https://leetcode-cn.com/problems/largest-perimeter-triangle/)
+
+```txt
+时间复杂度：O(NlogN)，排序的时间复杂度
+空间复杂度：O(logN)，排序的空间复杂度
+```
+
+```js
+var largestPerimeter = function (A) {
+    A.sort((a,b) => b-a)
+    for (let i = 0; i < A.length; i++) {
+        if (A[i] < A[i + 1] + A[i + 2]) {
+            return A[i] + A[i + 1] + A[i + 2]
+        }
+    }
+    return 0
 };
 ```
 
