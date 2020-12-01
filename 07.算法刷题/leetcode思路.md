@@ -27,6 +27,7 @@
   - [28. 实现 strStr()](#28-实现-strstr)
   - [31. 下一个排列](#31-下一个排列)
   - [33. 搜索旋转排序数组](#33-搜索旋转排序数组)
+  - [34. 在排序数组中查找元素的第一个和最后一个位置](#34-在排序数组中查找元素的第一个和最后一个位置)
   - [35. 搜索插入位置](#35-搜索插入位置)
   - [39. 组合总和](#39-组合总和)
   - [40. 组合总和Ⅱ](#40-组合总和ⅱ)
@@ -1046,6 +1047,53 @@ var search = function(nums, target) {
     }
     return -1
 };
+```
+
+## 34. [在排序数组中查找元素的第一个和最后一个位置](https://leetcode-cn.com/problems/find-first-and-last-position-of-element-in-sorted-array/)
+
+```txt
+方法1：
+    二分查找法，题目就是查找 第一个大于等于target的位置 和 第一个大于target的位置减一
+
+    时间复杂度：O(logN)
+    空间复杂度：O(1)
+
+方法2：
+    数组的方法
+
+    时间复杂度：O(N)
+    空间复杂度：O(1)
+```
+
+```js
+// 方法1
+var searchRange = function (nums, target) {
+    let binarySearch = (nums, target, flag) => {
+        let left = 0, right = nums.length - 1, ans = nums.length;
+        while (left <= right) {
+            let mid = (left + right) >> 1;
+            if (nums[mid] > target || (flag && nums[mid] >= target)) {
+                right = mid - 1;
+                ans = mid;
+            } else {
+                left = mid + 1;
+            }
+        }
+        return ans
+    }
+
+    let leftIdx = binarySearch(nums, target, true); // 找到第一个大于等于target的位置
+    let rightIdx = binarySearch(nums, target, false) - 1; // 找到第一个大于target的位置，然后减一
+    if (leftIdx <= rightIdx) {
+        return [leftIdx, rightIdx]
+    } else return [-1, -1]
+};
+
+// 方法2
+var searchRange = function (nums, target) {
+    if (!nums.length || nums.indexOf(target) === -1) return [-1, -1]
+    return [nums.indexOf(target), nums.lastIndexOf(target)]
+}
 ```
 
 ## 35. [搜索插入位置](https://leetcode-cn.com/problems/search-insert-position)
