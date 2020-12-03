@@ -60,6 +60,7 @@
   - [164. 最大间距](#164-最大间距)
   - [200. 岛屿数量](#200-岛屿数量)
   - [203. 移除链表元素](#203-移除链表元素)
+  - [204. 计数质数](#204-计数质数)
   - [206. 反转链表](#206-反转链表)
   - [209. 长度最小的子数组](#209-长度最小的子数组)
   - [215. 数组中的第K个最大元素](#215-数组中的第k个最大元素)
@@ -2197,6 +2198,33 @@ var removeElements = function(head, val) {
         }
     }
     return node.next;
+};
+```
+
+## 204. [计数质数](https://leetcode-cn.com/problems/count-primes/)
+
+- 枚举法
+
+    时间复杂度：O(n ($\sqrt{n}$) )
+
+    空间复杂度：O(1)
+
+```js
+var countPrimes = function (n) {
+    if (n === 0 || n === 1) return 0;
+    let isPrime = n => {
+        for (let i = 2; i <= Math.sqrt(n); i++) {
+            if (n % i === 0) return false;
+        }
+        return true;
+    }
+    let ans = 0;
+    for (let i = 2; i < n; i++) {
+        if (isPrime(i)) {
+            ans++;
+        }
+    }
+    return ans;
 };
 ```
 
