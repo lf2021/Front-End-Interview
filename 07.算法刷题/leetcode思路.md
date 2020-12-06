@@ -44,6 +44,7 @@
   - [112. 路径总和](#112-路径总和)
   - [116. 填充每个节点的下一个右侧节点指针](#116-填充每个节点的下一个右侧节点指针)
   - [117. 填充每个节点的下一个右侧节点指针 II](#117-填充每个节点的下一个右侧节点指针-ii)
+  - [118. 杨辉三角](#118-杨辉三角)
   - [121. 买卖股票的最佳时机](#121-买卖股票的最佳时机)
   - [122. 买卖股票的最佳时机 II](#122-买卖股票的最佳时机-ii)
   - [125. 验证回文串](#125-验证回文串)
@@ -1679,6 +1680,29 @@ var connect = function (root) {
         }
     }
     return root
+};
+```
+
+## 118. [杨辉三角](https://leetcode-cn.com/problems/pascals-triangle/)
+
+```txt
+逐行遍历设置就行了
+
+时间复杂度：O(numRows^2)
+空间复杂度：O(1)，不考虑返回值的空间占用。
+```
+
+```js
+var generate = function (numRows) {
+    let ans = [];
+    for (let i = 1; i <= numRows; i++) {
+        let tmp = Array(i).fill(1);
+        for (let j = 1; j < i - 1; j++) {
+            tmp[j] = ans[i - 2][j - 1] + ans[i - 2][j]
+        }
+        ans[i - 1] = tmp;
+    }
+    return ans
 };
 ```
 
