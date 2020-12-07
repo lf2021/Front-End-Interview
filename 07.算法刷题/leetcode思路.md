@@ -87,6 +87,7 @@
   - [771. 宝石与石头](#771-宝石与石头)
   - [844. 比较含退格的字符串](#844-比较含退格的字符串)
   - [845. 数组中的最长山脉](#845-数组中的最长山脉)
+  - [861. 翻转矩阵后的得分](#861-翻转矩阵后的得分)
   - [876. 链表的中间结点](#876-链表的中间结点)
   - [922. 按奇偶排序数组 II](#922-按奇偶排序数组-ii)
   - [925. 长按键入](#925-长按键入)
@@ -3184,6 +3185,33 @@ var longestMountain = function(A) {
         }
     }
     return res;
+};
+```
+
+## 861. [翻转矩阵后的得分](https://leetcode-cn.com/problems/score-after-flipping-matrix/)
+
+[官网解答](https://leetcode-cn.com/problems/score-after-flipping-matrix/solution/fan-zhuan-ju-zhen-hou-de-de-fen-by-leetc-cxma/)
+
+时间复杂度：O(mn)
+空间复杂度：O(1)
+
+```js
+var matrixScore = function (A) {
+    const m = A.length, n = A[0].length;
+    let ans = m * (1 << (n - 1));
+    for (let j = 1; j < n; j++) {
+        let ones = 0;
+        for (let i = 0; i < m; i++) {
+            if (A[i][0] === 0) {
+                ones += 1 - A[i][j];
+            } else {
+                ones += A[i][j]
+            }
+        }
+        let k = Math.max(ones, m - ones);
+        ans += k * (1 << (n - j - 1))
+    }
+    return ans
 };
 ```
 
