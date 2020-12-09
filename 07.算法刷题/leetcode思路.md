@@ -34,6 +34,7 @@
   - [53. 最大子序和](#53-最大子序和)
   - [58. 最后一个单词的长度](#58-最后一个单词的长度)
   - [61. 旋转链表](#61-旋转链表)
+  - [62. 不同路径](#62-不同路径)
   - [70. 爬楼梯](#70-爬楼梯)
   - [75. 颜色分类](#75-颜色分类)
   - [78. 子集](#78-子集)
@@ -1306,6 +1307,37 @@ var rotateRight = function(head, k) {
     }
     p.next = head;
     return node;
+};
+```
+
+## 62. [不同路径](https://leetcode-cn.com/problems/unique-paths/)
+
+```txt
+动态规划
+
+    dp[i][j]定义为处于(i, j)位置有多少种可能的路径到达
+
+    dp[i][j] = dp[i-1][j] + dp[i][j-1]   解释：(i, j) 的位置只可能是从上面 (i, j-1) 和 左边 (i-1, j) 到达
+
+时间复杂度：O(mn)
+空间复杂度：O(mn)
+```
+
+```js
+var uniquePaths = function (m, n) {
+    let dp = Array(m).fill(0).map(e => Array(n).fill(0));
+    for (let i = 0; i < m; i++) {
+        dp[i][0] = 1;
+    }
+    for (let j = 0; j < n; j++) {
+        dp[0][j] = 1;
+    }
+    for (let i = 1; i < m; i++) {
+        for (let j = 1; j < n; j++) {
+            dp[i][j] = dp[i - 1][j] + dp[i][j - 1]
+        }
+    }
+    return dp[m-1][n-1]
 };
 ```
 
