@@ -88,6 +88,7 @@
   - [771. 宝石与石头](#771-宝石与石头)
   - [844. 比较含退格的字符串](#844-比较含退格的字符串)
   - [845. 数组中的最长山脉](#845-数组中的最长山脉)
+  - [860. 柠檬水找零](#860-柠檬水找零)
   - [861. 翻转矩阵后的得分](#861-翻转矩阵后的得分)
   - [876. 链表的中间结点](#876-链表的中间结点)
   - [922. 按奇偶排序数组 II](#922-按奇偶排序数组-ii)
@@ -3217,6 +3218,39 @@ var longestMountain = function(A) {
         }
     }
     return res;
+};
+```
+
+## 860. [柠檬水找零](https://leetcode-cn.com/problems/lemonade-change/)
+
+```txt
+模拟这个过程就好了，很简单
+
+时间复杂度：O(N)
+空间复杂度：O(1)
+```
+
+```js
+var lemonadeChange = function (bills) {
+    let five = 0, ten = 0;
+    for (const bill of bills) {
+        if (bill === 5) {
+            five++;
+        } else if (bill === 10) {
+            if (five > 0) {
+                five--;
+                ten++;
+            } else return false;
+        } else {
+            if (five > 0 && ten > 0) {
+                five--;
+                ten--;
+            } else if (five >= 3) {
+                five -= 3;
+            } else return false;
+        }
+    }
+    return true;    
 };
 ```
 
