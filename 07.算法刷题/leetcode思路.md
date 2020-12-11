@@ -84,6 +84,7 @@
   - [494. 目标和](#494-目标和)
   - [518. 零钱兑换Ⅱ](#518-零钱兑换ⅱ)
   - [530. 二叉搜索树的最小绝对差](#530-二叉搜索树的最小绝对差)
+  - [649. Dota2 参议院](#649-dota2-参议院)
   - [763. 划分字母区间](#763-划分字母区间)
   - [771. 宝石与石头](#771-宝石与石头)
   - [844. 比较含退格的字符串](#844-比较含退格的字符串)
@@ -3067,6 +3068,42 @@ var getMinimumDifference = function(root) {
     }
     mid(root);
     return min
+};
+```
+
+## 649. [Dota2 参议院](https://leetcode-cn.com/problems/dota2-senate/)
+
+```txt
+用两个队列分别保存 'R' 和 'D' 的索引，模拟整个过程：
+    - 如果此时 radiant 或者 dire 为空，那么就可以宣布另一方获得胜利
+    - 如果均不为空，那么比较这两个队列的首元素，如果 radiant 的首元素较小，我们会将 dire 的首元素永久地弹出，
+    并将 radiant 的首元素弹出，增加 n 之后再重新放回队列
+
+时间复杂度：O(n)
+空间复杂度：O(n)
+```
+
+```js
+var predictPartyVictory = function (senate) {
+    let radiant = [], dire = [];
+    const n = senate.length;
+    for (let i = 0; i < senate.length; i++) {
+        if (senate[i] === 'R') {
+            radiant.push(i)
+        } else {
+            dire.push(i)
+        }
+    }
+    while (radiant.length && dire.length) {
+        if (radiant[0] < dire[0]) {
+            radiant.push(radiant[0] + n)
+        } else {
+            dire.push(dire[0] + n)
+        }
+        radiant.shift();
+        dire.shift();
+    }
+    return radiant.length ? "Radiant" : "Dire";
 };
 ```
 
