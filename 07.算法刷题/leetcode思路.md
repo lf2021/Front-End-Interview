@@ -66,6 +66,7 @@
   - [206. 反转链表](#206-反转链表)
   - [209. 长度最小的子数组](#209-长度最小的子数组)
   - [215. 数组中的第K个最大元素](#215-数组中的第k个最大元素)
+  - [217. 存在重复元素](#217-存在重复元素)
   - [222. 完全二叉树的节点个数](#222-完全二叉树的节点个数)
   - [234. 回文链表](#234-回文链表)
   - [242. 有效的字母异位词](#242-有效的字母异位词)
@@ -2492,6 +2493,19 @@ let partition = (arr, left, right) => {
   }
   return i
 }
+```
+
+## 217. [存在重复元素](https://leetcode-cn.com/problems/contains-duplicate/)
+
+```txt
+时间复杂度：O(N)
+空间复杂度：O(N)
+```
+
+```js
+var containsDuplicate = function(nums) {
+    return [...new Set(nums)].length !== nums.length
+};
 ```
 
 ## 222. [完全二叉树的节点个数](https://leetcode-cn.com/problems/count-complete-tree-nodes/)
