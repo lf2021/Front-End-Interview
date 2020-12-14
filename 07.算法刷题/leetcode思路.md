@@ -31,6 +31,7 @@
   - [35. 搜索插入位置](#35-搜索插入位置)
   - [39. 组合总和](#39-组合总和)
   - [40. 组合总和Ⅱ](#40-组合总和ⅱ)
+  - [49. 字母异位词分组](#49-字母异位词分组)
   - [53. 最大子序和](#53-最大子序和)
   - [58. 最后一个单词的长度](#58-最后一个单词的长度)
   - [61. 旋转链表](#61-旋转链表)
@@ -1191,6 +1192,30 @@ var combinationSum2 = function (candidates, target) {
     }
     backtrack([], target, 0);
     return ans
+};
+```
+
+## 49. [字母异位词分组](https://leetcode-cn.com/problems/group-anagrams/)
+
+```txt
+将每个字符按照 ASCII 码排序后作为对象的键，值为一个数组，爸与键互为字母异位词的添加到这个数组中
+
+时间复杂度：O(n*klogk)，n 是 strs 的长度，k 是 strs 中最长字符的长度
+空间复杂度：O(nk)
+```
+
+```js
+var groupAnagrams = function(strs) {
+    let map = {};
+    strs.forEach(str => {
+        let tmp = str.split('').sort();
+        if (map[tmp] !== undefined) {
+            map[tmp].push(str)
+        } else {
+            map[tmp] = [str]
+        }
+    })
+    return Object.values(map)
 };
 ```
 
