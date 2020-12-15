@@ -87,6 +87,7 @@
   - [518. 零钱兑换Ⅱ](#518-零钱兑换ⅱ)
   - [530. 二叉搜索树的最小绝对差](#530-二叉搜索树的最小绝对差)
   - [649. Dota2 参议院](#649-dota2-参议院)
+  - [738. 单调递增的数字](#738-单调递增的数字)
   - [763. 划分字母区间](#763-划分字母区间)
   - [771. 宝石与石头](#771-宝石与石头)
   - [844. 比较含退格的字符串](#844-比较含退格的字符串)
@@ -1200,7 +1201,7 @@ var combinationSum2 = function (candidates, target) {
 ```txt
 将每个字符按照 ASCII 码排序后作为对象的键，值为一个数组，爸与键互为字母异位词的添加到这个数组中
 
-时间复杂度：O(n*klogk)，n 是 strs 的长度，k 是 strs 中最长字符的长度
+时间复杂度：O(n*klogk)，n 是 strs 的长度，k 是 strs 中最长字符的长度73
 空间复杂度：O(nk)
 ```
 
@@ -3143,6 +3144,63 @@ var predictPartyVictory = function (senate) {
         dire.shift();
     }
     return radiant.length ? "Radiant" : "Dire";
+};
+```
+
+## 738. [单调递增的数字](https://leetcode-cn.com/problems/monotone-increasing-digits/)
+
+```txt
+- 贪心法：
+    从左往右找到N[i-1] > N[i] 的数，将N[i-1]减1，并且需要判断一下该数减 1 后与前 i-1 项是否成递增关系，
+    不成递增需要从 i-1 开始递减比较相邻数位的关系，直到找到第一个位置 j 使得 N[j] 自身数位减 1 后 N[j-1] 和 N[j]仍然保持递增关系，或者j=0
+    然后我们将j+1往后的数均变成9
+
+    时间复杂度：O(m)，其中 m 是数字 N 的位数
+    空间复杂度：O(m)
+
+- 暴力法：（leetcode超出时间限制）
+    N 依次减 1，然后判断这个数是否是递增的
+```
+
+```js
+// 贪心法
+var monotoneIncreasingDigits = function (N) {
+    let strN = N.toString().split('').map(v => +v);
+    let i = 1;
+    while (i < strN.length && strN[i - 1] <= strN[i]) {
+        i++;
+    }
+    if (i < strN.length) {
+        while (i > 0 && strN[i - 1] > strN[i]) {
+            strN[i - 1] -= 1;
+            i -= 1;
+        }
+        for (let j = i + 1; j < strN.length; j++) {
+            strN[j] = 9
+        }
+    }
+    return +strN.join('')
+};
+
+// 暴力法
+var monotoneIncreasingDigits = function (N) {
+    let isIncrease = n => {
+        let stack = [];
+        while (n > 0) {
+            if (!stack.length || (n % 10 <= stack[stack.length - 1])) {
+                stack.push(n % 10)
+            } else {
+                return false
+            }
+            n = parseInt(n / 10)
+        }
+        return true;
+    }
+    for (let n = N; n >= 0; n--) {
+        if (isIncrease(n)) {
+            return n;
+        }
+    }
 };
 ```
 
