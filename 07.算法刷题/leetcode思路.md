@@ -72,6 +72,7 @@
   - [234. 回文链表](#234-回文链表)
   - [242. 有效的字母异位词](#242-有效的字母异位词)
   - [283. 移动零](#283-移动零)
+  - [290. 单词规律](#290-单词规律)
   - [300. 最长上升子序列](#300-最长上升子序列)
   - [328. 奇偶链表](#328-奇偶链表)
   - [344. 反转数组](#344-反转数组)
@@ -2662,6 +2663,19 @@ var moveZeroes = function (nums) {
     }
     return nums
 };
+```
+
+## 290. [单词规律](https://leetcode-cn.com/problems/word-pattern/)
+
+```txt
+pattern 与 str 里的字符要满足双向映射，即 pattern 里的每个字符映射 str 的一个单词，同时 str 里的每个单词映射 pattern 里的一个字符
+
+时间复杂度：O(n + m)，其中 n 为 pattern 的长度，m 为 str 的长度。插入和查询哈希表的均摊时间复杂度均为 O(n + m)。每一个字符至多只被遍历一次。
+空间复杂度：O(n + m)，最坏情况下，我们需要存储 pattern 中的每一个字符和 str 中的每一个字符串。
+```
+
+```js
+
 ```
 
 ## 300. [最长上升子序列](https://leetcode-cn.com/problems/longest-increasing-subsequence)
