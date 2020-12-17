@@ -88,6 +88,7 @@
   - [518. 零钱兑换Ⅱ](#518-零钱兑换ⅱ)
   - [530. 二叉搜索树的最小绝对差](#530-二叉搜索树的最小绝对差)
   - [649. Dota2 参议院](#649-dota2-参议院)
+  - [714. 买卖股票的最佳时机含手续费](#714-买卖股票的最佳时机含手续费)
   - [738. 单调递增的数字](#738-单调递增的数字)
   - [763. 划分字母区间](#763-划分字母区间)
   - [771. 宝石与石头](#771-宝石与石头)
@@ -3158,6 +3159,54 @@ var predictPartyVictory = function (senate) {
         dire.shift();
     }
     return radiant.length ? "Radiant" : "Dire";
+};
+```
+
+## 714. [买卖股票的最佳时机含手续费](https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock-with-transaction-fee/)
+
+经典股票买卖问题 [一个详细的打包股票买卖问题讲解](https://labuladong.gitbook.io/algo/dong-tai-gui-hua-xi-lie/1.5-qi-ta-jing-dian-wen-ti/tuan-mie-gu-piao-wen-ti)
+
+```txt
+- 状态定义
+    dp[i][0] 表示第 i 天不持有股票获得的最大利润
+    dp[i][1] 表示第 i 天持有股票获得的最大利润
+
+- 状态转移方程
+
+    要么是昨天我没有持股票今天继续没有持，要么是昨天持股票今天卖掉了
+    dp[i][0] = Math.max(dp[i-1][0], dp[i-1][1]+prices[i]-fee)
+
+    要么是昨天我持股票今天继续持，要么是昨天没有持股票今天买入股票
+    dp[i][1] = Math.max(dp[i-1][1], dp[i-1][0]-prices[i])
+
+进一步地，状态转移方程，新状态只和相邻的一个状态有关，其实不用整个 dp 数组，只需要一个变量储存相邻的那个状态就足够了，这样可以把空间复杂度降到 O(1)
+    dp_i_0 = Math.max(dp_i_0, dp_i_1 + prices[i] - fee)
+    dp_i_1 = Math.max(dp_i_1, dp_i_0 - prices[i])
+
+时间复杂度：O(N)，N 是 prices 的长度
+空间复杂度：O(1)
+```
+
+```js
+var maxProfit = function(prices, fee) {
+    /* 这种方式的空间复杂度为 O(N)
+    let dp = Array(prices.length).fill(0).map(e => Array(2).fill(0))
+    dp[0][0] = 0;
+    dp[0][1] = -prices[0];
+    for (let i=1; i<prices.length; i++) {
+        dp[i][0] = Math.max(dp[i-1][0], dp[i-1][1]+prices[i]-fee)
+        dp[i][1] = Math.max(dp[i-1][1], dp[i-1][0]-prices[i])
+    }
+    return dp[prices.length - 1][0] 
+    */
+
+    // 我们观察到状态转移方程，新状态只和相邻的一个状态有关，其实不用整个 dp 数组，只需要一个变量储存相邻的那个状态就足够了，这样可以把空间复杂度降到 O(1)
+    let dp_i_0 = 0, dp_i_1 = -prices[0];
+    for (let i=1; i<prices.length; i++) {
+        dp_i_0 = Math.max(dp_i_0, dp_i_1 + prices[i] - fee)
+        dp_i_1 = Math.max(dp_i_1, dp_i_0 - prices[i])
+    }
+    return dp_i_0
 };
 ```
 
