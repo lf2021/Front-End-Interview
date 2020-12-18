@@ -78,6 +78,7 @@
   - [344. 反转数组](#344-反转数组)
   - [347. 前 K 个高频元素](#347-前-k-个高频元素)
   - [349. 两个数组的交集](#349-两个数组的交集)
+  - [389. 找不同](#389-找不同)
   - [402. 移掉K位数字](#402-移掉k位数字)
   - [406. 根据身高重建队列](#406-根据身高重建队列)
   - [416. 分割等和子集](#416-分割等和子集)
@@ -2819,6 +2820,53 @@ var intersection = function(nums1, nums2) {
         }
     })
     return res;
+};
+```
+
+## 389. [找不同](https://leetcode-cn.com/problems/find-the-difference/)
+
+```txt
+- 哈希映射
+
+    时间复杂度：O(m + n)，m n 分别为字符串 s 和 t 的长度
+    空间复杂度：O(max(m, n))
+
+- 求和
+    求出字符串 s 和字符串 t 各种字符 ASCII 码和，相差的码数就是所要找的字符
+    
+    时间复杂度：O(m + n)，m n 分别为字符串 s 和 t 的长度
+    空间复杂度：O(1)
+```
+
+```js
+、、 哈希映射
+var findTheDifference = function (s, t) {
+    let map = new Map();
+    for (const ch of s) {
+        if (map.has(ch)) {
+            map.set(ch, map.get(ch) + 1)
+        } else {
+            map.set(ch, 1)
+        }
+    }
+    for (const ch of t) {
+        if (!map.has(ch) || map.get(ch) === 0) {
+            return ch
+        }
+        map.set(ch, map.get(ch) - 1)
+    }
+};
+
+// 求和
+var findTheDifference = function (s, t) {
+    let as = 0, at = 0
+    for (const ch of s) {
+        as += ch.charCodeAt()
+    }
+    for (const ch of t) {
+        at += ch.charCodeAt()
+    }
+    return String.fromCharCode(at -as)
 };
 ```
 
