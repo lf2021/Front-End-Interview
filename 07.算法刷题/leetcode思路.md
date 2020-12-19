@@ -31,6 +31,7 @@
   - [35. 搜索插入位置](#35-搜索插入位置)
   - [39. 组合总和](#39-组合总和)
   - [40. 组合总和Ⅱ](#40-组合总和ⅱ)
+  - [48. 旋转图像](#48-旋转图像)
   - [49. 字母异位词分组](#49-字母异位词分组)
   - [53. 最大子序和](#53-最大子序和)
   - [58. 最后一个单词的长度](#58-最后一个单词的长度)
@@ -1196,6 +1197,41 @@ var combinationSum2 = function (candidates, target) {
     }
     backtrack([], target, 0);
     return ans
+};
+```
+
+## 48. [旋转图像](https://leetcode-cn.com/problems/rotate-image/)
+
+```txt
+题目要求原地修改矩阵，先说明一下如果不原地修改数组的方法：
+matrix 中 [row, col] 的位置顺时针旋转90°后变为 [col, n - 1 - row]，那只需要一个辅助矩阵即可求出
+
+只在原地修改的话，矩阵可以这样变换：先水平翻转一次，再主对角线翻转一次，即可得到想要的矩阵，举个例子如下：
+
+| 1 2 3 |                   | 7 8 9 |                 | 7 4 1 |
+| 4 5 6 |   ==========>     | 4 5 6 |    ==========>  | 8 5 2 |
+| 7 8 9 |                   | 1 2 3 |                 | 9 6 3 |
+
+时间复杂度：O(n^2)
+空间复杂度：O(1)
+```
+
+```js
+var rotate = function (matrix) {
+    const n = matrix.length;
+    // 水平翻转
+    for (let i = 0; i < n >> 1; i++) { // 注意这里只需要交换矩阵的上半部分就够了
+        for (let j = 0; j < n; j++) {
+            [matrix[i][j], matrix[n - 1 - i][j]] = [matrix[n - 1 - i][j], matrix[i][j]]
+        }
+    }
+    // 主对角线翻转
+    for (let i = 0; i < n; i++) {
+        for (let j = 0; j < i; j++) { // 注意这里交换右上部分就够了
+            [matrix[i][j], matrix[j][i]] = [matrix[j][i], matrix[i][j]]
+        }
+    }
+    return matrix
 };
 ```
 
