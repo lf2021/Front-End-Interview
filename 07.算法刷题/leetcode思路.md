@@ -75,6 +75,7 @@
   - [283. 移动零](#283-移动零)
   - [290. 单词规律](#290-单词规律)
   - [300. 最长上升子序列](#300-最长上升子序列)
+  - [316. 去除重复字母](#316-去除重复字母)
   - [328. 奇偶链表](#328-奇偶链表)
   - [344. 反转数组](#344-反转数组)
   - [347. 前 K 个高频元素](#347-前-k-个高频元素)
@@ -2741,6 +2742,51 @@ var lengthOfLIS = function (nums) {
         }
     }
     return Math.max(...dp);
+};
+```
+
+## 316. [去除重复字母](https://leetcode-cn.com/problems/remove-duplicate-letters/)
+
+参考[官方题解](https://leetcode-cn.com/problems/remove-duplicate-letters/solution/qu-chu-zhong-fu-zi-mu-by-leetcode-soluti-vuso/)
+
+```txt
+贪心 + 栈
+
+时间复杂度：O(N)，其中 NN 为字符串长度。
+空间复杂度：O(∑)，∑ = 26
+```
+
+```js
+var removeDuplicateLetters = function (s) {
+    const vis = Array(26).fill(0); // 记录每个字符是否在栈中出现
+    const nums = {}; // 记录每个字符出现的次数
+    for (let i = 0; i < s.length; i++) {
+        let ch = s[i];
+        if (nums[ch] === undefined) {
+            nums[ch] = 1;
+        } else {
+            nums[ch]++;
+        }
+    }
+    const stack = []; // 维护一个栈
+    for (let i = 0; i < s.length; i++) {
+        let ch = s[i];
+        if (!vis[ch.charCodeAt() - 'a'.charCodeAt()]) { // 栈中不存在ch这个字符
+            while (stack.length > 0 && stack[stack.length - 1] > ch) {
+                if (nums[stack[stack.length - 1]] > 0) { // 栈顶元素在后面的字符中存在
+                    // 标记栈顶元素在栈中不存在 并弹出栈顶元素
+                    vis[stack[stack.length - 1].charCodeAt() - 'a'.charCodeAt()] = 0;
+                    stack.pop();
+                } else {
+                    break;
+                }
+            }
+            vis[ch.charCodeAt() - 'a'.charCodeAt()] = 1; // 标记字符ch在栈中出现过
+            stack.push(ch);
+        }
+        nums[ch]--; // 每次遍历完将这个字符出现的次数减1
+    }
+    return stack.join('')
 };
 ```
 
