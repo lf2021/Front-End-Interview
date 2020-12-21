@@ -93,6 +93,7 @@
   - [649. Dota2 参议院](#649-dota2-参议院)
   - [714. 买卖股票的最佳时机含手续费](#714-买卖股票的最佳时机含手续费)
   - [738. 单调递增的数字](#738-单调递增的数字)
+  - [746. 使用最小花费爬楼梯](#746-使用最小花费爬楼梯)
   - [763. 划分字母区间](#763-划分字母区间)
   - [771. 宝石与石头](#771-宝石与石头)
   - [844. 比较含退格的字符串](#844-比较含退格的字符串)
@@ -3394,6 +3395,35 @@ var monotoneIncreasingDigits = function (N) {
             return n;
         }
     }
+};
+```
+
+## 746. [使用最小花费爬楼梯](https://leetcode-cn.com/problems/min-cost-climbing-stairs/)
+
+```txt
+简单的动态规划题
+
+dp矩阵定义
+    dp[i] 定义为前i个阶梯耗费的最小体力
+
+状态转移方程
+    dp[i] = Math.min(dp[i-1] + cost[i-1], dp[i-2] + cost[i-2])
+
+目标
+    dp[n]
+
+时间复杂度：O(n)
+空间复杂度：O(1)
+```
+
+```js
+var minCostClimbingStairs = function (cost) {
+    const n = cost.length;
+    const dp = Array(n + 1).fill(0);
+    for (let i = 2; i <= n; i++) {
+        dp[i] = Math.min(dp[i - 1] + cost[i - 1], dp[i - 2] + cost[i - 2])
+    }
+    return dp[n]
 };
 ```
 
