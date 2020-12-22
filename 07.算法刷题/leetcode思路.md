@@ -43,6 +43,7 @@
   - [82. 删除排序链表中的重复元素 II](#82-删除排序链表中的重复元素-ii)
   - [83. 删除排序链表中的重复元素](#83-删除排序链表中的重复元素)
   - [94. 二叉树的中序遍历](#94-二叉树的中序遍历)
+  - [103. 二叉树的锯齿形层序遍历](#103-二叉树的锯齿形层序遍历)
   - [107. 二叉树的层次遍历 II](#107-二叉树的层次遍历-ii)
   - [112. 路径总和](#112-路径总和)
   - [116. 填充每个节点的下一个右侧节点指针](#116-填充每个节点的下一个右侧节点指针)
@@ -1639,6 +1640,37 @@ var inorderTraversal = function (root) {
             res.push(node.val);
             root = node.right;
         }
+    }
+    return res
+};
+```
+
+## 103. [二叉树的锯齿形层序遍历](https://leetcode-cn.com/problems/binary-tree-zigzag-level-order-traversal/)
+
+```txt
+层序遍历的变种，只要加一个flag标志位就好了
+
+时间复杂度：O(N)，其中 N 为二叉树的节点数。每个节点会且仅会被遍历一次。
+空间复杂度：O(N)，我们需要维护一个栈，空间复杂度为O(N)
+```
+
+```js
+var zigzagLevelOrder = function(root) {
+    if (!root) return []
+    let stack = [root];
+    let res = [];
+    let flag = true;
+    while (stack.length) {
+        const len = stack.length;
+        const tmp = [];
+        for (let i=0; i<len;i++) {
+            const node = stack.shift(); // 栈底元素
+            node.left && stack.push(node.left)
+            node.right && stack.push(node.right)
+            flag ? tmp.push(node.val) : tmp.unshift(node.val)
+        }
+        res.push(tmp)
+        flag = !flag
     }
     return res
 };
