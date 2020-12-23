@@ -81,6 +81,7 @@
   - [344. 反转数组](#344-反转数组)
   - [347. 前 K 个高频元素](#347-前-k-个高频元素)
   - [349. 两个数组的交集](#349-两个数组的交集)
+  - [387. 字符串中的第一个唯一字符](#387-字符串中的第一个唯一字符)
   - [389. 找不同](#389-找不同)
   - [402. 移掉K位数字](#402-移掉k位数字)
   - [406. 根据身高重建队列](#406-根据身高重建队列)
@@ -2935,6 +2936,50 @@ var intersection = function(nums1, nums2) {
         }
     })
     return res;
+};
+```
+
+## 387. [字符串中的第一个唯一字符](https://leetcode-cn.com/problems/first-unique-character-in-a-string/)
+
+```txt
+方法1：暴力法
+    时间复杂度：O(n^2)
+    空间复杂度：O(1)
+
+方法2：哈希表
+    时间复杂度：O(n)
+    空间复杂度：O(∑)， ∑ < 26
+```
+
+```js
+// 方法1
+var firstUniqChar = function(s) {
+    for (let i=0; i<s.length; i++) {
+        if (s.indexOf(s[i]) === s.lastIndexOf(s[i])) {
+            return i
+        }
+    }
+    return -1
+};
+
+// 方法2
+var firstUniqChar = function(s) {
+    const map = new Map();
+    for (let i=0; i<s.length; i++) {
+        if (map.has(s[i])) {
+            map.set(s[i], -1);
+        } else {
+            map.set(s[i], i)
+        }
+    }
+    let res = s.length;
+    for (let index of map.values()) {
+        if (index !== -1 && index < res) {
+            res = index
+        }
+    }
+    if (res === s.length) return -1;
+    return res
 };
 ```
 
