@@ -54,6 +54,7 @@
   - [125. 验证回文串](#125-验证回文串)
   - [129. 求根到叶子节点数字之和](#129-求根到叶子节点数字之和)
   - [134. 加油站](#134-加油站)
+  - [135. 分发糖果](#135-分发糖果)
   - [141. 环形链表](#141-环形链表)
   - [142. 环形链表Ⅱ](#142-环形链表ⅱ)
   - [143. 重排链表](#143-重排链表)
@@ -2020,6 +2021,43 @@ var canCompleteCircuit = function (gas, cost) {
         if (helper(i) === true) return i;
     }
     return -1
+};
+```
+
+## 135. [分发糖果](https://leetcode-cn.com/problems/candy/)
+
+```txt
+我们可以将「相邻的孩子中，评分高的孩子必须获得更多的糖果」这句话拆分为两个规则，分别处理。
+    左规则：当 ratings[i - 1] < ratings[i] 时，i 号学生的糖果数量将比 i - 1 号孩子的糖果数量多。
+    右规则：当 ratings[i]>ratings[i+1] 时，i 号学生的糖果数量将比 i + 1 号孩子的糖果数量多。
+我们遍历该数组两次，处理出每一个学生分别满足左规则或右规则时，最少需要被分得的糖果数量。每个人最终分得的糖果数量即为这两个数量的最大值。
+
+时间复杂度：O(n)
+空间复杂度：O(n)
+```
+
+```js
+var candy = function (ratings) {
+    const n = ratings.length;
+    const left = Array(n).fill(0);
+    for (let i = 0; i < n; i++) {
+        if (i > 0 && ratings[i] > ratings[i - 1]) {
+            left[i] = left[i - 1] + 1
+        } else {
+            left[i] = 1;
+        }
+    }
+    let right = 0,
+        ret = 0;
+    for (let i = n - 1; i >= 0; i--) {
+        if (i < n - 1 && ratings[i] > ratings[i + 1]) {
+            right += 1
+        } else {
+            right = 1
+        }
+        ret += Math.max(left[i], right)
+    }
+    return ret
 };
 ```
 
