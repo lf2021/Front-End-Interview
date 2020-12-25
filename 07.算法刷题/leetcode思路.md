@@ -89,6 +89,7 @@
   - [416. 分割等和子集](#416-分割等和子集)
   - [452. 用最少数量的箭引爆气球](#452-用最少数量的箭引爆气球)
   - [454. 四数相加 II](#454-四数相加-ii)
+  - [455. 分发饼干](#455-分发饼干)
   - [463. 岛屿的周长](#463-岛屿的周长)
   - [494. 目标和](#494-目标和)
   - [518. 零钱兑换Ⅱ](#518-零钱兑换ⅱ)
@@ -3249,6 +3250,34 @@ var fourSumCount = function (A, B, C, D) {
         }
     }
     return count
+};
+```
+
+## 455. [分发饼干](https://leetcode-cn.com/problems/assign-cookies/)
+
+```txt
+排序 + 双指针法
+
+时间复杂度：O(mlogm + nlogn)，其中m是g的长度，n是s的长度
+空间复杂度：O(logm + logn)，空间复杂度主要是排序的额外空间开销。
+```
+
+```js
+var findContentChildren = function (g, s) {
+    g.sort((a, b) => a - b)
+    s.sort((a, b) => a - b)
+    let ret = 0;
+    let i = 0, j = 0;
+    while (i < g.length && j < s.length) {
+        if (s[j] >= g[i]) {
+            ret++;
+            i++;
+            j++;
+        } else {
+            j++
+        }
+    }
+    return ret;
 };
 ```
 
