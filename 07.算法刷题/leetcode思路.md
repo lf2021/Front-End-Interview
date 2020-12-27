@@ -67,6 +67,7 @@
   - [200. 岛屿数量](#200-岛屿数量)
   - [203. 移除链表元素](#203-移除链表元素)
   - [204. 计数质数](#204-计数质数)
+  - [205. 同构字符串](#205-同构字符串)
   - [206. 反转链表](#206-反转链表)
   - [209. 长度最小的子数组](#209-长度最小的子数组)
   - [215. 数组中的第K个最大元素](#215-数组中的第k个最大元素)
@@ -2424,6 +2425,30 @@ var countPrimes = function (n) {
         }
     }
     return ans;
+};
+```
+
+## 205. [同构字符串](https://leetcode-cn.com/problems/isomorphic-strings/)
+
+```txt
+双射：s 的任意一个字符被 t 中唯一的字符对应，同时 t 的任意一个字符被 s 中唯一的字符对应。
+
+时间复杂度：O(n)，n为字符串的长度
+空间复杂度：O(Σ)，Σ≤n
+```
+
+```js
+var isIsomorphic = function (s, t) {
+    let s2t = {}, t2s = {};
+    for (let i = 0; i < s.length; i++) {
+        let x = s[i], y = t[i];
+        if ((s2t[x] && t2s[y] !== x) || (t2s[y] && s2t[x] !== y)) {
+            return false
+        }
+        s2t[x] = y;
+        t2s[y] = x;
+    }
+    return true
 };
 ```
 
