@@ -115,6 +115,7 @@
   - [1002. 查找常用字符](#1002-查找常用字符)
   - [1024. 视频拼接](#1024-视频拼接)
   - [1030. 距离顺序排列矩阵单元格](#1030-距离顺序排列矩阵单元格)
+  - [1046. 最后一块石头的重量](#1046-最后一块石头的重量)
   - [1122. 数组的相对排序](#1122-数组的相对排序)
   - [1207. 独一无二的出现次数](#1207-独一无二的出现次数)
   - [1356. 根据数字二进制下 1 的数目排序](#1356-根据数字二进制下-1-的数目排序)
@@ -4066,6 +4067,32 @@ var allCellsDistOrder = function(R, C, r0, c0) {
         }
     }
     return matrix.sort((a, b) => Math.abs(a[0] - r0) + Math.abs(a[1] - c0) - Math.abs(b[0] - r0) - Math.abs(b[1] - c0))
+};
+```
+
+## 1046. [最后一块石头的重量](https://leetcode-cn.com/problems/last-stone-weight/)
+
+```txt
+我上来就是一个无脑循环
+
+时间复杂度：O(n^2logn)
+空间复杂度：O(n)
+
+当然这题可以维护一个最大优先队列来降低实践时间复杂度，自行尝试
+```
+
+```js
+var lastStoneWeight = function(stones) {
+    while (stones.length > 1) {
+        stones.sort((a,b) => b-a);
+        let x = stones.shift(), y = stones.shift();
+        if (x === y) {
+            continue
+        } else {
+            stones.push(x - y)
+        }
+    }
+    return stones.length === 0 ? 0 : stones[0]
 };
 ```
 
