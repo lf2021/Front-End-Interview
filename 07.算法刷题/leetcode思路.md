@@ -88,6 +88,7 @@
   - [402. 移掉K位数字](#402-移掉k位数字)
   - [406. 根据身高重建队列](#406-根据身高重建队列)
   - [416. 分割等和子集](#416-分割等和子集)
+  - [435. 无重叠区间](#435-无重叠区间)
   - [452. 用最少数量的箭引爆气球](#452-用最少数量的箭引爆气球)
   - [454. 四数相加 II](#454-四数相加-ii)
   - [455. 分发饼干](#455-分发饼干)
@@ -3205,6 +3206,39 @@ var canPartition = function (nums) {
         }
     }
     return dp[len][sum]
+};
+```
+
+## 435. [无重叠区间](https://leetcode-cn.com/problems/non-overlapping-intervals/)
+
+```txt
+动态规划
+先对区间按左端点升序
+
+（1）定义dp矩阵
+    dp[i] 表示以区间 i 结尾的前 i 个区间中不重叠的的最大区间数
+（2）转移方程：
+    dp[i] = min{dp[j]} + 1, j ＜ i
+    若第j个区间的右端点Rj如果小于第i个区间的左端点，那第j个区间就与第i个区间不重叠
+    若找不到这样一个区间j，dp[i] = 1
+（3)dp矩阵中最大的数就是所有区间中最大的不重叠区间数，最小需要移除的区间数就用总的区间数减去最大不重叠的区间数
+
+```
+
+```js
+var eraseOverlapIntervals = function(intervals) {
+    if (!intervals.length) return 0;
+    intervals.sort((a,b) => a[0] - b[0])
+    const n = intervals.length;
+    let dp = Array(n).fill(1);
+    for (let i=1; i<n; i++) {
+        for (let j=0; j<i; j++) {
+            if (intervals[j][1] <= intervals[i][0]) {
+                dp[i] = Math.max(dp[i], dp[j] + 1)
+            }
+        }
+    }
+    return n - Math.max(...dp)
 };
 ```
 
