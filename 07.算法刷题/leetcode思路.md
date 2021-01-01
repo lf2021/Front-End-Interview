@@ -96,6 +96,7 @@
   - [494. 目标和](#494-目标和)
   - [518. 零钱兑换Ⅱ](#518-零钱兑换ⅱ)
   - [530. 二叉搜索树的最小绝对差](#530-二叉搜索树的最小绝对差)
+  - [605. 种花问题](#605-种花问题)
   - [649. Dota2 参议院](#649-dota2-参议院)
   - [714. 买卖股票的最佳时机含手续费](#714-买卖股票的最佳时机含手续费)
   - [738. 单调递增的数字](#738-单调递增的数字)
@@ -3458,6 +3459,37 @@ var getMinimumDifference = function(root) {
     }
     mid(root);
     return min
+};
+```
+
+## 605. [种花问题](https://leetcode-cn.com/problems/can-place-flowers/)
+
+```txt
+跳格子法：
+    （1）当遍历到的 i 位置为 1，说明这个位置有花，那必然从i + 2 的位置才可能种花的，因此当碰到1是直接跳过下一格
+    （2）当遍历到的 i 位置为 0，前一格必为0（因为每次碰到 1 都是跳两格），此时只需要判断下一格是不是 1 就可以判断这一格能不能种花
+        如果能种则花的总数量 count 加一，然后这个位置就按照遇到 1 时处理，即跳两格；
+        如果 i 的后一格是 1，说明这个位置不能种花且之后两格也不可能种花，参照（1）直接跳 3 格
+
+时间复杂度：O(m)， m 是 flowerbed 的长度.
+空间复杂度：O(1)
+```
+
+```js
+var canPlaceFlowers = function(flowerbed, n) {
+    const m = flowerbed.length;
+    let count = 0, i = 0;
+    while (i < m) {
+        if (flowerbed[i] === 1) {
+            i+=2
+        } else if (i === m - 1 || flowerbed[i+1] === 0) {
+            count++;
+            i+=2
+        } else {
+            i+=3
+        }
+    }
+    return count >= n
 };
 ```
 
