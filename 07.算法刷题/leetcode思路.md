@@ -74,6 +74,9 @@
   - [217. 存在重复元素](#217-存在重复元素)
   - [222. 完全二叉树的节点个数](#222-完全二叉树的节点个数)
   - [234. 回文链表](#234-回文链表)
+  - [239. 滑动窗口最大值](#239-滑动窗口最大值)
+    - [方法1： 暴力法](#方法1-暴力法)
+    - [方法2：滑动窗口 + 双端队列](#方法2滑动窗口--双端队列)
   - [242. 有效的字母异位词](#242-有效的字母异位词)
   - [283. 移动零](#283-移动零)
   - [290. 单词规律](#290-单词规律)
@@ -2740,6 +2743,73 @@ var isPalindrome = function(head) {
         reversed = reversed.next;
     }
     return true;
+};
+```
+
+## 239. [滑动窗口最大值](https://leetcode-cn.com/problems/sliding-window-maximum/)
+
+### 方法1： 暴力法
+
+- 时间复杂度：O((n-k-1) * k)，n 是 nums 的长度。总共 n-k-1 个滑动窗口，每个滑动窗口的找最大值的复杂度为 O(k)，这种方式超出了题的时间限制。
+- 空间复杂度：O(1)
+
+```js
+var maxSlidingWindow = function (nums, k) {
+    const res = [];
+    for (let i = 0; i <= nums.length - k; i++) {
+        res.push(Math.max(...nums.slice(i, i + k)));
+    }
+    return res;
+};
+```
+
+### 方法2：滑动窗口 + 双端队列
+
+```txt
+题解：
+
+双端队列：
+    每次push元素时，将队列中更小元素删除，直到不小时
+    每次pop元素时，如果是更小的元素在push时就已经删除了，只需要判断是否是头部最大值，是再删除一遍头部元素即可
+```
+
+- 时间复杂度：O(n)
+- 空间复杂度：O(n)
+
+```js
+var maxSlidingWindow = function (nums, k) {
+    class slideWindow {
+        constructor() {
+            this.deque = [];
+        }
+        push(val) { // 队列从尾部开始，把小于val的数都去掉，然后将val加入队列末尾
+            while (this.deque.length > 0 && this.deque[this.deque.length - 1] < val) {
+                this.deque.pop()
+            }
+            this.deque.push(val)
+        }
+        pop(val) { // 判断以下队首元素是不是val（最大值）,是就删除，不是就跳过
+            if (this.deque.length > 0 && this.deque[0] === val) {
+                this.deque.shift()
+            }
+        }
+        max() {
+            return this.deque[0]
+        }
+    }
+    let window = new slideWindow();
+    let res = [];
+    const n = nums.length;
+    for (let i = 0; i < n; i++) {
+        if (i < k - 1) {
+            window.push(nums[i])
+        } else {
+            window.push(nums[i]);
+            res.push(window.max())
+            window.pop(nums[i - k + 1]) // 判断滑动窗口的左边元素是不是window的左边元素，是的话就弹掉
+        }
+    }
+    return res;
 };
 ```
 
