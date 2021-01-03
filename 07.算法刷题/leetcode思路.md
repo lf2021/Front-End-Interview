@@ -42,6 +42,7 @@
   - [78. 子集](#78-子集)
   - [82. 删除排序链表中的重复元素 II](#82-删除排序链表中的重复元素-ii)
   - [83. 删除排序链表中的重复元素](#83-删除排序链表中的重复元素)
+  - [86. 分隔链表](#86-分隔链表)
   - [94. 二叉树的中序遍历](#94-二叉树的中序遍历)
   - [103. 二叉树的锯齿形层序遍历](#103-二叉树的锯齿形层序遍历)
   - [107. 二叉树的层次遍历 II](#107-二叉树的层次遍历-ii)
@@ -1614,6 +1615,37 @@ var deleteDuplicates = function(head) {
         }
     }
     return head;
+};
+```
+
+## 86. [分隔链表](https://leetcode-cn.com/problems/partition-list/)
+
+```txt
+模拟法：
+    模拟两个链表，一个表示比 x 小的，一个表示比 x 大的
+
+时间复杂度：O(n)，其中 n 是原链表的长度
+空间复杂度：O(1)
+```
+
+```js
+var partition = function(head, x) {
+    let small = new ListNode(0);
+    let large = new ListNode(0);
+    let smallHead = small, largeHead = large;
+    while (head) {
+        if (head.val < x) {
+            small.next = head;
+            small = small.next
+        } else {
+            large.next = head;
+            large = large.next
+        }
+        head = head.next;
+    }
+    large.next = null
+    small.next = largeHead.next
+    return smallHead.next
 };
 ```
 
