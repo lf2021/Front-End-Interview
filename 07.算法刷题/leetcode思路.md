@@ -98,6 +98,7 @@
   - [455. 分发饼干](#455-分发饼干)
   - [463. 岛屿的周长](#463-岛屿的周长)
   - [494. 目标和](#494-目标和)
+  - [509. 斐波那契数](#509-斐波那契数)
   - [518. 零钱兑换Ⅱ](#518-零钱兑换ⅱ)
   - [530. 二叉搜索树的最小绝对差](#530-二叉搜索树的最小绝对差)
   - [605. 种花问题](#605-种花问题)
@@ -3504,6 +3505,26 @@ var findTargetSumWays = function(nums, S) {
     }
     helper(nums, 0, 0, S);
     return result;
+};
+```
+
+## 509. [斐波那契数](https://leetcode-cn.com/problems/fibonacci-number/)
+
+```txt
+时间复杂度：O(n)
+空间复杂度：O(1)
+```
+
+```js
+var fib = function(n) {
+    if (n===0 || n===1) return n;
+    let a = 0, b = 1, res = 0;
+    for (let i=2; i<=n; i++) {
+        res = a+b;
+        a = b;
+        b = res;
+    }
+    return res;
 };
 ```
 
