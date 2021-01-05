@@ -108,6 +108,7 @@
   - [746. 使用最小花费爬楼梯](#746-使用最小花费爬楼梯)
   - [763. 划分字母区间](#763-划分字母区间)
   - [771. 宝石与石头](#771-宝石与石头)
+  - [830. 较大分组的位置](#830-较大分组的位置)
   - [844. 比较含退格的字符串](#844-比较含退格的字符串)
   - [845. 数组中的最长山脉](#845-数组中的最长山脉)
   - [860. 柠檬水找零](#860-柠檬水找零)
@@ -3852,6 +3853,34 @@ var numJewelsInStones = function(J, S) {
     return S.split('').reduce((pre, cur) => {
         return pre + set.has(cur);
     }, 0)
+};
+```
+
+## 830. [较大分组的位置](https://leetcode-cn.com/problems/positions-of-large-groups/)
+
+```txt
+我们可以遍历该序列，并记录当前分组的长度。如果下一个字符与当前字符不同，或者已经枚举到字符串尾部，就说明当前字符为当前分组的尾部。每次找到当前分组的尾部时，如果该分组长度达到 3，我们就将其加入答案。
+
+时间复杂度：O(n)，n 是 s 的长度。
+空间复杂度：O(1)
+```
+
+```js
+var largeGroupPositions = function(s) {
+    let res = [];
+    const n = s.length;
+    let num = 1;
+    for (let i = 0; i<n; i++) {
+        if (i === n-1 || s[i+1] !== s[i]) {
+            if (num >= 3) {
+                res.push([i - num + 1, i])
+            }
+            num = 1;
+        } else {
+            num++;
+        }
+    }
+    return res
 };
 ```
 
