@@ -89,6 +89,7 @@
   - [349. 两个数组的交集](#349-两个数组的交集)
   - [387. 字符串中的第一个唯一字符](#387-字符串中的第一个唯一字符)
   - [389. 找不同](#389-找不同)
+  - [399. 除法求值](#399-除法求值)
   - [402. 移掉K位数字](#402-移掉k位数字)
   - [406. 根据身高重建队列](#406-根据身高重建队列)
   - [416. 分割等和子集](#416-分割等和子集)
@@ -3198,6 +3199,67 @@ var findTheDifference = function (s, t) {
         at += ch.charCodeAt()
     }
     return String.fromCharCode(at -as)
+};
+```
+
+## 399. [除法求值](https://leetcode-cn.com/problems/evaluate-division/)
+
+```txt
+题解：邻接表
+
+我们将这种关系表示为存储为邻接表
+
+         2
+    ————————————>
+a                     b
+    <————————————
+        1/2        ∧     |
+                   |     |
+                3  |     | 1/3
+                   |     |
+                   |     ∨
+
+                      c
+
+邻接表的格式为
+map = {
+    a: { b: 2 },
+    b: { a: 1/2, c: 3 },
+    c: { b: 1/3 }
+}
+
+然后我们再扩展出所有可能的情况，例如 a/b 和 b/c 可以扩展到 a/c
+
+最后只要对 queries 数组遍历得到结果即可
+```
+
+- 时间复杂度：O($n^3$)
+- 空间复杂度：O($n$)
+
+```js
+var calcEquation = function (equations, values, queries) {
+    let map = {};
+    // 定义一个对象，map[x][y] 表示 x/y 的值
+    equations.forEach((e, i) => {
+        if (!map[e[0]]) map[e[0]] = {};
+        if (!map[e[1]]) map[e[1]] = {};
+        map[e[0]][e[1]] = values[i]
+        map[e[1]][e[0]] = 1 / values[i]
+    })
+    const keys = Object.keys(map);
+    keys.forEach(x => {
+        keys.forEach(y => {
+            map[x][y] && keys.forEach(z => { // 如果 x/y 有值 y/z 也有值，则 x/z 的值也可以求出
+                if (map[y][z]) {
+                    map[x][z] = map[x][y] * map[y][z]
+                    map[z][x] = 1 / map[x][z] // 这行不加会有一个测试案例通过不了
+                }
+            })
+        })
+    })
+    return queries.map(e => {
+        return map[e[0]] && map[e[0]][e[1]] ? map[e[0]][e[1]] : -1
+    })
 };
 ```
 
