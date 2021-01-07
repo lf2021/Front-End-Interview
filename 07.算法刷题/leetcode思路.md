@@ -102,6 +102,9 @@
   - [509. 斐波那契数](#509-斐波那契数)
   - [518. 零钱兑换Ⅱ](#518-零钱兑换ⅱ)
   - [530. 二叉搜索树的最小绝对差](#530-二叉搜索树的最小绝对差)
+  - [547. 省份数量](#547-省份数量)
+    - [深度优先搜索](#深度优先搜索)
+    - [广度优先搜索](#广度优先搜索)
   - [605. 种花问题](#605-种花问题)
   - [649. Dota2 参议院](#649-dota2-参议院)
   - [714. 买卖股票的最佳时机含手续费](#714-买卖股票的最佳时机含手续费)
@@ -3644,6 +3647,87 @@ var getMinimumDifference = function(root) {
     }
     mid(root);
     return min
+};
+```
+
+## 547. [省份数量](https://leetcode-cn.com/problems/number-of-provinces/)
+
+```txt
+可以把 n 个城市和它们之间的相连关系看成图，城市是图中的节点，相连关系是图中的边，给定的矩阵 isConnected 即为图的邻接矩阵，省份即为图中的连通分量。
+
+计算省份总数，等价于计算图中的连通分量数，可以通过深度优先搜索或广度优先搜索实现，也可以通过并查集实现。
+```
+
+### 深度优先搜索
+
+```txt
+深度优先搜索的思路是很直观的。遍历所有城市，对于每个城市，如果该城市尚未被访问过，则从该城市开始深度优先搜索，
+
+通过矩阵 isConnected 得到与该城市直接相连的城市有哪些，这些城市和该城市属于同一个连通分量，然后对这些城市继续深度优先搜索，
+
+直到同一个连通分量的所有城市都被访问到，即可得到一个省份。遍历完全部城市以后，即可得到连通分量的总数，即省份的总数。
+```
+
+- 时间复杂度：O($n^2$)，n 是城市的数量。
+- 空间复杂度：O($n$)
+
+```js
+var findCircleNum = function (isConnected) {
+    const n = isConnected.length;
+    const visited = new Set();
+    // 深度优先搜索
+    const dfs = (isConnected, visited, i) => {
+        for (let j = 0; j < n; j++) {
+            if (isConnected[i][j] === 1 && !visited.has(j)) { // 城市 i 和 j 相连，并且 j 没有并访问过
+                visited.add(j);
+                dfs(isConnected, visited, j) // 继续遍历和城市j相连的城市，标记已访问过
+            }
+        }
+    }
+    let count = 0;
+    for (let i = 0; i < n; i++) {
+        if (!visited.has(i)) { // 城市 i 没有被访问过
+            dfs(isConnected, visited, i);
+            count++;
+        }
+    }
+    return count
+};
+```
+
+### 广度优先搜索
+
+```txt
+通过广度优先搜索的方法得到省份的总数。对于每个城市，如果该城市尚未被访问过，则从该城市开始广度优先搜索，
+
+直到同一个连通分量中的所有城市都被访问到，即可得到一个省份。
+```
+
+- 时间复杂度：O($n^2$)
+- 空间复杂度：O($n$)
+
+```js
+var findCircleNum = function (isConnected) {
+    const n = isConnected.length;
+    const visited = new Set();
+    const queue = [];
+    let count = 0;
+    for (let i = 0; i < n; i++) {
+        if (!visited.has(i)) {
+            queue.push(i)
+            while (queue.length) {
+                let j = queue.shift();
+                visited.add(j)
+                for (let k = 0; k < n; k++) {
+                    if (isConnected[j][k] === 1 && !visited.has(k)) {
+                        queue.push(k)
+                    }
+                }
+            }
+            count++;
+        }
+    }
+    return count;
 };
 ```
 
