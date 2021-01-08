@@ -65,6 +65,9 @@
   - [148. 排序链表](#148-排序链表)
   - [160. 相交链表](#160-相交链表)
   - [164. 最大间距](#164-最大间距)
+  - [189. 旋转数组](#189-旋转数组)
+    - [方法1](#方法1)
+    - [方法2](#方法2)
   - [200. 岛屿数量](#200-岛屿数量)
   - [203. 移除链表元素](#203-移除链表元素)
   - [204. 计数质数](#204-计数质数)
@@ -2384,6 +2387,56 @@ var maximumGap = function (nums) {
         minDiff = Math.max(minDiff, nums[i] - nums[i-1])
     }
     return minDiff
+};
+```
+
+## 189. [旋转数组](https://leetcode-cn.com/problems/rotate-array/)
+
+### 方法1
+
+```txt
+循环 k 次：将数组最后一个元素弹出，添加到数组头部
+```
+
+- 时间复杂度：O($k*n$)
+- 空间复杂度：O(1)
+
+```js
+var rotate = function(nums, k) {
+    while (k > 0) {
+        nums.unshift(nums.pop())
+        k--;
+    }
+    return nums
+};
+```
+
+### 方法2
+
+```txt
+当我们将数组的元素向右移动 k 次后，尾部 k%n 个元素会移动至数组头部，其余元素向后移动 k%n 个位置。
+
+我们可以先将所有元素翻转，这样尾部的 k%n 个元素就被移至数组头部，然后我们再翻转 [0, k%n-1] 区间的元素和 [k%n, n-1] 区间的元素即能得到最后的答案。
+```
+
+- 时间复杂度：O($n$)，其中 n 为数组的长度。每个元素被翻转两次，一共 n 个元素，因此总时间复杂度为 O($2n$) = O($n$)。
+- 空间复杂度：O(1)
+
+```js
+var rotate = function (nums, k) {
+    const reverse = (nums, start, end) => {
+        while (start < end) {
+            [nums[start], nums[end]] = [nums[end], nums[start]]
+            start++;
+            end--;
+        }
+    }
+    const n = nums.length;
+    k = k % n;
+    reverse(nums, 0, n - 1)
+    reverse(nums, 0, k - 1)
+    reverse(nums, k, n - 1)
+    return nums
 };
 ```
 
