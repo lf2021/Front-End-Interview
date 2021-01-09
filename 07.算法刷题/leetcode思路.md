@@ -52,6 +52,7 @@
   - [118. 杨辉三角](#118-杨辉三角)
   - [121. 买卖股票的最佳时机](#121-买卖股票的最佳时机)
   - [122. 买卖股票的最佳时机 II](#122-买卖股票的最佳时机-ii)
+  - [123. 买卖股票的最佳时机 III](#123-买卖股票的最佳时机-iii)
   - [125. 验证回文串](#125-验证回文串)
   - [129. 求根到叶子节点数字之和](#129-求根到叶子节点数字之和)
   - [134. 加油站](#134-加油站)
@@ -1972,6 +1973,75 @@ var maxProfit = function(prices) {
         dp[i][1] = Math.max(dp[i-1][1], dp[i-1][0]-prices[i]);
     }
     return Math.max(dp[len-1][0], dp[len-1][1])
+};
+```
+
+## 123. [买卖股票的最佳时机 III](https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock-iii/)
+
+动态规划
+
+在任意一天结束后，我们会处于五种状态中的一种：
+
+- 未进行任何操作
+- 只进行了一次买操作
+- 只进行一次买操作和一次卖操作，即完成了一笔交易
+- 在完成了一笔交易的前提下，进行了第二次买操作
+- 完成了两笔交易
+
+由于第一个状态的利润显然为 0，因此我们可以不用将其记录。对于剩下的四个状态，我们分别将它们的最大利润记为 $buy_1$, $sell_1$, $buy_2$, $sell_2$
+
+状态转移，知道第 `i-1` 天结束后的这四个状态，第 `i` 天的状态：
+
+- 对于 $buy_1$
+
+在第 `i` 天可以不进行任何操作，保持不变，也可以在未进行任何操作的前提下以 `prices[i]` 的价格买入股票，转移方程为：
+$$buy_1(i) = max\{buy_1(i-1), -prices[i]\}$$
+其中，$buy_1(i)$ 表示 `i` 天的状态，$buy_1(i-1)$ 表示 `i-1` 天的状态，下面也是类似。
+
+- 对于 $sell_1$
+
+在第 `i` 天我们可以不进行任何操作，保持不变，也可以在只进行过一次买操作的前提下以 `prices[i]` 的价格卖出股票，转移方程为：
+$$sell_1(i) = max\{sell_1(i-1), buy_1(i)+prices[i]\}$$
+
+- 对于 $buy_2$
+
+同理转移方程为：
+$$buy_2(i) = max\{buy_2(i-1), sell_1(i)-prices[i]\}$$
+
+- 对于 $sell_2$
+
+同理转移方程为：
+$$sell_2(i) = max\{sell_2(i-1), buy_2(i)+prices[i]\}$$
+
+理论上，我们需要维护四个数组  $buy_1[i]$ , $sell_1[i]$ , $buy_2[i]$ , $sell_2[i]$ ，但是因为每个状态只与前一天的状态有关，因而我们可以进一步降低空间复杂度，我们只需维护四个变量：$buy_1$ , $sell_1$ , $buy_2$ , $sell_2$，然后不断的更新这四个变量即可。
+
+- 总的状态转移方程为：
+
+$$
+\begin{cases}
+    buy_1 = max\{buy_1, -prices[i]\}\\
+    sell_1 = max\{sell_1, buy_1+prices[i]\}\\
+    buy_2 = max\{buy_2, sell_1-prices[i]\}\\
+    sell_2 = max\{sell_2, buy_2+prices[i]\}
+\end{cases}
+$$
+
+- 时间复杂度：O($n$)，其中 n 是数组 prices 的长度。
+- 空间复杂度：O(1)。
+
+代码如下：
+
+```js
+var maxProfit = function (prices) {
+    const n = prices.length;
+    let buy1 = -prices[0], buy2 = -prices[0], sell1 = 0, sell2 = 0;
+    for (let i = 0; i < n; i++) {
+        buy1 = Math.max(buy1, -prices[i])
+        sell1 = Math.max(sell1, buy1 + prices[i])
+        buy2 = Math.max(buy2, sell1 - prices[i])
+        sell2 = Math.max(sell2, buy2 + prices[i])
+    }
+    return sell2;
 };
 ```
 
