@@ -2020,9 +2020,9 @@ $$sell_2(i) = max\{sell_2(i-1), buy_2(i)+prices[i]\}$$
 
 $$
 \begin{cases}
-    buy_1 = max\{buy_1, -prices[i]\}\\
-    sell_1 = max\{sell_1, buy_1+prices[i]\}\\
-    buy_2 = max\{buy_2, sell_1-prices[i]\}\\
+    buy_1 = max\{buy_1, -prices[i]\}\\\\
+    sell_1 = max\{sell_1, buy_1+prices[i]\}\\\\
+    buy_2 = max\{buy_2, sell_1-prices[i]\}\\\\
     sell_2 = max\{sell_2, buy_2+prices[i]\}
 \end{cases}
 $$
