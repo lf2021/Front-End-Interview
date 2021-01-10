@@ -78,6 +78,7 @@
   - [215. 数组中的第K个最大元素](#215-数组中的第k个最大元素)
   - [217. 存在重复元素](#217-存在重复元素)
   - [222. 完全二叉树的节点个数](#222-完全二叉树的节点个数)
+  - [228. 汇总区间](#228-汇总区间)
   - [234. 回文链表](#234-回文链表)
   - [239. 滑动窗口最大值](#239-滑动窗口最大值)
     - [方法1： 暴力法](#方法1-暴力法)
@@ -2850,6 +2851,42 @@ var containsDuplicate = function(nums) {
 var countNodes = function(root) {
     if (!root) return 0;
     return 1 + countNodes(root.left) + countNodes(root.right)
+};
+```
+
+## 228. [汇总区间](https://leetcode-cn.com/problems/summary-ranges/)
+
+```txt
+题解
+
+一次遍历即可，遍历 nums[i]，判断 nums[i+1] 是不是比 nums[i] 大 1:
+
+    如果是说明形成一个区间，继续往后找，知道找一个数 nums[j] 不满足条件，这个时候 [i, j] 区间内的数就是一个区间，区间就是 nums[i] -> nums[j]]
+
+    如果不是就说明这个数就是一个区间 nums[i]
+```
+
+- 时间复杂度：O($n$)，n 是 nums 的长度。
+- 空间复杂度：O(1)，除了用于输出的空间外，额外使用的空间为常数。
+
+```js
+var summaryRanges = function (nums) {
+    let ret = [];
+    const n = nums.length;
+    for (let i = 0; i < n;) {
+        let j = i;
+        if (nums[j] + 1 === nums[j + 1]) {
+            while (nums[j] + 1 === nums[j + 1]) {
+                j++;
+            }
+            ret.push([nums[i], nums[j]].join('->'))
+            i = j + 1;
+        } else {
+            ret.push('' + nums[i])
+            i++;
+        }
+    }
+    return ret
 };
 ```
 
