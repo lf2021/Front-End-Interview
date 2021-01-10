@@ -10,16 +10,14 @@
 
 ## 注意
 
-1. GitHub 由于服务器原因，图片可能显示不了，如需要显示图片，如下两种方法：
+1.GitHub 由于服务器原因，图片可能显示不了，如需要显示图片，如下两种方法：
 
 - clone 项目到本地
 - 搭梯子（VPN）
 
-2. 文档存在一些公式的说明，GitHub 若要支持 mathjax 公式，请安装一下 Chrome 插件来辅助显示：
+2.文档存在一些公式的说明，GitHub 若要支持 mathjax 公式，请安装一下 Chrome 插件来辅助显示：
 
-<center>
-<a href="https://chrome.google.com/webstore/detail/mathjax-plugin-for-github/ioemnmodlmafdkllaclgeombjnmnbima/related?hl=zh-CN">MathJax Plugin for Github</a>
-</center>
+[MathJax Plugin for Github](https://chrome.google.com/webstore/detail/mathjax-plugin-for-github/ioemnmodlmafdkllaclgeombjnmnbima/related?hl=zh-CN)
 
 ---
 
