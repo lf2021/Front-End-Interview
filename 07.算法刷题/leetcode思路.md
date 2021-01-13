@@ -112,6 +112,7 @@
     - [广度优先搜索](#广度优先搜索)
   - [605. 种花问题](#605-种花问题)
   - [649. Dota2 参议院](#649-dota2-参议院)
+  - [684. 冗余连接](#684-冗余连接)
   - [714. 买卖股票的最佳时机含手续费](#714-买卖股票的最佳时机含手续费)
   - [738. 单调递增的数字](#738-单调递增的数字)
   - [746. 使用最小花费爬楼梯](#746-使用最小花费爬楼梯)
@@ -3956,6 +3957,52 @@ var predictPartyVictory = function (senate) {
     }
     return radiant.length ? "Radiant" : "Dire";
 };
+```
+
+## 684. [冗余连接](https://leetcode-cn.com/problems/redundant-connection/)
+
+```txt
+并查集
+
+在一棵树中，边的数量比节点的数量少 1。如果一棵树有 N 个节点，则这棵树有 N−1 条边。这道题中的图在树的基础上多了一条附加的边，因此边的数量也是 N。
+
+树是一个连通且无环的无向图，在树中多了一条附加的边之后就会出现环，因此附加的边即为导致环出现的边。
+
+可以通过并查集寻找附加的边。初始时，每个节点都属于不同的连通分量。遍历每一条边，判断这条边连接的两个顶点是否属于相同的连通分量。
+
+    • 如果两个顶点属于不同的连通分量，则说明在遍历到当前的边之前，这两个顶点之间不连通，因此当前的边不会导致环出现，合并这两个顶点的连通分量。
+
+    • 如果两个顶点属于相同的连通分量，则说明在遍历到当前的边之前，这两个顶点之间已经连通，因此当前的边导致环出现，为附加的边，将当前的边作为答案返回。
+```
+
+- 时间复杂度：O(NlogN)，其中 N 是图中的节点个数。
+- 空间复杂度：O(N)
+
+```js
+var findRedundantConnection = function (edges) {
+    const nodesCount = edges.length;
+    const parent = new Array(nodesCount + 1).fill(0).map((value, index) => index);
+    for (let i = 0; i < nodesCount; i++) {
+        const [node1, node2] = edges[i];
+        if (find(parent, node1) != find(parent, node2)) {
+            union(parent, node1, node2);
+        } else {
+            return edges[i];
+        }
+    }
+    return [0];
+};
+
+const union = (parent, index1, index2) => {
+    parent[find(parent, index1)] = find(parent, index2);
+}
+
+const find = (parent, index) => {
+    if (parent[index] !== index) {
+        parent[index] = find(parent, parent[index]);
+    }
+    return parent[index];
+}
 ```
 
 ## 714. [买卖股票的最佳时机含手续费](https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock-with-transaction-fee/)
