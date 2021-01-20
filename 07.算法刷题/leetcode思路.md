@@ -111,6 +111,7 @@
     - [深度优先搜索](#深度优先搜索)
     - [广度优先搜索](#广度优先搜索)
   - [605. 种花问题](#605-种花问题)
+  - [628. 三个数的最大乘积](#628-三个数的最大乘积)
   - [649. Dota2 参议院](#649-dota2-参议院)
   - [684. 冗余连接](#684-冗余连接)
   - [714. 买卖股票的最佳时机含手续费](#714-买卖股票的最佳时机含手续费)
@@ -3924,6 +3925,31 @@ var canPlaceFlowers = function(flowerbed, n) {
 };
 ```
 
+## 628. [三个数的最大乘积](https://leetcode-cn.com/problems/maximum-product-of-three-numbers/)
+
+```txt
+先把数组按从小到大排个序,发现无非两种情况:
+
+1. 数组是纯负数,类似 [-4, -3, -2, -1]
+    最大乘积就应该是最大的几个数的乘积
+
+2. 数组不是纯负数,
+    可能是纯正数,最大的乘积就是最大的几个数的乘积,类似于 [1, 2, 3, 4]
+    
+    可能是有正有负,那就判断一下最小的两个负数的乘积是不是要比次大的两个正数的乘积大,类似于[-5, -4, 1, 2, 3]
+```
+
+- 时间复杂度:O(nlogn)
+- 空间复杂度:O(logn)
+
+```js
+var maximumProduct = function (nums) {
+    const n = nums.length;
+    nums.sort((a, b) => a - b)
+    return Math.max(nums[0] * nums[1] * nums[n - 1], nums[n - 1] * nums[n - 2] * nums[n - 3])
+};
+```
+
 ## 649. [Dota2 参议院](https://leetcode-cn.com/problems/dota2-senate/)
 
 ```txt
@@ -4680,7 +4706,7 @@ var lastStoneWeight = function(stones) {
 
 我们可以发现 N(i) = N(i-1) * 2 + A[i-1]
 
-但是因为只需要知道 N(i) 是否可以被 5 整除，因而我们可以每一轮只更新 N(i) % 5，结果不会影响，也就是
+但是因为只需要知道 N(i) 是否可以被 5 整除，因而我们可以每一轮只更新 N(i) % 5，结果不会影响，即
 
 N(i) = (N(i-1) * 2 + A[i-1]) % 5
 ```
