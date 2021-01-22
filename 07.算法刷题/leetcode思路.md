@@ -131,6 +131,7 @@
   - [973. 最接近原点的 K 个点](#973-最接近原点的-k-个点)
   - [976. 三角形的最大周长](#976-三角形的最大周长)
   - [977. 有序数组的平方](#977-有序数组的平方)
+  - [989. 数组形式的整数加法](#989-数组形式的整数加法)
   - [1002. 查找常用字符](#1002-查找常用字符)
   - [1024. 视频拼接](#1024-视频拼接)
   - [1030. 距离顺序排列矩阵单元格](#1030-距离顺序排列矩阵单元格)
@@ -4587,6 +4588,64 @@ var sortedSquares = function(A) {
         }
     }
     return res;
+};
+```
+
+## 989. [数组形式的整数加法](https://leetcode-cn.com/problems/add-to-array-form-of-integer/)
+
+```txt
+把 K 也变成一个数组，两个数组从后往前加
+
+或者不用将 K 变成数组，直接每次取余数就行
+```
+
+- 时间复杂度：O($max\{m,n\}$)，其中 m 是数组 A 的长度，n 是数字 K 的长度
+- 空间复杂度：O($max\{m,n\}$)。
+
+```js
+var addToArrayForm = function(A, K) {
+    let kArray = (''+ K).split('').map(Number); // K 转换成数组
+    let ret = [];
+    let isAdded = 0; // 用来表示进位
+    while(kArray.length || A.length) {
+        let n1 = A.pop() || 0;
+        let n2 = kArray.pop() || 0
+        let n = n1 + n2 + isAdded;
+        ret.unshift(n % 10);
+        isAdded = n >= 10 ? 1 : 0
+    }
+    if (kArray.length) {
+        kArray[kArray.length - 1] += isAdded // kArray 数组有剩余，并且需要对最后一位进行判断是不是需要加 1
+        return kArray.concat(ret)
+    }
+    if (A.length) {
+        A[A.length - 1] += isAdded // A 数组有剩余，并且需要对最后一位进行判断是不是需要加 1
+        return A.concat(ret)
+    }
+    if (isAdded) { // 两者都没有剩余 但是有进位，类似 821 + 325
+        ret.unshift(1)
+    }
+    return ret
+};
+
+// 每轮遍历的时候让 K 对 10 取余数
+var addToArrayForm = function (A, K) {
+    let ret = [];
+    const n = A.length;
+    for (let i = n - 1; i >= 0; --i) {
+        let sum = A[i] + K % 10;
+        K = Math.floor(K / 10);
+        if (sum >= 10) {
+            ret.unshift(sum % 10);
+            K++;
+        } else {
+            ret.unshift(sum)
+        }
+    }
+    for (; K > 0; K = Math.floor(K / 10)) {
+        ret.unshift(K % 10)
+    }
+    return ret
 };
 ```
 
