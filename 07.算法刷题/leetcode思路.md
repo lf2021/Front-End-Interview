@@ -113,6 +113,9 @@
   - [605. 种花问题](#605-种花问题)
   - [628. 三个数的最大乘积](#628-三个数的最大乘积)
   - [649. Dota2 参议院](#649-dota2-参议院)
+  - [674. 最长连续递增序列](#674-最长连续递增序列)
+    - [方法1：动态规划](#方法1动态规划)
+    - [方法2：贪心](#方法2贪心)
   - [684. 冗余连接](#684-冗余连接)
   - [714. 买卖股票的最佳时机含手续费](#714-买卖股票的最佳时机含手续费)
   - [738. 单调递增的数字](#738-单调递增的数字)
@@ -3984,6 +3987,64 @@ var predictPartyVictory = function (senate) {
         dire.shift();
     }
     return radiant.length ? "Radiant" : "Dire";
+};
+```
+
+## 674. [最长连续递增序列](https://leetcode-cn.com/problems/longest-continuous-increasing-subsequence/)
+
+### 方法1：动态规划
+
+```txt
+dp矩阵的定义
+    dp[i] 定义为以 nums[i] 结尾的连续递增子序列的最大长度
+
+转移方程很好理解，dp[i-1] --> dp[i]
+    如果 nums[i] > nums[i-1]，那么 dp[i] = dp[i-1] + 1，也就是与前面的组成连续递增子序列
+    否则的话，nums[i] 自成一组连续递增子序列，即 dp[i] = 1
+```
+
+- 时间复杂度：O(n)，其中 n 是数组 nums 的长度。
+- 空间复杂度：O(n)
+
+```js
+var findLengthOfLCIS = function(nums) {
+    if (!nums.length) return 0;
+    const n = nums.length;
+    let dp = Array(n).fill(1);
+    for (let i=1; i<n; i++) {
+        if (nums[i] > nums[i-1]) {
+            dp[i] = dp[i-1] + 1;
+        }
+    }
+    return Math.max(...dp)
+};
+```
+
+### 方法2：贪心
+
+```txt
+用一个 start 指针记录连续递增子序列的头部位置，初始时 start = 0，然后遍历数组进行如下操作：
+
+    1. 如果下标 nums[i] ≤ nums[i−1]，则说明当前元素小于或等于上一个元素，因此 nums[i−1] 和 nums[i] 不可能属于同一个连续递增序列，
+    必须从下标 i 处开始一个新的连续递增序列，因此令 start=i。如果下标 i=0 或 nums[i] > nums[i−1]，则不更新 start 的值。
+
+    2.此时下标范围 [start,i] 的连续子序列是递增序列，其长度为 i−start+1，使用当前连续递增序列的长度更新最长连续递增序列的长度。
+```
+
+- 时间复杂度：O(n)，其中 n 是数组 nums 的长度。
+- 空间复杂度：O(1)
+
+```js
+var findLengthOfLCIS = function(nums) {
+    let start = 0;
+    let ret = 0;
+    for (let i=0; i<nums.length; i++) {
+        if (i > 0 && nums[i] <= nums[i-1]) {
+            start = i;
+        }
+        ret = Math.max(ret, i - start + 1)
+    }
+    return ret
 };
 ```
 
