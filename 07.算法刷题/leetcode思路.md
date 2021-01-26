@@ -141,6 +141,9 @@
   - [1046. 最后一块石头的重量](#1046-最后一块石头的重量)
   - [1018. 可被 5 整除的二进制前缀](#1018-可被-5-整除的二进制前缀)
   - [1122. 数组的相对排序](#1122-数组的相对排序)
+  - [1128. 等价多米诺骨牌对的数量](#1128-等价多米诺骨牌对的数量)
+    - [方法1：排序 + 哈希map + 计数](#方法1排序--哈希map--计数)
+    - [方法2：二元组表示 + 计数](#方法2二元组表示--计数)
   - [1207. 独一无二的出现次数](#1207-独一无二的出现次数)
   - [1356. 根据数字二进制下 1 的数目排序](#1356-根据数字二进制下-1-的数目排序)
   - [1365. 有多少小于当前数字的数字](#1365-有多少小于当前数字的数字)
@@ -4878,6 +4881,63 @@ var relativeSortArray = function (arr1, arr2) {
             return b
         }
     })
+};
+```
+
+## 1128. [等价多米诺骨牌对的数量](https://leetcode-cn.com/problems/number-of-equivalent-domino-pairs/)
+
+### 方法1：排序 + 哈希map + 计数
+
+```txt
+将 dominoes 数组中每一项按从小到大排个序变为字符串，然后哈希表记录下出每个字符串出现的次数，最后遍历哈希表即可得
+```
+
+- 时间复杂度：O(n)，n 是数组的长度。
+- 空间复杂度：O(n)
+
+```js
+var numEquivDominoPairs = function(dominoes) {
+    dominoes = dominoes.map(e => e[0] < e[1] ? '' + e[0] + e[1] : '' + e[1] + e[0]);
+    let map = new Map();
+    for (let dominoe of dominoes) {
+        if (map.has(dominoe)) {
+            map.set(dominoe, map.get(dominoe) + 1)
+        } else {
+            map.set(dominoe, 1)
+        }
+    }
+    let ret = 0;
+    map.forEach(value => {
+        ret += value * (value - 1) / 2
+    })
+    return ret
+};
+```
+
+### 方法2：二元组表示 + 计数
+
+```txt
+首先我们直接让每一个二元对都变为指定的格式，即第一维必须不大于第二维。这样两个二元对「等价」当且仅当两个二元对完全相同。
+
+其次注意到二元对中的元素均不大于 9，因此我们可以将每一个二元对拼接成一个两位的正整数，即 (x,y) -> 10x+y。
+这样就无需使用哈希表统计元素数量，而直接使用长度为 100 的数组即可。
+```
+
+- 时间复杂度：O(n)，n 是数组的长度。
+- 空间复杂度：O(1)
+
+```js
+var numEquivDominoPairs = function (dominoes) {
+    let arr = Array(100).fill(0);
+    let ret = 0;
+    for (const ele of dominoes) {
+        let val = ele[0] > ele[1] ? 10 * ele[1] + ele[0] : 10 * ele[0] + ele[1];
+        arr[val]++;
+    }
+    for (const n of arr) {
+        ret += n * (n - 1) / 2
+    }
+    return ret
 };
 ```
 
