@@ -118,6 +118,7 @@
     - [方法2：贪心](#方法2贪心)
   - [684. 冗余连接](#684-冗余连接)
   - [714. 买卖股票的最佳时机含手续费](#714-买卖股票的最佳时机含手续费)
+  - [724. 寻找数组的中心索引](#724-寻找数组的中心索引)
   - [738. 单调递增的数字](#738-单调递增的数字)
   - [746. 使用最小花费爬楼梯](#746-使用最小花费爬楼梯)
   - [763. 划分字母区间](#763-划分字母区间)
@@ -4142,6 +4143,31 @@ var maxProfit = function(prices, fee) {
         dp_i_1 = Math.max(dp_i_1, dp_i_0 - prices[i])
     }
     return dp_i_0
+};
+```
+
+## 724. [寻找数组的中心索引](https://leetcode-cn.com/problems/find-pivot-index/)
+
+```txt
+前缀和的方法
+
+计算所有数字的和为 total，记录左侧元素的和 sum，每次判断 2 * sum 加上当前元素是不是等于所有元素的和 total
+```
+
+- 时间复杂度：O(n)，n 为数组 nums 的长度。
+- 空间复杂度：O(1)
+
+```js
+var pivotIndex = function (nums) {
+    const total = nums.reduce((t, v) => t + v, 0);
+    let sum = 0;
+    for (let i = 0; i < nums.length; i++) {
+        if (2 * sum + nums[i] === total) {
+            return i
+        }
+        sum += nums[i]
+    }
+    return -1;
 };
 ```
 
