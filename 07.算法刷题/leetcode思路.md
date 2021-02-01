@@ -129,6 +129,7 @@
   - [860. 柠檬水找零](#860-柠檬水找零)
   - [861. 翻转矩阵后的得分](#861-翻转矩阵后的得分)
   - [876. 链表的中间结点](#876-链表的中间结点)
+  - [888. 公平的糖果棒交换](#888-公平的糖果棒交换)
   - [922. 按奇偶排序数组 II](#922-按奇偶排序数组-ii)
   - [925. 长按键入](#925-长按键入)
   - [941. 有效的山脉数组](#941-有效的山脉数组)
@@ -4537,6 +4538,49 @@ var middleNode = function(head) {
         fast = fast.next.next;
     }
     return slow;
+};
+```
+
+## 888. [公平的糖果棒交换](https://leetcode-cn.com/problems/fair-candy-swap/)
+
+思路：哈希表
+
+---
+
+这是一个纯数学问题，我们来把它数学化：
+
+假设我们最后得结果是 $[a, b]$，也就是 $a$ 是 $A$ 要交换得，$b$ 是 $B$ 要交换的
+
+我们可以计算分别得到 $A$ 和 $B$ 的和为 $aSum$ 和 $bSum$，那我们会有如下关系：
+
+$$aSum - a + b = bSum - b + a$$
+
+转化一下可以得到：
+
+$$a = b + \frac{aSum - bSum}{2}$$
+
+其实问题就是：对于 $B$ 中的任一数 $b$，在 $A$ 中存在一个数 $a$，满足上述关系式。
+
+---
+
+- 时间复杂度：$O(n+m)$，$n$ 和 $m$ 分别为 $A$ 和 $B$ 的长度。
+- 空间复杂度：$O(n)$。
+
+```js
+var fairCandySwap = function (A, B) {
+    let aSum = A.reduce((preValue, curValue) => preValue + curValue);
+    let bSum = B.reduce((preValue, curValue) => preValue + curValue);
+    let diff = (aSum - bSum) / 2;
+    const set = new Set(A);
+    let res = [];
+    for (const y of B) {
+        let x = y + diff;
+        if (set.has(x)) {
+            res = [x, y]
+            break
+        }
+    }
+    return res
 };
 ```
 
