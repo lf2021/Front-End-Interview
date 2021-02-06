@@ -150,6 +150,7 @@
   - [1356. 根据数字二进制下 1 的数目排序](#1356-根据数字二进制下-1-的数目排序)
   - [1365. 有多少小于当前数字的数字](#1365-有多少小于当前数字的数字)
   - [1370. 上升下降字符串](#1370-上升下降字符串)
+  - [1423. 可获得的最大点数](#1423-可获得的最大点数)
 
 ## 面试题 02.01. [移除重复节点](https://leetcode-cn.com/problems/remove-duplicate-node-lcci/)
 
@@ -5134,5 +5135,41 @@ var sortString = function (s) {
         }
     }
     return ans
+};
+```
+
+## 1423. [可获得的最大点数](https://leetcode-cn.com/problems/maximum-points-you-can-obtain-from-cards/)
+
+```txt
+本题我们可以借助滑动窗口
+
+题目要求限制我们只能从开头或结尾拿数字，那么最后剩下的数字一定是连续的，滑动窗口长度为数组的长度减去我们要拿的卡牌数
+
+这样我们可以反向思维，我们找到连续数字和最小的这个滑动窗口即可
+
+滑动窗口的长度:windowSize = cardPoints.length - k
+```
+
+- 时间复杂度：O(n)，其中 n 是数组 cardPoints 的长度。
+- 空间复杂度：O(1)
+
+```js
+var maxScore = function (cardPoints, k) {
+    const n = cardPoints.length;
+    // 所有数字之和
+    let total = cardPoints.reduce((preVal, curVal) => preVal + curVal);
+    let windowSize = n - k;
+    // 算出起始滑动窗口中数字之和
+    let sum = 0;
+    for (let i = 0; i < windowSize; i++) {
+        sum += cardPoints[i]
+    }
+    // 维护一个变量 min 保存滑动窗口中数字之和的最小值
+    let min = sum;
+    for (let j = windowSize; j < n; j++) {
+        sum = sum - cardPoints[j-windowSize] + cardPoints[j];
+        min = Math.min(min, sum)
+    }
+    return total - min
 };
 ```
