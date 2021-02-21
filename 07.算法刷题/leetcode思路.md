@@ -122,6 +122,7 @@
   - [738. 单调递增的数字](#738-单调递增的数字)
   - [746. 使用最小花费爬楼梯](#746-使用最小花费爬楼梯)
   - [763. 划分字母区间](#763-划分字母区间)
+  - [766. 托普利茨矩阵](#766-托普利茨矩阵)
   - [771. 宝石与石头](#771-宝石与石头)
   - [830. 较大分组的位置](#830-较大分组的位置)
   - [844. 比较含退格的字符串](#844-比较含退格的字符串)
@@ -4290,6 +4291,28 @@ var partitionLabels = function(S) {
         }
     }
     return res;
+};
+```
+
+## 766. [托普利茨矩阵](https://leetcode-cn.com/problems/toeplitz-matrix/)
+
+```txt
+只需要在遍历矩阵的时候判断是不是与其左上角的数一样，若不一样，肯定不是托普利茨矩阵。
+```
+
+- 时间复杂度：$O(m*n)$，m 和 n 分别是矩阵的长和宽
+- 空间复杂度：$O(1)$
+
+```js
+var isToeplitzMatrix = function(matrix) {
+    const m = matrix.length;
+    const n = matrix[0].length;
+    for (let i=1; i<m; i++) {
+        for (let j=1; j<n; j++) {
+            if (matrix[i][j] !== matrix[i-1][j-1]) return false
+        }
+    }
+    return true
 };
 ```
 
