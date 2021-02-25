@@ -129,6 +129,7 @@
   - [845. 数组中的最长山脉](#845-数组中的最长山脉)
   - [860. 柠檬水找零](#860-柠檬水找零)
   - [861. 翻转矩阵后的得分](#861-翻转矩阵后的得分)
+  - [867. 转置矩阵](#867-转置矩阵)
   - [876. 链表的中间结点](#876-链表的中间结点)
   - [888. 公平的糖果棒交换](#888-公平的糖果棒交换)
   - [922. 按奇偶排序数组 II](#922-按奇偶排序数组-ii)
@@ -4518,6 +4519,29 @@ var matrixScore = function (A) {
         ans += k * (1 << (n - j - 1))
     }
     return ans
+};
+```
+
+## 867. [转置矩阵](https://leetcode-cn.com/problems/transpose-matrix/)
+
+```txt
+横纵坐标对换位置即可，很简单。
+```
+
+- 时间复杂度：$O(m * n)$，其中 $m$ 为矩阵的行数，$n$ 为矩阵的列数。
+- 空间复杂度：$O(1)$。除了返回值以外，额外使用的空间为常数。
+
+```js
+var transpose = function (matrix) {
+    const row = matrix.length;
+    const col = matrix[0].length;
+    const res = Array(col).fill(0).map(e => Array(row).fill(0));
+    for (let i = 0; i < row; i++) {
+        for (let j = 0; j < col; j++) {
+            res[j][i] = matrix[i][j]
+        }
+    }
+    return res
 };
 ```
 
