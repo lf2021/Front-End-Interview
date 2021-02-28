@@ -132,6 +132,7 @@
   - [867. 转置矩阵](#867-转置矩阵)
   - [876. 链表的中间结点](#876-链表的中间结点)
   - [888. 公平的糖果棒交换](#888-公平的糖果棒交换)
+  - [896. 单调数列](#896-单调数列)
   - [922. 按奇偶排序数组 II](#922-按奇偶排序数组-ii)
   - [925. 长按键入](#925-长按键入)
   - [941. 有效的山脉数组](#941-有效的山脉数组)
@@ -4632,12 +4633,30 @@ var fairCandySwap = function (A, B) {
 };
 ```
 
+## 896. [单调数列](https://leetcode-cn.com/problems/monotonic-array/)
+
+```txt
+两次遍历，一次判断是否递增，一次判断是否递减。
+```
+
+- 时间复杂度：O(N)，其中 N 是数组 A 的长度。
+- 空间复杂度：O(1)。
+
+```js
+var isMonotonic = function(A) {
+    let helper = arr => {
+        return arr.slice(1).every((item, index) => arr[index] <= item) // 递增
+    }
+    return helper(A) || helper(A.reverse())
+};
+```
+
 ## 922. [按奇偶排序数组 II](https://leetcode-cn.com/problems/sort-array-by-parity-ii/)
 
 ```txt
 为数组的偶数下标部分和奇数下标部分分别维护指针 i, j。随后，在每一步中，如果 A[i] 为奇数，则不断地向前移动 j（每次移动两个单位），直到遇见下一个偶数。此时，可以直接将 A[i] 与 A[j] 交换。我们不断进行这样的过程，最终能够将所有的整数放在正确的位置上。
 
-时间复杂度：O(N)，其中 NN 是数组 A 的长度。
+时间复杂度：O(N)，其中 N 是数组 A 的长度。
 空间复杂度：O(1)。
 ```
 
