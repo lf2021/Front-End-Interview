@@ -9,8 +9,6 @@
 
 ## Nav Links
 
-![](https://github.com/halfrost/halfrost/blob/master/icons/github.gif)
-
 - Knowledge Points
 
 |[浏览器](./01.浏览器/浏览器.md)|[数据结构与算法](./02.数据结构与算法/数据结构与算法.md)|[HTML](03.HTML/html.md)|[CSS](./04.CSS/css.md)|[JavaScript](05.JavaScript/js.md)|[Vue](./06.Vue/vue.md)|[Git](./10.git常用指令/git常用指令.md)|
