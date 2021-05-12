@@ -46,3 +46,13 @@
 2. 文档存在一些公式的说明，GitHub 若要支持 mathjax 公式，请安装一下 Chrome 插件来辅助显示：
 
     [MathJax Plugin for Github](https://chrome.google.com/webstore/detail/mathjax-plugin-for-github/ioemnmodlmafdkllaclgeombjnmnbima/related?hl=zh-CN)
+
+## Recruitment
+
+### 内推码：WQ73XKZ
+
+实习投递链接: <https://job.toutiao.com/s/eUn5TwS>
+
+校招投递链接: <https://jobs.toutiao.com/s/eD6pQff>
+
+社招投递链接: <https://job.toutiao.com/s/eUnRvar>
