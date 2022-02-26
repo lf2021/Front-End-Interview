@@ -45,8 +45,6 @@
 
 <div style="box-shadow:2px 2px 5px #333333; padding: 8px; border-radius: 8px; background-color: #eee; margin: 30px 0">
 
-<div style="box-shadow:2px 2px 5px #333333; padding: 8px; border-radius: 8px; background-color: #eee; margin: 30px 0">
-
 ## Language
 
 |English|[中文](./README.md)|
@@ -104,6 +102,8 @@ Welcome to star, don’t get lost.😁😁😁  The content is still being updat
     [MathJax Plugin for Github](https://chrome.google.com/webstore/detail/mathjax-plugin-for-github/ioemnmodlmafdkllaclgeombjnmnbima/related?hl=zh-CN)
 
 </div>
+
+---
 
 <details style="box-shadow:2px 2px 5px #333333; padding: 8px; border-radius: 8px; background-color: #ddd">
 
