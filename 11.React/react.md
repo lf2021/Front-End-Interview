@@ -6,6 +6,9 @@
 https://www.nowcoder.com/discuss/629644?type=all&order=recall&pos=&page=1&ncTraceId=&channel=-1&source_id=search_all_nctrack&gio_id=6F75134E4ACC8F86EF18014BC2C6C0D9-1646828193985
 
 https://www.nowcoder.com/discuss/854671?type=post&order=recall&pos=&page=1&ncTraceId=&channel=-1&source_id=search_post_nctrack&gio_id=6F75134E4ACC8F86EF18014BC2C6C0D9-1646828462902
+
+https://juejin.cn/post/6941546135827775525
+https://juejin.cn/post/6940942549305524238
 ```
 
 ```txt
@@ -15,6 +18,10 @@ https://www.nowcoder.com/discuss/123161?type=post&order=jing&pos=&page=2&ncTrace
 
 https://blog.csdn.net/qq_32534855/article/details/**107484533**
 ```
+
+## 什么是 React
+
+React是一个简单的javascript UI库，用于构建高效、快速的用户界面。它是一个轻量级库，因此很受欢迎。它遵循组件设计模式、声明式编程范式和函数式编程概念，以使前端应用程序更高效。它使用虚拟DOM来有效地操作DOM。它遵循从高阶组件到低阶组件的单向数据流
 
 ## react生命周期(><16.3)
 
@@ -399,9 +406,74 @@ class GrandChild extends Component {
   
  总结：setstate修改其中的部分状态，只是覆盖，不会减少原来的状态；replaceState 是完全替换原来的状态，相当于赋值，将原来的 state 替换为另一个对象，如果新状态属性减少，那么 state 中就没有这个状态了。
 
-## 如何理解hooks、为什么要用hooks
+## 如何理解hooks、为什么要用hooks，解决了哪些问题
 
-官
+- 官方：Hook 是 React 16.8 的新增特性。它可以让你在不编写 class 的情况下使用 state 以及其他的 React 特性。
+- 解决了哪些问题?
+  >
+  >(1)在组件之间复用状态逻辑很难:过去常见的解决方案是高阶组件、render props 及状态管理框架
+  > React 没有提供将可复用性行为“附加”到组件的途径（例如，把组件连接到 store）。如果你使用过 React 一段时间，你也许会熟悉一些解决此类问题的方案，比如 render props 和 高阶组件。但是这类方案需要重新组织你的组件结构，这可能会很麻烦，使你的代码难以理解。如果你在 React DevTools 中观察过 React 应用，你会发现由 providers，consumers，高阶组件，render props 等其他抽象层组成的组件会形成“嵌套地狱”。尽管我们可以在 DevTools 过滤掉它们，但这说明了一个更深层次的问题：React 需要为共享状态逻辑提供更好的原生途径。
+  >你可以使用 Hook 从组件中提取状态逻辑，使得这些逻辑可以单独测试并复用。Hook 使你在无需修改组件结构的情况下复用状态逻辑。 这使得在组件间或社区内共享 Hook 变得更便捷
+  >(2)复杂组件变得难以理解:生命周期函数与业务逻辑耦合太深，导致关联部分难以拆分。
+    >我们经常维护一些组件，组件起初很简单，但是逐渐会被状态逻辑和副作用充斥。每个生命周期常常包含一些不相关的逻辑。例如，组件常常在 componentDidMount 和 componentDidUpdate 中获取数据。但是，同一个 componentDidMount 中可能也包含很多其它的逻辑，如设置事件监听，而之后需在 componentWillUnmount 中清除。相互关联且需要对照修改的代码被进行了拆分，而完全不相关的代码却在同一个方法中组合在一起。如此很容易产生 bug，并且导致逻辑不一致。
+    >在多数情况下，不可能将组件拆分为更小的粒度，因为状态逻辑无处不在。这也给测试带来了一定挑战。同时，这也是很多人将 React 与状态管理库结合使用的原因之一。但是，这往往会引入了很多抽象概念，需要你在不同的文件之间来回切换，使得复用变得更加困难。
+    >为了解决这个问题，Hook 将组件中相互关联的部分拆分成更小的函数（比如设置订阅或请求数据），而并非强制按照生命周期划分。你还可以使用 reducer 来管理组件的内部状态，使其更加可预测。
+  >(3)难以理解的 class:常见的有 this 的问题，但在 React 团队中还有类难以优化的问题，希望在编译优化层面做出一些改进.
+    >除了代码复用和代码管理会遇到困难外，我们还发现 class 是学习 React 的一大屏障。你必须去理解 JavaScript 中 this 的工作方式，这与其他语言存在巨大差异。还不能忘记绑定事件处理器。没有稳定的语法提案，这些代码非常冗余。大家可以很好地理解 props，state 和自顶向下的数据流，但对 class 却一筹莫展。即便在有经验的 React 开发者之间，对于函数组件与 class 组件的差异也存在分歧，甚至还要区分两种组件的使用场景。
+
+    总的来说：
+    实际上就是类组件在多年的应用实践中，发现了很多无法避免问题而又难以解决，而相对类组件，函数组件又太过于简陋，比如，类组件可以访问生命周期方法，函数组件不能；类组件中可以定义并维护 state（状态），而函数组件不可以；类组件中可以获取到实例化后的 this，并基于这个 this 做各种各样的事情，而函数组件不可以；
+    但是，函数式编程方式在JS中确实比 Class 的面向对象方式更加友好直观，那么只要能够将函数的组件能力补齐，也就解决了上面的问题，而如果直接修改函数组件的能力，势必会造成更大的成本，最好的方式就是开放对应接口进行调用，非侵入式引入组件能力，也就是我们现在看到的 Hooks 了；
+
+## hooks使用限制是什么?
+
+  (1)不可以在循环、条件或者嵌套函数中调用hook
+  (2)在react函数组件中调用hook
+
+ why?
+ 为了解决以上是那个问题，所以hooks是基于函数组件设计的，所以只支持函数组件。
+ React需要利用调用顺序来正确更新相应的状态，以及调用相应的钩子函数。一旦在循环或条件分支语句中调用Hook，就容易导致调用顺序的不一致性，导致错误。
+
+## React Hooks 和生命周期的关系？
+
+- 函数组件 的本质是函数，没有 state 的概念的，因此不存在生命周期一说，仅仅是一个 render 函数而已。
+- 引入Hooks之后的函数组件，让组件在不使用 class 的情况下拥有 state，也就有了生命周期的概念，所谓的生命周期其实就是 useState、 useEffect() 和 useLayoutEffect()
+- 总结：Hooks 组件（使用了Hooks的函数组件）有生命周期，而函数组件（未使用Hooks的函数组件）是没有生命周期的。
+  
+  具体的class组件与hooks组件生命周期的对应关系：
+  (1): constructor -->> useState(0), useState 来初始化 state
+  (2): shouldComponentUpdate -->> React.memo 包裹一个组件来对它的 props 进行浅比较，其中，React.memo 等效于 PureComponent，它只浅比较 props。这里也可以使用 useMemo 优化每一个节点。
+  (3): componentDidMount, componentDidUpdate -->> useEffect
+  (4): render：这是函数组件体本身
+  (5): componentWillUnmount：相当于 useEffect里面返回的 cleanup 函数
+  (6): componentDidCatch and getDerivedStateFromError：目前还没有这些方法的 Hook 等价写法
+
+  ```json
+  // componentDidMount
+  useEffect(() => {
+  // 需要在componentDidMount执行内容
+  }, [])
+
+  // componentDidMount,仅在 count 更改时更新
+  useEffect(() => {
+    document.title = `You clicked ${count} times`;
+  }, [count])
+
+  // componentDidMount/componentWillUnmount
+  useEffect(()=>{
+  // 需要在 componentDidMount 执行的内容
+  return function cleanup() {
+    // 需要在 componentWillUnmount 执行的内容      
+  }
+  }, [])
+
+  ```
+
+## useEffect 与 useLayoutEffect 的区别
+
+同：useEffect 与 useLayoutEffect 两者都是用于处理副作用；使用方式也完全相同
+不同：useEffect在React渲染过程中是被异步调用的，用于绝大多数场景
+     useLayoutEffect会在所有的DOM变更之后同步调用，需要避免在 useLayoutEffect 做计算量较大的耗时任务从而造成阻塞。
 
 ## fiber架构的理解
 
@@ -425,6 +497,7 @@ JS脚本执行 -----  样式布局 ----- 样式绘制
 - React.memo来实现，缓存组件的渲染，避免不必要的更新
 - 使用usememo或者usecallback缓存变量或者函数
 - 使用suspense(react16.6新增组件)或者lazy进行组件的懒加载，suspense可以在组件请求数据时展示一个pending状态。请求成功后渲染数据。
+- 在显示列表或表格时始终使用 Keys，这会让 React 的更新速度更快
 
 ```json
 import React, { Suspense } from 'react';
@@ -464,17 +537,22 @@ https://juejin.cn/post/6844903502729183239
 - 为什么要有这个？
   如果DOM上绑定了过多的事件处理函数，整个页面响应以及内存占用可能都会受到影响。React为了避免这类DOM事件滥用，同时屏蔽底层不同浏览器之间的事件系统差异，实现了一个中间层——SyntheticEvent。
 
-## react路由
-
-变的
-
 ## 如何解决react层级嵌套过深的问题
 
-- 0
+- 使用context API,提供了一种组件之间的状态共享，而不必通过显式组件树逐层传递props
+- 使用一些状态管理库，redux, dva等。
 
 ## react框架是mvvm框架还是mvc框架
 
--吧
+- MVVM --->>>  model层(模型层，主要负责处理业务数据)；view层(视图层，主要负责视图显示)；VM(ViewModel, V与M之间的桥梁，负责监听M或者V的修改);典型的特征：数据双向绑定，
+  也就是当M层数据进行修改时，VM层会监测到变化，并且通知V层进行相应的修改，反之修改V层则会通知M层数据进行修改，以此也实现了视图与模型层的相互绑定。(vue)
+- MVC --->>> M(model 数据模型层 ) V（view 视图层 ） C（controller 控制层 ）
+  主要实现通过控制层监听model的变化，数据变化后通过controller 控制层 来实现view层的渲染。(react)
+
+```txt
+React是一个单向数据流的库，状态驱动视图。
+State --> View --> New State --> New View
+```
 
 ## React.Component 和 React.PureComponent 的区别
 
@@ -499,14 +577,233 @@ https://juejin.cn/post/6844903502729183239
   (5)从未来发展来看，由于生命周期带来的复杂度，并不易于优化；而函数组件本身轻量简单，更能适应 React 的未来发展。
 
 ## 有受控组件和不受控组件的理解
+
+- 受控组件
+官方定义：在 HTML 中，表单元素（如`<input>`、 `<textarea>` 和 `<select>`）通常自己维护 state，并根据用户输入进行更新。而在 React 中，可变状态（mutable state）通常保存在组件的 state 属性中，并且只能通过使用 setState()来更新。
+
+受控组件更新state的流程：
+
+- 可以通过初始state中设置表单的默认值
+- 每当表单的值发生变化时，调用onChange事件处理器
+- 事件处理器通过事件对象e拿到改变后的状态，并更新组件的state
+- 一旦通过setState方法更新state，就会触发视图的重新渲染，完成表单组件的更新
+
+```html
+class NameFrom extends React.Component {
+  constroctor(props){
+    super(props);
+    this.state = {
+      value: ''
+    }
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+
+    handleChange(e) {
+      this.setSate({
+        value: e.target.value
+      })
+    }
+    handleSubmit(event) {
+    alert('提交的名字: ' + this.state.value);
+    event.preventDefault();
+  }
+
+  render(){
+    return(){
+      <form onSubmit={this.handleSubmit}>
+        <label>
+          名字：
+          <input type='text' value={this.state.value} onChange={this.handleChange}>
+        </label>
+      </form>
+    }
+  }
+  }
+}
+```
   
+- 非受控组件
+  官方定义：表单数据的处理都由DOM节点处理，要编写一个非受控组件，而不是为每个状态更新都编写数据处理函数，你可以 使用 ref 来从 DOM 节点中获取表单数据。
+
+```html
+class NameFrom extends React.Component {
+  constroctor(props){
+    super(props);
+    this.input = React.createRef();
+    this.handleSubmit = this.handleSubmit.bind(this);
+
+    handleSubmit(event) {
+      alert('A name was submitted: ' + this.input.current.value);
+      event.preventDefault();
+    }
+
+
+  render(){
+    return(){
+      <form onSubmit={this.handleSubmit}>
+        <label>
+          名字：
+          <input type='text' ref={this.input}>
+        </label>
+      </form>
+    }
+  }
+  }
+}
+
+```
+
+总结：当有多个输入框，或者多个这种组件时，如果使用受控组件，需要编写多个事件处理函数，使得代码非常臃肿。
+
 ## 有状态组件和无状态组件的理解、使用场景
 
--吧
+- 有状态组件
+特点：是类组件、有继承、可以使用react的生命周期、可以使用this、内部可以使用state,维护自身状态的变化，可以根据外部组件传入的props和state进行渲染。
+（当一个类组件不需要管理自身状态时，也可称为无状态组件。）
+- 无状态组件
+特点：是类组件或者函数组件、没有this(使用箭头函数事件无需绑定)、组件内部不维护state，只根据外部组件传入的props进行渲染组件，当props改变s时，组件重新渲染。
+优点：组件不需要被实例化，无生命周期，提升性能。 输出（渲染）只取决于输入（属性），无副作用； 简化代码、专注于 render； 视图和数据的解耦分离
+缺点：无法使用 ref；无生命周期方法；无法控制组件的重渲染，因为无法使用shouldComponentUpdate 方法，当组件接受到新的属性时则会重渲染；
+
+使用场景：当一个组件不需要管理自身状态时，也就是无状态组件，应该优先设计为函数组件。比如自定义的 `<Button />`、 `<Input />` 等组件。
+
+## 对React中Fragment的理解，它的使用场景是什么？
+
+- 在React中，组件返回的元素只能有一个根元素。为了不添加多余的DOM节点，我们可以使用Fragment标签来包裹所有的元素，Fragment标签不会渲染出任何元素。
+
+```txt
+官方解释：React 中的一个常见模式是一个组件返回多个元素。Fragments 允许你将子列表分组，而无需向 DOM 添加额外节点
+```
+
+```html
+import React, {Component, Fragment} from 'react'
+render() {
+  return (
+    <React.Fragment>
+      <ChildA />
+      <ChildB />
+      <ChildC />
+    </React.Fragment>
+  )
+  // 也可以写成以下形式
+  render() {
+    return (
+      <>
+        <ChildA />
+        <ChildB />
+        <ChildC />
+      </>
+    );
+  }
+}
+```
+
+## 对React的插槽(Portals)的理解，如何使用，有哪些使用场景
+
+官方定义：提供了一种将子节点渲染到存在于父组件以外的DOM节点的优秀方案。
+Portals 是React 16提供的官方解决方案，使得组件可以脱离父组件层级挂载在DOM树的任何位置。通俗来讲，就是我们 render 一个组件，但这个组件的 DOM 结构并不在本组件内。
+有些元素需要被挂载在更高层级的位置。
+最典型的应用场景：当父组件具有overflow: hidden或者z-index的样式设置时，组件有可能被其他元素遮挡，这时就可以考虑要不要使用Portal使组件的挂载脱离父组件。例如：对话框，模态窗，悬浮卡以及提示框。
+
+```txt
+ReactDOM.createProtal(child, container)
+// 参数child是任何可以渲染的React子元素，例如一个元素，字符串，或者fragment；container是一个dom元素
+```
+
+```json
+render() {
+  // 挂载了一个新的div，并且把子元素渲染其中
+  return (
+    <div>
+      {this.props.children}
+    </div>
+  )
+}
+
+render() {
+  // 并没有创建新的div，只是把子元素渲染到domNode中
+  // domNode 是一个可以在任何位置的有效 DOM 节点。
+  return ReactDOM.createPortal(
+    this.props.children,
+    domNode
+  )
+}
+```
 
 ## React声明组件有哪几种方法，有什么不同？
 
--h
+- 函数式定义无状态组件:创建纯展示组件，这种组件只负责根据传入的props来展示,不涉及到state状态的操作,组件不会被实例化，整体渲染性能得到提升，不能访问this对象，不能访问生命周期的方法
+- ES5原生方式React.createClass定义组件:React.createClass会自绑定函数方法，导致不必要的性能开销。
+- ES6形式的extends React.Component定义组件:目前极为推荐的创建有状态组件的方式，最终会取代React.createClass形式；相对于 React.createClass可以更好实现代码复用。
+(1)React.createClass
+
+```html
+import React from 'react';
+const Contact = React.createClass({
+  // (1)定义属性类型：通过proTypes对象和getDefaultProps()方法来设置和获取props, 有关组件props的属性类型及组件默认的属性会作为组件实例的属性来配置
+  propTypes: {
+    name: React.PropTypes.string
+  }
+  getDefaultProps() {
+    return {
+      name: ''
+    };
+  },
+  // (2)通过getInitialState()方法返回一个包含初始值的对象
+  getInitialState(){
+    return {
+      isEditing: false
+    }
+  }
+  // (3)this能够正确的绑定
+  handleClick() {
+    console.log(this);  // React Component instance
+  },
+  render(){
+    return (
+      <div onClick={this.handleClick}></div>
+    )
+  }
+})
+export default Contacts;
+```
+
+(2)React.Component
+
+```html
+import React from 'react';
+class Contact extends React.Component {
+  // (1)定义属性类型：通过设置两个属性propTypes和defaultProps，是作为组件类的属性，不是组件实例的属性，也就是所谓的类的静态属性来配置的
+  static propTypes = {
+    name: React.PropTypes.string
+  }
+  static defaultProps = {
+    name: ''
+  }
+  constructor(props){
+    super(props);
+    // (2)在constructor里通过this.state设置初始状态
+    this.state = {
+      isEditing: false
+    }
+  }
+   // (3)属性并不会自动绑定到 React 类的实例上,需要开发者手动绑定，否则this不能获取当前组件实例对象。
+  handleClick(){
+        console.log(this); // null
+    }
+    handleFocus(){  // manually bind this
+        console.log(this); // React Component Instance
+    }
+    handleBlur: ()=>{  // use arrow function
+        console.log(this); // React Component Instance
+    }
+  render(){
+    return (
+      <div onClick={this.handleClick} onFocus={this.handleFocus.bind(this)} onBlur={this.handleBlur}></div>
+    )
+  }
+}
+```
 
 ## react高阶组件、纯组件、和普通组件有什么区别，适用什么场景
 
@@ -564,6 +861,60 @@ https://juejin.cn/post/6844903502729183239
       );  
     }
   ```
+
+## react路由的实现原理
+
+- 基于hash的路由：通过监听hashchange事件，感知 hash 的变化
+  (1):改变 hash 可以直接通过 location.hash=xxx
+- 基于H5 history路由：
+  (1):改变 url 可以通过 history.pushState 和 resplaceState 等，会将URL压入堆栈，同时能够应用 history.go() 等 API
+  (2):监听 url 的变化可以通过自定义事件触发实现
+
+## 如何配置 React-Router 实现路由切换
+
+- 使用`<Route>` 组件
+  路由匹配是通过比较 `<Route>` 的 path 属性和当前地址的 pathname 来实现的。当一个 `<Route>` 匹配成功时，它将渲染其内容，当它不匹配时就会渲染 null。没有路径的 `<Route>`将始终被匹配
+  
+  ```json
+    // when location = { pathname: '/about' }
+  <Route path='/about' component={About}/> // renders <About/>
+  <Route path='/contact' component={Contact}/> // renders null
+  <Route component={Always}/> // renders <Always/>
+  ```
+
+- 结合使用 `<Switch>` 组件和 `<Route>` 组件
+  `<Switch>` 不是分组 `<Route>` 所必须的，但他通常很有用。 一个 `<Switch>` 会遍历其所有的子 `<Route>`元素，并仅渲染与当前地址匹配的第一个元素。
+  不加`<Switch>`，当 URL 的 path 为 “/login” 时，`<Route path="/" />`和`<Route path="/login" />` 都会被匹配，因此页面会展示 Home 和 Login 两个组件。这时就需要借助 `<Switch>`来做到只显示一个匹配组件：
+  
+   ```json
+    <Switch>
+      <Route exact path="/" component={Home} />
+      <Route path="/about" component={About} />
+      <Route path="/contact" component={Contact} />
+    </Switch>
+
+  ```
+
+- 使用 `<Link>`、 `<NavLink>`、`<Redirect>` 组件
+
+  ```json
+    <Link to="/">Home</Link>  // 应用程序中创建链接
+   // <a href='/'>Home</a>
+   <NavLink to="/react" activeClassName="hurray">
+    React
+   </NavLink>
+
+   <Redirect from='/users/:id' to='/users/profile/:id'/> 
+   // 当请求 /users/:id 被重定向去 '/users/profile/:id'
+   <Redirect to='/users/profile/:id'/> 
+   // 当路由没有被匹配到的时候，则通过Redirect进行跳转
+   // this.props.match.params.id 取得url中的动态路由id部分的值
+  ```
+
+## React中遍历的方法有哪些？
+
+- map, forEach, for...of
+- for...in, Object.entries(obj).map
 
 ## Vue 和 React 数据驱动的区别
 
