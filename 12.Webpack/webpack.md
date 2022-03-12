@@ -23,7 +23,7 @@ https://juejin.cn/post/6844904094281236487
 - (4): plugin: 代码优化，资源管理
 - (5): 模块(modules)：在模块化编程中，开发者将程序分解为功能离散的 chunk，并称之为 模块。
 
-```json
+```html
 
 const path = require("path");
 const webpack = require("webpack");
@@ -283,7 +283,7 @@ webpack-bundle-analyzer 生成 bundle 的模块组成图，显示所占体积
   - 缩小文件搜索范围，使用include和exclude指定或者排除需要loader搜索的路径
   - 缓存Babel 编译过的文件，下次只需要编译更改过的代码文件即可，加快打包时间
 
-  ```json
+  ```html
   module.export = {
     module: {
         rules: {
@@ -303,7 +303,7 @@ webpack-bundle-analyzer 生成 bundle 的模块组成图，显示所占体积
   - resolve.extensions:导入语句没带文件后缀时，webpack 会自动带上后缀后去查找文件是否存在，查询的顺序是按照配置的 resolve.extensions 顺序从前到后查找。所以应该将出现频率高的后缀排在前面
   - resolve.alias:给导入路径取一个别名，能把原导入路径映射成一个新的导入路
 
-  ```json
+  ```html
   const config = {
     resolve: {
         extensions: ['.tsx', '.ts', '.js'],
@@ -324,7 +324,7 @@ webpack-bundle-analyzer 生成 bundle 的模块组成图，显示所占体积
   DllPlugin可以将类库提前打包并引入。在首次构建时将第三方库单独打包到一个文件中（eg: react， antd， moment等库），只有当类库更新版本才有需要重新打包，这种方式可以极大的减少打包类库的次数。同时也将公共代码抽离成单独的文件。
   - 步骤一：单独配置一个webpack.dll.config.js 文件，打包第三方库代码
 
-  ```json
+  ```html
   const webpack = require('webpack');
   const path = require('path');
 
@@ -354,7 +354,7 @@ webpack-bundle-analyzer 生成 bundle 的模块组成图，显示所占体积
 
   - 步骤二：在webpack.config.js中，打包项目代码
   
-  ```json
+  ```html
   const webpack = require('webpack')
   module.exports = function wp(webpackConfig)（{
       webpackConfig.plugins.push(new webpack.DllReferencePlugin({
@@ -370,7 +370,7 @@ webpack-bundle-analyzer 生成 bundle 的模块组成图，显示所占体积
 
   npm run build:dll 运行这个配置文件，dist里会出现vendors_manage.dll.js模块库文件和manifest.json模块映射文件其中vender-menifest.json标明了模块路径和模块ID（由webpack产生）的映射关系。
 
-  ```json
+  ```html
   {
     "name": '_dll_vendors_manage'
     "content": {
@@ -384,7 +384,7 @@ webpack-bundle-analyzer 生成 bundle 的模块组成图，显示所占体积
   (5) happypack多进程编译
   受限于 Node 是单线程运行的，所以 Webpack 在打包的过程中也是单线程的，特别是在执行 Loader 的时候，长时间编译的任务很多，这样就会导致等待的情况。
 
-  ```json
+  ```html
   const webpack = require('webpack')
   const HappyPack = require('happypack');
 

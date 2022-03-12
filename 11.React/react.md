@@ -57,7 +57,7 @@ React是一个简单的javascript UI库，用于构建高效、快速的用户�
 getDerivedStateFromProps代码讲解：
  getDerivedStateFromProps接收到新的 props 或者调用了 setState 和 forceUpdate 时被调用。如当接收到新的属性想修改 state ，就可以使用。
 
-  ```json
+  ```html
     // 当 props.counter 变化时，赋值给 state 
   class App extends React.Component {
     constructor(props) {
@@ -92,7 +92,7 @@ getDerivedStateFromProps代码讲解：
 
 但是这里有个问题，如果想要通过点击实现 state.counter 的增加，但这时会发现值不会发生任何变化，一直保持 props 传进来的值。这是由于在 React 16.4^ 的版本中 setState 和 forceUpdate 也会触发这个生命周期，所以当组件内部 state 变化后，就会重新走这个方法，同时会把 state 值赋值为 props 的值。因此需要多加一个字段来记录之前的 props 值，这样就会解决上述问题。
 
-```json
+```html
   // 这里只列出需要变化的地方
 class App extends React.Component {
   constructor(props) {
@@ -131,7 +131,7 @@ class App extends React.Component {
 getDerivedStateFromProps代码讲解：
 最终确定的render执行之前执行，也就是能保证其获取到的元素状态与didUpdate中获取到的元素状态相同
 
-```json
+```html
 class ScrollingList extends React.Component {
   constructor(props) {
     super(props);
@@ -222,7 +222,7 @@ this.props就是汲取了纯函数的思想。props的不可以变性就保证�
 react为我们提供了PropsTypes以供验证使用，当传入的props传入的数据无效，数据类型不符合时，就会在控制台发出警告信息。避免随着应用越来复杂而出现的问题，并且可以让程序变得易读。
 如果项目汇中使用了TypeScript，那么就可以不用PropTypes来校验，而使用TypeScript定义接口来校验props。
 
-```json
+```html
 import PropTypes from 'prop-types';
 
 class Greeting extends React.Component {
@@ -247,7 +247,7 @@ Greeting.propTypes = {
 - 父组件向子组件通信
   父级通过props向子组件传递需要的信息
 
-  ```json
+  ```html
   const Child = props => {
     return <p>{props.name}</p>
   }
@@ -259,7 +259,7 @@ Greeting.propTypes = {
 - 子组件向父组件通信
   通过props加回调函数的方式
 
-  ```json
+  ```html
   const Child = props => {
     const test = (params) => {
       props.deal(msg)
@@ -284,7 +284,7 @@ Greeting.propTypes = {
   （1）props层层传递，但是如果父级的结构较深，那么需要一层曾的去传递，增加了复杂度，并且，这些props并不是中间组件需要的
   （2）context，相当是一个大容器，可以把要通信的内容放在这个容器中，不管嵌套多深，都可使用。对于跨域多层的全局数据可以使用context实现
 
- ```json
+ ```html
  const BatContext = createContext();
  // 父组件
  class Parent extends Component {
@@ -331,7 +331,7 @@ class GrandChild extends Component {
   - 首先，调用了setState 入口函数，根据入参的不同，将其分发到不同的功能函数中去；
   - enqueueSetState 方法将新的 state 放进组件的状态队列里，并调用 enqueueUpdate 来处理将要更新的实例对象；
   
-    ```json
+    ```html
     ReactComponent.prototype.setState = function (partialState, callback) {
     this.updater.enqueueSetState(this, partialState);
     if (callback) {
@@ -342,7 +342,7 @@ class GrandChild extends Component {
     
     ```
 
-    ```json
+    ```html
     enqueueSetState: function (publicInstance, partialState) {
     // 根据 this 拿到对应的组件实例
     var internalInstance = getInternalInstanceReadyForUpdate(publicInstance, 'setState');
@@ -354,7 +354,7 @@ class GrandChild extends Component {
     }
     ```
 
-    ```json
+    ```html
     function enqueueUpdate(component) {
       // 注意这一句是问题的关键，isBatchingUpdates标识着当前是否处于批量创建/更新组件的阶段,如果没有处于批量创建/更新组件的阶段，则处理update state事务
       if (!batchingStrategy.isBatchingUpdates) {
@@ -373,7 +373,7 @@ class GrandChild extends Component {
 
   那么，batchingStrategy是什么呢？
 
-  ```json
+  ```html
   var ReactDefaultBatchingStrategy = {
     // 用于标记当前是否出于批量更新
     isBatchingUpdates: false,
@@ -397,7 +397,7 @@ class GrandChild extends Component {
   注意两点： 1、如果当前事务正在更新过程中，则使用enqueueUpdate将当前组件放在dirtyComponent里。 2、如果当前不在更新过程的话，则执行更新事务。
 （3）setState和replaceState的区别
 
-  ```json
+  ```html
     setState(object nextState[, function callback])
     // 将要设置的新状态（该状态会和当前的state合并）、回调函数（在setstate设置成功，并且组件重新渲染后调用）
     replaceState(object nextState[, function callback])
@@ -448,7 +448,7 @@ class GrandChild extends Component {
   (5): componentWillUnmount：相当于 useEffect里面返回的 cleanup 函数
   (6): componentDidCatch and getDerivedStateFromError：目前还没有这些方法的 Hook 等价写法
 
-  ```json
+  ```html
   // componentDidMount
   useEffect(() => {
   // 需要在componentDidMount执行内容
@@ -499,7 +499,7 @@ JS脚本执行 -----  样式布局 ----- 样式绘制
 - 使用suspense(react16.6新增组件)或者lazy进行组件的懒加载，suspense可以在组件请求数据时展示一个pending状态。请求成功后渲染数据。
 - 在显示列表或表格时始终使用 Keys，这会让 React 的更新速度更快
 
-```json
+```html
 import React, { Suspense } from 'react';
 
 const OtherComponent = React.lazy(() => import('./OtherComponent'));
@@ -518,11 +518,11 @@ function MyComponent() {
 
 ## react组件中怎么做事件代理？它的原理是什么？SyntheticEvent层（合成事件层)
 
-```json
+```html
 https://juejin.cn/post/6844903502729183239
 ```
 
-```json
+```html
 <div onClick={this.handleClick.bind(this)}>点我</div>
 ```
 
@@ -710,7 +710,7 @@ ReactDOM.createProtal(child, container)
 // 参数child是任何可以渲染的React子元素，例如一个元素，字符串，或者fragment；container是一个dom元素
 ```
 
-```json
+```html
 render() {
   // 挂载了一个新的div，并且把子元素渲染其中
   return (
@@ -826,7 +826,7 @@ class Contact extends React.Component {
 - 怎么用ref
   (1) React.createRef()，创建实例对象，绑定到dom节点（React16的方法）
 
-  ```json
+  ```html
     class Co extends React.Component {
       constructor(props) {
         super(props)
@@ -840,7 +840,7 @@ class Contact extends React.Component {
 
   (2)函数回调 Refs：你会传递一个函数。这个函数中接受 React 组件实例或 HTML DOM 元素作为参数，以使它们能在其他地方被存储和访问。
 
-  ```json
+  ```html
     function CustomTextInput(props) {
   // 这里必须声明 textInput，这样 ref 回调才可以引用它
       let textInput = null;
@@ -875,7 +875,7 @@ class Contact extends React.Component {
 - 使用`<Route>` 组件
   路由匹配是通过比较 `<Route>` 的 path 属性和当前地址的 pathname 来实现的。当一个 `<Route>` 匹配成功时，它将渲染其内容，当它不匹配时就会渲染 null。没有路径的 `<Route>`将始终被匹配
   
-  ```json
+  ```html
     // when location = { pathname: '/about' }
   <Route path='/about' component={About}/> // renders <About/>
   <Route path='/contact' component={Contact}/> // renders null
@@ -886,7 +886,7 @@ class Contact extends React.Component {
   `<Switch>` 不是分组 `<Route>` 所必须的，但他通常很有用。 一个 `<Switch>` 会遍历其所有的子 `<Route>`元素，并仅渲染与当前地址匹配的第一个元素。
   不加`<Switch>`，当 URL 的 path 为 “/login” 时，`<Route path="/" />`和`<Route path="/login" />` 都会被匹配，因此页面会展示 Home 和 Login 两个组件。这时就需要借助 `<Switch>`来做到只显示一个匹配组件：
   
-   ```json
+   ```html
     <Switch>
       <Route exact path="/" component={Home} />
       <Route path="/about" component={About} />
@@ -897,7 +897,7 @@ class Contact extends React.Component {
 
 - 使用 `<Link>`、 `<NavLink>`、`<Redirect>` 组件
 
-  ```json
+  ```html
     <Link to="/">Home</Link>  // 应用程序中创建链接
    // <a href='/'>Home</a>
    <NavLink to="/react" activeClassName="hurray">
