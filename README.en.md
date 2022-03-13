@@ -1,10 +1,10 @@
 # Front-End-Interview
 
-![](https://github.com/halfrost/halfrost/blob/master/icons/header_white_.png)
+![headerImage](https://github.com/halfrost/halfrost/blob/master/icons/header_white_.png)
 
 ## Recruitment ChangeLog
 
-##### Updated by 2022/02/26
+### Updated by 2022/02/26
 
 <details style="box-shadow:2px 2px 5px #333333; padding: 8px; border-radius: 8px; background-color: #f5f5f0">
 <summary style="color: #ff0066;">
