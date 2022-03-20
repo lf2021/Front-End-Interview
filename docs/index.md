@@ -7,8 +7,22 @@
 
 欢迎各位 star 一下，不迷路。😁😁😁 内容还在持续更新中...
 
-| <img alt="Stars" src="https://img.shields.io/github/stars/lf2021/Front-End-Interview?style=flat-square&labelColor=343b41"> | <img alt="Forks" src="https://img.shields.io/github/forks/lf2021/Front-End-Interview?style=flat-square&labelColor=343b41"> | <img alt="Issues" src="https://img.shields.io/github/issues/lf2021/Front-End-Interview?style=flat-square&labelColor=343b41"> | <img alt="Issues" src="https://img.shields.io/github/issues-pr/lf2021/Front-End-Interview?style=flat-square&labelColor=343b41"> |
-| :------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------: |
+<table>
+	<tr>
+		<td>
+			<img alt="Stars" src="https://img.shields.io/github/stars/lf2021/Front-End-Interview?style=flat-square&labelColor=343b41">
+		</td>
+		<td>
+			<img alt="Forks" src="https://img.shields.io/github/forks/lf2021/Front-End-Interview?style=flat-square&labelColor=343b41">
+		</td>
+		<td>
+			<img alt="Issues" src="https://img.shields.io/github/issues/lf2021/Front-End-Interview?style=flat-square&labelColor=343b41">
+		</td>
+		<td>
+			<img alt="Issues" src="https://img.shields.io/github/issues-pr/lf2021/Front-End-Interview?style=flat-square&labelColor=343b41">
+		</td>
+	</tr>
+</table>
 
 ## 导航链接
 
