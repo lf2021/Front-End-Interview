@@ -1,37 +1,132 @@
-## Welcome to GitHub Pages
+# Front-End-Interview
 
-You can use the [editor on GitHub](https://github.com/lf2021/Front-End-Interview/edit/gh-pages/docs/index.md) to maintain and preview the content for your website in Markdown files.
+## 语言
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+| [English](./README.en.md) | 中文 |
+| ------------------------- | ---- |
 
-### Markdown
+欢迎各位 star 一下，不迷路。😁😁😁 内容还在持续更新中...
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+| <img alt="Stars" src="https://img.shields.io/github/stars/lf2021/Front-End-Interview?style=flat-square&labelColor=343b41"> | <img alt="Forks" src="https://img.shields.io/github/forks/lf2021/Front-End-Interview?style=flat-square&labelColor=343b41"> | <img alt="Issues" src="https://img.shields.io/github/issues/lf2021/Front-End-Interview?style=flat-square&labelColor=343b41"> | <img alt="Issues" src="https://img.shields.io/github/issues-pr/lf2021/Front-End-Interview?style=flat-square&labelColor=343b41"> |
+| :------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------: |
 
-```markdown
-Syntax highlighted code block
+## 导航链接
 
-# Header 1
-## Header 2
-### Header 3
+### 知识点
 
-- Bulleted
-- List
+<table>
+	<tr>
+		<td>
+			<a href="./01.浏览器/浏览器.md">浏览器</a>
+		</td>
+		<td>
+			<a href="./02.数据结构与算法/数据结构与算法.md">数据结构与算法</a>
+		</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>
+			<a href="03.HTML/html.md">HTML</a>
+		</td>
+		<td>
+			<a href="./04.CSS/css.md">CSS</a>
+		</td>
+		<td>
+			<a href="05.JavaScript/js.md">JavaScript</a>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<a href="./06.Vue/vue.md">Vue</a>
+		</td>
+		<td>
+			<a href="./11.React/react.md">React</a>
+		</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>
+			<a href="./12.Webpack/webpack.md">Webpack</a>
+		</td>
+		<td>
+			<a href="./10.git常用指令/git常用指令.md">Git</a>
+		</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>
+			<a href="./13.实战篇/VSCode-plugin.md">VSCode Plugin</a>
+		</td>
+		<td></td>
+		<td></td>
+	</tr>
+</table>
 
-1. Numbered
-2. List
+### 代码练习
 
-**Bold** and _Italic_ and `Code` text
+<table>
+	<tr>
+		<td>
+			<a href="./07.算法刷题/牛客网 - 剑指offer.md">牛客剑指offer</a>
+		</td>
+		<td>
+			<a href="./07.算法刷题/leetcode思路.md">Leetcode</a>
+		</td>
+		<td>
+			<a href="./07.算法刷题/牛客网 - 企业笔试题.md">企业笔试题</a>
+		</td>
+		<td>
+			<a href="./08.面试高频手撕代码题/面试高频手撕代码题.md">面试高频手撕代码题</a>
+		</td>
+		<td>
+			<a href="./09.面试复盘/智力题.md">智力题</a>
+		</td>
+	</tr>
+</table>
 
-[Link](url) and ![Image](src)
-```
+### 面试记录
 
-For more details see [Basic writing and formatting syntax](https://docs.github.com/en/github/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax).
+<table>
+	<tr>
+		<td>
+			<a href="./09.面试复盘/Lee的面试记录.md">Lee的面试记录</a>
+		</td>
+		<td>
+			<a href="./09.面试复盘/YJJ的面试记录.md">YJJ的面试记录</a>
+		</td>
+		<td>
+			<a href="./09.面试复盘/Wzt的面试记录.md">WZT的面试记录</a>
+		</td>
+	</tr>
+</table>
 
-### Jekyll Themes
+### 友情链接
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/lf2021/Front-End-Interview/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+<table>
+	<tr>
+		<td>
+			<a href="https://lf2021.github.io/">Lee's blog</a>
+		</td>
+		<td>
+			<a href="https://gitee.com/lee_van">Lee's gitee</a>
+		</td>
+		<td>
+			<a href="https://www.nowcoder.com/profile/549508843">Lee's nowcoder</a>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<a href="https://wzt2023.github.io/">Wzt's blog</a>
+		</td>
+		<td></td>
+		<td></td>
+	</tr>
+</table>
 
-### Support or Contact
+### 内推码：WQ73XKZ
 
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+实习投递链接: <https://job.toutiao.com/s/eUn5TwS>
+
+校招投递链接: <https://jobs.toutiao.com/s/eD6pQff>
+
+社招投递链接: <https://job.toutiao.com/s/eUnRvar>
