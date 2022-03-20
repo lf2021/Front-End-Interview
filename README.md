@@ -4,22 +4,24 @@
 
 ## 招聘日志
 
-### 更新自2022/02/26
+### 更新自 2022/02/26
 
 <details>
 <summary>
 <font color=#ff0066>👉🏻 👉🏻 👉🏻 字节跳动春季校园招聘来了，点击查看详情 👈🏻 👈🏻 👈🏻</font>
 
 [查看内推岗位](https://jobs.toutiao.com/campus/m/invite?referral_code=WQ73XKZ)
+
 </summary>
 
 > 内推码（记得加上，可跟进你的进度，有问题随时联系）
+>
 > <h4 style="color: #ff0066">WQ73XKZ</h4>
 >
 > 面向对象:
 >
-> 1. 暑期实习：2023届应届生 ( <font color= #ff0066>2022.9 - 2023.8</font> 期间毕业 )
-> 2. 全职补录：2022应届生 ( <font color= #ff0066>2021.9-2022.8</font> 期间毕业 )
+> 1. 暑期实习：2023 届应届生 ( <font color= #ff0066>2022.9 - 2023.8</font> 期间毕业 )
+> 2. 全职补录：2022 应届生 ( <font color= #ff0066>2021.9-2022.8</font> 期间毕业 )
 >
 > 职位类别
 >
@@ -27,37 +29,37 @@
 >
 > 网申投递
 >
-> - <font color=#ff0066>2月17日 - 4月30日 16:00</font>
+> - <font color=#ff0066>2 月 17 日 - 4 月 30 日 16:00</font>
 >
 > 笔试
 >
-> - 2月下旬开始
+> - 2 月下旬开始
 >
 > 面试
 >
-> - 2月中下旬开始
+> - 2 月中下旬开始
 >
 > Offer 发放
 >
-> - 2月下旬开始
->
+> - 2 月下旬开始
+
 </details>
 
-<table><tr><td bgcolor=#eee>
+<table><tr><td>
 
 ## 语言
 
-|[English](./README.en.md)|中文|
-|-|-|
+| [English](./README.en.md) | 中文 |
+| ------------------------- | ---- |
 
-欢迎各位star一下，不迷路。😁😁😁  内容还在持续更新中...
+欢迎各位 star 一下，不迷路。😁😁😁 内容还在持续更新中...
 
-<img alt="Stars" src="https://img.shields.io/github/stars/lf2021/Front-End-Interview?style=flat-square&labelColor=343b41">|<img alt="Forks" src="https://img.shields.io/github/forks/lf2021/Front-End-Interview?style=flat-square&labelColor=343b41">|<img alt="Issues" src="https://img.shields.io/github/issues/lf2021/Front-End-Interview?style=flat-square&labelColor=343b41">|<img alt="Issues" src="https://img.shields.io/github/issues-pr/lf2021/Front-End-Interview?style=flat-square&labelColor=343b41">
-|:----:|:----:|:----:|:----:|
+| <img alt="Stars" src="https://img.shields.io/github/stars/lf2021/Front-End-Interview?style=flat-square&labelColor=343b41"> | <img alt="Forks" src="https://img.shields.io/github/forks/lf2021/Front-End-Interview?style=flat-square&labelColor=343b41"> | <img alt="Issues" src="https://img.shields.io/github/issues/lf2021/Front-End-Interview?style=flat-square&labelColor=343b41"> | <img alt="Issues" src="https://img.shields.io/github/issues-pr/lf2021/Front-End-Interview?style=flat-square&labelColor=343b41"> |
+| :------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------: |
 
 </td></tr></table>
 
-<table><tr><td bgcolor=#eee>
+<table><tr><td>
 
 ## 导航链接
 
@@ -102,6 +104,13 @@
 		</td>
 		<td></td>
 	</tr>
+	<tr>
+		<td>
+			<a href="./13.实战篇/VSCode-plugin.md">VSCode Plugin</a>
+		</td>
+		<td></td>
+		<td></td>
+	</tr>
 </table>
 
 - 代码练习
@@ -136,6 +145,9 @@
 		<td>
 			<a href="./09.面试复盘/YJJ的面试记录.md">YJJ的面试记录</a>
 		</td>
+		<td>
+			<a href="./09.面试复盘/Wzt的面试记录.md">WZT的面试记录</a>
+		</td>
 	</tr>
 </table>
 
@@ -144,23 +156,27 @@
 <table>
 	<tr>
 		<td>
-			<a href="https://www.cnblogs.com/muzidaitou">Cnblogs</a>
+			<a href="https://lf2021.github.io/">Lee's blog</a>
 		</td>
 		<td>
-			<a href="https://gitee.com/lee_van">Gitee</a>
+			<a href="https://gitee.com/lee_van">Lee's gitee</a>
 		</td>
 		<td>
-			<a href="https://www.nowcoder.com/profile/549508843">Nowcoder</a>
+			<a href="https://www.nowcoder.com/profile/549508843">Lee's nowcoder</a>
 		</td>
+	</tr>
+	<tr>
 		<td>
-			<a href="https://lf2021.github.io/">Blog</a>
+			<a href="https://wzt2023.github.io/">Wzt's blog</a>
 		</td>
+		<td></td>
+		<td></td>
 	</tr>
 </table>
 
 </td></tr></table>
 
-<table><tr><td bgcolor=#eee>
+<table><tr><td>
 
 ## Note
 
@@ -171,11 +187,11 @@
 
 2. 文档存在一些公式的说明，GitHub 若要支持 mathjax 公式，请安装一下 Chrome 插件来辅助显示：
 
-    [MathJax Plugin for Github](https://chrome.google.com/webstore/detail/mathjax-plugin-for-github/ioemnmodlmafdkllaclgeombjnmnbima/related?hl=zh-CN)
+   [MathJax Plugin for Github](https://chrome.google.com/webstore/detail/mathjax-plugin-for-github/ioemnmodlmafdkllaclgeombjnmnbima/related?hl=zh-CN)
 
 </td></tr></table>
 
-<table><tr><td bgcolor=#ddd>
+<table><tr><td>
 
 <details>
 
