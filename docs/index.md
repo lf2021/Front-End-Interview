@@ -93,7 +93,7 @@
 	</tr>
 </table>
 
-### 面试记录
+<!-- ### 面试记录
 
 <table>
 	<tr>
@@ -107,7 +107,7 @@
 			<a href="https://github.com/lf2021/Front-End-Interview/blob/master/09.面试复盘/Wzt的面试记录.md">WZT的面试记录</a>
 		</td>
 	</tr>
-</table>
+</table> -->
 
 ### 友情链接
 
