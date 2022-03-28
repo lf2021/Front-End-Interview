@@ -131,11 +131,3 @@
 		<td></td>
 	</tr>
 </table>
-
-### 内推码：WQ73XKZ
-
-实习投递链接: <https://job.toutiao.com/s/eUn5TwS>
-
-校招投递链接: <https://jobs.toutiao.com/s/eD6pQff>
-
-社招投递链接: <https://job.toutiao.com/s/eUnRvar>
