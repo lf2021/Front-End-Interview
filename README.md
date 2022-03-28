@@ -2,49 +2,6 @@
 
 ![headerImage](https://github.com/halfrost/halfrost/blob/master/icons/header_white_.png)
 
-## 招聘日志
-
-### 更新自 2022/02/26
-
-<details>
-<summary>
-<font color=#ff0066>👉🏻 👉🏻 👉🏻 字节跳动春季校园招聘来了，点击查看详情 👈🏻 👈🏻 👈🏻</font>
-
-[查看内推岗位](https://jobs.toutiao.com/campus/m/invite?referral_code=WQ73XKZ)
-
-</summary>
-
-> 内推码（记得加上，可跟进你的进度，有问题随时联系）
->
-> <h4 style="color: #ff0066">WQ73XKZ</h4>
->
-> 面向对象:
->
-> 1. 暑期实习：2023 届应届生 ( <font color= #ff0066>2022.9 - 2023.8</font> 期间毕业 )
-> 2. 全职补录：2022 应届生 ( <font color= #ff0066>2021.9-2022.8</font> 期间毕业 )
->
-> 职位类别
->
-> - 研发、产品、运营、销售、职能/支持、设计、市场、游戏策划
->
-> 网申投递
->
-> - <font color=#ff0066>2 月 17 日 - 4 月 30 日 16:00</font>
->
-> 笔试
->
-> - 2 月下旬开始
->
-> 面试
->
-> - 2 月中下旬开始
->
-> Offer 发放
->
-> - 2 月下旬开始
-
-</details>
-
 <table><tr><td>
 
 ## 语言
@@ -188,25 +145,5 @@
 2. 文档存在一些公式的说明，GitHub 若要支持 mathjax 公式，请安装一下 Chrome 插件来辅助显示：
 
    [MathJax Plugin for Github](https://chrome.google.com/webstore/detail/mathjax-plugin-for-github/ioemnmodlmafdkllaclgeombjnmnbima/related?hl=zh-CN)
-
-</td></tr></table>
-
-<table><tr><td>
-
-<details>
-
-<summary style="font-size: 20px">
-招聘一直在路上~~~
-</summary>
-
-### 内推码：WQ73XKZ
-
-实习投递链接: <https://job.toutiao.com/s/eUn5TwS>
-
-校招投递链接: <https://jobs.toutiao.com/s/eD6pQff>
-
-社招投递链接: <https://job.toutiao.com/s/eUnRvar>
-
-</details>
 
 </td></tr></table>
