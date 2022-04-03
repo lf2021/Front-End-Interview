@@ -66,8 +66,12 @@
 		<td>
 			<a href="https://github.com/lf2021/Front-End-Interview/blob/master/13.实战篇/VSCode-plugin.md">VSCode Plugin</a>
 		</td>
-		<td></td>
-		<td></td>
+		<td>
+			<a href="https://github.com/lf2021/Front-End-Interview/blob/master/13.%E5%AE%9E%E6%88%98%E7%AF%87/mac-tips.md">Mac User Tips</a>
+		</td>
+		<td>
+			<a href="https://github.com/lf2021/Front-End-Interview/blob/master/13.%E5%AE%9E%E6%88%98%E7%AF%87/chorme-plugin.md">Chrome Plugin</a>
+		</td>
 	</tr>
 </table>
 
