@@ -103,7 +103,7 @@ div {
 
 先来看一个案例：
 
-> 假设一个 div，宽 400px，高 200px，他有个子 div 的 margin:10%，你来算下他的 margin 的 top, right, bottom, left 是多少？
+> 假设一个 div, 宽 400px, 高 200px, 它有个子 div 的 margin:10%, 你来算下它的 margin 的 top, right, bottom, left 是多少？
 
 ```css
 .outer {
