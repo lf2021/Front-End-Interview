@@ -2,38 +2,39 @@
 
 - [VScode - Plugin](#vscode---plugin)
   - [vscode 配置相关](#vscode-配置相关)
-    - [Chinese (Simplified) (简体中文) Language Pack for Visual Studio Code](#chinese-simplified-简体中文-language-pack-for-visual-studio-code)
-    - [Material Icon Theme](#material-icon-theme)
-    - [One Monokai Theme](#one-monokai-theme)
+    - [Chinese (Simplified) (简体中文) Language Pack for Visual Studio Code 🌟🌟🌟](#chinese-simplified-简体中文-language-pack-for-visual-studio-code-)
+    - [Material Icon Theme 🌟🌟🌟](#material-icon-theme-)
+    - [One Monokai Theme 🌟🌟🌟](#one-monokai-theme-)
   - [Git 相关](#git-相关)
-    - [GitLens](#gitlens)
-    - [Git Graph](#git-graph)
+    - [GitLens 🌟🌟🌟🌟🌟](#gitlens-)
+    - [Git Graph 🌟🌟🌟🌟](#git-graph-)
   - [Markdown 相关](#markdown-相关)
-    - [MarkdownLint](#markdownlint)
-    - [Markdown All in One](#markdown-all-in-one)
+    - [MarkdownLint 🌟🌟🌟](#markdownlint-)
+    - [Markdown All in One 🌟🌟🌟](#markdown-all-in-one-)
   - [开发相关](#开发相关)
-    - [Code Spell Checker (首选)](#code-spell-checker-首选)
-    - [Prettier - Code formatter](#prettier---code-formatter)
-    - [Todo Tree](#todo-tree)
-    - [Path Intellisense](#path-intellisense)
-    - [image preview](#image-preview)
-    - [SVG Viewer](#svg-viewer)
+    - [GitHub Copilot 🌟🌟🌟🌟🌟](#github-copilot-)
+    - [Code Spell Checker (首选) 🌟🌟🌟🌟](#code-spell-checker-首选-)
+    - [Prettier - Code formatter 🌟🌟🌟🌟](#prettier---code-formatter-)
+    - [Todo Tree 🌟🌟🌟🌟](#todo-tree-)
+    - [Path Intellisense 🌟🌟🌟🌟🌟](#path-intellisense-)
+    - [image preview 🌟🌟🌟](#image-preview-)
+    - [SVG Viewer 🌟🌟🌟](#svg-viewer-)
 
 ## vscode 配置相关
 
-### Chinese (Simplified) (简体中文) Language Pack for Visual Studio Code
+### Chinese (Simplified) (简体中文) Language Pack for Visual Studio Code 🌟🌟🌟
 
 [点击安装](https://marketplace.visualstudio.com/items?itemName=MS-CEINTL.vscode-language-pack-zh-hans)
 
 - VScode 默认是英文版，使用此插件可以改成中文版
 
-### Material Icon Theme
+### Material Icon Theme 🌟🌟🌟
 
 [点击安装](https://marketplace.visualstudio.com/items?itemName=PKief.material-icon-theme)
 
 - 定制化你的 vscode 目录主题，丰富的素材图标。
 
-### One Monokai Theme
+### One Monokai Theme 🌟🌟🌟
 
 [点击安装](https://marketplace.visualstudio.com/items?itemName=azemoh.one-monokai)
 
@@ -41,7 +42,7 @@
 
 ## Git 相关
 
-### GitLens
+### GitLens 🌟🌟🌟🌟🌟
 
 [点击安装](https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens)
 
@@ -49,7 +50,7 @@
 
 ![gitlens](../images/gitlens.png)
 
-### Git Graph
+### Git Graph 🌟🌟🌟🌟
 
 [点击安装](https://marketplace.visualstudio.com/items?itemName=mhutchie.git-graph)
 
@@ -59,13 +60,13 @@
 
 ## Markdown 相关
 
-### MarkdownLint
+### MarkdownLint 🌟🌟🌟
 
 [点击安装](https://marketplace.visualstudio.com/items?itemName=DavidAnson.vscode-markdownlint)
 
 - markdown 语法规范检测
 
-### Markdown All in One
+### Markdown All in One 🌟🌟🌟
 
 [点击安装](https://marketplace.visualstudio.com/items?itemName=yzhang.markdown-all-in-one)
 
@@ -75,7 +76,24 @@
 
 ## 开发相关
 
-### Code Spell Checker (首选)
+### GitHub Copilot 🌟🌟🌟🌟🌟
+
+[点击安装](https://marketplace.visualstudio.com/items?itemName=GitHub.copilot)
+
+[申请使用资格](https://copilot.github.com/)
+
+[看看开发者的评价](https://www.zhihu.com/question/470873369)
+
+```txt
+GitHub Copilot 是一个 AI 配对程序员，它会在您键入时建议行完成和整个函数体。
+GitHub Copilot 由 OpenAI Codex AI 系统提供支持，经过公共互联网文本和数十亿行代码的训练。
+
+简单说是一个智能推荐的插件，比如你写备注实现一个求和函数，它会直接推荐给你一个求和函数。
+
+功能十分强大，目前还在 Alpha 测试阶段，需要申请，但是基本都能申请下来，最多就是时间长短的问题。
+```
+
+### Code Spell Checker (首选) 🌟🌟🌟🌟
 
 [点击安装](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker)
 
@@ -83,13 +101,13 @@
 
 > 有助于帮你检测一些低级的拼写错误
 
-### Prettier - Code formatter
+### Prettier - Code formatter 🌟🌟🌟🌟
 
 [点击安装](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
 
 - Prettier 是一个比较通用的代码格式化程序。
 
-### Todo Tree
+### Todo Tree 🌟🌟🌟🌟
 
 [点击安装](https://marketplace.visualstudio.com/items?itemName=Gruntfuggly.todo-tree)
 
@@ -99,19 +117,19 @@
 
 ![todoTree](../images/todotree.png)
 
-### Path Intellisense
+### Path Intellisense 🌟🌟🌟🌟🌟
 
 [点击安装](https://marketplace.visualstudio.com/items?itemName=christian-kohler.path-intellisense)
 
 > 自动补全文件名，路径名
 
-### image preview
+### image preview 🌟🌟🌟
 
 [点击安装](https://marketplace.visualstudio.com/items?itemName=kisstkondoros.vscode-gutter-preview)
 
 > 顾名思义，支持在 hover 的时候预览图片
 
-### SVG Viewer
+### SVG Viewer 🌟🌟🌟
 
 [点击安装](https://marketplace.visualstudio.com/items?itemName=cssho.vscode-svgviewer)
 
