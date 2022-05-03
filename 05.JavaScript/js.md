@@ -5,6 +5,8 @@
   - [js 遍历对象和遍历数组的方式](#js-遍历对象和遍历数组的方式)
     - [遍历对象](#遍历对象)
     - [遍历数组](#遍历数组)
+  - [for...in for...of 区别](#forin-forof-区别)
+  - [map weakMap set weakSet 区别](#map-weakmap-set-weakset-区别)
   - [null 和 undefined 的区别](#null-和-undefined-的区别)
   - [其他值到字符串的转换规则](#其他值到字符串的转换规则)
   - [其他值到数字值的转换规则](#其他值到数字值的转换规则)
@@ -99,7 +101,7 @@ Object.keys(obj).forEach(key => {
 
 - for...in
 
-> 循环遍历对象自身的和继承的可枚举属性(不含 Symbol 属性).
+> 循环遍历对象自身的和原型上继承的可枚举属性(不含 Symbol 属性).
 
 ```js
 let obj = {
@@ -195,6 +197,29 @@ for (let ele of arr) {
 // 1
 // 2
 // 3
+```
+
+## for...in for...of 区别
+
+```js
+- for...in 会遍历对象或者数组的可枚举属性，包括原型，如果不想遍历原型的方法和属性，可以在循环内部判断一下，然后使用 hasOwnProperty()方法判断某属性是否是该对象的属性
+- for...of 会遍历数/数组/字符串/map/set 等拥有迭代器对象（iterator）的集合，但是不能遍历对象，因为对象没有迭代器对象。
+- 总结：for in 遍历的是数组的索引（即键名），而 for of 遍历的是数组元素值；for in 总是得到对象的 key 或数组、字符串的下标；for of 总是得到对象的 value 或数组、字符串的值
+```
+
+## map weakMap set weakSet 区别
+
+```js
+weakMap
+（1）weakMap只接受对象作为键名（null除外），不接受其他类型的值作为键名
+（2）weakMap键名引用的对象是弱引用，即垃圾回收机制不会将该引用考虑在内。但是只要所引用对对象的其他引用都被清除，垃圾回收机制就会释放该对象所占用的内存。也就是，一旦一旦不再需要，WeakMap 里面的键名对象和所对应的键值对会自动消失，不用手动删除引用。
+（3）weakMap不可遍历，WeakMap对键名所引用的对象是弱引用关系，因此WeakMap内部成员是会却决于垃圾回收机制有没有执行，运行前后成员个数很可能是不一样的，而垃圾回收机制的执行又是不可预测的，因此不可遍历
+
+区别
+（1）Map 的键可以是任意类型，WeakMap 只接受对象作为键（null除外），不接受其他类型的值作为键
+（2）Map 的键实际上是跟内存地址绑定的，只要内存地址不一样，就视为两个键； WeakMap 的键是弱引用，键所指向的对象可以被垃圾回收，此时键是无效的
+（3）Map 可以被遍历， WeakMap 不能被遍历
+
 ```
 
 ## null 和 undefined 的区别
@@ -822,16 +847,18 @@ function test() {
 ```js
 普通函数中 this
 
-1.  总是代表着它的直接调用者，如 obj.fn，fn 里的最外层 this 就是指向 obj
-2.  默认情况下，没有直接调用者，this 指向 window
+1.  总是指向它的直接调用者，如 obj.fn，fn 里的最外层 this 就是指向 obj
+2.  默认情况下，没有直接调用者，fn()，匿名函数自调this 指向 window
 3.  严格模式下（设置了'use strict'），this 为 undefined
-4.  当使用 call，apply，bind（ES5 新增）绑定的，this 指向绑定对象
+4.  当使用 call，apply，bind（ES5 新增）绑定的，this 指向绑定对象；
+5.  DOM事件的处理函数中的this指向当前的DOM元素对象，button.onclick=function(){}、button.addEventListener(“click”,function(){…})
+6.  new一个构造函数，this指向new出来的新对象
 ```
 
 ```js
 ES6 箭头函数中 this
 
-1.  默认指向定义它时，所处上下文的对象的 this 指向；
+1.  默认指向定义它时，指向当前箭头函数之外最近的作用域this；
     即 ES6 箭头函数里 this 的指向就是上下文里对象 this 指向，偶尔没有上下文对象，this 就指向 window
 ```
 
@@ -857,7 +884,7 @@ const obj = {
   hello: function () {
     console.log(this); // obj
     setTimeout(function () {
-      console.log(this); // window
+      console.log(this); // 匿名函数中，this指向window
     });
   },
 };
@@ -869,7 +896,7 @@ const obj = {
   hello: function () {
     console.log(this); // obj
     setTimeout(() => {
-      console.log(this); // obj
+      console.log(this); // 箭头函数中， 指向上下文obj
     });
   },
 };

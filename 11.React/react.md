@@ -32,8 +32,11 @@
   - [如何配置 React-Router 实现路由切换](#如何配置-react-router-实现路由切换)
   - [React 中遍历的方法有哪些？](#react-中遍历的方法有哪些)
   - [Vue 和 React 数据驱动的区别](#vue-和-react-数据驱动的区别)
-  - [react 与 vue 的区别、为什么选择 react、优点](#react-与-vue-的区别为什么选择-react优点)
-  - [dispatch](#dispatch)
+  - [react 循环列表为什么要使用 key](#react-循环列表为什么要使用-key)
+  - [hooks APi](#hooks-api)
+  - [react 与 vue 区别](#react-与-vue-区别)
+    - [相同点](#相同点)
+    - [不同点](#不同点)
 
 # React
 
@@ -450,6 +453,57 @@ replaceState(object nextState[, function callback])
 
 setstate 修改其中的部分状态，只是覆盖，不会减少原来的状态；replaceState 是完全替换原来的状态，相当于赋值，将原来的 state 替换为另一个对象，如果新状态属性减少，那么 state 中就没有这个状态了。
 
+```js
+import React from 'react';
+import ReactDOM from 'react-dom';
+class App extends React.Component {
+  state = {
+    count: 0,
+  };
+
+  componentDidMount() {
+    // 生命周期中调用
+    this.setState({ count: this.state.count + 1 });
+    console.log('lifecycle: ' + this.state.count); // 0
+    setTimeout(() => {
+      // setTimeout中调用
+      this.setState({ count: this.state.count + 1 });
+      console.log('setTimeout: ' + this.state.count); // 2
+    }, 0);
+    document.getElementById('div2').addEventListener('click', this.increment2);
+  }
+
+  increment = () => {
+    // 合成事件中调用
+    this.setState({ count: this.state.count + 1 });
+    console.log('react event: ' + this.state.count); //
+  };
+
+  increment2 = () => {
+    // 原生事件中调用
+    this.setState({ count: this.state.count + 1 });
+    console.log('dom event: ' + this.state.count);
+  };
+
+  render() {
+    return (
+      <div className="App">
+        <h2>couont: {this.state.count}</h2>
+        <div id="div1" onClick={this.increment}>
+          click me and count+1
+        </div>
+        <div id="div2">NEW click me and count+1</div>
+      </div>
+    );
+  }
+}
+export default App;
+```
+
+- setTimeout,setInterval,promise 等异步操作中，以及原生事件中调用的话，是可以立马获取到最新的 state 的。根本原因在于，setState 并不是真正意义上的异步操作，它只是模拟了异步的行为。React 中会去维护一个标识（isBatchingUpdates），判断是直接更新还是先暂存 state 进队列。setTimeout 以及原生事件都会直接去更新 state，因此可以立即得到最新 state。
+- 合成事件（像在 jsx 中常见的 onClick、onChange 这些都是合成事件）和 React 生命周期函数中，是受 React 控制的，其会将 isBatchingUpdates 设置为 true，从而走的是类似异步的那一套， 不能直接拿到最新的值。
+- 在“异步”中如果对同一个值进行多次 setState ， setState 的批量更新策略会对其进行覆盖，取最后一次的执行，如果是同时 setState 多个不同的值，在更新时会对其进行合并批量更新。
+
 ## 如何理解 hooks、为什么要用 hooks，解决了哪些问题
 
 - 官方：Hook 是 React 16.8 的新增特性。它可以让你在不编写 class 的情况下使用 state 以及其他的 React 特性。
@@ -596,23 +650,61 @@ function MyComponent() {
 ## react 组件中怎么做事件代理？它的原理是什么？SyntheticEvent 层（合成事件层)
 
 ```html
-https://juejin.cn/post/6844903502729183239
+https://juejin.cn/post/7042197672723218463 https://juejin.cn/post/6844903502729183239
 ```
 
 ```html
 <div onClick="{this.handleClick.bind(this)}">点我</div>
 ```
 
-- React 并不是将 click 事件绑定到了 div 的真实 DOM 上，而是在 document 处监听了所有的事件，当事件发生并且冒泡到 document 处的时候，React 将事件内容封装并交由真正的处理函数运行。这样的方式不仅仅减少了内存的消耗，还能在组件挂在销毁时统一订阅和移除事件。
+- React 中，如果需要绑定事件，我们常常在 jsx 中绑定，并不是将 click 事件绑定到了 div 的真实 DOM 上，所有的事件会被附加到 root(react 17) 或者 document(react 16)上，当 DOM 事件触发时，会向上冒泡到 root(react 17) 或者 document(react 16)，也就是附加事件处理器的地方，事件会得到响应。
+- 优点：不需要担心跨浏览器的兼容问题；对事件的处理，通过事件委托机制冒泡到 root(react 17) 或者 document(react 16) 节点进行触发，减少内存消耗，避免频繁解绑，提高性能；方便事件的同一管理（如事务机制）
+- 合成事件和原生事件的区别：事件命名方式不同。react 事件采用小驼峰(onClick)，不是纯小写（onclick, onblur）；jsx 语法需要传入一个函数作为事件处理函数，而不是一个字符串；不能通过返回 false 来阻止默认行为，必须使用 preventDefault。
+- 冒泡到 document 上的事件也不是原生的浏览器事件，而是由 react 自己实现的合成事件（SyntheticEvent）。因此如果不想要是事件冒泡的话应该调用 event.preventDefault()方法，而不是调用 event.stopProppagation()方法。
+- react 17 为什么将事件绑定到 root: 有利于多个 react 版本并存，例如微前端。同时绑定到 document 上，会导致 react 版本混乱。
 
-- 除此之外，冒泡到 document 上的事件也不是原生的浏览器事件，而是由 react 自己实现的合成事件（SyntheticEvent）。因此如果不想要是事件冒泡的话应该调用 event.preventDefault()方法，而不是调用 event.stopProppagation()方法。
+- 合成事件和原生事件的执行顺序：
 
-- 在 React 底层，主要对合成事件做了：事件委派和自动绑定。
-  事件委派： React 会把所有的事件绑定到结构的最外层，使用统一的事件监听器，这个事件监听器上维持了一个映射来保存所有组件内部事件监听和处理函数。
-  自动绑定： React 组件中，每个方法的上下文都会指向该组件的实例，即自动绑定 this 为当前组件。
+```js
+import './styles.css';
+import React from 'react';
 
-- 为什么要有这个？
-  如果 DOM 上绑定了过多的事件处理函数，整个页面响应以及内存占用可能都会受到影响。React 为了避免这类 DOM 事件滥用，同时屏蔽底层不同浏览器之间的事件系统差异，实现了一个中间层——SyntheticEvent。
+export default function App() {
+  const h1Click = React.useRef(e => {
+    console.log('h1=> click');
+  });
+
+  const documentClick = React.useRef(() => {
+    console.log('document=> click');
+  });
+
+  const rootClick = React.useRef(() => {
+    console.log('#root=> click');
+  });
+
+  React.useEffect(() => {
+    const h1Ref = document.querySelector('h1');
+    const rootRef = document.getElementById('root');
+    document.addEventListener('click', documentClick.current);
+    rootRef.addEventListener('click', rootClick.current);
+    h1Ref.addEventListener('click', h1Click.current);
+  }, []);
+
+  const onReactClick = e => {
+    console.log('react h1=> click');
+  };
+
+  return (
+    <div className="App">
+      <h1 onClick={onReactClick}>Hello CodeSandbox</h1>
+      <h2>Start editing to see some magic happen!</h2>
+    </div>
+  );
+}
+// react17中点击 h1 输出：h1=> click  react h1=> click   #root=> click   document=> click
+// 结合官方文档和 demo，可总结出执行顺序：触发目标 dom 元素原生事件，冒泡到 root 节点。执行 root 节点上的 react 合成事件。执行 root 节点上的原生事件。向上冒泡执行原生事件。
+// react16中点击 h1 输出: h1=> click  #root=> click   react=> click   document=> click
+```
 
 ## 如何解决 react 层级嵌套过深的问题
 
@@ -959,8 +1051,55 @@ react 中实现双向绑定
 <input value={this.state.msg} onChange={() => this.handleInputChange()} />
 ```
 
-## react 与 vue 的区别、为什么选择 react、优点
+## react 循环列表为什么要使用 key
 
-相同点
+```text
+参考链接https://juejin.cn/post/6940974776441634823#heading-8
+```
 
-## dispatch
+- 组件没有设置 key 时，react 会默认将 react 索引设置为 key 属性的值，对于静态的页面（首次渲染后不变化），当第一次渲染时，子组件 列表的 key 属性被赋值为数组索引， 如果仅仅在尾部插入一个新的组件，前面组件的索引值并不会被变化， 但是，对数据进行了重新排序，数组索引 index 仍然稳定地从 0 开始自增， React 认为组件并没有发生变更。比如：复选框勾选的数据，需要移动，会发现复选框并没有移动。
+- key 是稳定+唯一的，不能是随即数
+
+## hooks APi
+
+https://juejin.cn/post/7008433550307360798
+
+- useMemo() 是一个 React Hook，我们可以使用它在组件中包装函数。 我们可以使用它来确保该函数中的值仅在其依赖项之一发生变化时才重新计算
+- useState(0) 返回一个 state, 以及更新 state 的函数。 const [state, setState] = useState(initialState); 更新状态使用 setState(newState)
+- useEffect 默认情况下，effect 会在每轮组件渲染完成后执行(无第二个参数)。可以给 useEffect 传递第二个参数，控制渲染的时机。第二个参数传递[]表示 componentDidMount，第二个参数传递需要的变量[count, name]，相当于 comentDidUpdate，当依赖的变量发生变化时，才会更新
+- useContext 接收一个 context 对象，const value = useContext(MyContext);
+- useCallback 把内联回调函数及依赖项数组作为参数传入 useCallback，它将返回该回调函数的 memoized 版本，该回调函数仅在某个依赖项改变时才会更新。避免不必要的渲染
+- useRef 返回一个可变的 ref 对象，其 .current 属性被初始化为传入的参数（initialValue）。返回的 ref 对象在组件的整个生命周期内持续存在。 const refContainer = useRef(initialValue);
+
+- React.memo() 是一个高阶组件，我们可以使用它来包装我们不想重新渲染的组件，除非其中的 props 发生变化。 export default memo(Component)
+
+## react 与 vue 区别
+
+### 相同点
+
+- 都是创建 UI 界面的 JavaScript 库，
+- 都是组件化思想，组件化开发
+- 都是使用了虚拟 DOM，来提升渲染速度
+- 都有独立的状态管理库
+
+### 不同点
+
+1. 数据流：
+   - vue 的思想是响应式的（MVVM），实现了数据的双向绑定。对每个属性建立 watcher,通过 getter,setter 劫持监听变化，响应式的更新对应的虚拟 DOM
+   - react 是函数式思想，单向数据流，react 在 setState 后会通过 diff 算法计算不同，重新走渲染的流程
+2. 模板语法
+   - vue 使用 template 模板，以 template+JavaScript+CSS 的组合模式呈现，通过 vue 是指令+模板语法实现。
+   - react 使用 jsx 模板，函数式编程，通过原生 JS 语法实现，比如插值，条件，循环等。map, if{}， A&&B
+3. 渲染
+   - vue 会跟踪组件的依赖关系，vue 是数据变化通知依赖项精确的驱动渲染，不需要重新渲染整个组件树
+   - react 在应用的状态被改变时，重新渲染全部子组件，但是可以通过 shouldComponentUpdate 等一些方法进行优化控制全部子组件都会重新渲染。
+4. diff 算法
+   - vue Diff 使用双向链表边对比边更新
+   - react 的 diff 将需要更新的部分添加到任务队列进行批量更新
+5. 事件机制
+   - vue 直接是原生事件
+   - react 是合成事件: 事件冒泡到根节点进行事件委托处理，且做了跨端兼容处理。
+6. 性能优化
+   - 在 Vue 中，一个组件在渲染期间依赖于自动追踪，因此系统知道提前预判哪一个组件需要渲染当组件状态发生改变时。每个组件可以被认为具有自动为你实现 shouldComponentUpdate，不需要注意嵌套的组件
+   - 在 react 中，当组件状态改变时，它会触发整个子组件数重新渲染，以根组件作为渲染基点。为了避免不必要的子组件重新渲染，你需要使用 PureComponent 或者实现 shouldComponentUpdate
+   - 但是 vue 的响应式机制也有问题，就是当 state 特别多的时候，Watcher 也会很多，会导致卡顿，所以大型应用（状态特别多的）一般用 react，更加可控
