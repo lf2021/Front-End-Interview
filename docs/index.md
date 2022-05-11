@@ -35,13 +35,13 @@
 	</tr>
 	<tr>
 		<td>
-			<a href="03.HTML/html.md">HTML</a>
+			<a href="https://github.com/lf2021/Front-End-Interview/blob/master/03.HTML/html.md">HTML</a>
 		</td>
 		<td>
 			<a href="https://github.com/lf2021/Front-End-Interview/blob/master/04.CSS/css.md">CSS</a>
 		</td>
 		<td>
-			<a href="05.JavaScript/js.md">JavaScript</a>
+			<a href="https://github.com/lf2021/Front-End-Interview/blob/master/05.JavaScript/js.md">JavaScript</a>
 		</td>
 	</tr>
 	<tr>
