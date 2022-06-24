@@ -78,6 +78,10 @@
 
 ### GitHub Copilot 🌟🌟🌟🌟🌟
 
+> 2022.6.24更新：即将开始收费了，10$/month 或者 100$/year，可以免费体验到 2022.8.22
+> 
+> 自行查看：https://github.com/github-copilot/tp_signup
+
 [点击安装](https://marketplace.visualstudio.com/items?itemName=GitHub.copilot)
 
 [申请使用资格](https://copilot.github.com/)

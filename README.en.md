@@ -12,40 +12,41 @@ Welcome to star, don’t get lost.😁😁😁 The content is still being update
 | <img alt="Stars" src="https://img.shields.io/github/stars/lf2021/Front-End-Interview?style=flat-square&labelColor=343b41"> | <img alt="Forks" src="https://img.shields.io/github/forks/lf2021/Front-End-Interview?style=flat-square&labelColor=343b41"> | <img alt="Issues" src="https://img.shields.io/github/issues/lf2021/Front-End-Interview?style=flat-square&labelColor=343b41"> | <img alt="Issues" src="https://img.shields.io/github/issues-pr/lf2021/Front-End-Interview?style=flat-square&labelColor=343b41"> |
 | :------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------: |
 
-</div>
 
-<div style="box-shadow:2px 2px 5px #333333; padding: 8px; border-radius: 8px; background-color: #eee">
+## Knowledge Nav Links
 
-## Nav Links
-
-- Knowledge Points
-
-| [Browser](./01.浏览器/浏览器.md) | [Data Structures and Algorithms](./02.数据结构与算法/数据结构与算法.md) | [HTML](03.HTML/html.md) | [CSS](./04.CSS/css.md) | [JavaScript](05.JavaScript/js.md) | [Vue](./06.Vue/vue.md) | [Git](./10.git常用指令/git常用指令.md) |
-| :------------------------------: | :---------------------------------------------------------------------: | :---------------------: | :--------------------: | :-------------------------------: | :--------------------: | :------------------------------------: |
-
-- Code Practice
-
-| [NowCoder Coding Interviews](./07.算法刷题/牛客网%20-%20剑指offer.md) | [LeetCode](./07.算法刷题/leetcode思路.md) | [Business Written Exam Questions](./07.算法刷题/牛客网%20-%20企业笔试题.md) | [Interview high-frequency hand-tipped code questions](./08.面试高频手撕代码题/面试高频手撕代码题.md) | [Intellectual problem](./09.面试复盘/智力题.md) |
-| :-------------------------------------------------------------------: | :---------------------------------------: | :-------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------: | :---------------------------------------------: |
-
-<!-- - Interview Record
-
-| [Lee's interview record](./09.面试复盘/Lee的面试记录.md) | [YJJ's interview record](./09.面试复盘/YJJ的面试记录.md) |
-| :------------------------------------------------------: | :------------------------------------------------------: |
-
+- Basic articles
+  - [Browser](./01.浏览器/浏览器.md)
+  - [Data Structures and Algorithms](./02.数据结构与算法/数据结构与算法.md)
+  - [HTML](./03.HTML/html.md)
+  - [CSS](./04.CSS/css.md)
+  - [JavaScript 🌟🌟🌟🌟🌟](./05.JavaScript/js.md)
+- Framework articles
+  - [Vue](./06.Vue/vue.md)
+  - [React](./11.React/react.md)
+- Engineering
+  - [Git](./10.git常用指令/git常用指令.md)
+  - [Webpack](./12.Webpack/webpack.md)
+- Code articles
+  - [Interview high-frequency hand-tipped code questions 🌟🌟🌟🌟🌟](./08.面试高频手撕代码题/面试高频手撕代码题.md)
+  - [NowCoder Coding Interviews 🌟🌟🌟🌟](./07.算法刷题/牛客网%20-%20剑指offer.md)
+  - [LeetCode](./07.算法刷题/leetcode思路.md)
+  - [Business Written Exam Questions](./07.算法刷题/牛客网%20-%20企业笔试题.md)
+  - [Intellectual problem](./09.面试复盘/智力题.md)
+- Actual combat articles
+  - [VSCode Plugin](./13.实战篇/VSCode-plugin.md)
+  - [Mac User Tips](./13.实战篇/mac-tips.md)
+  - [Chrome Plugin](./13.实战篇/chorme-plugin.md)
 - Links
-
-| [Cnblogs](https://www.cnblogs.com/muzidaitou) | [Gitee](https://gitee.com/lee_van) | [Nowcoder](https://www.nowcoder.com/profile/549508843) | [Blog](https://lf2021.github.io/) |
-| :-------------------------------------------: | :--------------------------------: | :----------------------------------------------------: | :-------------------------------: | -->
+  - [Lee's Blog](https://lf2021.github.io/)
+  - [Lee's Gitee](https://gitee.com/lee_van)
+  - [Lee's Nowcoder](https://www.nowcoder.com/profile/549508843)
+  - [Wzt's Blog](https://wzt2023.github.io/)
 
 - Support
 
 | [Support😜](./images/收款码.png) |
 | :------------------------------: |
-
-</div>
-
-<div style="box-shadow:2px 2px 5px #333333; padding: 8px; border-radius: 8px; background-color: #eee; margin: 30px 0;">
 
 ## Note
 

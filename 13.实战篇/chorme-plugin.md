@@ -8,6 +8,8 @@ https://github.com/zhaoolee/ChromeAppHeroes
   - [AdBlocker 插件 🌟🌟🌟🌟](#adblocker-插件-)
   - [Octotree - GitHub code tree 🌟🌟🌟](#octotree---github-code-tree-)
   - [FEHelper（前端助手）🌟🌟🌟🌟](#fehelper前端助手)
+  - [Omni 🌟🌟🌟](#omni-)
+  - [稀土掘金 🌟🌟🌟](#稀土掘金-)
 
 ## 录屏 Loom 🌟🌟🌟🌟
 
@@ -48,5 +50,35 @@ https://github.com/zhaoolee/ChromeAppHeroes
 默认只有 JSON 美化工具，其余功能需要自行安装，如下图：
 
 ![FEHelper](../images/FEHelper.png)
+
+## Omni 🌟🌟🌟
+
+[安装](https://chrome.google.com/webstore/detail/omni-bookmark-history-tab/mapjgeachilmcbbokkgcbgpbakaaeehi)
+
+简单说这是一个管理浏览器 tab，bookmarks，history 的功能，适用于经常用浏览器打开很多页面，想要快速找到所需的页面的人。
+
+Omni 提供的快捷指令
+- /tabs: Search your tabs
+- /bookmarks: Search your bookmarks
+- /history: Search your browser history
+- /actions: Search all available actions
+- /remove: Remove a bookmark or close a tab
+
+感兴趣的可以看看此插件的使用：https://github.com/alyssaxuu/omni
+
+或者可以看看 chrome 商城里的视频介绍：https://youtu.be/d_5ezUsD8C0
+
+## 稀土掘金 🌟🌟🌟
+
+[安装](https://juejin.cn/extension?utm_source=jj_nav)
+
+支持的功能：
+- 记笔记，闪念笔记
+- tab 键随时搜索
+- 新开标签主页
+- ...
+
+标签页的效果
+![稀土掘金](../images/juejin.jpg)
 
 TODO：待补充
